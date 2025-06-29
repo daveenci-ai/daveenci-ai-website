@@ -1,0 +1,115 @@
+import express from 'express';
+import rateLimit from 'express-rate-limit';
+import { sendEmail } from '../utils/sendEmail.js';
+
+const router = express.Router();
+
+// Rate limiting for form submissions
+const formLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5, // limit each IP to 5 form submissions per windowMs
+  message: { error: 'Too many form submissions, please try again later.' }
+});
+
+// Workshop registration endpoint
+router.post('/register', formLimiter, async (req, res) => {
+  try {
+    const { firstName, lastName, email, phone, question } = req.body;
+
+    // Basic validation
+    if (!firstName || !lastName || !email) {
+      return res.status(400).json({ 
+        error: 'First name, last name, and email are required' 
+      });
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        error: 'Please provide a valid email address' 
+      });
+    }
+
+    // Create notification email content
+    const notificationHtml = `
+      <h2>New Workshop Registration</h2>
+      <p><strong>Name:</strong> ${firstName} ${lastName}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone ? `${phone} (SMS consent given)` : 'Not provided'}</p>
+      <p><strong>Question:</strong> ${question || 'No question provided'}</p>
+      <p><strong>Registration Time:</strong> ${new Date().toLocaleString()}</p>
+    `;
+
+    // Create confirmation email content
+    const confirmationHtml = `
+      <h2>Thank you for registering, ${firstName}!</h2>
+      <p>We're excited to have you join us for the AI Automation Workshop in Austin.</p>
+      
+      <h3>Event Details:</h3>
+      <ul>
+        <li><strong>Date:</strong> July 30, 2025</li>
+        <li><strong>Time:</strong> 2:00 PM - 6:00 PM CST</li>
+        <li><strong>Location:</strong> Austin, TX (exact location will be sent closer to the date)</li>
+      </ul>
+      
+      <p>What to expect:</p>
+      <ul>
+        <li>Learn AI-powered content marketing strategies</li>
+        <li>Master CRM lead qualification with AI</li>
+        <li>Hands-on experience with no-code automation tools</li>
+        <li>Live walkthroughs and case studies</li>
+        <li>Networking with fellow entrepreneurs</li>
+        <li>Take-home templates and resources</li>
+      </ul>
+      
+      <p>We'll send you more details and updates as the event approaches.</p>
+      
+      ${phone ? `<p><strong>SMS Updates:</strong> You'll receive text message updates about the workshop at ${phone}. Reply STOP to opt out at any time.</p>` : ''}
+      
+      <p>Best regards,<br>
+      The DaVeenci Team</p>
+    `;
+
+    // Send notification email to admin
+    const notificationEmail = process.env.NOTIFICATION_EMAIL || process.env.FROM_EMAIL || 'support@daveenci.ai';
+    await sendEmail(
+      notificationEmail,
+      'New AI Automation Workshop Registration - Austin',
+      notificationHtml
+    );
+
+    // Send confirmation email to registrant
+    await sendEmail(
+      email,
+      'Welcome to the AI Automation Workshop - Austin!',
+      confirmationHtml
+    );
+
+    res.status(200).json({ 
+      message: 'Registration successful! Check your email for confirmation.',
+      success: true 
+    });
+
+  } catch (error) {
+    console.error('Workshop registration error:', error);
+    res.status(500).json({ 
+      error: 'Registration failed. Please try again later.' 
+    });
+  }
+});
+
+// Get workshop info endpoint
+router.get('/info', (req, res) => {
+  res.json({
+    title: 'AI Automation Workshop - Austin',
+    date: '2025-07-30',
+    time: '14:00:00-05:00',
+    location: 'Austin, TX',
+    capacity: 40,
+    price: 'Free',
+    status: 'open'
+  });
+});
+
+export { router as workshopRoutes }; 
