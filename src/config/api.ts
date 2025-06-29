@@ -4,7 +4,7 @@ export const API_CONFIG = {
     baseUrl: 'http://localhost:3001'
   },
   production: {
-    baseUrl: 'https://main-website-server-ituo.onrender.com'
+    baseUrl: 'https://daveenci-ai-backend.onrender.com'
   }
 };
 
