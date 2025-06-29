@@ -346,7 +346,7 @@ const AIAutomationWorkshopAustin = () => {
                 <div className="text-center lg:text-left">
                   <div className="relative inline-block">
                     <img 
-                      src="https://raw.githubusercontent.com/daveenci2025/public-images/refs/heads/main/about_astrid.png" 
+                      src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png" 
                       alt="Astrid Abrahamyan, AI Automation Expert"
                       className="w-64 h-64 rounded-full object-cover shadow-xl mx-auto lg:mx-0"
                     />

@@ -28,7 +28,7 @@ const Navigation = () => {
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <img 
-              src="/logo_01.png" 
+              src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/logo_01.png" 
               alt="DaVeenci Logo" 
               className="h-8 w-auto sm:h-10"
             />

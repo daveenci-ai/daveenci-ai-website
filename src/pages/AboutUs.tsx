@@ -33,7 +33,7 @@ const AboutUs = () => {
       name: "Anton Osipov",
       role: "CTO & AI Engineer",
       quote: "If it repeats — it automates.",
-      image: "https://raw.githubusercontent.com/daveenci2025/public-images/refs/heads/main/about_anton.webp",
+      image: "https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_anton.webp",
       description: "Anton builds the invisible hands behind smart business — AI systems that think, learn, and do. With over a decade at the crossroads of data science, marketing, and automation, he brings creative engineering to life in a way that actually works for people. Born in Russia, forged in Silicon Valley, and now building in Austin, Texas, he leads with vision, not jargon — always looking for the edge where efficiency meets elegance.",
       philosophy: "I don't just build systems. I build collaborators."
     },
@@ -41,7 +41,7 @@ const AboutUs = () => {
       name: "Astrid Abrahamyan",
       role: "COO & Relationship Architect",
       quote: "People first. Always.",
-      image: "https://raw.githubusercontent.com/daveenci2025/public-images/refs/heads/main/about_astrid.png",
+      image: "https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png",
       description: "Astrid is the heartbeat of every operation. With a sharp mind for logistics and a genuine gift for connection, she ensures projects don't just run — they thrive. Her background blends high-level operational expertise with a remarkable ability to understand and connect with diverse personalities. She has an uncanny knack for reading the room and fostering collaboration, whether in a formal boardroom, during an on-site project review, or in a strategic planning session.",
       philosophy: "Business is personal — and that's what makes it powerful."
     }
