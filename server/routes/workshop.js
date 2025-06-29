@@ -1,6 +1,7 @@
 import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { sendEmail } from '../utils/sendEmail.js';
+import { query } from '../config/database.js';
 
 const router = express.Router();
 
@@ -38,6 +39,74 @@ router.post('/register', formLimiter, async (req, res) => {
       return res.status(400).json({ 
         error: 'Please provide a valid email address' 
       });
+    }
+
+    // Save to database
+    let eventId;
+    try {
+      // Check if workshop event exists
+      const eventResult = await query(
+        'SELECT id FROM events WHERE event_name = $1 AND event_type = $2',
+        ['AI Automation Workshop - Austin', 'workshop']
+      );
+
+      if (eventResult.rows.length > 0) {
+        eventId = eventResult.rows[0].id;
+      } else {
+        // Create the workshop event if it doesn't exist
+        const newEventResult = await query(`
+          INSERT INTO events (event_date, event_name, event_type, event_description, event_capacity, event_status)
+          VALUES ($1, $2, $3, $4, $5, $6)
+          RETURNING id
+        `, [
+          '2025-07-30 14:00:00',
+          'AI Automation Workshop - Austin',
+          'workshop',
+          'Learn AI-powered content marketing strategies, master CRM lead qualification with AI, and get hands-on experience with no-code automation tools.',
+          40,
+          'active'
+        ]);
+        eventId = newEventResult.rows[0].id;
+      }
+
+      // Check if participant already exists for this event
+      const existingParticipant = await query(
+        'SELECT id FROM event_participants WHERE event_id = $1 AND email = $2',
+        [eventId, email]
+      );
+
+      if (existingParticipant.rows.length > 0) {
+        // Update existing participant
+        await query(`
+          UPDATE event_participants 
+          SET full_name = $1, phone = $2, notes = $3, dt_updated = CURRENT_TIMESTAMP
+          WHERE event_id = $4 AND email = $5
+        `, [
+          `${firstName} ${lastName}`,
+          phone || null,
+          question || null,
+          eventId,
+          email
+        ]);
+      } else {
+        // Insert new participant
+        await query(`
+          INSERT INTO event_participants (event_id, full_name, email, phone, notes)
+          VALUES ($1, $2, $3, $4, $5)
+        `, [
+          eventId,
+          `${firstName} ${lastName}`,
+          email,
+          phone || null,
+          question || null
+        ]);
+      }
+
+      console.log(`✅ Registration saved to database: ${firstName} ${lastName} (${email})`);
+
+    } catch (dbError) {
+      console.error('Database error during registration:', dbError);
+      // Continue with email sending even if database fails
     }
 
     // Create notification email content
