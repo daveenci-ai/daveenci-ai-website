@@ -59,7 +59,9 @@ app.get('/health', (req, res) => {
     status: 'OK', 
     service: 'DaVeenci Server', 
     timestamp: new Date().toISOString(),
-    version: '1.0.0'
+    version: '1.0.0',
+    database: process.env.DATABASE_URL ? 'configured' : 'not_configured',
+    environment: process.env.NODE_ENV || 'development'
   });
 });
 
@@ -98,47 +100,54 @@ app.use((err, req, res, next) => {
 
 // Start server with database initialization
 const startServer = async () => {
-  try {
-    // Initialize database on startup
-    if (process.env.DATABASE_URL) {
+  // Start the server first, then try database initialization
+  const server = app.listen(PORT, () => {
+    console.log(`🚀 DaVeenci Server running on port ${PORT}`);
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`📍 Health check: http://localhost:${PORT}/health`);
+  });
+
+  // Try to initialize database after server is running
+  if (process.env.DATABASE_URL) {
+    try {
       console.log('🔗 Initializing database connection...');
       await initializeDatabase();
-    } else {
-      console.log('⚠️  No DATABASE_URL found - running without database');
+      console.log('✅ Database initialized successfully');
+    } catch (error) {
+      console.error('❌ Database initialization failed, but server will continue:', error.message);
+      console.log('⚠️  Server running without database connection');
     }
+  } else {
+    console.log('⚠️  No DATABASE_URL found - running without database');
+  }
 
-    // Start the server
-    const server = app.listen(PORT, () => {
-      console.log(`🚀 DaVeenci Server running on port ${PORT}`);
-      console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-      console.log(`📍 Health check: http://localhost:${PORT}/health`);
-    });
-
-    // Graceful shutdown handling
-    const gracefulShutdown = async (signal) => {
-      console.log(`\n🛑 Received ${signal}. Starting graceful shutdown...`);
+  // Graceful shutdown handling
+  const gracefulShutdown = async (signal) => {
+    console.log(`\n🛑 Received ${signal}. Starting graceful shutdown...`);
+    
+    server.close(async () => {
+      console.log('🔒 HTTP server closed');
       
-      server.close(async () => {
-        console.log('🔒 HTTP server closed');
-        
-        // Close database connections
+      // Close database connections if they exist
+      try {
         if (process.env.DATABASE_URL) {
           await closePool();
         }
-        
-        console.log('👋 Graceful shutdown complete');
-        process.exit(0);
-      });
-    };
+      } catch (error) {
+        console.error('Error closing database connections:', error.message);
+      }
+      
+      console.log('👋 Graceful shutdown complete');
+      process.exit(0);
+    });
+  };
 
-    // Listen for shutdown signals
-    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
-    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
-
-  } catch (error) {
-    console.error('💥 Failed to start server:', error.message);
-    process.exit(1);
-  }
+  // Listen for shutdown signals
+  process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+  process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 };
 
-startServer(); 
+startServer().catch((error) => {
+  console.error('💥 Failed to start server:', error.message);
+  process.exit(1);
+}); 
