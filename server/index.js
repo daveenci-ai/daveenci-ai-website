@@ -4,6 +4,8 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import { workshopRoutes } from './routes/workshop.js';
+import { initializeDatabase } from './config/init-db.js';
+import { closePool } from './config/database.js';
 
 dotenv.config();
 
@@ -84,8 +86,49 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 DaVeenci Server running on port ${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📍 Health check: http://localhost:${PORT}/health`);
-}); 
+// Start server with database initialization
+const startServer = async () => {
+  try {
+    // Initialize database on startup
+    if (process.env.DATABASE_URL) {
+      console.log('🔗 Initializing database connection...');
+      await initializeDatabase();
+    } else {
+      console.log('⚠️  No DATABASE_URL found - running without database');
+    }
+
+    // Start the server
+    const server = app.listen(PORT, () => {
+      console.log(`🚀 DaVeenci Server running on port ${PORT}`);
+      console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`📍 Health check: http://localhost:${PORT}/health`);
+    });
+
+    // Graceful shutdown handling
+    const gracefulShutdown = async (signal) => {
+      console.log(`\n🛑 Received ${signal}. Starting graceful shutdown...`);
+      
+      server.close(async () => {
+        console.log('🔒 HTTP server closed');
+        
+        // Close database connections
+        if (process.env.DATABASE_URL) {
+          await closePool();
+        }
+        
+        console.log('👋 Graceful shutdown complete');
+        process.exit(0);
+      });
+    };
+
+    // Listen for shutdown signals
+    process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+    process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+  } catch (error) {
+    console.error('💥 Failed to start server:', error.message);
+    process.exit(1);
+  }
+};
+
+startServer(); 
