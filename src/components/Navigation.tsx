@@ -26,8 +26,15 @@ const Navigation = () => {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center">
-          <Link to="/" className="text-2xl font-bold text-gray-900 hover:text-red-600 transition-colors">
-            DaVeenci
+          <Link to="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+            <img 
+              src="/logo_01.png" 
+              alt="DaVeenci Logo" 
+              className="h-8 w-auto sm:h-10"
+            />
+            <span className="text-2xl font-bold text-gray-900 hover:text-red-600 transition-colors">
+              DaVeenci
+            </span>
           </Link>
         </div>
 

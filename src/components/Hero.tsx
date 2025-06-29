@@ -36,11 +36,11 @@ const Hero = () => {
             <div className="pt-12">
               <Button 
                 size="lg" 
-                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-12 py-8 text-xl lg:text-2xl font-semibold rounded-2xl transition-all duration-200 hover:scale-105 shadow-xl hover:shadow-red-500/25"
+                className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-6 sm:px-12 sm:py-8 text-lg sm:text-xl lg:text-2xl font-semibold rounded-2xl transition-all duration-200 hover:scale-105 shadow-xl hover:shadow-red-500/25"
                 onClick={() => window.open('https://calendly.com/daveenci/astrid', '_blank')}
               >
                 Book a Strategy Call
-                <ArrowRight className="ml-4 h-6 w-6 lg:h-8 lg:w-8" />
+                <ArrowRight className="ml-3 sm:ml-4 h-5 w-5 sm:h-6 sm:w-6 lg:h-8 lg:w-8" />
               </Button>
             </div>
           </div>
