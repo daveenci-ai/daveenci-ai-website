@@ -11,6 +11,15 @@ const formLimiter = rateLimit({
   message: { error: 'Too many form submissions, please try again later.' }
 });
 
+// Handle preflight requests explicitly
+router.options('/register', (req, res) => {
+  res.status(200).end();
+});
+
+router.options('/info', (req, res) => {
+  res.status(200).end();
+});
+
 // Workshop registration endpoint
 router.post('/register', formLimiter, async (req, res) => {
   try {
