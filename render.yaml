@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: main-website-server
+    env: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    branch: main
+    rootDir: /
+    scaling:
+      minInstances: 1
+      maxInstances: 1 
