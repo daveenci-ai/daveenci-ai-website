@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, Calendar, Clock, MapPin, Share2, Download, ArrowRight, Users, Gift, Star } from 'lucide-react';
+import { CheckCircle, Calendar, Clock, MapPin, Share2, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 
 const ThankYouEvent = () => {
@@ -113,43 +113,7 @@ const ThankYouEvent = () => {
         </div>
       </section>
 
-      {/* Bonus Section */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-br from-orange-400 to-red-500 text-white rounded-3xl p-8 mb-12">
-            <Gift className="w-12 h-12 mx-auto mb-4" />
-            <h2 className="text-3xl font-bold mb-4">🎁 Bonus: Free Resources</h2>
-            <p className="text-xl mb-6 opacity-90">
-              As a thank you for registering, get instant access to our AI Automation Toolkit
-            </p>
-            <Button 
-              className="bg-white text-orange-600 hover:bg-gray-100 font-semibold px-8 py-3"
-              onClick={() => window.open('https://calendly.com/daveenci/astrid', '_blank')}
-            >
-              <Download className="w-5 h-5 mr-2" />
-              Download Free Toolkit
-            </Button>
-          </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <Star className="w-8 h-8 text-yellow-500 mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">AI Prompt Library</h3>
-              <p className="text-gray-600 text-sm">50+ proven prompts for marketing automation</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <Users className="w-8 h-8 text-blue-500 mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">CRM Templates</h3>
-              <p className="text-gray-600 text-sm">Ready-to-use automation workflows</p>
-            </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm">
-              <CheckCircle className="w-8 h-8 text-green-500 mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">ROI Calculator</h3>
-              <p className="text-gray-600 text-sm">Measure your automation savings</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Social Sharing */}
       <section className="py-16 bg-white">
