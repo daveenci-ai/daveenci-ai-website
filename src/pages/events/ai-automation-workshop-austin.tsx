@@ -20,6 +20,8 @@ const AIAutomationWorkshopAustin = () => {
     lastName: '',
     email: '',
     phone: '',
+    company_name: '',
+    website: '',
     question: ''
   });
 
@@ -251,7 +253,7 @@ const AIAutomationWorkshopAustin = () => {
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Send text messages to
+                  Phone Number (we'll remind you 24 hours in advance via SMS)
                 </label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -270,6 +272,36 @@ const AIAutomationWorkshopAustin = () => {
                 <p className="mt-2 text-xs text-gray-600">
                   By entering your phone number, you consent to receive messages for this event via SMS. Message and data rates may apply. Reply STOP to opt out.
                 </p>
+              </div>
+
+              <div>
+                <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 mb-2">
+                  Company Name (Optional)
+                </label>
+                <input
+                  type="text"
+                  id="company_name"
+                  name="company_name"
+                  value={formData.company_name}
+                  onChange={handleInputChange}
+                  placeholder="Enter your company name"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-2">
+                  Company Website (Optional)
+                </label>
+                <input
+                  type="url"
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleInputChange}
+                  placeholder="https://www.example.com"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                />
               </div>
 
               <div>

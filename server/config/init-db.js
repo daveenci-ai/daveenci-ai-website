@@ -11,6 +11,7 @@ const initializeTables = async () => {
         id SERIAL PRIMARY KEY,
         event_date TIMESTAMP,
         event_name TEXT,
+        event_address TEXT,
         event_type TEXT,
         event_description TEXT,
         event_capacity INT,
@@ -28,11 +29,32 @@ const initializeTables = async () => {
         full_name TEXT,
         email TEXT,
         phone TEXT,
+        company_name TEXT,
+        website TEXT,
         notes TEXT,
         dt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         dt_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
     `);
+
+    // Add new columns to existing tables if they don't exist
+    try {
+      await query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS event_address TEXT`);
+    } catch (error) {
+      // Column might already exist, ignore error
+    }
+
+    try {
+      await query(`ALTER TABLE event_participants ADD COLUMN IF NOT EXISTS company_name TEXT`);
+    } catch (error) {
+      // Column might already exist, ignore error
+    }
+
+    try {
+      await query(`ALTER TABLE event_participants ADD COLUMN IF NOT EXISTS website TEXT`);
+    } catch (error) {
+      // Column might already exist, ignore error
+    }
 
     // Create indexes for better performance
     await query(`

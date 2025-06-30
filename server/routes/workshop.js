@@ -24,7 +24,7 @@ router.options('/info', (req, res) => {
 // Workshop registration endpoint
 router.post('/register', formLimiter, async (req, res) => {
   try {
-    const { firstName, lastName, email, phone, question } = req.body;
+    const { firstName, lastName, email, phone, company_name, website, question } = req.body;
 
     // Basic validation
     if (!firstName || !lastName || !email) {
@@ -55,12 +55,13 @@ router.post('/register', formLimiter, async (req, res) => {
       } else {
         // Create the workshop event if it doesn't exist
         const newEventResult = await query(`
-          INSERT INTO events (event_date, event_name, event_type, event_description, event_capacity, event_status)
-          VALUES ($1, $2, $3, $4, $5, $6)
+          INSERT INTO events (event_date, event_name, event_address, event_type, event_description, event_capacity, event_status)
+          VALUES ($1, $2, $3, $4, $5, $6, $7)
           RETURNING id
         `, [
           '2025-07-30 14:00:00',
           'AI Automation Workshop - Austin',
+          '7800 North Mopac Expressway Austin, TX 78759',
           'workshop',
           'Learn AI-powered content marketing strategies, master CRM lead qualification with AI, and get hands-on experience with no-code automation tools.',
           40,
@@ -79,11 +80,13 @@ router.post('/register', formLimiter, async (req, res) => {
         // Update existing participant
         await query(`
           UPDATE event_participants 
-          SET full_name = $1, phone = $2, notes = $3, dt_updated = CURRENT_TIMESTAMP
-          WHERE event_id = $4 AND email = $5
+          SET full_name = $1, phone = $2, company_name = $3, website = $4, notes = $5, dt_updated = CURRENT_TIMESTAMP
+          WHERE event_id = $6 AND email = $7
         `, [
           `${firstName} ${lastName}`,
           phone || null,
+          company_name || null,
+          website || null,
           question || null,
           eventId,
           email
@@ -91,13 +94,15 @@ router.post('/register', formLimiter, async (req, res) => {
       } else {
         // Insert new participant
         await query(`
-          INSERT INTO event_participants (event_id, full_name, email, phone, notes)
-          VALUES ($1, $2, $3, $4, $5)
+          INSERT INTO event_participants (event_id, full_name, email, phone, company_name, website, notes)
+          VALUES ($1, $2, $3, $4, $5, $6, $7)
         `, [
           eventId,
           `${firstName} ${lastName}`,
           email,
           phone || null,
+          company_name || null,
+          website || null,
           question || null
         ]);
       }
@@ -115,6 +120,8 @@ router.post('/register', formLimiter, async (req, res) => {
       <p><strong>Name:</strong> ${firstName} ${lastName}</p>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Phone:</strong> ${phone ? `${phone} (SMS consent given)` : 'Not provided'}</p>
+      <p><strong>Company:</strong> ${company_name || 'Not provided'}</p>
+      <p><strong>Website:</strong> ${website || 'Not provided'}</p>
       <p><strong>Question:</strong> ${question || 'No question provided'}</p>
       <p><strong>Registration Time:</strong> ${new Date().toLocaleString()}</p>
     `;
@@ -128,7 +135,7 @@ router.post('/register', formLimiter, async (req, res) => {
       <ul>
         <li><strong>Date:</strong> July 30, 2025</li>
         <li><strong>Time:</strong> 2:00 PM - 6:00 PM CST</li>
-        <li><strong>Location:</strong> Austin, TX (exact location will be sent closer to the date)</li>
+        <li><strong>Location:</strong> 7800 North Mopac Expressway, Austin, TX 78759</li>
       </ul>
       
       <p>What to expect:</p>
