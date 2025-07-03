@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Simple Node.js server for serving static React files with SPA routing",
   "main": "frontend-server.js",
+  "type": "module",
   "scripts": {
     "start": "node frontend-server.js"
   },
