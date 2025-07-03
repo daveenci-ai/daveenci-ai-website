@@ -23,6 +23,19 @@ services:
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     pullRequestPreviewsEnabled: true
+    buildFilter:
+      paths:
+        - "src/**"
+        - "public/**"
+        - "package.json"
+        - "package-lock.json"
+        - "vite.config.ts"
+        - "tsconfig.json"
+        - "tailwind.config.ts"
+        - "postcss.config.js"
+        - "index.html"
+      ignoredPaths:
+        - "server/**"
     routes:
       - type: rewrite
         source: /*
