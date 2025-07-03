@@ -33,8 +33,7 @@ app.use(cors({
     'http://localhost:8081',
     'https://daveenci.ai',
     'https://www.daveenci.ai',
-    'https://daveenci.netlify.app',
-    'https://daveenci.vercel.app'
+    'https://daveenci-ai-frontend.onrender.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

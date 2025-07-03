@@ -18,7 +18,7 @@ services:
 
   # Frontend Static Site
   - type: static
-    name: daveenci-ai-website
+    name: daveenci-ai-frontend
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
