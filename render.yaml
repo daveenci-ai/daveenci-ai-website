@@ -1,7 +1,7 @@
 services:
   # Backend API Server
   - type: web
-    name: main-website-server
+    name: daveenci-ai-backend
     env: node
     plan: free
     buildCommand: cd server && npm install
@@ -17,20 +17,12 @@ services:
       maxInstances: 1
 
   # Frontend Static Site
-  - type: web
+  - type: static
     name: daveenci-ai-website
-    env: static
     plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     pullRequestPreviewsEnabled: true
-    headers:
-      - path: /*
-        name: X-Frame-Options
-        value: DENY
-      - path: /*
-        name: X-Content-Type-Options
-        value: nosniff
     routes:
       - type: rewrite
         source: /*
