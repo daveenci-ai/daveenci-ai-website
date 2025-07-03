@@ -294,12 +294,12 @@ const AIAutomationWorkshopAustin = () => {
                   Company Website (Optional)
                 </label>
                 <input
-                  type="url"
+                  type="text"
                   id="website"
                   name="website"
                   value={formData.website}
                   onChange={handleInputChange}
-                  placeholder="https://www.example.com"
+                  placeholder="example.com"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                 />
               </div>
