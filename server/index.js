@@ -3,8 +3,6 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import { workshopRoutes } from './routes/workshop.js';
 import { initializeDatabase } from './config/init-db.js';
 import { closePool } from './config/database.js';
@@ -13,10 +11,6 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-// Get the directory name for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Trust proxy headers from Render (specific to avoid rate limiting warnings)
 app.set('trust proxy', 1);
@@ -31,9 +25,16 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// CORS configuration - Allow all origins since we're serving everything from the same service
+// CORS configuration - Allow your static site domains
 app.use(cors({
-  origin: true,
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:8080', 
+    'http://localhost:8081',
+    'https://daveenci.ai',
+    'https://www.daveenci.ai',
+    'https://daveenci-ai-frontend.onrender.com'
+  ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'Origin', 'X-Requested-With'],
@@ -74,19 +75,17 @@ app.use('/api/*', (req, res) => {
   res.status(404).json({ error: 'API endpoint not found' });
 });
 
-// Serve static files from the dist directory (built React app)
-const staticPath = path.join(__dirname, '../dist');
-app.use(express.static(staticPath));
-
-// SPA routing - serve index.html for all non-API routes
-app.get('*', (req, res) => {
-  // If it's not an API route, serve the React app
-  if (!req.path.startsWith('/api/')) {
-    res.sendFile(path.join(staticPath, 'index.html'));
-  } else {
-    // This shouldn't happen due to the middleware above, but just in case
-    res.status(404).json({ error: 'API endpoint not found' });
-  }
+// Root endpoint
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'DaVeenci Server API',
+    version: '1.0.0',
+    endpoints: [
+      '/health',
+      '/api/workshop/register',
+      '/api/workshop/info'
+    ]
+  });
 });
 
 // Error handling middleware

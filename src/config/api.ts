@@ -4,7 +4,7 @@ export const API_CONFIG = {
     baseUrl: 'http://localhost:3001'
   },
   production: {
-    baseUrl: '' // Empty string means use the same domain as the frontend
+    baseUrl: 'https://daveenci-ai-backend.onrender.com'
   }
 };
 
