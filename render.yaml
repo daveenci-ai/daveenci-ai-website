@@ -16,17 +16,19 @@ services:
       minInstances: 1
       maxInstances: 1
 
-  # Frontend Static Site
-  - type: static
+  # Frontend Web Service (Node.js serving static files)
+  - type: web
     name: daveenci-ai-frontend
+    env: node
     plan: free
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    pullRequestPreviewsEnabled: true
-    routes:
-      - type: rewrite
-        source: "/(.*)"
-        destination: "/index.html"
+    buildCommand: npm install && npm run build && cp frontend-package.json package.json && npm install
+    startCommand: node frontend-server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
     autoDeploy: true
     branch: main
-    rootDir: / 
+    rootDir: /
+    scaling:
+      minInstances: 1
+      maxInstances: 1 
