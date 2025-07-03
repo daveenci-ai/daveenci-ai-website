@@ -1,10 +1,9 @@
 services:
-  # Backend API Server
   - type: web
-    name: daveenci-ai-backend
+    name: daveenci-ai-website
     env: node
     plan: free
-    buildCommand: cd server && npm install
+    buildCommand: npm install && npm run build && cd server && npm install
     startCommand: cd server && npm start
     envVars:
       - key: NODE_ENV
@@ -14,32 +13,4 @@ services:
     rootDir: /
     scaling:
       minInstances: 1
-      maxInstances: 1
-
-  # Frontend Static Site
-  - type: static
-    name: daveenci-ai-frontend
-    plan: free
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    pullRequestPreviewsEnabled: true
-    buildFilter:
-      paths:
-        - "src/**"
-        - "public/**"
-        - "package.json"
-        - "package-lock.json"
-        - "vite.config.ts"
-        - "tsconfig.json"
-        - "tailwind.config.ts"
-        - "postcss.config.js"
-        - "index.html"
-      ignoredPaths:
-        - "server/**"
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    autoDeploy: true
-    branch: main
-    rootDir: / 
+      maxInstances: 1 
