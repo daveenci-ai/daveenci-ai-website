@@ -333,28 +333,28 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* What You'll Master Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
         <div className="absolute inset-0 bg-grid-subtle"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
               What You'll <span className="text-red-600">Master</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-lg md:text-xl text-gray-600">
               Transform your business operations with cutting-edge AI automation strategies
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {benefits.map((benefit, index) => {
               const Icon = benefit.icon;
               return (
-                <div key={index} className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
-                  <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl mb-6">
-                    <Icon className="w-8 h-8 text-orange-600" />
+                <div key={index} className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+                  <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-3 md:mb-6">
+                    <Icon className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">{benefit.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{benefit.description}</p>
+                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-4">{benefit.title}</h3>
+                  <p className="text-sm md:text-base text-gray-600 leading-relaxed">{benefit.description}</p>
                 </div>
               );
             })}
