@@ -172,7 +172,9 @@ router.get('/info', (req, res) => {
     title: 'AI Automation Workshop - Austin',
     date: '2025-07-30',
     time: '14:00:00-05:00',
-    location: 'Austin, TX',
+    endTime: '16:00:00-05:00',
+    timeDisplay: '2:00 PM - 4:00 PM CST',
+    location: '7800 North Mopac Expressway, Austin, TX 78759',
     capacity: 40,
     price: 'Free',
     status: 'open'
