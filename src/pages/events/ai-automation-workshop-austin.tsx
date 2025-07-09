@@ -128,55 +128,55 @@ const AIAutomationWorkshopAustin = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
+      <section className="relative pt-20 md:pt-32 pb-16 md:pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
         <div className="absolute inset-0 bg-grid-subtle"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             {/* Pre-Header Announcement */}
-            <div className="inline-flex items-center px-6 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full text-sm font-medium mb-8">
+            <div className="inline-flex items-center px-4 md:px-6 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full text-xs md:text-sm font-medium mb-4 md:mb-8">
               ☆ Live Workshop • Austin, TX ☆
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl leading-tight mb-8">
+            <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-8">
               If it <span className="text-orange-600">Repeats</span>, it <span className="text-pink-600">Automates</span>
             </h1>
 
             {/* Sub-Headline */}
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-12">
+            <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6 md:mb-12 px-4 md:px-0">
               Unlock the Power of AI Automations for Your Business. Learn how to save time, increase ROI, and streamline your content, CRM, and marketing using AI tools.
             </p>
 
             {/* Countdown Timer */}
-            <div className="flex justify-center space-x-4 mb-8">
+            <div className="flex justify-center space-x-2 md:space-x-4 mb-6 md:mb-8">
               {Object.entries(timeLeft).map(([unit, value]) => (
-                <div key={unit} className="text-center bg-white rounded-lg shadow-md p-4 min-w-[80px]">
-                  <div className="text-3xl font-bold text-gray-900">{value.toString().padStart(2, '0')}</div>
-                  <div className="text-sm text-gray-600 capitalize">{unit}</div>
+                <div key={unit} className="text-center bg-white rounded-lg shadow-md p-2 md:p-4 min-w-[60px] md:min-w-[80px]">
+                  <div className="text-xl md:text-3xl font-bold text-gray-900">{value.toString().padStart(2, '0')}</div>
+                  <div className="text-xs md:text-sm text-gray-600 capitalize">{unit}</div>
                 </div>
               ))}
             </div>
 
             {/* Urgency Message */}
-            <div className="flex items-center justify-center space-x-2 mb-8">
-              <span className="text-2xl">🔥</span>
-              <span className="text-lg font-bold text-red-600">Limited to 40 seats - Secure your spot now!</span>
+            <div className="flex items-center justify-center space-x-2 mb-6 md:mb-8 px-4">
+              <span className="text-xl md:text-2xl">🔥</span>
+              <span className="text-sm md:text-lg font-bold text-red-600 text-center">Limited to 40 seats - Secure your spot now!</span>
             </div>
 
             {/* Event Perks */}
-            <div className="flex flex-wrap justify-center items-center space-x-6 text-gray-700">
+            <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm md:text-base">
               <div className="flex items-center space-x-2">
-                <ArrowRight className="w-4 h-4 text-red-600" />
+                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
                 <span>Free event</span>
               </div>
-              <span className="text-gray-400">•</span>
+              <span className="hidden md:inline text-gray-400">•</span>
               <div className="flex items-center space-x-2">
-                <ArrowRight className="w-4 h-4 text-red-600" />
+                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
                 <span>Networking included</span>
               </div>
-              <span className="text-gray-400">•</span>
+              <span className="hidden md:inline text-gray-400">•</span>
               <div className="flex items-center space-x-2">
-                <ArrowRight className="w-4 h-4 text-red-600" />
+                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
                 <span>Take-home resources</span>
               </div>
             </div>
@@ -185,10 +185,10 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* Registration Form Section */}
-      <section id="form" className="py-16 bg-white">
+      <section id="form" className="py-12 md:py-16 bg-white">
         <div className="mx-auto max-w-2xl px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 shadow-lg border border-gray-200">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-8">Reserve Your Spot</h2>
+          <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6 md:mb-8">Reserve Your Spot</h2>
             
             {submitMessage && (
               <div className={`p-4 rounded-lg mb-6 ${
@@ -200,8 +200,8 @@ const AIAutomationWorkshopAustin = () => {
               </div>
             )}
             
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">
                     First Name *
@@ -322,10 +322,10 @@ const AIAutomationWorkshopAustin = () => {
               <Button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-4 text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
+                className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
               >
                 {isSubmitting ? 'Registering...' : 'Reserve My Spot'}
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
             </form>
           </div>
@@ -363,59 +363,59 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* Meet Your Expert Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
               Meet Your <span className="text-red-600">Expert</span>
             </h2>
           </div>
 
           <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 shadow-lg border border-gray-200">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200">
+              <div className="grid lg:grid-cols-2 gap-6 md:gap-8 items-center">
                 {/* Expert Image */}
                 <div className="text-center lg:text-left">
                   <div className="relative inline-block">
                     <img 
                       src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png" 
                       alt="Astrid Abrahamyan, AI Automation Expert"
-                      className="w-64 h-64 rounded-full object-cover shadow-xl mx-auto lg:mx-0"
+                      className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-xl mx-auto lg:mx-0"
                     />
-                    <div className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                      <span className="text-white text-2xl">"</span>
+                    <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xl md:text-2xl">"</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Expert Details */}
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                   <div>
-                    <h3 className="text-3xl font-bold text-gray-900 mb-2">Astrid Abrahamyan</h3>
-                    <p className="text-lg text-red-600 font-medium">AI Automation Expert & Business Strategist</p>
+                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1 md:mb-2">Astrid Abrahamyan</h3>
+                    <p className="text-base md:text-lg text-red-600 font-medium">AI Automation Expert & Business Strategist</p>
                   </div>
 
-                  <blockquote className="text-lg text-gray-700 italic leading-relaxed">
+                  <blockquote className="text-base md:text-lg text-gray-700 italic leading-relaxed">
                     "I've helped over 500+ businesses save an average of 20 hours per week through strategic AI automation. My mission is to make advanced automation accessible to every business owner, regardless of technical background."
                   </blockquote>
 
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-4 text-center">
-                      <div className="text-2xl font-bold text-red-600">500+</div>
-                      <div className="text-sm text-gray-700">Businesses Automated</div>
+                  <div className="grid grid-cols-2 gap-3 md:gap-4">
+                    <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-3 md:p-4 text-center">
+                      <div className="text-xl md:text-2xl font-bold text-red-600">500+</div>
+                      <div className="text-xs md:text-sm text-gray-700">Businesses Automated</div>
                     </div>
-                    <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-4 text-center">
-                      <div className="text-2xl font-bold text-orange-600">10K+</div>
-                      <div className="text-sm text-gray-700">Hours Saved Weekly</div>
+                    <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-3 md:p-4 text-center">
+                      <div className="text-xl md:text-2xl font-bold text-orange-600">10K+</div>
+                      <div className="text-xs md:text-sm text-gray-700">Hours Saved Weekly</div>
                     </div>
                   </div>
 
-                  <div className="flex space-x-4">
-                    <a href="#" className="flex items-center justify-center w-12 h-12 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">
-                      <Linkedin className="w-5 h-5" />
+                  <div className="flex space-x-3 md:space-x-4 justify-center lg:justify-start">
+                    <a href="#" className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">
+                      <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
                     </a>
-                    <a href="#" className="flex items-center justify-center w-12 h-12 bg-blue-400 text-white rounded-full hover:bg-blue-500 transition-colors">
-                      <Twitter className="w-5 h-5" />
+                    <a href="#" className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-blue-400 text-white rounded-full hover:bg-blue-500 transition-colors">
+                      <Twitter className="w-4 h-4 md:w-5 md:h-5" />
                     </a>
                   </div>
                 </div>
@@ -426,85 +426,85 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* Event Details Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
         <div className="absolute inset-0 bg-grid-subtle"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
               Event <span className="text-red-600">Details</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-lg md:text-xl text-gray-600">
               Everything you need to know about the workshop
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-12">
             {/* Workshop Information */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Workshop Information</h3>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6 md:mb-8">Workshop Information</h3>
               
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <Calendar className="w-6 h-6 text-red-600" />
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <Calendar className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Tuesday, July 30, 2025</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">Tuesday, July 30, 2025</div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <Clock className="w-6 h-6 text-red-600" />
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">2:00 PM CST</div>
-                    <div className="text-gray-600">Duration: 2 hours</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">2:00 PM CST</div>
+                    <div className="text-gray-600 text-sm md:text-base">Duration: 2 hours</div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <MapPin className="w-6 h-6 text-red-600" />
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <MapPin className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">7800 North Mopac Expressway</div>
-                    <div className="text-gray-600">Austin, TX 78759</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">7800 North Mopac Expressway</div>
+                    <div className="text-gray-600 text-sm md:text-base">Austin, TX 78759</div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <Users className="w-6 h-6 text-red-600" />
+                <div className="flex items-start space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <Users className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">Limited to 40 attendees</div>
-                    <div className="text-pink-600 font-medium">Filling up fast!</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">Limited to 40 attendees</div>
+                    <div className="text-pink-600 font-medium text-sm md:text-base">Filling up fast!</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Location Map */}
-            <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200">
-              <h3 className="text-2xl font-bold text-gray-900 mb-6">Location & Directions</h3>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Location & Directions</h3>
               
-              <div className="mb-6">
+              <div className="mb-4 md:mb-6">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.8!2d-97.7431!3d30.3878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cb4e7e7e7e7e%3A0x7e7e7e7e7e7e7e7e!2s7800%20N%20Mopac%20Expy%2C%20Austin%2C%20TX%2078759!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus"
                   width="100%"
-                  height="250"
+                  height="200"
                   style={{ border: 0 }}
                   allowFullScreen
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="rounded-lg"
+                  className="rounded-lg md:h-[250px]"
                 ></iframe>
               </div>
 
               <div>
-                <h4 className="font-semibold text-gray-900 mb-3">Getting There</h4>
-                <p className="text-gray-600 leading-relaxed">
+                <h4 className="font-semibold text-gray-900 mb-2 md:mb-3 text-sm md:text-base">Getting There</h4>
+                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
                   Free parking available on-site. The venue is easily accessible from I-35 and Loop 1 (MoPac).
                 </p>
               </div>
@@ -514,21 +514,22 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
             Ready to Transform Your Business?
           </h2>
-          <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+          <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 leading-relaxed">
             Join us on July 30th and discover how AI automation can revolutionize your workflow
           </p>
           
           <a 
             href="#form" 
-            className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
+            className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
           >
-            Tuesday, July 30, 2025 • 2:00 PM CST • Austin, TX
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <span className="hidden md:inline">Tuesday, July 30, 2025 • 2:00 PM CST • Austin, TX</span>
+            <span className="md:hidden">Register Now - July 30, 2:00 PM CST</span>
+            <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
           </a>
         </div>
       </section>
