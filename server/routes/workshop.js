@@ -112,7 +112,7 @@ router.post('/register', formLimiter, async (req, res) => {
       <h3>Event Details:</h3>
       <ul>
         <li><strong>Date:</strong> July 30, 2025</li>
-        <li><strong>Time:</strong> 2:00 PM - 6:00 PM CST</li>
+        <li><strong>Time:</strong> 2:00 PM - 4:00 PM CST</li>
         <li><strong>Location:</strong> 7800 North Mopac Expressway, Austin, TX 78759</li>
       </ul>
       

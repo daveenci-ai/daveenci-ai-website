@@ -459,7 +459,7 @@ const AIAutomationWorkshopAustin = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900">2:00 PM CST</div>
-                    <div className="text-gray-600">Duration: 2.5 hours</div>
+                    <div className="text-gray-600">Duration: 2 hours</div>
                   </div>
                 </div>
 

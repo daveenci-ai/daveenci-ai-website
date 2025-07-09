@@ -51,7 +51,7 @@ const ThankYouEvent = () => {
                 <Clock className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Time</div>
-                  <div className="font-semibold text-gray-900">2:00 PM - 6:00 PM CST</div>
+                  <div className="font-semibold text-gray-900">2:00 PM - 4:00 PM CST</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
