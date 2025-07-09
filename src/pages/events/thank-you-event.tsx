@@ -58,8 +58,8 @@ const ThankYouEvent = () => {
                 <MapPin className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Location</div>
-                  <div className="font-semibold text-gray-900">Austin, TX</div>
-                  <div className="text-sm text-gray-500">Exact location coming soon</div>
+                  <div className="font-semibold text-gray-900">7800 North Mopac Expressway</div>
+                  <div className="text-sm text-gray-500">Austin, TX 78759</div>
                 </div>
               </div>
             </div>

@@ -11,7 +11,9 @@ const dbConfig = {
   ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
   max: 20, // maximum number of connections in the pool
   idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-  connectionTimeoutMillis: 2000, // how long to wait when connecting a new client
+  connectionTimeoutMillis: 10000, // Increased from 2000ms to 10000ms for slower networks
+  acquireTimeoutMillis: 60000, // How long to wait for a connection from the pool
+  statement_timeout: 10000, // Query timeout in milliseconds
 };
 
 // Create connection pool

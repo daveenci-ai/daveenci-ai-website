@@ -56,6 +56,25 @@ const initializeTables = async () => {
       // Column might already exist, ignore error
     }
 
+    // Add unique constraints for UPSERT operations
+    try {
+      await query(`
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_events_unique 
+        ON events(event_name, event_type);
+      `);
+    } catch (error) {
+      console.log('Unique constraint for events might already exist');
+    }
+
+    try {
+      await query(`
+        CREATE UNIQUE INDEX IF NOT EXISTS idx_participants_unique 
+        ON event_participants(event_id, email);
+      `);
+    } catch (error) {
+      console.log('Unique constraint for participants might already exist');
+    }
+
     // Create indexes for better performance
     await query(`
       CREATE INDEX IF NOT EXISTS idx_events_date ON events(event_date);
