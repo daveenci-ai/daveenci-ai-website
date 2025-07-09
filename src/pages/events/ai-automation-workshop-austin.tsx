@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, BookOpen, TrendingUp, Zap, Linkedin, Twitter } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, BookOpen, TrendingUp, Zap } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { getApiUrl } from '@/config/api';
@@ -160,7 +160,7 @@ const AIAutomationWorkshopAustin = () => {
             {/* Urgency Message */}
             <div className="flex items-center justify-center space-x-2 mb-6 md:mb-8 px-4">
               <span className="text-xl md:text-2xl">🔥</span>
-              <span className="text-sm md:text-lg font-bold text-red-600 text-center">Limited to 40 seats - Secure your spot now!</span>
+              <span className="text-sm md:text-lg font-bold text-red-600 text-center">Limited to 40 seats!</span>
             </div>
 
             {/* Event Perks */}
@@ -392,32 +392,25 @@ const AIAutomationWorkshopAustin = () => {
                 <div className="space-y-4 md:space-y-6">
                   <div>
                     <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1 md:mb-2">Astrid Abrahamyan</h3>
-                    <p className="text-base md:text-lg text-red-600 font-medium">AI Automation Expert & Business Strategist</p>
+                    <p className="text-base md:text-lg text-red-600 font-medium">AI Automation Expert</p>
                   </div>
 
                   <blockquote className="text-base md:text-lg text-gray-700 italic leading-relaxed">
-                    "I've helped over 500+ businesses save an average of 20 hours per week through strategic AI automation. My mission is to make advanced automation accessible to every business owner, regardless of technical background."
+                    "I specialize in helping businesses save time and increase efficiency through strategic AI automation. My mission is to make advanced automation accessible to every business owner, regardless of technical background."
                   </blockquote>
 
                   <div className="grid grid-cols-2 gap-3 md:gap-4">
                     <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-3 md:p-4 text-center">
-                      <div className="text-xl md:text-2xl font-bold text-red-600">500+</div>
-                      <div className="text-xs md:text-sm text-gray-700">Businesses Automated</div>
+                      <div className="text-xl md:text-2xl font-bold text-red-600">5+</div>
+                      <div className="text-xs md:text-sm text-gray-700">Years Experience</div>
                     </div>
                     <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-3 md:p-4 text-center">
-                      <div className="text-xl md:text-2xl font-bold text-orange-600">10K+</div>
-                      <div className="text-xs md:text-sm text-gray-700">Hours Saved Weekly</div>
+                      <div className="text-xl md:text-2xl font-bold text-orange-600">100%</div>
+                      <div className="text-xs md:text-sm text-gray-700">Practical Focus</div>
                     </div>
                   </div>
 
-                  <div className="flex space-x-3 md:space-x-4 justify-center lg:justify-start">
-                    <a href="#" className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">
-                      <Linkedin className="w-4 h-4 md:w-5 md:h-5" />
-                    </a>
-                    <a href="#" className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-blue-400 text-white rounded-full hover:bg-blue-500 transition-colors">
-                      <Twitter className="w-4 h-4 md:w-5 md:h-5" />
-                    </a>
-                  </div>
+
                 </div>
               </div>
             </div>
