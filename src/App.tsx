@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AnnouncementBanner from "./components/AnnouncementBanner";
+import Chatbot from "./components/Chatbot";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Services from "./pages/Services";
@@ -11,6 +12,7 @@ import CaseStudies from "./pages/CaseStudies";
 import AboutUs from "./pages/AboutUs";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
+import Admin from "./pages/Admin";
 import AISolutions from "./pages/services/AISolutions";
 import MarketingAutomation from "./pages/services/MarketingAutomation";
 import CustomSoftware from "./pages/services/CustomSoftware";
@@ -38,11 +40,13 @@ const App = () => (
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/events/ai-automation-workshop-austin" element={<AIAutomationWorkshopAustin />} />
           <Route path="/events/thank-you-event" element={<ThankYouEvent />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Chatbot />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

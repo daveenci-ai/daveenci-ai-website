@@ -62,6 +62,25 @@ const initializeTables = async () => {
       )
     `);
 
+    // Chat Summaries table for chatbot interactions
+    await query(`
+      CREATE TABLE IF NOT EXISTS chat_summaries (
+        id SERIAL PRIMARY KEY,
+        interaction_date DATE NOT NULL,
+        contact_name VARCHAR(255),
+        contact_email VARCHAR(255),
+        contact_phone VARCHAR(50),
+        company_name VARCHAR(255),
+        chat_summary TEXT NOT NULL,
+        services_discussed JSONB DEFAULT '[]',
+        key_pain_points JSONB DEFAULT '[]',
+        call_to_action_offered BOOLEAN DEFAULT FALSE,
+        next_step TEXT,
+        lead_qualification VARCHAR(10) DEFAULT 'Cold' CHECK (lead_qualification IN ('Hot', 'Warm', 'Cold')),
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+      )
+    `);
+
     // Add new columns to existing tables if they don't exist
     try {
       await query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS event_address TEXT`);
@@ -148,6 +167,27 @@ const initializeTables = async () => {
 
     await query(`
       CREATE INDEX IF NOT EXISTS idx_blog_posts_search ON blog_posts USING gin(to_tsvector('english', title || ' ' || content));
+    `);
+
+    // Create indexes for better performance - Chat Summaries
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_chat_summaries_date ON chat_summaries(interaction_date);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_chat_summaries_qualification ON chat_summaries(lead_qualification);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_chat_summaries_email ON chat_summaries(contact_email);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_chat_summaries_created ON chat_summaries(created_at);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_chat_summaries_company ON chat_summaries(company_name);
     `);
 
     console.log('✅ Database tables initialized successfully');

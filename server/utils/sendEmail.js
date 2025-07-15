@@ -1,10 +1,20 @@
 import { Resend } from 'resend';
 import nodemailer from 'nodemailer';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only if API key is available
+let resend = null;
+if (process.env.RESEND_API_KEY) {
+  resend = new Resend(process.env.RESEND_API_KEY);
+} else {
+  console.log('⚠️  RESEND_API_KEY not found - email functionality will be limited');
+}
 
 // Resend email function (preferred)
 async function sendEmailWithResend(to, subject, htmlContent) {
+  if (!resend) {
+    throw new Error('Resend not initialized - RESEND_API_KEY missing');
+  }
+  
   try {
     // Add timeout to prevent hanging
     const timeoutPromise = new Promise((_, reject) => 

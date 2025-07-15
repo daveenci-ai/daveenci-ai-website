@@ -5,6 +5,7 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import { workshopRoutes } from './routes/workshop.js';
 import { blogRoutes } from './routes/blog.js';
+import { chatRoutes } from './routes/chat.js';
 import { initializeDatabase } from './config/init-db.js';
 import { closePool } from './config/database.js';
 
@@ -68,6 +69,7 @@ app.get('/health', (req, res) => {
 // API Routes
 app.use('/api/workshop', workshopRoutes);
 app.use('/api/blog', blogRoutes);
+app.use('/api/chat', chatRoutes);
 // Future routes can be added here:
 // app.use('/api/auth', authRoutes);
 // app.use('/api/admin', adminRoutes);
@@ -91,7 +93,9 @@ app.get('/', (req, res) => {
       '/api/blog/posts/bulk',
       '/api/blog/tags',
       '/api/blog/featured',
-      '/api/blog/sitemap'
+      '/api/blog/sitemap',
+      '/api/chat/summary',
+      '/api/chat/summaries'
     ]
   });
 });
