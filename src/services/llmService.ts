@@ -79,27 +79,14 @@ class LLMService {
    * Build context-aware prompt for LLM
    */
   private buildPrompt(userMessage: string, context: LLMContext): string {
-    const { userInfo, conversationStage, servicesDiscussed } = context;
-    const recentMessages = context.conversationHistory.slice(-3); // Shorter history
-
-    // Build a simple, natural prompt that's less likely to trigger content filtering
-    const basePrompt = `You are Dave from DaVeenci. We help businesses with AI automation, digital marketing, and custom software development.`;
+    // Ultra-simple prompt to avoid any content filtering
+    // Remove conversation history and complex context that might trigger filters
     
-    const userContext = userInfo.name ? `The user's name is ${userInfo.name}.` : '';
+    const userName = context.userInfo.name ? ` ${context.userInfo.name}` : '';
     
-    const conversationContext = recentMessages.length > 0 
-      ? `Recent conversation:\n${recentMessages.map(msg => `${msg.role === 'user' ? 'User' : 'Dave'}: ${msg.content}`).join('\n')}\n`
-      : '';
-    
-    const currentMessage = `User: ${userMessage}`;
-    
-    const instruction = `Please respond as Dave in a helpful, professional way. Keep it conversational and under 100 words.`;
+    return `You are a helpful business consultant named Dave. A user${userName} says: "${userMessage}"
 
-    return `${basePrompt} ${userContext}
-
-${conversationContext}${currentMessage}
-
-${instruction}`;
+Please respond helpfully and professionally.`;
   }
 
   /**
