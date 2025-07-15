@@ -5,10 +5,11 @@
 // Phase 2: LLM Integration Settings
 export const llmSettings = {
   enabled: true, // Set to false to use only rule-based responses
-  confidenceThreshold: 0.7, // Minimum confidence to use LLM response
-  fallbackAfterAttempts: 3, // Number of LLM attempts before fallback
-  useForGreeting: false, // Keep greetings rule-based for consistency
-  useForContactCollection: false, // Keep contact collection rule-based
+  confidenceThreshold: 0.5, // Lower threshold to prefer LLM responses
+  fallbackAfterAttempts: 10, // Higher limit before falling back to rules
+  useForAllInteractions: true, // Use LLM for ALL conversations
+  useForGreeting: true, // Use LLM for natural, contextual greetings
+  useForContactCollection: true, // Use LLM for natural contact collection
   useForComplexQueries: true, // Use LLM for complex questions
   contextWindow: 6, // Number of previous messages to include
   personalityTraits: [
@@ -132,15 +133,19 @@ export const intentPatterns = {
 };
 
 export const responses = {
-  greeting: "Hi there! How can I help?",
+  greeting: "Hi! I'm Dave from DaVeenci. We help businesses save time and money with AI automation, digital marketing, and custom software solutions. What can I help you with today?",
   
-  whatDoYouDo: `We specialize in three main areas:
+  whatDoYouDo: `We're DaVeenci - we help businesses save time and money through smart automation and technology solutions.
 
-🤖 **AI Automation** to streamline your processes with things like chatbots and intelligent workflows.
-📈 **Digital Marketing** to grow your online presence and generate leads.
-💻 **Custom Software** to build the exact tools your business needs.
+Here's what we specialize in:
 
-Does one of those sound like what you're looking for?`,
+🤖 **AI Automation** - We build chatbots, automate repetitive tasks, and create intelligent workflows that handle the work your team shouldn't have to do manually.
+
+📈 **Digital Marketing** - We create data-driven campaigns that actually convert, using AI to optimize your ads and target the right customers at the right time.
+
+💻 **Custom Software** - We develop web apps, mobile apps, and internal tools that are built specifically for your business needs - no generic solutions.
+
+Most of our clients save 20-40 hours per week and see 300-500% ROI within the first year. What kind of challenges is your business facing right now?`,
 
   chatbotInterest: "Absolutely! Building intelligent chatbots is a core part of our AI Automation service. Is that something you're exploring for your business?",
   
@@ -150,7 +155,7 @@ Does one of those sound like what you're looking for?`,
 
   negative: "No problem at all! If you change your mind or have any questions about our services, I'm here to help.",
 
-  defaultQuestion: "I'd be happy to help answer that! What specifically would you like to know about our services?",
+  defaultQuestion: "Let me help you with that! We specialize in AI automation (like chatbots and workflow automation), digital marketing (data-driven campaigns that convert), and custom software development. Which of these areas interests you most, or do you have a specific challenge you're trying to solve?",
 
   caseStudies: `Absolutely! Here are some real results from our clients:
 
@@ -170,10 +175,10 @@ Which industry are you in? I can share more specific examples that match your bu
 };
 
 export const conversationalFollowUps = [
-  "Tell me more about that.",
-  "How are you currently handling that?",
-  "What would an ideal solution look like for you?",
-  "That's interesting. What's your biggest challenge with it?"
+  "I'd love to help with that! Could you tell me more about your specific situation?",
+  "That sounds like something we can definitely help with. How are you currently handling that process?",
+  "Interesting! We've helped many businesses with similar challenges. What would an ideal solution look like for you?",
+  "That's exactly the type of problem we solve for our clients. What's your biggest pain point with your current approach?"
 ];
 
 // Text normalization patterns for better intent recognition

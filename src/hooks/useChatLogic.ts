@@ -209,7 +209,7 @@ export function useChatLogic() {
         addBotMessage(welcomeBackMessage);
         dispatch({ type: 'ADD_TO_HISTORY', payload: { role: 'assistant', content: welcomeBackMessage } });
       } else {
-        const greeting = "Hi! I'm Dave from DaVeenci. I can help you with AI automation, digital marketing, or custom software solutions. What can I help you with today?";
+        const greeting = responses.greeting;
         dispatch({ type: 'SET_LAST_QUESTION', payload: greeting });
         dispatch({ type: 'SET_EXPECTING_RESPONSE', payload: 'general' });
         addBotMessage(greeting);
@@ -501,25 +501,16 @@ export function useChatLogic() {
     analysis: UserIntent,
     fallbackResponse: string
   ): Promise<string> => {
-    // Check if we should use LLM for this type of interaction
+    // Always use LLM unless explicitly disabled or failed too many times
     const shouldUseLLM = llmSettings.enabled && 
       state.llmEnabled && 
       state.fallbackCount < llmSettings.fallbackAfterAttempts &&
-      (
-        (llmSettings.useForComplexQueries && advancedPatterns.complexQuestions.some(pattern => userMessage.toLowerCase().includes(pattern))) ||
-        (analysis.intent === 'question' && analysis.confidence < intelligenceConfig.intentConfidence.medium) ||
-        (analysis.sentiment === 'urgent' && llmSettings.useForComplexQueries) ||
-        (advancedPatterns.comparisonQueries.some(pattern => userMessage.toLowerCase().includes(pattern)))
-      ) &&
-      // Don't use LLM for simple contact collection if disabled
-      !(state.expectingResponse && !llmSettings.useForContactCollection) &&
-      // Don't use LLM for greetings if disabled  
-      !(analysis.intent === 'greeting' && !llmSettings.useForGreeting);
+      llmSettings.useForAllInteractions;
 
-    if (!shouldUseLLM) {
-      console.log('🔄 Using rule-based response (LLM conditions not met)');
-      return fallbackResponse;
-    }
+          if (!shouldUseLLM) {
+        console.log('🔄 Using rule-based fallback (LLM disabled or failed too many times)');
+        return fallbackResponse;
+      }
 
     try {
       // Build LLM context
@@ -691,7 +682,7 @@ export function useChatLogic() {
       if (analysis.services.length > 0) {
         return "That sounds like something we can definitely help with! Tell me more about what you're looking for.";
       } else {
-        return "Thanks for reaching out! What brings you here today?";
+        return "We help businesses automate their operations, improve their marketing results, and build custom software solutions. Most of our clients save 20-40 hours per week and see significant ROI improvements. What kind of challenges is your business facing?";
       }
     }
     
