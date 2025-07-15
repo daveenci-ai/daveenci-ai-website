@@ -174,16 +174,17 @@ const Blog = () => {
       </head>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white py-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              AI & Automation
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-500">
-                Insights
-              </span>
+      <section className="relative pt-32 pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
+        <div className="absolute inset-0 bg-grid-subtle"></div>
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl text-center">
+            <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-3xl mx-auto mb-8">
+              <BookOpen className="w-10 h-10 text-red-600" />
+            </div>
+            <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl leading-tight mb-8">
+              <span className="text-red-600">AI</span> & Automation Insights
             </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
               Expert insights on AI automation, marketing technology, and business growth strategies. 
               Stay ahead with the latest trends and actionable advice.
             </p>
@@ -197,7 +198,7 @@ const Blog = () => {
                   placeholder="Search articles..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 bg-white/10 border-white/20 text-white placeholder:text-gray-300"
+                  className="pl-10 bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
                 />
               </div>
             </form>
