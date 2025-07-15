@@ -28,7 +28,7 @@ const ChatDashboard = () => {
   
   // Filters
   const [filters, setFilters] = useState({
-    qualification: '',
+    qualification: 'all',
     date_from: '',
     date_to: '',
     page: 1
@@ -40,7 +40,7 @@ const ChatDashboard = () => {
     
     try {
       const params = new URLSearchParams();
-      if (filters.qualification) params.append('qualification', filters.qualification);
+      if (filters.qualification && filters.qualification !== 'all') params.append('qualification', filters.qualification);
       if (filters.date_from) params.append('date_from', filters.date_from);
       if (filters.date_to) params.append('date_to', filters.date_to);
       params.append('page', filters.page.toString());
@@ -190,7 +190,7 @@ const ChatDashboard = () => {
                   <SelectValue placeholder="All qualifications" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All qualifications</SelectItem>
+                  <SelectItem value="all">All qualifications</SelectItem>
                   <SelectItem value="Hot">Hot</SelectItem>
                   <SelectItem value="Warm">Warm</SelectItem>
                   <SelectItem value="Cold">Cold</SelectItem>
