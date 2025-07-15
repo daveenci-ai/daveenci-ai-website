@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
@@ -8,12 +8,7 @@ import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { apiConfig } from '@/config/api';
-
-// API base URL
-const getApiUrl = () => {
-  return apiConfig.baseUrl;
-};
+import { getApiEndpoint } from '@/utils/api';
 
 // Types
 interface BlogPost {
@@ -63,19 +58,19 @@ const fetchBlogPosts = async (params: {
   if (params.search) searchParams.append('search', params.search);
   if (params.featured) searchParams.append('featured', 'true');
 
-  const response = await fetch(`${getApiUrl()}/api/blog/posts?${searchParams}`);
+        const response = await fetch(getApiEndpoint(`/api/blog/posts?${searchParams}`));
   if (!response.ok) throw new Error('Failed to fetch blog posts');
   return response.json();
 };
 
 const fetchTags = async (): Promise<BlogTag[]> => {
-  const response = await fetch(`${getApiUrl()}/api/blog/tags`);
+  const response = await fetch(getApiEndpoint('/api/blog/tags'));
   if (!response.ok) throw new Error('Failed to fetch tags');
   return response.json();
 };
 
 const fetchFeaturedPosts = async (): Promise<BlogPost[]> => {
-  const response = await fetch(`${getApiUrl()}/api/blog/featured?limit=1`);
+  const response = await fetch(getApiEndpoint('/api/blog/featured?limit=1'));
   if (!response.ok) throw new Error('Failed to fetch featured posts');
   return response.json();
 };

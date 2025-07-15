@@ -3,29 +3,7 @@
 
 import { apiClient, llmConfig } from '@/config/api';
 import { companyInfo, fallbackResponses } from '@/config/chatbot.config';
-
-export interface LLMContext {
-  conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }>;
-  userInfo: {
-    name?: string;
-    email?: string;
-    company?: string;
-    previousVisits?: number;
-  };
-  conversationStage: string;
-  servicesDiscussed: string[];
-  painPoints: string[];
-  sessionId: string;
-  timestamp: Date;
-}
-
-export interface LLMResponse {
-  content: string;
-  confidence: number;
-  fallbackUsed: boolean;
-  reasoning?: string;
-  suggestedActions?: string[];
-}
+import type { LLMContext, LLMResponse } from '@/types';
 
 class LLMService {
   private rateLimitCache: Map<string, number[]> = new Map();

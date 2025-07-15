@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calendar, User, Building, MessageSquare, Phone, Mail, Filter, Download } from 'lucide-react';
-
-interface ChatSummary {
-  id: number;
-  interaction_date: string;
-  contact_name: string;
-  contact_email: string;
-  contact_phone: string;
-  company_name: string;
-  chat_summary: string;
-  services_discussed: string[];
-  key_pain_points: string[];
-  call_to_action_offered: boolean;
-  next_step: string;
-  lead_qualification: 'Hot' | 'Warm' | 'Cold';
-  created_at: string;
-}
+import { getApiEndpoint } from '@/utils/api';
+import type { ChatSummary } from '@/types';
 
 interface Pagination {
   page: number;
@@ -53,10 +39,6 @@ const ChatDashboard = () => {
     setError(null);
     
     try {
-      const apiUrl = import.meta.env.PROD 
-        ? 'https://daveenci-ai-frontend.onrender.com' 
-        : 'http://localhost:3001';
-      
       const params = new URLSearchParams();
       if (filters.qualification) params.append('qualification', filters.qualification);
       if (filters.date_from) params.append('date_from', filters.date_from);
@@ -69,7 +51,7 @@ const ChatDashboard = () => {
         throw new Error('Authentication required');
       }
 
-      const response = await fetch(`${apiUrl}/api/chat/summaries?${params}`, {
+      const response = await fetch(`${getApiEndpoint('/api/chat/summaries')}?${params}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

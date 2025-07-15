@@ -6,15 +6,9 @@ import {
   llmSettings,
   sessionConfig
 } from '@/config/chatbot.config';
-import llmService, { type LLMContext, type LLMResponse } from '@/services/llmService';
-
-// Types
-export interface Message {
-  id: string;
-  content: string;
-  sender: 'user' | 'bot';
-  timestamp: Date;
-}
+import llmService from '@/services/llmService';
+import { getApiEndpoint } from '@/utils/api';
+import type { Message, ContactInfo, ChatSummary, LLMContext, LLMResponse } from '@/types';
 
 interface ChatState {
   messages: Message[];
@@ -36,23 +30,7 @@ interface ChatState {
   lastLLMCall: Date | null;
 }
 
-export interface ContactInfo {
-  name: string;
-  email: string;
-  phone: string;
-  company_name: string;
-}
 
-export interface ChatSummary {
-  interaction_date: string;
-  contact_info: ContactInfo;
-  chat_summary: string;
-  services_discussed: string[];
-  key_pain_points: string[];
-  call_to_action_offered: boolean;
-  next_step: string;
-  lead_qualification: 'Hot' | 'Warm' | 'Cold';
-}
 
 type ChatAction = 
   | { type: 'ADD_MESSAGE'; payload: Message }
@@ -392,11 +370,7 @@ export function useChatLogic() {
       
       // Send to backend
       try {
-        const apiUrl = import.meta.env.PROD 
-          ? 'https://daveenci-ai-frontend.onrender.com' 
-          : 'http://localhost:3001';
-          
-        const response = await fetch(`${apiUrl}/api/chat/summary`, {
+        const response = await fetch(getApiEndpoint('/api/chat/summary'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

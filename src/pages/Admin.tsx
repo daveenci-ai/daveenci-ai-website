@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import ChatDashboard from '@/components/ChatDashboard';
@@ -6,6 +6,7 @@ import Login from '@/components/Login';
 import { Button } from '@/components/ui/button';
 import { LogOut, User } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { getApiEndpoint } from '@/utils/api';
 
 const Admin = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,11 +29,7 @@ const Admin = () => {
     }
 
     try {
-      const apiUrl = import.meta.env.PROD 
-        ? 'https://daveenci-ai-frontend.onrender.com' 
-        : 'http://localhost:3001';
-
-      const response = await fetch(`${apiUrl}/api/auth/verify`, {
+      const response = await fetch(getApiEndpoint('/api/auth/verify'), {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -63,11 +60,7 @@ const Admin = () => {
 
   const handleLogout = async () => {
     try {
-      const apiUrl = import.meta.env.PROD 
-        ? 'https://daveenci-ai-frontend.onrender.com' 
-        : 'http://localhost:3001';
-
-      await fetch(`${apiUrl}/api/auth/logout`, {
+      await fetch(getApiEndpoint('/api/auth/logout'), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('authToken')}`

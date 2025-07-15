@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
@@ -7,12 +7,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Calendar, Clock, Eye, Tag, Share2, Twitter, Facebook, Linkedin } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { apiConfig } from '@/config/api';
-
-// API base URL
-const getApiUrl = () => {
-  return apiConfig.baseUrl;
-};
+import { getApiEndpoint } from '@/utils/api';
 
 // Types
 interface BlogPost {
@@ -38,7 +33,7 @@ interface BlogPost {
 
 // API functions
 const fetchBlogPost = async (slug: string): Promise<BlogPost> => {
-  const response = await fetch(`${getApiUrl()}/api/blog/posts/${slug}`);
+  const response = await fetch(getApiEndpoint(`/api/blog/posts/${slug}`));
   if (!response.ok) {
     if (response.status === 404) {
       throw new Error('Post not found');
@@ -49,7 +44,7 @@ const fetchBlogPost = async (slug: string): Promise<BlogPost> => {
 };
 
 const fetchRelatedPosts = async (slug: string): Promise<BlogPost[]> => {
-  const response = await fetch(`${getApiUrl()}/api/blog/posts?limit=3`);
+  const response = await fetch(getApiEndpoint('/api/blog/posts?limit=3'));
   if (!response.ok) throw new Error('Failed to fetch related posts');
   const data = await response.json();
   return data.posts.filter((post: BlogPost) => post.slug !== slug).slice(0, 3);

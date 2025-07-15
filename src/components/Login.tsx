@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Lock, Mail, Eye, EyeOff } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { getApiEndpoint } from '@/utils/api';
 
 interface LoginProps {
   onLogin: (token: string, user: any) => void;
@@ -24,11 +25,7 @@ const Login = ({ onLogin }: LoginProps) => {
     setError('');
 
     try {
-      const apiUrl = import.meta.env.PROD 
-        ? 'https://daveenci-ai-frontend.onrender.com' 
-        : 'http://localhost:3001';
-
-      const response = await fetch(`${apiUrl}/api/auth/login`, {
+      const response = await fetch(getApiEndpoint('/api/auth/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
