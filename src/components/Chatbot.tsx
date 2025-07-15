@@ -147,29 +147,53 @@ const Chatbot = () => {
 
     // Founder-specific responses
     if (lowerMessage.includes('anton') || lowerMessage.includes('founder') || lowerMessage.includes('ceo')) {
+      setCallToActionOffered(true);
       return "Anton Osipov is our Co-Founder and CEO, a brilliant data scientist with over a decade of experience in Silicon Valley with tech giants like Google and Apple. He brings deep expertise in digital marketing trends and analytics. Anton's background in working with these industry leaders gives DaVeenci a unique edge in understanding how to scale AI solutions effectively. Would you like to schedule a call to speak with Anton directly about your business needs?";
     }
 
     if (lowerMessage.includes('astrid') || lowerMessage.includes('coo')) {
+      setCallToActionOffered(true);
       return "Astrid Abrahamyan is our Co-Founder and COO, who focuses on creative solutions and relationship-building to ensure we take a truly client-centric approach. She ensures that every solution we build not only meets technical requirements but also aligns perfectly with your business goals and team dynamics. Astrid's expertise in operations and client relations makes sure your experience with DaVeenci is seamless. Would you like to discuss how we can tailor our approach to your specific business?";
     }
 
     // Service-specific responses
     if (analysis.services.includes('AI Automation')) {
+      if (conversationStage === 'greeting') setConversationStage('qualifying');
       return "AI automation is one of our specialties! We transform businesses by creating intelligent solutions that operate 24/7. This includes predictive analytics for customer behavior, automated customer segmentation, and intelligent lead scoring systems. These solutions typically reduce manual work by 60-80% while improving accuracy and consistency. What specific processes in your business are taking up too much of your time right now?";
     }
 
     if (analysis.services.includes('Digital Marketing')) {
+      if (conversationStage === 'greeting') setConversationStage('qualifying');
       return "Our digital marketing approach is completely data-driven, leveraging Anton's decade of experience with companies like Google and Apple. We create AI-powered marketing systems that automatically optimize campaigns, personalize customer journeys, and maximize ROI across all platforms. Most clients see a 200-400% improvement in campaign performance within the first few months. What's your biggest challenge with your current marketing efforts?";
     }
 
     if (analysis.services.includes('Custom Software')) {
+      if (conversationStage === 'greeting') setConversationStage('qualifying');
       return "We specialize in building custom software solutions that replace expensive SaaS subscriptions and eliminate vendor lock-in. Our approach focuses on creating tools specifically for your business processes, whether it's internal productivity systems, client portals, or specialized applications. This typically saves businesses $50,000+ annually while providing exactly what they need. What kind of software tools is your business currently using that you'd like to optimize or replace?";
     }
 
-    // Pain point responses
+    // Pain point responses with call to action
     if (analysis.painPoints.includes('Manual processes')) {
+      setCallToActionOffered(true);
+      setConversationStage('service_discussion');
       return "Manual processes are definitely a major pain point for most businesses! That's exactly what we solve with our AI-powered automation systems. We can automate everything from data entry and customer communications to complex business workflows. Most of our clients free up 30-40 hours per week that they can redirect to growing their business. I'd love to show you some specific examples of automations we've built. Do you have 15 minutes next week for a quick demo call?";
+    }
+
+    // Handle responses that indicate interest but aren't specific
+    if (lowerMessage.includes('interested') || lowerMessage.includes('sounds good') || lowerMessage.includes('yes') || lowerMessage.includes('sure')) {
+      if (!callToActionOffered) {
+        setCallToActionOffered(true);
+        setConversationStage('contact_collection');
+        return "Excellent! I'm excited to help you explore how we can transform your business with AI and automation. To get you connected with the right specialist and send you some relevant case studies, what's your name and email address?";
+      } else {
+        return "Perfect! I'll make sure our team reaches out to you soon. In the meantime, feel free to ask me any other questions about our services or check out our case studies on the website.";
+      }
+    }
+
+    // Handle pricing questions
+    if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('expensive') || lowerMessage.includes('budget')) {
+      setCallToActionOffered(true);
+      return "Great question! Our solutions are designed to provide significant ROI - most clients save $50,000+ annually while dramatically improving efficiency. Pricing depends on your specific needs and scale. I'd love to have one of our specialists give you a personalized quote based on your requirements. Would you like to schedule a brief call to discuss your specific situation?";
     }
 
     // Unknown questions
@@ -177,39 +201,38 @@ const Chatbot = () => {
       return "That's an excellent question. I don't have the specific information on that right now, but I can connect you with a specialist on our team who can provide a detailed answer. Would you like to schedule a brief call? In the meantime, could you tell me more about your business and what you're hoping to achieve?";
     }
 
-    // Qualifying questions based on stage
+    // Conversation flow based on stage and content
     if (conversationStage === 'greeting') {
       setConversationStage('qualifying');
-      return "Thanks for sharing that! To better understand how we can help you, I'd love to know: What are some of the biggest challenges you're currently facing in your marketing efforts? And are you currently using any automation tools in your business?";
+      return "Thanks for sharing that! To better understand how we can help you, I'd love to know: What are some of the biggest challenges you're currently facing in your business? Are there any repetitive tasks that are taking up too much of your team's time?";
     }
 
-    if (conversationStage === 'qualifying') {
+    if (conversationStage === 'qualifying' && messages.length > 3) {
       setConversationStage('service_discussion');
-      if (analysis.qualification === 'Hot') {
+      if (analysis.qualification === 'Hot' || servicesDiscussed.size > 0 || painPoints.size > 0) {
         setCallToActionOffered(true);
         return "Based on what you've shared, it sounds like our AI-powered solutions could be a great fit for your business! We've helped companies in similar situations achieve remarkable results. I can schedule a no-obligation strategy call with one of our experts to explore this further and show you exactly how we'd approach your specific challenges. Do you have some time available next week?";
       } else {
-        return "I understand your situation. These are common challenges that many businesses face, and there are definitely solutions available. To give you the most relevant recommendations, could you tell me what your approximate company size is and what industry you're in?";
+        return "I understand your situation. Many businesses face similar challenges, and there are definitely solutions available. To give you the most relevant recommendations, could you tell me a bit more about your industry or what type of business you run?";
       }
     }
 
-    // Contact collection based on stage
-    if (conversationStage === 'service_discussion' && !contactInfo.email && !contactInfo.name) {
+    // More natural contact collection
+    if (conversationStage === 'service_discussion' && messages.length > 5 && !contactInfo.email) {
       setConversationStage('contact_collection');
-      return "That's really interesting! I can see how that would be important for your business. Our team has experience solving exactly these types of challenges with AI and automation. I'd love to send you a personalized case study showing how we've helped businesses like yours. What's your name and the best email address to send it to?";
+      return "I can see this conversation is really valuable! I'd love to send you some specific case studies and resources that would be perfect for your situation. What's the best email address to send those to? And what should I call you?";
     }
 
-    if (conversationStage === 'contact_collection' && (!contactInfo.name || !contactInfo.company_name)) {
-      if (!contactInfo.name) {
-        return "Thanks! And what's your name so I can personalize the information for you?";
-      }
-      if (!contactInfo.company_name) {
-        return `Nice to meet you${contactInfo.name ? `, ${contactInfo.name.split(' ')[0]}` : ''}! What's the name of your company so I can find the most relevant case studies for your industry?`;
-      }
-    }
+    // Default responses that keep the conversation flowing
+    const responses = [
+      "That's really interesting! Tell me more about that.",
+      "I can definitely see how that would be important for your business. What's been your biggest challenge with that?",
+      "That makes a lot of sense. How are you currently handling that process?",
+      "Great point! What would an ideal solution look like for you?",
+      "I understand. What prompted you to start looking for a solution now?",
+    ];
 
-    // Default response
-    return "That's really helpful information! Based on what you've shared, I think our team could definitely help you achieve your goals. Would you like to schedule a quick 15-minute call to discuss your specific situation in more detail?";
+    return responses[Math.floor(Math.random() * responses.length)];
   };
 
   const extractContactInfo = (message: string): Partial<ContactInfo> => {
@@ -228,37 +251,47 @@ const Chatbot = () => {
       extracted.phone = phoneMatch[0];
     }
 
-    // Extract name patterns
+    // More flexible name patterns
     const namePatterns = [
-      /(?:my name is|i'm|i am|call me)\s+([a-zA-Z\s]{2,30})/i,
-      /(?:^|\.|!)?\s*([A-Z][a-z]+ [A-Z][a-z]+)/,  // First Last name pattern
+      /(?:my name is|i'm|i am|call me|this is|name's)\s+([a-zA-Z\s]{2,40})/i,
+      /^([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)(?:\s|$)/,  // First Last name at start
+      /(?:^|\.|!)\s*([A-Z][a-z]+(?:\s+[A-Z][a-z]+)+)(?:\s|$)/,  // After punctuation
     ];
 
     for (const pattern of namePatterns) {
       const nameMatch = message.match(pattern);
       if (nameMatch && !contactInfo.name) {
         const potentialName = nameMatch[1].trim();
-        // Basic validation - should be 2-4 words, reasonable length
-        if (potentialName.split(' ').length <= 4 && potentialName.length <= 50) {
+        const words = potentialName.split(' ').filter(w => w.length > 1);
+        // Should be 2-4 words, reasonable length, avoid common non-names
+        const excludeNames = ['thank', 'thanks', 'hello', 'hi', 'yes', 'sure', 'great', 'good', 'nice', 'awesome'];
+        if (words.length >= 2 && words.length <= 4 && 
+            potentialName.length <= 50 && 
+            !excludeNames.some(word => potentialName.toLowerCase().includes(word))) {
           extracted.name = potentialName;
           break;
         }
       }
     }
 
-    // Extract company patterns
+    // More flexible company patterns
     const companyPatterns = [
-      /(?:company is|work at|i work for|from|at)\s+([a-zA-Z0-9\s&.,'-]{2,50})/i,
-      /([A-Z][a-zA-Z0-9\s&.,'-]{1,49})(?:\s+(?:inc|corp|corporation|llc|ltd|company|co)\.?)/i,
+      /(?:company is|work at|i work for|from|at|with)\s+([a-zA-Z0-9\s&.,'-]{2,50})/i,
+      /(?:company|business|startup|firm):\s*([a-zA-Z0-9\s&.,'-]{2,50})/i,
+      /([A-Z][a-zA-Z0-9\s&.,'-]{1,49})(?:\s+(?:inc|corp|corporation|llc|ltd|company|co|technologies|tech|solutions|group)\.?)/i,
     ];
 
     for (const pattern of companyPatterns) {
       const companyMatch = message.match(pattern);
       if (companyMatch && !contactInfo.company_name) {
         const potentialCompany = companyMatch[1].trim();
-        // Exclude common non-company words
-        const excludeWords = ['google', 'facebook', 'microsoft', 'apple', 'the', 'and', 'or', 'but', 'business', 'customer'];
-        if (!excludeWords.some(word => potentialCompany.toLowerCase().includes(word)) && potentialCompany.length >= 2) {
+        // Exclude common non-company words and too generic terms
+        const excludeWords = ['the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'with', 'my', 'our', 'this', 'that'];
+        const genericTerms = ['business', 'company', 'work', 'job', 'place', 'here', 'there', 'customer', 'client'];
+        
+        if (potentialCompany.length >= 2 && 
+            !excludeWords.some(word => potentialCompany.toLowerCase() === word) &&
+            !genericTerms.some(term => potentialCompany.toLowerCase() === term)) {
           extracted.company_name = potentialCompany;
           break;
         }
@@ -280,20 +313,22 @@ const Chatbot = () => {
     
     let response = generateResponse(inputValue);
     
-    // Add acknowledgment if contact info was captured
+    // Add natural acknowledgment if contact info was captured
     if (wasContactExtracted) {
       let acknowledgment = "";
       if (extractedContact.name && extractedContact.email) {
         acknowledgment = `Perfect, ${extractedContact.name.split(' ')[0]}! I have your email as ${extractedContact.email}. `;
+        setConversationStage('closing');
       } else if (extractedContact.name) {
         acknowledgment = `Great to meet you, ${extractedContact.name.split(' ')[0]}! `;
       } else if (extractedContact.email) {
         acknowledgment = `Thanks! I've got your email as ${extractedContact.email}. `;
+        setConversationStage('closing');
       } else if (extractedContact.company_name) {
         acknowledgment = `Thanks for sharing that you're with ${extractedContact.company_name}. `;
       }
       
-      if (acknowledgment) {
+      if (acknowledgment && !response.toLowerCase().includes('that\'s really interesting')) {
         response = acknowledgment + response;
       }
     }
