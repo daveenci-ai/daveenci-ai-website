@@ -30,7 +30,7 @@ class GeminiService {
         model: this.model,
         generationConfig: {
           temperature: options.temperature || 0.7,
-          maxOutputTokens: options.maxTokens || 500,
+          maxOutputTokens: options.maxTokens || 1000,
           topP: 0.8,
           topK: 40,
         },
@@ -40,7 +40,7 @@ class GeminiService {
         model: this.model,
         promptLength: prompt.length,
         temperature: options.temperature || 0.7,
-        maxTokens: options.maxTokens || 500
+        maxTokens: options.maxTokens || 1000
       });
 
       const startTime = Date.now();

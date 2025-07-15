@@ -44,14 +44,14 @@ router.post('/llm-response', async (req, res) => {
       stage: context?.stage,
       model: context?.model || 'gemini-2.5-pro',
       temperature: context?.temperature || 0.7,
-      maxTokens: context?.maxTokens || 500
+      maxTokens: context?.maxTokens || 1000
     });
 
     try {
       // Call actual Gemini 2.5 Pro API
       const geminiResponse = await geminiService.generateResponse(prompt, {
         temperature: context?.temperature || 0.7,
-        maxTokens: context?.maxTokens || 500
+        maxTokens: context?.maxTokens || 1000
       });
 
       console.log('✅ Gemini 2.5 Pro response generated successfully');
