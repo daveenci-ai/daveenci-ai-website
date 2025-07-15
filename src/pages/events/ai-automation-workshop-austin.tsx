@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, BookOpen, TrendingUp, Zap } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
-import { getApiUrl } from '@/config/api';
+import { apiConfig } from '@/config/api';
 
 const AIAutomationWorkshopAustin = () => {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ const AIAutomationWorkshopAustin = () => {
     setSubmitMessage('');
 
     try {
-      const response = await fetch(getApiUrl('/api/workshop/register'), {
+      const response = await fetch(`${apiConfig.baseUrl}/api/workshop/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

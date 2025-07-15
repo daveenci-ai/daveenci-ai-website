@@ -8,12 +8,11 @@ import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { API_CONFIG } from '@/config/api';
+import { apiConfig } from '@/config/api';
 
 // API base URL
 const getApiUrl = () => {
-  const environment = import.meta.env.PROD ? 'production' : 'development';
-  return API_CONFIG[environment].baseUrl;
+  return apiConfig.baseUrl;
 };
 
 // Types

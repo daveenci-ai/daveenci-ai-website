@@ -7,12 +7,11 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Calendar, Clock, Eye, Tag, Share2, Twitter, Facebook, Linkedin } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { API_CONFIG } from '@/config/api';
+import { apiConfig } from '@/config/api';
 
 // API base URL
 const getApiUrl = () => {
-  const environment = import.meta.env.PROD ? 'production' : 'development';
-  return API_CONFIG[environment].baseUrl;
+  return apiConfig.baseUrl;
 };
 
 // Types
