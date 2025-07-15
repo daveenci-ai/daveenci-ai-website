@@ -86,13 +86,52 @@ const Chatbot = () => {
     }, 1000 + Math.random() * 1000); // Simulate typing delay
   };
 
-  const analyzeUserMessage = (message: string): {
+  const detectUserIntent = (message: string): {
+    intent: 'greeting' | 'question' | 'clarification' | 'interest' | 'negative' | 'contact_info' | 'business_info' | 'general';
     services: string[];
     painPoints: string[];
     containsContact: boolean;
     qualification: 'Hot' | 'Warm' | 'Cold';
   } => {
-    const lowerMessage = message.toLowerCase();
+    const lowerMessage = message.toLowerCase().trim();
+    
+    // Intent detection patterns
+    const greetingPatterns = ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening'];
+    const questionPatterns = ['what', 'how', 'where', 'when', 'why', 'can you', 'do you', 'tell me', '?'];
+    const clarificationPatterns = ['what do you mean', 'i don\'t understand', 'what?', 'huh?', 'clarify', 'explain', 'sharing what', 'what are you talking about'];
+    const interestPatterns = ['interested', 'sounds good', 'tell me more', 'yes', 'sure', 'okay', 'ok', 'i want'];
+    const negativePatterns = ['no', 'not interested', 'don\'t want', 'stop', 'leave me alone', 'no thanks'];
+    
+    let intent: 'greeting' | 'question' | 'clarification' | 'interest' | 'negative' | 'contact_info' | 'business_info' | 'general' = 'general';
+    
+    // Check for greetings first (simple messages)
+    if (lowerMessage.length < 20 && greetingPatterns.some(pattern => lowerMessage.includes(pattern))) {
+      intent = 'greeting';
+    }
+    // Check for clarification requests
+    else if (clarificationPatterns.some(pattern => lowerMessage.includes(pattern))) {
+      intent = 'clarification';
+    }
+    // Check for questions
+    else if (questionPatterns.some(pattern => lowerMessage.includes(pattern))) {
+      intent = 'question';
+    }
+    // Check for interest signals
+    else if (interestPatterns.some(pattern => lowerMessage.includes(pattern))) {
+      intent = 'interest';
+    }
+    // Check for negative responses
+    else if (negativePatterns.some(pattern => lowerMessage.includes(pattern))) {
+      intent = 'negative';
+    }
+    // Check if providing contact info
+    else if (extractContactInfo(lowerMessage).email || extractContactInfo(lowerMessage).name || extractContactInfo(lowerMessage).company_name) {
+      intent = 'contact_info';
+    }
+    // Check if providing business info
+    else if (lowerMessage.includes('company') || lowerMessage.includes('business') || lowerMessage.includes('industry') || lowerMessage.includes('work')) {
+      intent = 'business_info';
+    }
     
     const serviceKeywords = {
       'AI Automation': ['ai', 'automation', 'automate', 'artificial intelligence', 'machine learning', 'ml'],
@@ -139,23 +178,22 @@ const Chatbot = () => {
       qualification = 'Warm';
     }
 
-    return { services, painPoints, containsContact, qualification };
+    return { intent, services, painPoints, containsContact, qualification };
   };
 
   const generateResponse = (userMessage: string): string => {
-    const analysis = analyzeUserMessage(userMessage);
+    const analysis = detectUserIntent(userMessage);
     const lowerMessage = userMessage.toLowerCase();
 
     // FIRST: Handle expected responses based on conversation context
     if (expectingResponse) {
       // Handle negative responses
-      if (lowerMessage.includes('no') || lowerMessage.includes('not interested') || lowerMessage.includes('don\'t want')) {
+      if (analysis.intent === 'negative') {
         setExpectingResponse(null);
         return "No problem at all! Feel free to browse our website or ask me any questions about our services. I'm here to help whenever you're ready.";
       }
 
       if (expectingResponse === 'name' && !contactInfo.name) {
-        // We asked for name, check if they provided one
         const extractedName = extractContactInfo(userMessage).name;
         if (extractedName || (userMessage.trim().split(' ').length <= 3 && userMessage.trim().length > 1)) {
           setExpectingResponse('email');
@@ -168,19 +206,17 @@ const Chatbot = () => {
       }
       
       if (expectingResponse === 'email' && !contactInfo.email) {
-        // We asked for email, check if they provided one
         const extractedEmail = extractContactInfo(userMessage).email;
         if (extractedEmail) {
           setExpectingResponse('company');
           setContactInfo(prev => ({ ...prev, email: extractedEmail }));
           return `Perfect! I've got your email as ${extractedEmail}. And what company are you with so I can send you the most relevant case studies for your industry?`;
-        } else if (lowerMessage.includes('@') || lowerMessage.includes('email')) {
+        } else {
           return "I didn't catch that email address. Could you please share your email again?";
         }
       }
       
       if (expectingResponse === 'company' && !contactInfo.company_name) {
-        // We asked for company, treat most responses as company name
         const extractedCompany = extractContactInfo(userMessage).company_name || userMessage.trim();
         if (extractedCompany && extractedCompany.length > 1) {
           setExpectingResponse(null);
@@ -192,100 +228,137 @@ const Chatbot = () => {
       }
     }
 
-    // Update tracked data for ongoing analysis
-    analysis.services.forEach(service => setServicesDiscussed(prev => new Set([...prev, service])));
-    analysis.painPoints.forEach(painPoint => setPainPoints(prev => new Set([...prev, painPoint])));
-
-    // Handle responses that indicate interest or agreement
-    if (lowerMessage.includes('interested') || lowerMessage.includes('sounds good') || 
-        lowerMessage.includes('yes') || lowerMessage.includes('sure') || 
-        lowerMessage.includes('okay') || lowerMessage.includes('ok')) {
-      if (!callToActionOffered && conversationStage !== 'contact_collection') {
-        setCallToActionOffered(true);
-        setConversationStage('contact_collection');
-        setExpectingResponse('name');
-        const response = "Excellent! I'm excited to help you explore how we can transform your business with AI and automation. To get you connected with the right specialist and send you some relevant case studies, what's your name?";
-        setLastQuestion(response);
-        return response;
-      } else if (conversationStage === 'contact_collection') {
-        return "Perfect! I'll make sure our team reaches out to you soon with exactly what you need.";
-      }
+    // Handle different user intents with appropriate responses
+    switch (analysis.intent) {
+      case 'greeting':
+        setExpectingResponse('general');
+        setLastQuestion("How can I help you today?");
+        return "Hi there! Great to meet you. I'm here to help you discover how AI and automation can elevate your business. How can I help you today?";
+      
+      case 'clarification':
+        setExpectingResponse(null);
+        return "My apologies! I may have gotten ahead of myself. Let me clarify - I'm here to help you learn about our AI and automation solutions. What would you like to know about our services?";
+      
+      case 'question':
+        return handleQuestionIntent(userMessage, analysis);
+      
+      case 'interest':
+        return handleInterestIntent(analysis);
+      
+      case 'negative':
+        setExpectingResponse(null);
+        return "No problem at all! If you change your mind or have any questions about our services, I'm here to help.";
+      
+      case 'contact_info':
+        return handleContactInfo(userMessage);
+      
+      case 'business_info':
+        return handleBusinessInfo(userMessage);
+      
+      default:
+        return handleGeneralIntent(userMessage, analysis);
     }
+  };
 
-    // Founder-specific responses (but only if not expecting contact info)
-    if (!expectingResponse && (lowerMessage.includes('anton osipov') || 
-        (lowerMessage.includes('anton') && (lowerMessage.includes('founder') || lowerMessage.includes('ceo'))))) {
-      setCallToActionOffered(true);
-      return "Anton Osipov is our Co-Founder and CEO, a brilliant data scientist with over a decade of experience in Silicon Valley with tech giants like Google and Apple. He brings deep expertise in digital marketing trends and analytics. Would you like to schedule a call to speak with Anton directly about your business needs?";
+  const handleQuestionIntent = (userMessage: string, analysis: any): string => {
+    const lowerMessage = userMessage.toLowerCase();
+    
+    // Case studies question - provide value first!
+    if (lowerMessage.includes('case stud') || lowerMessage.includes('examples') || lowerMessage.includes('results')) {
+      return provideValueWithCaseStudies();
     }
-
-    if (!expectingResponse && (lowerMessage.includes('astrid') && (lowerMessage.includes('founder') || lowerMessage.includes('coo')))) {
-      setCallToActionOffered(true);
-      return "Astrid Abrahamyan is our Co-Founder and COO, who focuses on creative solutions and relationship-building. She ensures that every solution we build aligns perfectly with your business goals and team dynamics. Would you like to discuss how we can tailor our approach to your specific business?";
-    }
-
-    // Service-specific responses
-    if (analysis.services.includes('AI Automation')) {
-      if (conversationStage === 'greeting') setConversationStage('qualifying');
-      setLastQuestion("What specific processes in your business are taking up too much of your time right now?");
-      return "AI automation is one of our specialties! We transform businesses by creating intelligent solutions that operate 24/7. This includes predictive analytics, automated customer segmentation, and intelligent lead scoring. These solutions typically reduce manual work by 60-80% while improving accuracy. What specific processes in your business are taking up too much of your time right now?";
-    }
-
-    if (analysis.services.includes('Digital Marketing')) {
-      if (conversationStage === 'greeting') setConversationStage('qualifying');
-      setLastQuestion("What's your biggest challenge with your current marketing efforts?");
-      return "Our digital marketing approach is completely data-driven, leveraging Anton's decade of experience with companies like Google and Apple. We create AI-powered marketing systems that automatically optimize campaigns and personalize customer journeys. Most clients see a 200-400% improvement in campaign performance. What's your biggest challenge with your current marketing efforts?";
-    }
-
-    // Handle pricing questions
+    
+    // Pricing questions
     if (lowerMessage.includes('cost') || lowerMessage.includes('price') || lowerMessage.includes('expensive') || lowerMessage.includes('budget')) {
-      setCallToActionOffered(true);
       return "Great question! Our solutions typically provide 300-500% ROI - most clients save $50,000+ annually while dramatically improving efficiency. Pricing depends on your specific needs and scale. I'd love to have one of our specialists give you a personalized quote. Would you like to schedule a brief call to discuss your specific situation?";
     }
+    
+    // Founder questions
+    if (lowerMessage.includes('anton osipov') || (lowerMessage.includes('anton') && (lowerMessage.includes('founder') || lowerMessage.includes('ceo')))) {
+      return "Anton Osipov is our Co-Founder and CEO, a brilliant data scientist with over a decade of experience in Silicon Valley with tech giants like Google and Apple. He brings deep expertise in digital marketing trends and analytics. Would you like to schedule a call to speak with Anton directly about your business needs?";
+    }
+    
+    if (lowerMessage.includes('astrid') && (lowerMessage.includes('founder') || lowerMessage.includes('coo'))) {
+      return "Astrid Abrahamyan is our Co-Founder and COO, who focuses on creative solutions and relationship-building. She ensures that every solution we build aligns perfectly with your business goals and team dynamics. Would you like to discuss how we can tailor our approach to your specific business?";
+    }
+    
+    // Service-specific questions
+    if (analysis.services.includes('AI Automation')) {
+      return "AI automation is one of our specialties! We transform businesses by creating intelligent solutions that operate 24/7. This includes predictive analytics, automated customer segmentation, and intelligent lead scoring. These solutions typically reduce manual work by 60-80% while improving accuracy. What specific processes in your business are taking up too much of your time?";
+    }
+    
+    if (analysis.services.includes('Digital Marketing')) {
+      return "Our digital marketing approach is completely data-driven, leveraging Anton's decade of experience with companies like Google and Apple. We create AI-powered marketing systems that automatically optimize campaigns and personalize customer journeys. Most clients see a 200-400% improvement in campaign performance. What's your biggest challenge with your current marketing efforts?";
+    }
+    
+    // Default helpful response for questions
+    return "I'd be happy to help answer that! Could you be a bit more specific about what you'd like to know? I can tell you about our services, share case studies, or discuss how we might help your specific business.";
+  };
 
+  const provideValueWithCaseStudies = (): string => {
+    return "Absolutely! Here are some real results from our clients:\n\n📈 **FashionForward** (Retail): We automated their inventory management with AI, reducing stock errors by 30% and saving 25 hours/week.\n\n🚀 **TechStartup** (SaaS): Our marketing automation increased their lead conversion by 400% and reduced customer acquisition cost by 60%.\n\n💼 **ConsultingPro** (Services): We built custom workflow automation that freed up 40 hours/week of manual work.\n\nWhich industry are you in? I can share more specific examples that match your business!";
+  };
+
+  const handleInterestIntent = (analysis: any): string => {
+    if (!callToActionOffered && conversationStage !== 'contact_collection') {
+      setCallToActionOffered(true);
+      setConversationStage('contact_collection');
+      setExpectingResponse('name');
+      const response = "Excellent! I'm excited to help you explore how we can transform your business with AI and automation. To get you connected with the right specialist and send you some relevant case studies, what's your name?";
+      setLastQuestion(response);
+      return response;
+    } else if (conversationStage === 'contact_collection') {
+      return "Perfect! I'll make sure our team reaches out to you soon with exactly what you need.";
+    }
+    return "That's great to hear! What specifically interests you most about our solutions?";
+  };
+
+  const handleContactInfo = (userMessage: string): string => {
+    const extractedContact = extractContactInfo(userMessage);
+    setContactInfo(prev => ({ ...prev, ...extractedContact }));
+    
+    if (extractedContact.name && extractedContact.email) {
+      setConversationStage('closing');
+      return `Perfect, ${extractedContact.name.split(' ')[0]}! I have your email as ${extractedContact.email}. I'll send you those case studies right away and our team will reach out to discuss how we can help your business!`;
+    } else if (extractedContact.email) {
+      return `Thanks! I've got your email as ${extractedContact.email}. What's your name so I can personalize the information I send you?`;
+    } else if (extractedContact.name) {
+      return `Great to meet you, ${extractedContact.name.split(' ')[0]}! What's the best email to send you some relevant case studies?`;
+    }
+    
+    return "Thanks for sharing that information! What else can I help you with?";
+  };
+
+  const handleBusinessInfo = (userMessage: string): string => {
+    return "That's helpful context! Based on your business, I can recommend specific solutions that would be most valuable. What are your biggest operational challenges right now?";
+  };
+
+  const handleGeneralIntent = (userMessage: string, analysis: any): string => {
+    // Update tracked data
+    analysis.services.forEach((service: string) => setServicesDiscussed(prev => new Set([...prev, service])));
+    analysis.painPoints.forEach((painPoint: string) => setPainPoints(prev => new Set([...prev, painPoint])));
+    
     // Pain point responses
     if (analysis.painPoints.includes('Manual processes')) {
-      setCallToActionOffered(true);
-      setConversationStage('service_discussion');
-      return "Manual processes are exactly what we solve! Our AI-powered automation systems handle everything from data entry to complex business workflows. Most clients free up 30-40 hours per week. I'd love to show you specific examples of automations we've built. Do you have 15 minutes next week for a quick demo call?";
+      return "Manual processes are exactly what we solve! Our AI-powered automation systems handle everything from data entry to complex business workflows. Most clients free up 30-40 hours per week. I'd love to show you specific examples - would you like to see some case studies?";
     }
-
+    
     // Conversation flow based on stage
     if (conversationStage === 'greeting') {
       setConversationStage('qualifying');
-      setLastQuestion("What are some of the biggest challenges you're currently facing in your business?");
-      return "Thanks for sharing that! To better understand how we can help you, I'd love to know: What are some of the biggest challenges you're currently facing in your business? Are there any repetitive tasks that are taking up too much of your team's time?";
+      setLastQuestion("What are your biggest business challenges?");
+      return "Thanks for sharing that! To better understand how we can help you, what are your biggest business challenges right now? Are there any repetitive tasks taking up too much of your team's time?";
     }
-
-    if (conversationStage === 'qualifying' && messages.length > 3) {
-      setConversationStage('service_discussion');
-      if (analysis.qualification === 'Hot' || servicesDiscussed.size > 0 || painPoints.size > 0) {
-        setCallToActionOffered(true);
-        return "Based on what you've shared, our AI-powered solutions could be a great fit for your business! We've helped companies in similar situations achieve remarkable results. I can schedule a no-obligation strategy call to explore this further and show you exactly how we'd approach your challenges. Do you have some time available next week?";
-      } else {
-        setLastQuestion("What type of business you run?");
-        return "I understand your situation. To give you the most relevant recommendations, could you tell me a bit more about what type of business you run?";
-      }
-    }
-
-    // Natural contact collection trigger
-    if (conversationStage === 'service_discussion' && messages.length > 5 && !contactInfo.email && !expectingResponse) {
-      setConversationStage('contact_collection');
-      setExpectingResponse('name');
-      const response = "I can see this conversation is really valuable! I'd love to send you some specific case studies and resources that would be perfect for your situation. What's your name?";
-      setLastQuestion(response);
-      return response;
-    }
-
-    // Default engaging responses
+    
+    // Engaging follow-up responses
     const responses = [
-      "That's really interesting! Tell me more about that.",
-      "I can see how that would be important for your business. What's been your biggest challenge with that?",
-      "That makes sense. How are you currently handling that process?",
-      "Great point! What would an ideal solution look like for you?",
-      "I understand. What prompted you to start looking for a solution now?",
+      "That's interesting! Tell me more about your situation.",
+      "I can see how that would impact your business. What approaches have you tried so far?",
+      "That makes sense. How are you currently handling that?",
+      "Good point! What would an ideal solution look like for you?",
+      "I understand. What's driving you to look for solutions now?"
     ];
-
+    
     return responses[Math.floor(Math.random() * responses.length)];
   };
 
@@ -392,7 +465,7 @@ const Chatbot = () => {
 
   const generateSummary = (): ChatSummary => {
     const userMessages = messages.filter(m => m.sender === 'user').map(m => m.content).join(' ');
-    const analysis = analyzeUserMessage(userMessages);
+    const analysis = detectUserIntent(userMessages);
     
     return {
       interaction_date: new Date().toISOString().split('T')[0],
@@ -428,26 +501,11 @@ const Chatbot = () => {
         if (response.ok) {
           const result = await response.json();
           console.log('✅ Chat summary stored successfully:', result);
-          
-          toast({
-            title: "Thanks for chatting!",
-            description: "Our team will review your conversation and get back to you soon.",
-          });
         } else {
           console.error('❌ Failed to store chat summary:', response.statusText);
-          
-          toast({
-            title: "Chat logged locally",
-            description: "We've saved your conversation details for follow-up.",
-          });
         }
       } catch (error) {
         console.error('❌ Error storing chat summary:', error);
-        
-        toast({
-          title: "Chat logged locally",
-          description: "We've saved your conversation details for follow-up.",
-        });
       }
     }
     setIsOpen(false);
