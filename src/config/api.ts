@@ -2,7 +2,7 @@
 // Centralized configuration for all API endpoints and external services
 
 const API_BASE_URL = import.meta.env.PROD 
-  ? 'https://daveenci-ai-frontend.onrender.com' 
+  ? 'https://daveenci-ai-backend.onrender.com' 
   : 'http://localhost:3001';
 
 export const apiConfig = {

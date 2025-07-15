@@ -396,11 +396,15 @@ router.get('/featured', blogLimiter, async (req, res) => {
 router.get('/tags', blogLimiter, async (req, res) => {
   try {
     const result = await query(`
-      SELECT DISTINCT unnest(string_to_array(tags, ',')) as tag, COUNT(*) as count
-      FROM blog_posts 
-      WHERE status = 'published' AND tags IS NOT NULL AND tags != ''
+      WITH unnested_tags AS (
+        SELECT trim(unnest(string_to_array(tags, ','))) as tag
+        FROM blog_posts 
+        WHERE status = 'published' AND tags IS NOT NULL AND tags != ''
+      )
+      SELECT tag, COUNT(*) as count
+      FROM unnested_tags
+      WHERE tag != '' AND tag IS NOT NULL
       GROUP BY tag
-      HAVING trim(unnest(string_to_array(tags, ','))) != ''
       ORDER BY count DESC, tag ASC
     `);
 
