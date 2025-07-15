@@ -153,7 +153,7 @@ export function useChatLogic() {
 
       llmService.resetSession();
     }
-  }, [state.messages.length, state.contactInfo]);
+  }, []);  // Remove dependencies that cause infinite loop
 
   // Save user name to localStorage when captured
   useEffect(() => {

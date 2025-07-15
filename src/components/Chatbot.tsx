@@ -3,7 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { MessageCircle, X, Send, Bot, User, Calendar } from 'lucide-react';
-import { useChatLogic, type Message } from '@/hooks/useChatLogic';
+import { useChatLogic } from '@/hooks/useChatLogic';
+import type { Message } from '@/types';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +34,7 @@ const Chatbot = () => {
     if (isOpen && messages.length === 0) {
       initializeChat();
     }
-  }, [isOpen, messages.length, initializeChat]);
+  }, [isOpen, initializeChat]); // Remove messages.length dependency to prevent infinite loop
 
   const onSendMessage = async () => {
     if (!inputValue.trim()) return;

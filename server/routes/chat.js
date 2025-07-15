@@ -372,12 +372,31 @@ router.get('/summaries', authenticateToken, async (req, res) => {
     const countResult = await query(countQuery, values.slice(0, -2)); // Remove limit and offset params
     const totalCount = parseInt(countResult.rows[0].count);
 
-    // Parse JSON fields
-    const summaries = result.rows.map(row => ({
-      ...row,
-      services_discussed: JSON.parse(row.services_discussed || '[]'),
-      key_pain_points: JSON.parse(row.key_pain_points || '[]')
-    }));
+    // Parse JSON fields with error handling
+    const summaries = result.rows.map(row => {
+      let services_discussed = [];
+      let key_pain_points = [];
+      
+      try {
+        services_discussed = JSON.parse(row.services_discussed || '[]');
+      } catch (e) {
+        // Handle plain text or invalid JSON - convert to array
+        services_discussed = row.services_discussed ? [row.services_discussed] : [];
+      }
+      
+      try {
+        key_pain_points = JSON.parse(row.key_pain_points || '[]');
+      } catch (e) {
+        // Handle plain text or invalid JSON - convert to array
+        key_pain_points = row.key_pain_points ? [row.key_pain_points] : [];
+      }
+      
+      return {
+        ...row,
+        services_discussed,
+        key_pain_points
+      };
+    });
 
     res.json({
       summaries,
