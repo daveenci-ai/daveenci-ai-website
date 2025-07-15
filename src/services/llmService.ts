@@ -79,42 +79,27 @@ class LLMService {
    * Build context-aware prompt for LLM
    */
   private buildPrompt(userMessage: string, context: LLMContext): string {
-    const { userInfo, conversationStage, servicesDiscussed, painPoints } = context;
-    const recentMessages = context.conversationHistory.slice(-6);
+    const { userInfo, conversationStage, servicesDiscussed } = context;
+    const recentMessages = context.conversationHistory.slice(-3); // Shorter history
 
-    return `You are Dave, an AI assistant for DaVeenci, a company that specializes in AI automation, digital marketing, and custom software solutions.
+    // Build a simple, natural prompt that's less likely to trigger content filtering
+    const basePrompt = `You are Dave from DaVeenci. We help businesses with AI automation, digital marketing, and custom software development.`;
+    
+    const userContext = userInfo.name ? `The user's name is ${userInfo.name}.` : '';
+    
+    const conversationContext = recentMessages.length > 0 
+      ? `Recent conversation:\n${recentMessages.map(msg => `${msg.role === 'user' ? 'User' : 'Dave'}: ${msg.content}`).join('\n')}\n`
+      : '';
+    
+    const currentMessage = `User: ${userMessage}`;
+    
+    const instruction = `Please respond as Dave in a helpful, professional way. Keep it conversational and under 100 words.`;
 
-COMPANY CONTEXT:
-- Founded by ${companyInfo.founders.anton.name} (${companyInfo.founders.anton.title}) and ${companyInfo.founders.astrid.name} (${companyInfo.founders.astrid.title})
-- Services: AI Automation (chatbots, workflow automation), Digital Marketing (data-driven campaigns), Custom Software Development, Systems Integration
-- Tone: Professional but conversational, helpful, solution-focused, direct when answering questions
+    return `${basePrompt} ${userContext}
 
-USER CONTEXT:
-${userInfo.name ? `- Name: ${userInfo.name}` : '- Name: Not provided'}
-${userInfo.email ? `- Email: ${userInfo.email}` : '- Email: Not provided'}
-${userInfo.company ? `- Company: ${userInfo.company}` : '- Company: Not provided'}
-${userInfo.previousVisits ? `- Previous visits: ${userInfo.previousVisits}` : '- First time visitor'}
+${conversationContext}${currentMessage}
 
-CONVERSATION CONTEXT:
-- Stage: ${conversationStage}
-- Services discussed: ${servicesDiscussed.join(', ') || 'None yet'}
-- Pain points identified: ${painPoints.join(', ') || 'None yet'}
-
-RECENT CONVERSATION:
-${recentMessages.map(msg => `${msg.role}: ${msg.content}`).join('\n')}
-
-USER'S CURRENT MESSAGE: "${userMessage}"
-
-INSTRUCTIONS:
-1. Always respond naturally and conversationally as Dave - NEVER deflect with questions when they ask what you do
-2. When asked "what do you do", provide a clear, specific answer about DaVeenci's services with concrete examples
-3. Keep responses under 150 words but be informative and direct
-4. If collecting contact info, be natural and explain why you need it
-5. Focus on business value and real results (most clients save 20-40 hours/week, 300-500% ROI)
-6. Guide toward scheduling a consultation when there's genuine interest
-7. Be personable but professional, and always acknowledge what the user said
-
-Generate a helpful, direct response that answers their question:`;
+${instruction}`;
   }
 
   /**
