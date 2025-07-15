@@ -10,6 +10,7 @@ import Services from "./pages/Services";
 import CaseStudies from "./pages/CaseStudies";
 import AboutUs from "./pages/AboutUs";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import AISolutions from "./pages/services/AISolutions";
 import MarketingAutomation from "./pages/services/MarketingAutomation";
 import CustomSoftware from "./pages/services/CustomSoftware";
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/events/ai-automation-workshop-austin" element={<AIAutomationWorkshopAustin />} />
           <Route path="/events/thank-you-event" element={<ThankYouEvent />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

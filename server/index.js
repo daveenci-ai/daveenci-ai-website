@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 import { workshopRoutes } from './routes/workshop.js';
+import { blogRoutes } from './routes/blog.js';
 import { initializeDatabase } from './config/init-db.js';
 import { closePool } from './config/database.js';
 
@@ -66,6 +67,7 @@ app.get('/health', (req, res) => {
 
 // API Routes
 app.use('/api/workshop', workshopRoutes);
+app.use('/api/blog', blogRoutes);
 // Future routes can be added here:
 // app.use('/api/auth', authRoutes);
 // app.use('/api/admin', adminRoutes);
@@ -83,7 +85,13 @@ app.get('/', (req, res) => {
     endpoints: [
       '/health',
       '/api/workshop/register',
-      '/api/workshop/info'
+      '/api/workshop/info',
+      '/api/blog/posts',
+      '/api/blog/posts/:slug',
+      '/api/blog/posts/bulk',
+      '/api/blog/tags',
+      '/api/blog/featured',
+      '/api/blog/sitemap'
     ]
   });
 });

@@ -37,6 +37,31 @@ const initializeTables = async () => {
       )
     `);
 
+    // Simplified Blog Posts table
+    await query(`
+      CREATE TABLE IF NOT EXISTS blog_posts (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(500) NOT NULL,
+        slug VARCHAR(500) NOT NULL UNIQUE,
+        content TEXT NOT NULL,
+        excerpt TEXT,
+        tags TEXT, -- Simple comma-separated tags
+        meta_description VARCHAR(160),
+        meta_keywords TEXT,
+        seo_score DECIMAL(3,2) DEFAULT 0.0,
+        featured_image_url TEXT,
+        status VARCHAR(20) DEFAULT 'published',
+        is_featured BOOLEAN DEFAULT false,
+        view_count INT DEFAULT 0,
+        read_time_minutes INT,
+        published_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        created_by_llm BOOLEAN DEFAULT true,
+        llm_prompt TEXT
+      )
+    `);
+
     // Add new columns to existing tables if they don't exist
     try {
       await query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS event_address TEXT`);
@@ -75,7 +100,7 @@ const initializeTables = async () => {
       console.log('Unique constraint for participants might already exist');
     }
 
-    // Create indexes for better performance
+    // Create indexes for better performance - Events
     await query(`
       CREATE INDEX IF NOT EXISTS idx_events_date ON events(event_date);
     `);
@@ -94,6 +119,35 @@ const initializeTables = async () => {
 
     await query(`
       CREATE INDEX IF NOT EXISTS idx_participants_email ON event_participants(email);
+    `);
+
+    // Create indexes for better performance - Blog
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_blog_posts_slug ON blog_posts(slug);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_blog_posts_status ON blog_posts(status);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_blog_posts_published_at ON blog_posts(published_at);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_blog_posts_featured ON blog_posts(is_featured);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_blog_posts_created_by_llm ON blog_posts(created_by_llm);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_blog_posts_tags ON blog_posts USING gin(to_tsvector('english', tags));
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_blog_posts_search ON blog_posts USING gin(to_tsvector('english', title || ' ' || content));
     `);
 
     console.log('✅ Database tables initialized successfully');
