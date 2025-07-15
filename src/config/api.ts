@@ -27,7 +27,7 @@ export const apiConfig = {
 
 export const llmConfig = {
   provider: 'gemini', // or 'openai', 'anthropic'
-  maxTokens: 1000, // Increased to allow for thinking + response tokens
+  maxTokens: 2000, // Increased again - Gemini 2.5 Pro uses ~1000 tokens for thinking alone
   temperature: 0.7,
   model: 'gemini-2.5-pro', // Latest Gemini model with improved reasoning and performance
   fallbackToRules: true, // Fallback to rule-based responses if LLM fails
