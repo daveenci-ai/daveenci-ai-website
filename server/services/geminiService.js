@@ -50,6 +50,19 @@ class GeminiService {
       const responseTime = Date.now() - startTime;
 
       console.log('✅ Gemini response generated in', responseTime + 'ms');
+      console.log('📝 Response text length:', text.length);
+      console.log('📝 Response preview:', text.substring(0, 100) + (text.length > 100 ? '...' : ''));
+      
+      if (!text || text.trim() === '') {
+        console.warn('⚠️ Empty response from Gemini API');
+        console.log('🔍 Raw response object:', response);
+        console.log('🔍 Prompt that generated empty response:', prompt.substring(0, 200) + '...');
+      }
+
+      // Handle empty responses
+      if (!text || text.trim() === '') {
+        throw new Error('Gemini API returned empty response - possibly content filtered');
+      }
 
       // Calculate confidence based on response quality
       const confidence = this.calculateConfidence(text, prompt);

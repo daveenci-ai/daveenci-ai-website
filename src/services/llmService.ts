@@ -47,6 +47,15 @@ class LLMService {
         maxTokens: llmConfig.maxTokens
       });
 
+      // Check if we got an empty response and handle it
+      if (!llmResponse.response || llmResponse.response.trim() === '') {
+        console.warn('⚠️ Empty response from LLM, using fallback');
+        return this.createFallbackResponse(
+          fallbackResponse || fallbackResponses.default,
+          'Empty response from LLM service'
+        );
+      }
+
       return {
         content: llmResponse.response,
         confidence: llmResponse.confidence || 0.8,
