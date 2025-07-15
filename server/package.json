@@ -1,13 +1,20 @@
 {
   "name": "daveenci-server",
   "version": "1.0.0",
-  "description": "DaVeenci AI Forge Server - API and Backend Services",
+  "description": "DaVeenci AI Forge Server - API and Backend Services with Answer Engine Optimized Blog Automation",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "build": "echo 'No build step needed for server'"
+    "build": "echo 'No build step needed for server'",
+    "blog-morning": "node automation/blog-scheduler.js morning",
+    "blog-afternoon": "node automation/blog-scheduler.js afternoon",
+    "blog-evening": "node automation/blog-scheduler.js evening",
+    "blog-test": "node automation/blog-scheduler.js morning",
+    "setup-cron": "./automation/cron-setup.sh",
+    "blog-logs": "tail -f logs/automation.log",
+    "blog-status": "tail -20 logs/automation.log | grep -E '(success|failed)'"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -15,6 +22,7 @@
     "express": "^4.18.2",
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
+    "node-fetch": "^3.3.2",
     "nodemailer": "^6.9.7",
     "pg": "^8.16.3",
     "resend": "^4.6.0"
@@ -27,7 +35,10 @@
     "server",
     "workshop",
     "automation",
-    "ai"
+    "ai",
+    "blog",
+    "answer-engine-optimization",
+    "gemini"
   ],
   "engines": {
     "node": ">=18.0.0"

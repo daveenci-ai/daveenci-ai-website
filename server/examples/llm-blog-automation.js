@@ -65,7 +65,7 @@ async function createBulkPosts(posts) {
 
 // Example blog post data structure
 const examplePost = {
-  title: "5 AI Automation Trends That Will Transform Business in 2024",
+  title: "5 AI Automation Trends That Will Transform Business in 2025",
   content: `
     <h2>Introduction</h2>
     <p>Artificial Intelligence is rapidly transforming how businesses operate, automate processes, and engage with customers. As we progress through 2024, several key trends are emerging that will shape the future of business automation.</p>
