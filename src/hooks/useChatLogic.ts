@@ -173,7 +173,7 @@ export function useChatLogic() {
   }, []);
 
   const addBotMessage = useCallback((content: string) => {
-    dispatch({ type: 'SET_TYPING', payload: true });
+    // Typing indicator is already set in handleSendMessage, just add the message with delay
     setTimeout(() => {
       dispatch({ type: 'SET_TYPING', payload: false });
       addMessage(content, 'bot');
@@ -242,6 +242,9 @@ export function useChatLogic() {
     // Add user message
     addMessage(inputValue, 'user');
     dispatch({ type: 'ADD_TO_HISTORY', payload: { role: 'user', content: inputValue } });
+    
+    // Show typing indicator immediately
+    dispatch({ type: 'SET_TYPING', payload: true });
     
     // Extract contact info if present
     const extractedContact = extractContactInfo(inputValue);
