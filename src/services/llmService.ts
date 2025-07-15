@@ -1,0 +1,244 @@
+// LLM Service for AI-Powered Chatbot Responses
+// Handles dynamic response generation with fallback to rule-based system
+
+import { apiClient, llmConfig } from '@/config/api';
+import { companyInfo, responses } from '@/config/chatbot.config';
+
+export interface LLMContext {
+  conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }>;
+  userInfo: {
+    name?: string;
+    email?: string;
+    company?: string;
+    previousVisits?: number;
+  };
+  conversationStage: string;
+  servicesDiscussed: string[];
+  painPoints: string[];
+  sessionId: string;
+  timestamp: Date;
+}
+
+export interface LLMResponse {
+  content: string;
+  confidence: number;
+  fallbackUsed: boolean;
+  reasoning?: string;
+  suggestedActions?: string[];
+}
+
+class LLMService {
+  private rateLimitCache: Map<string, number[]> = new Map();
+  private fallbackCount = 0;
+  private maxFallbacksPerSession = 3;
+
+  constructor() {
+    // Initialize with rate limiting
+    this.cleanupRateLimit();
+  }
+
+  /**
+   * Generate AI-powered response based on user message and context
+   */
+  async generateResponse(
+    userMessage: string, 
+    context: LLMContext,
+    fallbackResponse?: string
+  ): Promise<LLMResponse> {
+    try {
+      // Check rate limits
+      if (!this.checkRateLimit(context.sessionId)) {
+        console.warn('🚫 Rate limit exceeded, using fallback');
+        return this.createFallbackResponse(fallbackResponse || responses.defaultQuestion);
+      }
+
+      // Check if we should use LLM (avoid overuse)
+      if (this.fallbackCount >= this.maxFallbacksPerSession) {
+        console.warn('🚫 Max LLM calls reached for session, using fallback');
+        return this.createFallbackResponse(fallbackResponse || responses.defaultQuestion);
+      }
+
+      const prompt = this.buildPrompt(userMessage, context);
+      console.log('🤖 Generating LLM response for:', userMessage.substring(0, 50) + '...');
+
+      const llmResponse = await apiClient.chat.generateResponse(prompt, {
+        sessionId: context.sessionId,
+        stage: context.conversationStage,
+        userInfo: context.userInfo,
+        model: llmConfig.model,
+        temperature: llmConfig.temperature,
+        maxTokens: llmConfig.maxTokens
+      });
+
+      return {
+        content: llmResponse.response,
+        confidence: llmResponse.confidence || 0.8,
+        fallbackUsed: false,
+        reasoning: llmResponse.reasoning,
+        suggestedActions: llmResponse.suggestedActions
+      };
+
+    } catch (error) {
+      console.error('❌ LLM generation failed:', error);
+      this.fallbackCount++;
+      
+      return this.createFallbackResponse(
+        fallbackResponse || responses.defaultQuestion,
+        `LLM Error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
+    }
+  }
+
+  /**
+   * Build context-aware prompt for LLM
+   */
+  private buildPrompt(userMessage: string, context: LLMContext): string {
+    const { userInfo, conversationStage, servicesDiscussed, painPoints } = context;
+    const recentMessages = context.conversationHistory.slice(-6); // Last 3 exchanges
+
+    return `You are Dave, an AI assistant for DaVeenci, a company that specializes in AI automation, digital marketing, and custom software solutions.
+
+COMPANY CONTEXT:
+- Founded by ${companyInfo.founders.anton.name} (${companyInfo.founders.anton.title}) and ${companyInfo.founders.astrid.name} (${companyInfo.founders.astrid.title})
+- Services: AI Automation, Digital Marketing, Custom Software Development, Systems Integration
+- Tone: Professional but conversational, helpful, solution-focused
+
+USER CONTEXT:
+${userInfo.name ? `- Name: ${userInfo.name}` : '- Name: Not provided'}
+${userInfo.email ? `- Email: ${userInfo.email}` : '- Email: Not provided'}
+${userInfo.company ? `- Company: ${userInfo.company}` : '- Company: Not provided'}
+${userInfo.previousVisits ? `- Previous visits: ${userInfo.previousVisits}` : '- First time visitor'}
+
+CONVERSATION CONTEXT:
+- Stage: ${conversationStage}
+- Services discussed: ${servicesDiscussed.join(', ') || 'None yet'}
+- Pain points identified: ${painPoints.join(', ') || 'None yet'}
+
+RECENT CONVERSATION:
+${recentMessages.map(msg => `${msg.role}: ${msg.content}`).join('\n')}
+
+USER'S CURRENT MESSAGE: "${userMessage}"
+
+INSTRUCTIONS:
+1. Respond naturally and conversationally as Dave
+2. Keep responses under 150 words
+3. If collecting contact info, be specific about what you need and why
+4. Focus on pain points and business value
+5. Guide toward scheduling a consultation when appropriate
+6. If user shows interest, offer case studies or specific examples
+7. Be personable but professional
+
+Generate a helpful, contextual response:`;
+  }
+
+  /**
+   * Create fallback response when LLM fails
+   */
+  private createFallbackResponse(content: string, error?: string): LLMResponse {
+    return {
+      content,
+      confidence: 0.5,
+      fallbackUsed: true,
+      reasoning: error || 'Using rule-based fallback'
+    };
+  }
+
+  /**
+   * Check rate limiting for session
+   */
+  private checkRateLimit(sessionId: string): boolean {
+    const now = Date.now();
+    const windowMs = 60 * 1000; // 1 minute window
+    
+    if (!this.rateLimitCache.has(sessionId)) {
+      this.rateLimitCache.set(sessionId, []);
+    }
+    
+    const timestamps = this.rateLimitCache.get(sessionId)!;
+    
+    // Remove timestamps older than window
+    const recentTimestamps = timestamps.filter(ts => now - ts < windowMs);
+    
+    // Check if under limit
+    if (recentTimestamps.length < llmConfig.rateLimitPerMinute) {
+      recentTimestamps.push(now);
+      this.rateLimitCache.set(sessionId, recentTimestamps);
+      return true;
+    }
+    
+    return false;
+  }
+
+  /**
+   * Clean up old rate limit entries
+   */
+  private cleanupRateLimit(): void {
+    setInterval(() => {
+      const now = Date.now();
+      const windowMs = 60 * 1000;
+      
+      for (const [sessionId, timestamps] of this.rateLimitCache.entries()) {
+        const recentTimestamps = timestamps.filter(ts => now - ts < windowMs);
+        if (recentTimestamps.length === 0) {
+          this.rateLimitCache.delete(sessionId);
+        } else {
+          this.rateLimitCache.set(sessionId, recentTimestamps);
+        }
+      }
+    }, 60000); // Clean every minute
+  }
+
+  /**
+   * Store conversation context for future sessions
+   */
+  async storeConversationContext(context: LLMContext): Promise<void> {
+    try {
+      await apiClient.chat.storeContext(context.sessionId, {
+        userInfo: context.userInfo,
+        conversationStage: context.conversationStage,
+        servicesDiscussed: context.servicesDiscussed,
+        painPoints: context.painPoints,
+        lastInteraction: context.timestamp,
+        messageCount: context.conversationHistory.length
+      });
+    } catch (error) {
+      console.error('❌ Failed to store conversation context:', error);
+    }
+  }
+
+  /**
+   * Retrieve conversation context for returning users
+   */
+  async getConversationContext(sessionId: string): Promise<Partial<LLMContext> | null> {
+    try {
+      const context = await apiClient.chat.getContext(sessionId);
+      return context;
+    } catch (error) {
+      console.error('❌ Failed to retrieve conversation context:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Reset fallback counter for new session
+   */
+  resetSession(): void {
+    this.fallbackCount = 0;
+  }
+
+  /**
+   * Get service health metrics
+   */
+  getMetrics() {
+    return {
+      rateLimitCacheSize: this.rateLimitCache.size,
+      fallbackCount: this.fallbackCount,
+      maxFallbacks: this.maxFallbacksPerSession,
+      llmEnabled: llmConfig.fallbackToRules
+    };
+  }
+}
+
+// Export singleton instance
+export const llmService = new LLMService();
+export default llmService; 

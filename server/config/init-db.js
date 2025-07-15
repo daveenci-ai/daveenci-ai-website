@@ -81,6 +81,24 @@ const initializeTables = async () => {
       )
     `);
 
+    // Phase 2: Conversation Contexts table for LLM integration
+    await query(`
+      CREATE TABLE IF NOT EXISTS conversation_contexts (
+        id SERIAL PRIMARY KEY,
+        session_id VARCHAR(255) NOT NULL UNIQUE,
+        user_info JSONB DEFAULT '{}',
+        conversation_stage VARCHAR(50) DEFAULT 'greeting',
+        services_discussed JSONB DEFAULT '[]',
+        pain_points JSONB DEFAULT '[]',
+        last_interaction TIMESTAMP WITH TIME ZONE,
+        message_count INTEGER DEFAULT 0,
+        conversation_quality DECIMAL(3,2) DEFAULT 0.5,
+        user_sentiment VARCHAR(20) DEFAULT 'neutral',
+        created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+      )
+    `);
+
     // Add new columns to existing tables if they don't exist
     try {
       await query(`ALTER TABLE events ADD COLUMN IF NOT EXISTS event_address TEXT`);
@@ -188,6 +206,27 @@ const initializeTables = async () => {
 
     await query(`
       CREATE INDEX IF NOT EXISTS idx_chat_summaries_company ON chat_summaries(company_name);
+    `);
+
+    // Phase 2: Create indexes for Conversation Contexts
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_conversation_contexts_session ON conversation_contexts(session_id);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_conversation_contexts_stage ON conversation_contexts(conversation_stage);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_conversation_contexts_last_interaction ON conversation_contexts(last_interaction);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_conversation_contexts_updated ON conversation_contexts(updated_at);
+    `);
+
+    await query(`
+      CREATE INDEX IF NOT EXISTS idx_conversation_contexts_sentiment ON conversation_contexts(user_sentiment);
     `);
 
     console.log('✅ Database tables initialized successfully');
