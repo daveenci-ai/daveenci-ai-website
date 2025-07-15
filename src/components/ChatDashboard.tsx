@@ -64,9 +64,21 @@ const ChatDashboard = () => {
       params.append('page', filters.page.toString());
       params.append('limit', pagination.limit.toString());
       
-      const response = await fetch(`${apiUrl}/api/chat/summaries?${params}`);
+      const token = localStorage.getItem('authToken');
+      if (!token) {
+        throw new Error('Authentication required');
+      }
+
+      const response = await fetch(`${apiUrl}/api/chat/summaries?${params}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       
       if (!response.ok) {
+        if (response.status === 401) {
+          throw new Error('Authentication failed. Please login again.');
+        }
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       

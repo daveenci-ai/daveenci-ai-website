@@ -1,5 +1,6 @@
 import express from 'express';
 import pool, { query } from '../config/database.js';
+import { authenticateToken } from './auth.js';
 
 const router = express.Router();
 
@@ -115,7 +116,7 @@ router.post('/summary', async (req, res) => {
 });
 
 // Get chat summaries (for admin/analytics)
-router.get('/summaries', async (req, res) => {
+router.get('/summaries', authenticateToken, async (req, res) => {
   try {
     const { page = 1, limit = 50, qualification, date_from, date_to } = req.query;
     

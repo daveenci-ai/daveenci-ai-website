@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import { workshopRoutes } from './routes/workshop.js';
 import { blogRoutes } from './routes/blog.js';
 import { chatRoutes } from './routes/chat.js';
+import { authRoutes } from './routes/auth.js';
 import { initializeDatabase } from './config/init-db.js';
 import { closePool } from './config/database.js';
 
@@ -70,8 +71,8 @@ app.get('/health', (req, res) => {
 app.use('/api/workshop', workshopRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/auth', authRoutes);
 // Future routes can be added here:
-// app.use('/api/auth', authRoutes);
 // app.use('/api/admin', adminRoutes);
 
 // Handle 404 for API routes

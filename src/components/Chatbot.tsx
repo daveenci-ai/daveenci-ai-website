@@ -61,7 +61,7 @@ const Chatbot = () => {
 
   useEffect(() => {
     if (isOpen && messages.length === 0) {
-      const greeting = "Hello! I'm Dave, your AI assistant here at DaVeenci. I'm here to help you discover how AI and automation can elevate your business. To get started, could you tell me a bit about your business and what you're hoping to achieve?";
+      const greeting = "Hi! I'm Dave from DaVeenci. I can help you with AI automation, digital marketing, or custom software solutions. What can I help you with today?";
       setLastQuestion(greeting);
       setExpectingResponse('general');
       addBotMessage(greeting);
@@ -134,10 +134,40 @@ const Chatbot = () => {
     }
     
     const serviceKeywords = {
-      'AI Automation': ['ai', 'automation', 'automate', 'artificial intelligence', 'machine learning', 'ml'],
-      'Digital Marketing': ['marketing', 'digital marketing', 'ads', 'advertising', 'campaigns', 'lead generation'],
-      'Custom Software': ['software', 'custom software', 'development', 'application', 'app', 'platform'],
-      'Systems Integration': ['integration', 'crm', 'systems', 'workflow', 'process']
+      'AI Automation': [
+        // Original Keywords
+        'ai', 'automation', 'automate', 'artificial intelligence', 'machine learning', 'ml', 'ai assistant', 'chatbot', 'assistant',
+        // Problem/Pain-Point Keywords
+        'repetitive tasks', 'manual data entry', 'time-consuming', 'inefficient', 'human error', 'streamline', 'efficiency', 'productivity',
+        // Solution/Outcome Keywords
+        'intelligent automation', 'robotic process automation', 'rpa', 'data processing', 'virtual agent', 'conversational ai', 'natural language processing', 'nlp', 'business process automation', 'bpa'
+      ],
+      'Digital Marketing': [
+        // Original Keywords
+        'marketing', 'digital marketing', 'ads', 'advertising', 'campaigns', 'lead generation',
+        // Channel-Specific Keywords
+        'seo', 'search engine optimization', 'social media marketing', 'smm', 'email marketing', 'content marketing', 'ppc', 'pay-per-click', 'google ads', 'facebook ads',
+        // Goal-Oriented Keywords
+        'increase sales', 'get more customers', 'brand awareness', 'online presence', 'customer acquisition', 'conversion rate', 'funnel'
+      ],
+      'Custom Software': [
+        // Original Keywords
+        'software', 'custom software', 'development', 'application', 'app', 'platform', 'website',
+        // Specific Application Types
+        'mobile app', 'web app', 'ios', 'android', 'internal tool', 'dashboard', 'customer portal', 'saas', 'enterprise software',
+        // Verbs and Actions
+        'build', 'create', 'develop', 'design', 'code', 'program', 'bespoke software'
+      ],
+      'Systems Integration': [
+        // Original Keywords
+        'integration', 'crm', 'systems', 'workflow', 'process',
+        // Action-Oriented Keywords
+        'connect', 'sync', 'link', 'talk to each other', 'api',
+        // Specific System Names/Types
+        'salesforce', 'hubspot', 'shopify', 'quickbooks', 'erp', 'zapier', 'make.com', 'payment gateway',
+        // Problem/Outcome Keywords
+        'data silos', 'disconnected systems', 'automated workflow', 'seamless data flow', 'single source of truth'
+      ]
     };
 
     const painPointKeywords = {
@@ -334,20 +364,58 @@ const Chatbot = () => {
   };
 
   const handleGeneralIntent = (userMessage: string, analysis: any): string => {
+    const lowerMessage = userMessage.toLowerCase();
+    
     // Update tracked data
     analysis.services.forEach((service: string) => setServicesDiscussed(prev => new Set([...prev, service])));
     analysis.painPoints.forEach((painPoint: string) => setPainPoints(prev => new Set([...prev, painPoint])));
+    
+    // Handle specific service requests
+    if (lowerMessage.includes('need') || lowerMessage.includes('want') || lowerMessage.includes('looking for')) {
+      if (analysis.services.includes('AI Automation')) {
+        return "Perfect! AI assistants and chatbots are exactly what we specialize in. We build intelligent AI systems that can handle customer service, lead qualification, and much more. For example, we built an AI assistant for a client that handles 70% of their customer inquiries automatically. What specific features would you want your AI assistant to have?";
+      }
+      
+      if (analysis.services.includes('Custom Software')) {
+        return "Great! We build custom software solutions including websites with AI integration. We can create intelligent websites that adapt to user behavior and automate various processes. What specific functionality are you looking to add to your website?";
+      }
+      
+      if (analysis.services.includes('Digital Marketing')) {
+        return "Excellent! Our AI-powered marketing solutions help businesses increase conversions and reduce costs. We create systems that automatically optimize campaigns and personalize customer experiences. What's your current marketing setup like?";
+      }
+    }
+    
+    // Handle clarification requests better
+    if (lowerMessage.includes('did you see') || lowerMessage.includes('what I told you') || lowerMessage.includes('already said')) {
+      return "You're absolutely right - I should have acknowledged what you said! You mentioned needing an AI assistant for your website. That's exactly what we do! We build intelligent AI systems that can handle customer interactions, lead qualification, and provide 24/7 support. What specific tasks would you want your AI assistant to handle?";
+    }
     
     // Pain point responses
     if (analysis.painPoints.includes('Manual processes')) {
       return "Manual processes are exactly what we solve! Our AI-powered automation systems handle everything from data entry to complex business workflows. Most clients free up 30-40 hours per week. I'd love to show you specific examples - would you like to see some case studies?";
     }
     
+    // Service-specific responses
+    if (analysis.services.length > 0) {
+      if (analysis.services.includes('AI Automation')) {
+        return "AI automation is perfect for your needs! We build intelligent systems that work 24/7. For websites, this could include AI chatbots, automated lead scoring, or intelligent content personalization. What specific automation are you most interested in?";
+      }
+      
+      if (analysis.services.includes('Custom Software')) {
+        return "Custom software development is one of our core services! We can build exactly what you need, whether it's integrating AI into your existing website or creating something completely new. What's your current setup like?";
+      }
+    }
+    
     // Conversation flow based on stage
     if (conversationStage === 'greeting') {
       setConversationStage('qualifying');
-      setLastQuestion("What are your biggest business challenges?");
-      return "Thanks for sharing that! To better understand how we can help you, what are your biggest business challenges right now? Are there any repetitive tasks taking up too much of your team's time?";
+      // Don't use generic script anymore - respond based on what they actually said
+      if (analysis.services.length > 0 || lowerMessage.includes('need') || lowerMessage.includes('want')) {
+        return "That sounds like something we can definitely help with! Tell me more about what you're looking for.";
+      } else {
+        setLastQuestion("What brings you here today?");
+        return "Thanks for reaching out! What brings you here today? Are you looking for AI automation, marketing solutions, or custom software development?";
+      }
     }
     
     // Engaging follow-up responses
