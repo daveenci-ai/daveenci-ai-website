@@ -1,8 +1,8 @@
 // LLM Service for AI-Powered Chatbot Responses
-// Handles dynamic response generation with fallback to rule-based system
+// Handles dynamic response generation with fallback to simple responses
 
 import { apiClient, llmConfig } from '@/config/api';
-import { companyInfo, responses } from '@/config/chatbot.config';
+import { companyInfo, fallbackResponses } from '@/config/chatbot.config';
 
 export interface LLMContext {
   conversationHistory: Array<{ role: 'user' | 'assistant'; content: string }>;
@@ -30,10 +30,9 @@ export interface LLMResponse {
 class LLMService {
   private rateLimitCache: Map<string, number[]> = new Map();
   private fallbackCount = 0;
-  private maxFallbacksPerSession = 3;
+  private maxFallbacksPerSession = 5;
 
   constructor() {
-    // Initialize with rate limiting
     this.cleanupRateLimit();
   }
 
@@ -49,13 +48,13 @@ class LLMService {
       // Check rate limits
       if (!this.checkRateLimit(context.sessionId)) {
         console.warn('🚫 Rate limit exceeded, using fallback');
-        return this.createFallbackResponse(fallbackResponse || responses.defaultQuestion);
+        return this.createFallbackResponse(fallbackResponse || fallbackResponses.default);
       }
 
       // Check if we should use LLM (avoid overuse)
       if (this.fallbackCount >= this.maxFallbacksPerSession) {
         console.warn('🚫 Max LLM calls reached for session, using fallback');
-        return this.createFallbackResponse(fallbackResponse || responses.defaultQuestion);
+        return this.createFallbackResponse(fallbackResponse || fallbackResponses.default);
       }
 
       const prompt = this.buildPrompt(userMessage, context);
@@ -83,7 +82,7 @@ class LLMService {
       this.fallbackCount++;
       
       return this.createFallbackResponse(
-        fallbackResponse || responses.defaultQuestion,
+        fallbackResponse || fallbackResponses.default,
         `LLM Error: ${error instanceof Error ? error.message : 'Unknown error'}`
       );
     }
@@ -94,7 +93,7 @@ class LLMService {
    */
   private buildPrompt(userMessage: string, context: LLMContext): string {
     const { userInfo, conversationStage, servicesDiscussed, painPoints } = context;
-    const recentMessages = context.conversationHistory.slice(-6); // Last 3 exchanges
+    const recentMessages = context.conversationHistory.slice(-6);
 
     return `You are Dave, an AI assistant for DaVeenci, a company that specializes in AI automation, digital marketing, and custom software solutions.
 
@@ -139,7 +138,7 @@ Generate a helpful, direct response that answers their question:`;
       content,
       confidence: 0.5,
       fallbackUsed: true,
-      reasoning: error || 'Using rule-based fallback'
+      reasoning: error || 'Using simple fallback'
     };
   }
 
@@ -148,18 +147,15 @@ Generate a helpful, direct response that answers their question:`;
    */
   private checkRateLimit(sessionId: string): boolean {
     const now = Date.now();
-    const windowMs = 60 * 1000; // 1 minute window
+    const windowMs = 60 * 1000;
     
     if (!this.rateLimitCache.has(sessionId)) {
       this.rateLimitCache.set(sessionId, []);
     }
     
     const timestamps = this.rateLimitCache.get(sessionId)!;
-    
-    // Remove timestamps older than window
     const recentTimestamps = timestamps.filter(ts => now - ts < windowMs);
     
-    // Check if under limit
     if (recentTimestamps.length < llmConfig.rateLimitPerMinute) {
       recentTimestamps.push(now);
       this.rateLimitCache.set(sessionId, recentTimestamps);
@@ -185,7 +181,7 @@ Generate a helpful, direct response that answers their question:`;
           this.rateLimitCache.set(sessionId, recentTimestamps);
         }
       }
-    }, 60000); // Clean every minute
+    }, 60000);
   }
 
   /**
