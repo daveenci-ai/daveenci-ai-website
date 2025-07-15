@@ -1,9 +1,19 @@
 // Example script for LLM-powered blog automation
-// This shows how to use Gemini 2.5 Pro to create blog posts daily
+// This shows how to use Gemini to create blog posts daily
 
 import fetch from 'node-fetch';
 
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
+
+// Gemini Model Configuration
+// Available models:
+// - gemini-2.5-pro (Recommended: Highest quality, advanced reasoning)
+// - gemini-2.0-flash-exp (Fast and efficient)
+// - gemini-2.0-flash-thinking-exp (For complex reasoning)
+// - gemini-1.5-pro (High-quality, complex reasoning)
+// - gemini-1.5-flash (Fast, good for simple tasks)
+// - gemini-1.5-flash-8b (Ultra-fast, basic tasks)
+const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-pro';
 
 // Example function to create a blog post using the API
 async function createBlogPost(postData) {
@@ -131,13 +141,13 @@ async function dailyBlogAutomation() {
 }
 
 // Example function to integrate with Gemini API (pseudo-code)
-async function generateContentWithGemini(prompt, topic) {
+async function generateContentWithGemini(prompt, topic, model = DEFAULT_GEMINI_MODEL) {
   // This is pseudo-code - you would integrate with actual Gemini API
-  console.log(`🧠 Generating content with Gemini for topic: ${topic}`);
+  console.log(`🧠 Generating content with Gemini ${model} for topic: ${topic}`);
   
   // Example Gemini API call structure:
   /*
-  const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent', {
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${process.env.GEMINI_API_KEY}`,
