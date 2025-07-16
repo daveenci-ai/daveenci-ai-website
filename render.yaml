@@ -45,6 +45,10 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: API_BASE_URL
+        value: https://daveenci-ai-backend.onrender.com
+      - key: GEMINI_API_KEY
+        sync: false  # This will need to be set manually in Render dashboard
     autoDeploy: true
     branch: main
     rootDir: / 
