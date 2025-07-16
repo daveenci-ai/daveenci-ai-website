@@ -234,10 +234,13 @@ async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI
     
     const generatedText = data.candidates[0].content.parts[0].text;
     
-    // Parse the generated content to extract structured data
-    const structured = parseGeminiResponse(generatedText, topic, timeSlot);
+    // Format the content as proper HTML with embedded images
+    const formattedContent = await formatContentAsHTML(generatedText, topic, timeSlot, model);
     
-    console.log(`✅ Generated content: ${structured.title}`);
+    // Parse the generated content to extract structured data
+    const structured = parseGeminiResponse(formattedContent, topic, timeSlot);
+    
+    console.log(`✅ Generated and formatted content: ${structured.title}`);
     return structured;
     
   } catch (error) {
@@ -248,55 +251,162 @@ async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI
   }
 }
 
+// Format content as proper HTML with embedded images
+async function formatContentAsHTML(rawContent, topic, timeSlot, model = DEFAULT_GEMINI_MODEL) {
+  console.log(`🎨 Formatting content as HTML with images...`);
+  
+  const htmlPrompt = `You are an expert HTML formatter and content editor. Take the following article content and format it as proper HTML for a professional blog website.
+
+REQUIREMENTS:
+1. Convert to proper HTML with semantic tags (h2, h3, p, ul, ol, li, strong, em)
+2. Add 2-3 relevant images throughout the article using this format: <img src="https://images.unsplash.com/photo-XXXX" alt="descriptive alt text" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+3. Use these Unsplash image topics: AI technology, business automation, digital transformation, modern office, data analytics
+4. Ensure proper paragraph breaks and spacing
+5. Make headings clear with h2 for main sections and h3 for subsections
+6. Keep all the original content but improve the HTML structure
+7. Add proper line breaks between sections
+8. Make sure lists are properly formatted as <ul> or <ol>
+
+ARTICLE TOPIC: ${topic}
+TIME SLOT: ${timeSlot}
+
+RAW CONTENT TO FORMAT:
+${rawContent}
+
+Return ONLY the formatted HTML content, no additional text or explanations.`;
+
+  try {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{
+            text: htmlPrompt
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.3,
+          topK: 40,
+          topP: 0.9,
+          maxOutputTokens: 4000,
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`HTML formatting API error: ${response.status} ${response.statusText} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+      throw new Error('Invalid response structure from HTML formatting API');
+    }
+    
+    let formattedHTML = data.candidates[0].content.parts[0].text.trim();
+    
+    // Clean up any markdown remnants and ensure proper HTML
+    formattedHTML = formattedHTML
+      .replace(/```html\n?/gi, '')
+      .replace(/```\n?/gi, '')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .trim();
+    
+    // Ensure we have some images if none were added
+    if (!formattedHTML.includes('<img')) {
+      formattedHTML = addDefaultImages(formattedHTML, topic);
+    }
+    
+    console.log(`✅ Content formatted as HTML with embedded images`);
+    return formattedHTML;
+    
+  } catch (error) {
+    console.error(`❌ Error formatting content as HTML:`, error);
+    
+    // Fallback: basic HTML formatting
+    return basicHTMLFormat(rawContent, topic);
+  }
+}
+
+// Add default images to content if none were added
+function addDefaultImages(content, topic) {
+  const images = [
+    {
+      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      alt: "AI and artificial intelligence technology concept"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      alt: "Modern business automation and digital workplace"
+    },
+    {
+      url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+      alt: "Data analytics and business intelligence dashboard"
+    }
+  ];
+  
+  const sections = content.split('<h2>');
+  if (sections.length > 1) {
+    // Add image after first section
+    const firstImage = images[0];
+    sections[1] = sections[1] + `\n\n<img src="${firstImage.url}" alt="${firstImage.alt}" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n`;
+    
+    if (sections.length > 2) {
+      // Add image after second section
+      const secondImage = images[1];
+      sections[2] = sections[2] + `\n\n<img src="${secondImage.url}" alt="${secondImage.alt}" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n`;
+    }
+  }
+  
+  return sections.join('<h2>');
+}
+
+// Basic HTML formatting fallback
+function basicHTMLFormat(content, topic) {
+  return content
+    .split('\n\n')
+    .map(paragraph => {
+      const p = paragraph.trim();
+      if (!p) return '';
+      
+      if (p.startsWith('## ')) {
+        return `<h2>${p.replace('## ', '')}</h2>`;
+      } else if (p.startsWith('### ')) {
+        return `<h3>${p.replace('### ', '')}</h3>`;
+      } else if (p.includes('- ') || p.includes('• ')) {
+        const lines = p.split('\n');
+        const listItems = lines
+          .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•'))
+          .map(line => `<li>${line.replace(/^[-•]\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</li>`)
+          .join('\n');
+        return `<ul>\n${listItems}\n</ul>`;
+      } else if (/^\d+\./.test(p)) {
+        const lines = p.split('\n');
+        const listItems = lines
+          .filter(line => /^\d+\./.test(line.trim()))
+          .map(line => `<li>${line.replace(/^\d+\.\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</li>`)
+          .join('\n');
+        return `<ol>\n${listItems}\n</ol>`;
+      } else {
+        return `<p>${p.replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</p>`;
+      }
+    })
+    .filter(p => p.length > 0)
+    .join('\n\n');
+}
+
 // Parse Gemini response into structured blog post data
-function parseGeminiResponse(text, topic, timeSlot) {
+function parseGeminiResponse(formattedContent, topic, timeSlot) {
   // Extract title (prefer the topic as it's already optimized)
   let title = topic;
   
-  // Clean and structure content
-  let content = text.trim();
-  
-  // Ensure HTML formatting for Answer Engine Optimization
-  if (!content.includes('<h2>')) {
-    content = content
-      .split('\n\n')
-      .map(paragraph => {
-        const p = paragraph.trim();
-        if (!p) return '';
-        
-        if (p.startsWith('## ')) {
-          return `<h2>${p.replace('## ', '')}</h2>`;
-        } else if (p.startsWith('### ')) {
-          return `<h3>${p.replace('### ', '')}</h3>`;
-        } else if (p.startsWith('**Q:') && p.includes('**')) {
-          // FAQ formatting for AI citation
-          const qMatch = p.match(/\*\*Q:\s*(.+?)\*\*/);
-          const aMatch = p.match(/A:\s*(.+)/s);
-          if (qMatch && aMatch) {
-            return `<h3>Q: ${qMatch[1]}</h3><p><strong>A:</strong> ${aMatch[1].trim()}</p>`;
-          }
-        } else if (p.includes('- ') || p.includes('• ')) {
-          const lines = p.split('\n');
-          const listItems = lines
-            .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•'))
-            .map(line => `<li>${line.replace(/^[-•]\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</li>`)
-            .join('\n');
-          const prefix = lines[0].includes('-') || lines[0].includes('•') ? '' : `<p>${lines[0]}</p>`;
-          return `${prefix}<ul>\n${listItems}\n</ul>`;
-        } else if (/^\d+\./.test(p)) {
-          const lines = p.split('\n');
-          const listItems = lines
-            .filter(line => /^\d+\./.test(line.trim()))
-            .map(line => `<li>${line.replace(/^\d+\.\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</li>`)
-            .join('\n');
-          return `<ol>\n${listItems}\n</ol>`;
-        } else {
-          return `<p>${p.replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</p>`;
-        }
-      })
-      .filter(p => p.length > 0)
-      .join('\n');
-  }
+  // Use the already formatted HTML content
+  let content = formattedContent.trim();
   
   // Generate excerpt (first 160 chars of plain text)
   const plainText = content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -397,9 +507,51 @@ function createFallbackContent(topic, timeSlot) {
     metaDescription = metaDescription.substring(0, 157).trim() + '...';
   }
   
+  const fallbackContent = `
+    <h2>Quick Answer</h2>
+    <p>${topic} is an essential strategy for modern businesses looking to improve efficiency and growth. This comprehensive guide will walk you through the implementation process step by step.</p>
+    
+    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI and automation technology concept" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+    
+    <h2>Key Benefits</h2>
+    <p>Implementing this solution brings numerous advantages to your business operations:</p>
+    <ul>
+      <li><strong>Increased operational efficiency</strong> - Streamline workflows and reduce manual tasks</li>
+      <li><strong>Better customer experience</strong> - Faster response times and improved service quality</li>
+      <li><strong>Improved ROI and cost savings</strong> - Reduce operational costs while increasing revenue</li>
+      <li><strong>Scalable business processes</strong> - Grow your business without proportional increases in overhead</li>
+    </ul>
+    
+    <h2>Implementation Steps</h2>
+    <p>Follow these proven steps to successfully implement your solution:</p>
+    <ol>
+      <li><strong>Assess current business processes</strong> - Understand your existing workflows and pain points</li>
+      <li><strong>Identify automation opportunities</strong> - Find areas where technology can add the most value</li>
+      <li><strong>Select appropriate tools and solutions</strong> - Choose the right technology stack for your needs</li>
+      <li><strong>Implement and test systems</strong> - Deploy solutions in a controlled, phased approach</li>
+      <li><strong>Monitor and optimize performance</strong> - Continuously improve and refine your systems</li>
+    </ol>
+    
+    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Modern business team working with automation tools" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+    
+    <h2>Frequently Asked Questions</h2>
+    
+    <h3>Q: How long does implementation take?</h3>
+    <p><strong>A:</strong> Most businesses see initial results within 2-4 weeks of implementation, with full deployment typically completed within 2-3 months depending on complexity.</p>
+    
+    <h3>Q: What's the typical ROI?</h3>
+    <p><strong>A:</strong> Businesses typically see 200-400% ROI within the first year, with many organizations reporting even higher returns as they optimize their processes.</p>
+    
+    <h3>Q: Do I need technical expertise to get started?</h3>
+    <p><strong>A:</strong> While technical knowledge is helpful, many modern solutions are designed for business users. Professional implementation support is also available to ensure success.</p>
+    
+    <h2>Getting Started</h2>
+    <p>Ready to transform your business? The first step is understanding your current processes and identifying the areas where automation can have the biggest impact. Contact our team for a free consultation and see how we can help you achieve your goals.</p>
+  `.trim();
+  
   return {
     title: topic,
-    content: `<h2>Quick Answer</h2><p>${topic} is an essential strategy for modern businesses looking to improve efficiency and growth.</p><h2>Key Benefits</h2><ul><li>Increased operational efficiency</li><li>Better customer experience</li><li>Improved ROI and cost savings</li><li>Scalable business processes</li></ul><h2>Implementation Steps</h2><ol><li>Assess current business processes</li><li>Identify automation opportunities</li><li>Select appropriate tools and solutions</li><li>Implement and test systems</li><li>Monitor and optimize performance</li></ol><h2>FAQ</h2><h3>Q: How long does implementation take?</h3><p><strong>A:</strong> Most businesses see results within 2-4 weeks of implementation.</p><h3>Q: What's the typical ROI?</h3><p><strong>A:</strong> Businesses typically see 200-400% ROI within the first year.</p>`,
+    content: fallbackContent,
     excerpt: `Complete guide to ${topic} with step-by-step implementation and measurable results.`,
     tags: generateAEOTags(topic, timeSlot),
     meta_description: metaDescription,
