@@ -786,8 +786,7 @@ async function logAutomation(entry) {
 export {
   runScheduledAutomation,
   generateContentWithGemini,
-  createBlogPost,
-  TOPIC_POOLS
+  createBlogPost
 };
 
 // Handle direct execution with time slot parameter
