@@ -367,12 +367,27 @@ const BlogPost = () => {
                   <img
                     src={post.author_avatar}
                     alt={post.author_name}
-                    className="w-20 h-20 rounded-full flex-shrink-0 border-4 border-white shadow-lg"
+                    className="w-20 h-20 rounded-lg flex-shrink-0 border-4 border-white shadow-lg object-cover"
                   />
                 )}
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-3">About {post.author_name}</h3>
-                  <p className="text-gray-700 leading-relaxed text-lg">{post.author_bio}</p>
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">About DaVeenci AI Team</h3>
+                  <p className="text-gray-700 leading-relaxed text-lg mb-6">{post.author_bio}</p>
+                  
+                  {/* CTA Button */}
+                  <div className="pt-4">
+                    <a 
+                      href="https://calendly.com/daveenci/astrid"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
+                    >
+                      Schedule a Call
+                      <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

@@ -147,7 +147,7 @@ app.use((err, req, res, next) => {
 
 // Blog automation setup - runs within backend service
 const setupBlogAutomation = () => {
-  console.log('🤖 Setting up blog automation (every 10 minutes during business hours)...');
+  console.log('🤖 Setting up blog automation (3 times daily: 9am, 1pm, 5pm CST)...');
   
   const checkAndRunAutomation = async () => {
     try {
@@ -156,14 +156,19 @@ const setupBlogAutomation = () => {
       const hour = cstTime.getHours();
       const minute = cstTime.getMinutes();
       
-      // Only run during business hours (8 AM - 8 PM CST) and every 10 minutes
-      if (hour >= 8 && hour <= 20 && minute % 10 === 0) {
-        console.log(`🕐 Automation check: ${cstTime.toLocaleString('en-US', { timeZone: 'America/Chicago' })} CST`);
+      // Only run at specific times: 9am, 1pm, 5pm CST (at the top of the hour)
+      const targetHours = [9, 13, 17]; // 9am, 1pm, 5pm in 24-hour format
+      
+      if (targetHours.includes(hour) && minute === 0) {
+        console.log(`🕐 Automation trigger: ${cstTime.toLocaleString('en-US', { timeZone: 'America/Chicago' })} CST`);
         
-        // Cycle through content types every 10 minutes
-        const timeSlots = ['morning', 'afternoon', 'evening'];
-        const slotIndex = (hour * 6 + Math.floor(minute / 10)) % 3;
-        const timeSlot = timeSlots[slotIndex];
+        // Map hours to content types
+        const timeSlots = {
+          9: 'morning',    // 9am
+          13: 'afternoon', // 1pm
+          17: 'evening'    // 5pm
+        };
+        const timeSlot = timeSlots[hour];
         
         console.log(`🚀 Running ${timeSlot} automation...`);
         
@@ -178,7 +183,7 @@ const setupBlogAutomation = () => {
     }
   };
   
-  // Check every minute for the 10-minute mark
+  // Check every minute for the exact hour
   setInterval(checkAndRunAutomation, 60000); // 1 minute
   console.log('✅ Blog automation scheduler active');
 };
