@@ -3,13 +3,20 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
-import { workshopRoutes } from './routes/workshop.js';
-import { blogRoutes } from './routes/blog.js';
-import { chatRoutes } from './routes/chat.js';
-import { authRoutes } from './routes/auth.js';
-import { initializeDatabase } from './config/init-db.js';
-import { closePool } from './config/database.js';
 
+// Import routes
+import workshopRoutes from './routes/workshop.js';
+import authRoutes from './routes/auth.js';
+import chatRoutes from './routes/chat.js';
+import blogRoutes from './routes/blog.js';
+
+// Import database initialization
+import { initializeDatabase, closePool } from './config/init-db.js';
+
+// Import blog automation
+import { runScheduledAutomation } from './automation/blog-scheduler.js';
+
+// Load environment variables
 dotenv.config();
 
 const app = express();
@@ -75,6 +82,33 @@ app.use('/api/auth', authRoutes);
 // Future routes can be added here:
 // app.use('/api/admin', adminRoutes);
 
+// Manual blog automation trigger (for testing)
+app.post('/api/blog/automation/trigger', async (req, res) => {
+  const { timeSlot } = req.body;
+  
+  if (!timeSlot || !['morning', 'afternoon', 'evening'].includes(timeSlot)) {
+    return res.status(400).json({ 
+      error: 'Invalid time slot. Must be: morning, afternoon, or evening' 
+    });
+  }
+  
+  try {
+    console.log(`🚀 Manual trigger: Running ${timeSlot} blog automation`);
+    const result = await runScheduledAutomation(timeSlot);
+    res.json({ 
+      success: true, 
+      message: `${timeSlot} blog automation completed successfully`,
+      result 
+    });
+  } catch (error) {
+    console.error(`❌ Manual ${timeSlot} automation failed:`, error);
+    res.status(500).json({ 
+      success: false, 
+      error: error.message 
+    });
+  }
+});
+
 // Handle 404 for API routes
 app.use('/api/*', (req, res) => {
   res.status(404).json({ error: 'API endpoint not found' });
@@ -125,6 +159,10 @@ const startServer = async () => {
       console.log('🔗 Initializing database connection...');
       await initializeDatabase();
       console.log('✅ Database initialized successfully');
+      
+      // Set up blog automation after database is ready
+      setupBlogAutomation();
+      
     } catch (error) {
       console.error('❌ Database initialization failed, but server will continue:', error.message);
       console.log('⚠️  Server running without database connection');
@@ -163,3 +201,49 @@ startServer().catch((error) => {
   console.error('💥 Failed to start server:', error.message);
   process.exit(1);
 }); 
+
+// Blog automation scheduling for Render deployment
+const setupBlogAutomation = () => {
+  console.log('🤖 Setting up blog automation for Render deployment...');
+  
+  // Function to check if it's time to run automation
+  const checkAndRunAutomation = async () => {
+    const now = new Date();
+    const cstTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
+    const hour = cstTime.getHours();
+    const minute = cstTime.getMinutes();
+    
+    let timeSlot = null;
+    
+    // Test 1: 1:15 PM CST
+    if (hour === 13 && minute === 15) {
+      timeSlot = 'morning';
+    }
+    // Test 2: 1:30 PM CST  
+    else if (hour === 13 && minute === 30) {
+      timeSlot = 'afternoon';
+    }
+    // Test 3: 1:45 PM CST
+    else if (hour === 13 && minute === 45) {
+      timeSlot = 'evening';
+    }
+    
+    if (timeSlot) {
+      console.log(`🚀 Running ${timeSlot} blog automation at ${cstTime.toLocaleString()} CST`);
+      try {
+        await runScheduledAutomation(timeSlot);
+        console.log(`✅ ${timeSlot} blog automation completed successfully`);
+      } catch (error) {
+        console.error(`❌ ${timeSlot} blog automation failed:`, error);
+      }
+    }
+  };
+  
+  // Check every minute for scheduled times
+  setInterval(checkAndRunAutomation, 60000); // 60 seconds
+  
+  console.log('📅 Blog automation testing schedule:');
+  console.log('  🧪 1:15 PM CST  - Test 1 (morning content)');
+  console.log('  🧪 1:30 PM CST  - Test 2 (afternoon content)');  
+  console.log('  🧪 1:45 PM CST  - Test 3 (evening content)');
+}; 
