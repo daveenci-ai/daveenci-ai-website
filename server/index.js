@@ -5,10 +5,10 @@ import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
 
 // Import routes
-import workshopRoutes from './routes/workshop.js';
+import { workshopRoutes } from './routes/workshop.js';
 import { authRoutes } from './routes/auth.js';
-import chatRoutes from './routes/chat.js';
-import blogRoutes from './routes/blog.js';
+import { chatRoutes } from './routes/chat.js';
+import { blogRoutes } from './routes/blog.js';
 
 // Import database initialization
 import { initializeDatabase, closePool } from './config/init-db.js';
