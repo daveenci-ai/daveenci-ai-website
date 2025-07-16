@@ -201,10 +201,9 @@ async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI
   const prompt = promptTemplates[timeSlot] || promptTemplates.morning;
 
   try {
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${process.env.GEMINI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -308,7 +307,7 @@ function parseGeminiResponse(text, topic, timeSlot) {
   // Generate SEO-friendly tags optimized for Answer Engine
   const tags = generateAEOTags(topic, timeSlot);
   
-  // Generate meta description optimized for search
+  // Generate meta description optimized for search (max 160 chars)
   let metaDescription = plainText.length > 155 
     ? plainText.substring(0, 152).trim() + '...'
     : plainText;
@@ -316,6 +315,11 @@ function parseGeminiResponse(text, topic, timeSlot) {
   // Ensure meta description includes key terms
   if (!metaDescription.toLowerCase().includes('ai') && topic.toLowerCase().includes('ai')) {
     metaDescription = `AI guide: ${metaDescription}`;
+  }
+  
+  // Ensure final meta description is within 160 character limit
+  if (metaDescription.length > 160) {
+    metaDescription = metaDescription.substring(0, 157).trim() + '...';
   }
   
   return {
@@ -386,12 +390,19 @@ function extractKeywords(topic, tags) {
 
 // Fallback content if Gemini fails
 function createFallbackContent(topic, timeSlot) {
+  let metaDescription = `${topic}: Complete implementation guide with step-by-step instructions, ROI analysis, and expert recommendations.`;
+  
+  // Ensure meta description is within 160 character limit
+  if (metaDescription.length > 160) {
+    metaDescription = metaDescription.substring(0, 157).trim() + '...';
+  }
+  
   return {
     title: topic,
     content: `<h2>Quick Answer</h2><p>${topic} is an essential strategy for modern businesses looking to improve efficiency and growth.</p><h2>Key Benefits</h2><ul><li>Increased operational efficiency</li><li>Better customer experience</li><li>Improved ROI and cost savings</li><li>Scalable business processes</li></ul><h2>Implementation Steps</h2><ol><li>Assess current business processes</li><li>Identify automation opportunities</li><li>Select appropriate tools and solutions</li><li>Implement and test systems</li><li>Monitor and optimize performance</li></ol><h2>FAQ</h2><h3>Q: How long does implementation take?</h3><p><strong>A:</strong> Most businesses see results within 2-4 weeks of implementation.</p><h3>Q: What's the typical ROI?</h3><p><strong>A:</strong> Businesses typically see 200-400% ROI within the first year.</p>`,
     excerpt: `Complete guide to ${topic} with step-by-step implementation and measurable results.`,
     tags: generateAEOTags(topic, timeSlot),
-    meta_description: `${topic}: Complete implementation guide with step-by-step instructions, ROI analysis, and expert recommendations.`,
+    meta_description: metaDescription,
     meta_keywords: extractKeywords(topic, generateAEOTags(topic, timeSlot)),
     seo_score: 7.5,
     llm_prompt: `Fallback AEO content for: ${topic}`,
@@ -479,13 +490,18 @@ async function runScheduledAutomation(timeSlot) {
 
 // Log automation results
 async function logAutomation(entry) {
-  const logFile = join(__dirname, '../logs/automation.log');
-  const logLine = `${entry.timestamp} - ${entry.timeSlot} - ${entry.status} - ${entry.title || entry.error || 'Unknown'} - SEO: ${entry.seoScore || 'N/A'}\n`;
-  
   try {
+    const logDir = join(__dirname, '../logs');
+    const logFile = join(logDir, 'automation.log');
+    const logLine = `${entry.timestamp} - ${entry.timeSlot} - ${entry.status} - ${entry.title || entry.error || 'Unknown'} - SEO: ${entry.seoScore || 'N/A'}\n`;
+    
+    // Create logs directory if it doesn't exist
+    await fs.mkdir(logDir, { recursive: true });
     await fs.appendFile(logFile, logLine);
   } catch (error) {
     console.warn('Could not write to log file:', error.message);
+    // Log to console as fallback
+    console.log(`📝 Automation Log: ${entry.timestamp} - ${entry.timeSlot} - ${entry.status} - ${entry.title || entry.error || 'Unknown'}`);
   }
 }
 
