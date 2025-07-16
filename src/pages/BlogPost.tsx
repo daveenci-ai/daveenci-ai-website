@@ -8,6 +8,7 @@ import { ArrowLeft, Calendar, Clock, Eye, Tag, Share2, Twitter, Facebook, Linked
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { getApiEndpoint } from '@/utils/api';
+import '../styles/blog-post.css';
 
 // Types
 interface BlogPost {
@@ -333,23 +334,7 @@ const BlogPost = () => {
           <article className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-12">
             <div 
               dangerouslySetInnerHTML={{ __html: post.content }}
-              className="prose prose-xl max-w-none
-                prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight
-                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:leading-tight
-                prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:text-red-600
-                prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
-                prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
-                prose-strong:text-gray-900 prose-strong:font-semibold
-                prose-blockquote:border-l-4 prose-blockquote:border-red-500 prose-blockquote:bg-red-50 
-                prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:italic prose-blockquote:text-gray-700
-                prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
-                prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4
-                prose-ul:space-y-2 prose-ul:my-6 prose-ol:space-y-2 prose-ol:my-6
-                prose-li:text-gray-700 prose-li:leading-relaxed prose-li:text-lg
-                prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8
-                [&_h2]:scroll-mt-20 [&_h3]:scroll-mt-20
-                [&_p:first-child]:text-xl [&_p:first-child]:font-medium [&_p:first-child]:text-gray-800
-                [&_p:first-child]:leading-relaxed [&_p:first-child]:mb-8"
+              className="blog-content-container"
             />
           </article>
 
