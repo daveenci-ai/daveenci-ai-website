@@ -50,6 +50,9 @@ const fetchRelatedPosts = async (slug: string): Promise<BlogPost[]> => {
   return data.posts.filter((post: BlogPost) => post.slug !== slug).slice(0, 3);
 };
 
+// Default featured image for articles without one
+const DEFAULT_FEATURED_IMAGE = "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80";
+
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
 
@@ -98,8 +101,8 @@ const BlogPost = () => {
       }
 
       const ogImage = document.querySelector('meta[property="og:image"]');
-      if (ogImage && post.featured_image_url) {
-        ogImage.setAttribute('content', post.featured_image_url);
+      if (ogImage) {
+        ogImage.setAttribute('content', post.featured_image_url || DEFAULT_FEATURED_IMAGE);
       }
 
       const ogUrl = document.querySelector('meta[property="og:url"]');
@@ -139,15 +142,17 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen bg-gray-50">
         <Navigation />
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 py-12">
-          <Skeleton className="h-8 w-32 mb-8" />
-          <Skeleton className="h-12 w-full mb-4" />
-          <Skeleton className="h-6 w-3/4 mb-8" />
-          <Skeleton className="h-64 w-full mb-8" />
-          <div className="space-y-4">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-12">
+          <div className="max-w-4xl mx-auto">
+            <Skeleton className="h-8 w-32 mb-8" />
+            <Skeleton className="h-12 w-full mb-4" />
+            <Skeleton className="h-6 w-3/4 mb-8" />
+            <Skeleton className="h-64 w-full mb-8" />
+            <div className="space-y-4">
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-full" />
+              <Skeleton className="h-4 w-3/4" />
+            </div>
           </div>
         </div>
         <Footer />
@@ -160,22 +165,24 @@ const BlogPost = () => {
     return (
       <div className="min-h-screen bg-gray-50">
         <Navigation />
-        <div className="max-w-4xl mx-auto px-6 lg:px-8 py-12 text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            {error.message === 'Post not found' ? 'Article Not Found' : 'Error Loading Article'}
-          </h1>
-          <p className="text-gray-600 mb-8">
-            {error.message === 'Post not found' 
-              ? "The article you're looking for doesn't exist or may have been moved."
-              : "We're having trouble loading this article. Please try again later."
-            }
-          </p>
-          <Link to="/blog">
-            <Button>
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Blog
-            </Button>
-          </Link>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-12 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              {error.message === 'Post not found' ? 'Article Not Found' : 'Error Loading Article'}
+            </h1>
+            <p className="text-gray-600 mb-8">
+              {error.message === 'Post not found' 
+                ? "The article you're looking for doesn't exist or may have been moved."
+                : "We're having trouble loading this article. Please try again later."
+              }
+            </p>
+            <Link to="/blog">
+              <Button>
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Blog
+              </Button>
+            </Link>
+          </div>
         </div>
         <Footer />
       </div>
@@ -195,7 +202,7 @@ const BlogPost = () => {
           "@type": "BlogPosting",
           "headline": post.title,
           "description": post.meta_description || post.excerpt,
-          "image": post.featured_image_url,
+          "image": post.featured_image_url || DEFAULT_FEATURED_IMAGE,
           "author": {
             "@type": "Person",
             "name": post.author_name
@@ -213,185 +220,202 @@ const BlogPost = () => {
         })}
       </script>
 
-      <article className="max-w-4xl mx-auto px-6 lg:px-8 py-12">
-        {/* Back to Blog */}
-        <Link to="/blog" className="inline-flex items-center text-red-600 hover:text-red-700 mb-8">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to Blog
-        </Link>
+      {/* Hero Section with Featured Image */}
+      <section className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-red-900 text-white pt-20 pb-16">
+        <div className="absolute inset-0 opacity-20">
+          <img
+            src={post.featured_image_url || DEFAULT_FEATURED_IMAGE}
+            alt={post.title}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/80 via-gray-800/80 to-red-900/80"></div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="max-w-4xl mx-auto">
+            {/* Back to Blog */}
+            <Link to="/blog" className="inline-flex items-center text-red-300 hover:text-red-200 mb-8 transition-colors">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Blog
+            </Link>
 
-        {/* Article Header */}
-        <header className="mb-12">
-          {/* Tags */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.tags.map((tag, index) => (
-                <Badge
-                  key={index}
-                  className="bg-red-100 text-red-700 hover:bg-red-200"
-                >
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          )}
+            {/* Tags */}
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex flex-wrap gap-2 mb-6">
+                {post.tags.map((tag, index) => (
+                  <Badge
+                    key={index}
+                    className="bg-red-600/20 text-red-200 border-red-400/30 hover:bg-red-600/30"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
+            )}
 
-          {/* Title */}
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
-            {post.title}
-          </h1>
+            {/* Title */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              {post.title}
+            </h1>
 
-          {/* Meta Information */}
-          <div className="flex flex-wrap items-center gap-6 text-gray-600 mb-8">
-            <div className="flex items-center space-x-3">
-              {post.author_avatar && (
-                <img
-                  src={post.author_avatar}
-                  alt={post.author_name}
-                  className="w-12 h-12 rounded-full"
-                />
-              )}
-              <div>
-                <p className="font-medium text-gray-900">{post.author_name}</p>
-                <div className="flex items-center space-x-4 text-sm">
-                  <span className="flex items-center">
-                    <Calendar className="w-4 h-4 mr-1" />
-                    {formatDate(post.published_at)}
-                  </span>
-                  <span className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
-                    {post.read_time_minutes} min read
-                  </span>
-                  <span className="flex items-center">
-                    <Eye className="w-4 h-4 mr-1" />
-                    {post.view_count} views
-                  </span>
+            {/* Meta Information */}
+            <div className="flex flex-wrap items-center gap-6 text-gray-300 mb-8">
+              <div className="flex items-center space-x-3">
+                {post.author_avatar && (
+                  <img
+                    src={post.author_avatar}
+                    alt={post.author_name}
+                    className="w-12 h-12 rounded-full border-2 border-white/20"
+                  />
+                )}
+                <div>
+                  <p className="font-medium text-white">{post.author_name}</p>
+                  <div className="flex items-center space-x-4 text-sm text-gray-300">
+                    <span className="flex items-center">
+                      <Calendar className="w-4 h-4 mr-1" />
+                      {formatDate(post.published_at)}
+                    </span>
+                    <span className="flex items-center">
+                      <Clock className="w-4 h-4 mr-1" />
+                      {post.read_time_minutes} min read
+                    </span>
+                    <span className="flex items-center">
+                      <Eye className="w-4 h-4 mr-1" />
+                      {post.view_count} views
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Featured Image */}
-          {post.featured_image_url && (
-            <div className="mb-8">
-              <img
-                src={post.featured_image_url}
-                alt={post.title}
-                className="w-full h-96 object-cover rounded-xl shadow-lg"
-              />
+            {/* Share Buttons */}
+            <div className="flex items-center space-x-4">
+              <span className="flex items-center text-gray-300 font-medium">
+                <Share2 className="w-4 h-4 mr-2" />
+                Share:
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={shareOnTwitter}
+                className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+              >
+                <Twitter className="w-4 h-4 mr-2" />
+                Twitter
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={shareOnFacebook}
+                className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+              >
+                <Facebook className="w-4 h-4 mr-2" />
+                Facebook
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={shareOnLinkedIn}
+                className="bg-white/10 border-white/20 text-white hover:bg-white/20 backdrop-blur-sm"
+              >
+                <Linkedin className="w-4 h-4 mr-2" />
+                LinkedIn
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Article Content */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+        <div className="max-w-4xl mx-auto">
+          {/* Article Body */}
+          <article className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-12">
+            <div 
+              dangerouslySetInnerHTML={{ __html: post.content }}
+              className="prose prose-xl max-w-none
+                prose-headings:text-gray-900 prose-headings:font-bold prose-headings:tracking-tight
+                prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 prose-h2:leading-tight
+                prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4 prose-h3:text-red-600
+                prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6 prose-p:text-lg
+                prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline prose-a:font-medium
+                prose-strong:text-gray-900 prose-strong:font-semibold
+                prose-blockquote:border-l-4 prose-blockquote:border-red-500 prose-blockquote:bg-red-50 
+                prose-blockquote:px-6 prose-blockquote:py-4 prose-blockquote:italic prose-blockquote:text-gray-700
+                prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
+                prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:rounded-lg prose-pre:p-4
+                prose-ul:space-y-2 prose-ul:my-6 prose-ol:space-y-2 prose-ol:my-6
+                prose-li:text-gray-700 prose-li:leading-relaxed prose-li:text-lg
+                prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8
+                [&_h2]:scroll-mt-20 [&_h3]:scroll-mt-20
+                [&_p:first-child]:text-xl [&_p:first-child]:font-medium [&_p:first-child]:text-gray-800
+                [&_p:first-child]:leading-relaxed [&_p:first-child]:mb-8"
+            />
+          </article>
+
+          {/* Tags Section */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
+              <h3 className="flex items-center text-xl font-bold text-gray-900 mb-6">
+                <Tag className="w-5 h-5 mr-3 text-red-600" />
+                Article Tags
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {post.tags.map((tag, index) => (
+                  <Badge 
+                    key={index} 
+                    variant="outline" 
+                    className="text-gray-600 border-gray-300 hover:border-red-300 hover:text-red-600 px-4 py-2 text-sm"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </div>
           )}
 
-          {/* Share Buttons */}
-          <div className="flex items-center space-x-4 py-6 border-y border-gray-200">
-            <span className="flex items-center text-gray-600 font-medium">
-              <Share2 className="w-4 h-4 mr-2" />
-              Share:
-            </span>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={shareOnTwitter}
-              className="flex items-center space-x-2"
-            >
-              <Twitter className="w-4 h-4" />
-              <span>Twitter</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={shareOnFacebook}
-              className="flex items-center space-x-2"
-            >
-              <Facebook className="w-4 h-4" />
-              <span>Facebook</span>
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={shareOnLinkedIn}
-              className="flex items-center space-x-2"
-            >
-              <Linkedin className="w-4 h-4" />
-              <span>LinkedIn</span>
-            </Button>
-          </div>
-        </header>
-
-        {/* Article Content */}
-        <div className="prose prose-lg max-w-none mb-12">
-          <div
-            dangerouslySetInnerHTML={{ __html: post.content }}
-            className="prose prose-lg prose-red max-w-none
-              prose-headings:text-gray-900 prose-headings:font-bold
-              prose-p:text-gray-700 prose-p:leading-relaxed
-              prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline
-              prose-strong:text-gray-900
-              prose-blockquote:border-l-red-500 prose-blockquote:bg-red-50 prose-blockquote:px-6 prose-blockquote:py-4
-              prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded
-              prose-pre:bg-gray-900 prose-pre:text-gray-100
-              prose-ul:list-disc prose-ol:list-decimal
-              prose-li:text-gray-700"
-          />
-        </div>
-
-        {/* Tags */}
-        {post.tags && post.tags.length > 0 && (
-          <div className="mb-12">
-            <h3 className="flex items-center text-lg font-semibold text-gray-900 mb-4">
-              <Tag className="w-5 h-5 mr-2" />
-              Tags
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {post.tags.map((tag, index) => (
-                <Badge key={index} variant="outline" className="text-gray-600 border-gray-300">
-                  {tag}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Author Bio */}
-        {post.author_bio && (
-          <div className="bg-white rounded-xl p-8 mb-12 shadow-sm border border-gray-200">
-            <div className="flex items-start space-x-4">
-              {post.author_avatar && (
-                <img
-                  src={post.author_avatar}
-                  alt={post.author_name}
-                  className="w-16 h-16 rounded-full flex-shrink-0"
-                />
-              )}
-              <div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">About {post.author_name}</h3>
-                <p className="text-gray-600 leading-relaxed">{post.author_bio}</p>
+          {/* Author Bio */}
+          {post.author_bio && (
+            <div className="bg-gradient-to-r from-red-50 to-gray-50 rounded-2xl p-8 mb-12 border border-red-100">
+              <div className="flex items-start space-x-6">
+                {post.author_avatar && (
+                  <img
+                    src={post.author_avatar}
+                    alt={post.author_name}
+                    className="w-20 h-20 rounded-full flex-shrink-0 border-4 border-white shadow-lg"
+                  />
+                )}
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-3">About {post.author_name}</h3>
+                  <p className="text-gray-700 leading-relaxed text-lg">{post.author_bio}</p>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </article>
+          )}
+        </div>
+      </div>
 
       {/* Related Posts */}
       {relatedPosts && relatedPosts.length > 0 && (
-        <section className="bg-white py-16">
+        <section className="bg-white py-20">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Related Articles</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">Related Articles</h2>
             <div className="grid md:grid-cols-3 gap-8">
               {relatedPosts.map((relatedPost) => (
                 <article key={relatedPost.id} className="group">
                   <Link to={`/blog/${relatedPost.slug}`}>
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                      {relatedPost.featured_image_url && (
+                    <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative overflow-hidden">
                         <img
-                          src={relatedPost.featured_image_url}
+                          src={relatedPost.featured_image_url || DEFAULT_FEATURED_IMAGE}
                           alt={relatedPost.title}
-                          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                      )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
                       <div className="p-6">
                         {relatedPost.tags && relatedPost.tags.length > 0 && (
-                          <div className="flex flex-wrap gap-1 mb-3">
+                          <div className="flex flex-wrap gap-2 mb-4">
                             {relatedPost.tags.slice(0, 2).map((tag, index) => (
                               <Badge key={index} variant="outline" className="text-xs">
                                 {tag}
@@ -399,13 +423,13 @@ const BlogPost = () => {
                             ))}
                           </div>
                         )}
-                        <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors line-clamp-2">
+                        <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors line-clamp-2 leading-tight">
                           {relatedPost.title}
                         </h3>
-                        <p className="text-gray-600 text-sm line-clamp-2 mb-4">
+                        <p className="text-gray-600 line-clamp-3 mb-4 leading-relaxed">
                           {relatedPost.excerpt}
                         </p>
-                        <div className="flex items-center justify-between text-xs text-gray-500">
+                        <div className="flex items-center justify-between text-sm text-gray-500">
                           <span>{formatDate(relatedPost.published_at)}</span>
                           <span>{relatedPost.read_time_minutes} min read</span>
                         </div>
