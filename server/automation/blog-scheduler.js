@@ -865,7 +865,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   
   let actualTimeSlot = timeSlot;
   
-  // Auto mode: determine time slot based on current CST time
+  // Auto mode: determine time slot based on current time
   if (timeSlot === 'auto') {
     const now = new Date();
     const cstTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
@@ -875,32 +875,30 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.log(`🕐 Current CST time: ${cstTime.toLocaleString('en-US', { timeZone: 'America/Chicago' })}`);
     console.log(`🕐 Hour: ${hour}, Minute: ${minute}`);
     
-    // Test schedule: 4:20pm, 4:30pm, 4:45pm CST
-    if ((hour === 16 && minute >= 20 && minute <= 25) || hour === 16 && minute === 20) {
+    // Check if we're in testing mode (every 10 minutes) or production mode
+    const isTestingMode = process.env.NODE_ENV === 'production' && hour >= 8 && hour <= 20; // Testing during business hours
+    
+    if (isTestingMode) {
+      // Testing mode: Cycle through content types every 10 minutes
+      const timeSlots = ['morning', 'afternoon', 'evening'];
+      const slotIndex = (hour * 6 + Math.floor(minute / 10)) % 3; // Rotate every ~10 minutes
+      actualTimeSlot = timeSlots[slotIndex];
+      console.log(`🧪 TEST MODE: Running ${actualTimeSlot.toUpperCase()} content (every 10 minutes rotation)`);
+    } 
+    // Production schedule:
+    else if (hour === 9 && minute >= 0 && minute <= 5) {
       actualTimeSlot = 'morning';
-      console.log(`🌅 Auto mode: Running MORNING content at 4:20 PM CST (test schedule)`);
-    } else if ((hour === 16 && minute >= 30 && minute <= 35) || hour === 16 && minute === 30) {
+      console.log(`🌅 PRODUCTION: Running MORNING content at 9:00 AM CST`);
+    } else if (hour === 13 && minute >= 0 && minute <= 5) {
       actualTimeSlot = 'afternoon';
-      console.log(`🌤️ Auto mode: Running AFTERNOON content at 4:30 PM CST (test schedule)`);
-    } else if ((hour === 16 && minute >= 45 && minute <= 50) || hour === 16 && minute === 45) {
+      console.log(`🌤️ PRODUCTION: Running AFTERNOON content at 1:00 PM CST`);
+    } else if (hour === 17 && minute >= 0 && minute <= 5) {
       actualTimeSlot = 'evening';
-      console.log(`🌆 Auto mode: Running EVENING content at 4:45 PM CST (test schedule)`);
-    }
-    // Production schedule (commented out during testing):
-    // else if (hour === 9 && minute >= 0 && minute <= 5) {
-    //   actualTimeSlot = 'morning';
-    //   console.log(`🌅 Auto mode: Running MORNING content at 9:00 AM CST`);
-    // } else if (hour === 13 && minute >= 0 && minute <= 5) {
-    //   actualTimeSlot = 'afternoon';
-    //   console.log(`🌤️ Auto mode: Running AFTERNOON content at 1:00 PM CST`);
-    // } else if (hour === 17 && minute >= 0 && minute <= 5) {
-    //   actualTimeSlot = 'evening';
-    //   console.log(`🌆 Auto mode: Running EVENING content at 5:00 PM CST`);
-    // }
-    else {
+      console.log(`🌆 PRODUCTION: Running EVENING content at 5:00 PM CST`);
+    } else if (!isTestingMode) {
+      // Only exit if not in testing mode
       console.log(`⏰ Auto mode: Not a scheduled time. Current: ${hour}:${minute.toString().padStart(2, '0')} CST`);
-      console.log(`📅 Test schedule: 4:20 PM (morning), 4:30 PM (afternoon), 4:45 PM (evening) CST`);
-      console.log(`📅 Production schedule: 9:00 AM (morning), 1:00 PM (afternoon), 5:00 PM (evening) CST`);
+      console.log(`📅 PRODUCTION: 9:00 AM (morning), 1:00 PM (afternoon), 5:00 PM (evening) CST`);
       console.log(`🚫 Skipping automation - not a scheduled time`);
       process.exit(0);
     }
