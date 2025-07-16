@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 
 // Import routes
 import workshopRoutes from './routes/workshop.js';
-import authRoutes from './routes/auth.js';
+import { authRoutes } from './routes/auth.js';
 import chatRoutes from './routes/chat.js';
 import blogRoutes from './routes/blog.js';
 
