@@ -608,6 +608,10 @@ function parseGeminiResponse(formattedContent, topic, timeSlot) {
     metaDescription = metaDescription.substring(0, 157).trim() + '...';
   }
   
+  // Generate a featured image URL for the blog card
+  const featuredImages = getReliableImages(topic, 1);
+  const featuredImageUrl = featuredImages[0]?.url || `https://picsum.photos/1200/400?random=${Date.now()}`;
+  
   return {
     title,
     content,
@@ -615,6 +619,7 @@ function parseGeminiResponse(formattedContent, topic, timeSlot) {
     tags,
     meta_description: metaDescription,
     meta_keywords: extractKeywords(topic, tags),
+    featured_image_url: featuredImageUrl, // Add featured image for blog cards
     seo_score: 8.5 + Math.random() * 1.0, // Higher scores for AEO content
     llm_prompt: `AEO ${timeSlot} content: ${topic}`,
     created_by_llm: true,
@@ -725,6 +730,10 @@ function createFallbackContent(topic, timeSlot) {
     <p>Ready to transform your business? The first step is understanding your current processes and identifying the areas where automation can have the biggest impact. Contact our team for a free consultation and see how we can help you achieve your goals.</p>
   `.trim();
   
+  // Generate a featured image URL for the fallback content
+  const featuredImages = getReliableImages(topic, 1);
+  const featuredImageUrl = featuredImages[0]?.url || `https://picsum.photos/1200/400?random=${Date.now()}`;
+
   return {
     title: topic,
     content: fallbackContent,
@@ -732,6 +741,7 @@ function createFallbackContent(topic, timeSlot) {
     tags: generateAEOTags(topic, timeSlot),
     meta_description: metaDescription,
     meta_keywords: extractKeywords(topic, generateAEOTags(topic, timeSlot)),
+    featured_image_url: featuredImageUrl, // Add featured image for blog cards
     seo_score: 7.5,
     llm_prompt: `Fallback AEO content for: ${topic}`,
     created_by_llm: true
