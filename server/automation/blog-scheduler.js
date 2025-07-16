@@ -328,25 +328,34 @@ async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI
 async function formatContentAsHTML(rawContent, topic, timeSlot, model = DEFAULT_GEMINI_MODEL) {
   console.log(`🎨 Formatting content as HTML with images...`);
   
-  const htmlPrompt = `You are an expert HTML formatter and content editor. Take the following article content and format it as proper HTML for a professional blog website.
+  const htmlPrompt = `You are an expert HTML formatter. Take the article content and format it as clean, semantic HTML.
 
-REQUIREMENTS:
-1. Convert to proper HTML with semantic tags (h2, h3, p, ul, ol, li, strong, em)
-2. Add 2-3 relevant images throughout the article using this format: <img src="https://images.unsplash.com/photo-XXXX" alt="descriptive alt text" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
-3. Use these Unsplash image topics: AI technology, business automation, digital transformation, modern office, data analytics
-4. Ensure proper paragraph breaks and spacing
-5. Make headings clear with h2 for main sections and h3 for subsections
-6. Keep all the original content but improve the HTML structure
-7. Add proper line breaks between sections
-8. Make sure lists are properly formatted as <ul> or <ol>
+CRITICAL FORMATTING RULES:
+1. Use ONLY these HTML tags: h2, h3, p, ul, ol, li, strong, em, img
+2. Every major section MUST start with <h2>Section Title</h2>
+3. Every subsection MUST use <h3>Subsection Title</h3>
+4. Every paragraph MUST be wrapped in <p>content</p> tags
+5. Add 2-3 images using: <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI automation concept" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+6. Use bullet points as <ul><li>item</li></ul> and numbered lists as <ol><li>item</li></ol>
+7. Bold important text with <strong>text</strong>
+
+EXAMPLE STRUCTURE:
+<h2>Main Section Title</h2>
+<p>Paragraph content here.</p>
+
+<h3>Subsection Title</h3>
+<p>More paragraph content.</p>
+<ul>
+<li>Bullet point one</li>
+<li>Bullet point two</li>
+</ul>
+
+<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI technology" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
 
 ARTICLE TOPIC: ${topic}
-TIME SLOT: ${timeSlot}
+RAW CONTENT: ${rawContent}
 
-RAW CONTENT TO FORMAT:
-${rawContent}
-
-Return ONLY the formatted HTML content, no additional text or explanations.`;
+Format the content following the exact structure above. Return ONLY clean HTML, no explanations.`;
 
   try {
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`, {
@@ -441,36 +450,80 @@ function addDefaultImages(content, topic) {
 
 // Basic HTML formatting fallback
 function basicHTMLFormat(content, topic) {
-  return content
-    .split('\n\n')
-    .map(paragraph => {
-      const p = paragraph.trim();
-      if (!p) return '';
+  let formattedContent = content
+    .split('\n')
+    .map(line => line.trim())
+    .filter(line => line.length > 0)
+    .join('\n');
+
+  // Split into sections and paragraphs
+  const sections = formattedContent.split(/(?=##\s)|(?=###\s)/).filter(section => section.trim());
+  
+  let htmlOutput = '';
+  let imageAdded = false;
+  
+  sections.forEach((section, index) => {
+    const lines = section.split('\n').filter(line => line.trim());
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
       
-      if (p.startsWith('## ')) {
-        return `<h2>${p.replace('## ', '')}</h2>`;
-      } else if (p.startsWith('### ')) {
-        return `<h3>${p.replace('### ', '')}</h3>`;
-      } else if (p.includes('- ') || p.includes('• ')) {
-        const lines = p.split('\n');
-        const listItems = lines
-          .filter(line => line.trim().startsWith('-') || line.trim().startsWith('•'))
-          .map(line => `<li>${line.replace(/^[-•]\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</li>`)
-          .join('\n');
-        return `<ul>\n${listItems}\n</ul>`;
-      } else if (/^\d+\./.test(p)) {
-        const lines = p.split('\n');
-        const listItems = lines
-          .filter(line => /^\d+\./.test(line.trim()))
-          .map(line => `<li>${line.replace(/^\d+\.\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</li>`)
-          .join('\n');
-        return `<ol>\n${listItems}\n</ol>`;
-      } else {
-        return `<p>${p.replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>')}</p>`;
+      if (line.startsWith('## ')) {
+        htmlOutput += `<h2>${line.replace('## ', '')}</h2>\n`;
+      } else if (line.startsWith('### ')) {
+        htmlOutput += `<h3>${line.replace('### ', '')}</h3>\n`;
+      } else if (line.startsWith('- ') || line.startsWith('• ')) {
+        // Handle bullet lists
+        let listItems = [line];
+        while (i + 1 < lines.length && (lines[i + 1].startsWith('- ') || lines[i + 1].startsWith('• '))) {
+          i++;
+          listItems.push(lines[i]);
+        }
+        htmlOutput += '<ul>\n';
+        listItems.forEach(item => {
+          const cleanItem = item.replace(/^[-•]\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>');
+          htmlOutput += `<li>${cleanItem}</li>\n`;
+        });
+        htmlOutput += '</ul>\n';
+      } else if (/^\d+\./.test(line)) {
+        // Handle numbered lists
+        let listItems = [line];
+        while (i + 1 < lines.length && /^\d+\./.test(lines[i + 1])) {
+          i++;
+          listItems.push(lines[i]);
+        }
+        htmlOutput += '<ol>\n';
+        listItems.forEach(item => {
+          const cleanItem = item.replace(/^\d+\.\s*/, '').replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>');
+          htmlOutput += `<li>${cleanItem}</li>\n`;
+        });
+        htmlOutput += '</ol>\n';
+      } else if (line.length > 0) {
+        // Regular paragraph
+        const formattedLine = line.replace(/\*\*/g, '<strong>').replace(/\*\*/g, '</strong>');
+        htmlOutput += `<p>${formattedLine}</p>\n`;
       }
-    })
-    .filter(p => p.length > 0)
-    .join('\n\n');
+    }
+    
+    // Add image after first major section
+    if (index === 0 && !imageAdded) {
+      htmlOutput += '\n<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI automation and business technology" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n';
+      imageAdded = true;
+    }
+  });
+  
+  // Add a second image if content is long enough
+  if (htmlOutput.length > 1000) {
+    const midPoint = Math.floor(htmlOutput.length / 2);
+    const insertPoint = htmlOutput.indexOf('</p>', midPoint);
+    if (insertPoint !== -1) {
+      const beforeInsert = htmlOutput.substring(0, insertPoint + 4);
+      const afterInsert = htmlOutput.substring(insertPoint + 4);
+      htmlOutput = beforeInsert + '\n\n<img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Modern business automation workflow" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n' + afterInsert;
+    }
+  }
+  
+  return htmlOutput.trim();
 }
 
 // Parse Gemini response into structured blog post data
