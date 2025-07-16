@@ -11,7 +11,8 @@ import { chatRoutes } from './routes/chat.js';
 import { blogRoutes } from './routes/blog.js';
 
 // Import database initialization
-import { initializeDatabase, closePool } from './config/init-db.js';
+import { initializeDatabase } from './config/init-db.js';
+import { closePool } from './config/database.js';
 
 // Import blog automation
 import { runScheduledAutomation } from './automation/blog-scheduler.js';
