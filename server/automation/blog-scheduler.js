@@ -5,9 +5,13 @@ import fetch from 'node-fetch';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs/promises';
+import dotenv from 'dotenv';
 
+// Load environment variables from .env file
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const serverDir = dirname(__dirname);
+dotenv.config({ path: join(serverDir, '.env') });
 
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
 const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-pro';
@@ -849,17 +853,64 @@ export {
   createBlogPost
 };
 
-// Handle direct execution with time slot parameter
+// Handle direct execution with time slot parameter or auto mode
 if (import.meta.url === `file://${process.argv[1]}`) {
   const timeSlot = process.argv[2];
   
-  if (!timeSlot || !['morning', 'afternoon', 'evening'].includes(timeSlot)) {
-    console.error('❌ Please specify a time slot: morning, afternoon, or evening');
-    console.log('Usage: node blog-scheduler.js [morning|afternoon|evening]');
+  if (!timeSlot) {
+    console.error('❌ Please specify a time slot: morning, afternoon, evening, or auto');
+    console.log('Usage: node blog-scheduler.js [morning|afternoon|evening|auto]');
     process.exit(1);
   }
   
-  runScheduledAutomation(timeSlot)
+  let actualTimeSlot = timeSlot;
+  
+  // Auto mode: determine time slot based on current CST time
+  if (timeSlot === 'auto') {
+    const now = new Date();
+    const cstTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
+    const hour = cstTime.getHours();
+    const minute = cstTime.getMinutes();
+    
+    console.log(`🕐 Current CST time: ${cstTime.toLocaleString('en-US', { timeZone: 'America/Chicago' })}`);
+    console.log(`🕐 Hour: ${hour}, Minute: ${minute}`);
+    
+    // Test schedule: 4:20pm, 4:30pm, 4:45pm CST
+    if ((hour === 16 && minute >= 20 && minute <= 25) || hour === 16 && minute === 20) {
+      actualTimeSlot = 'morning';
+      console.log(`🌅 Auto mode: Running MORNING content at 4:20 PM CST (test schedule)`);
+    } else if ((hour === 16 && minute >= 30 && minute <= 35) || hour === 16 && minute === 30) {
+      actualTimeSlot = 'afternoon';
+      console.log(`🌤️ Auto mode: Running AFTERNOON content at 4:30 PM CST (test schedule)`);
+    } else if ((hour === 16 && minute >= 45 && minute <= 50) || hour === 16 && minute === 45) {
+      actualTimeSlot = 'evening';
+      console.log(`🌆 Auto mode: Running EVENING content at 4:45 PM CST (test schedule)`);
+    }
+    // Production schedule (commented out during testing):
+    // else if (hour === 9 && minute >= 0 && minute <= 5) {
+    //   actualTimeSlot = 'morning';
+    //   console.log(`🌅 Auto mode: Running MORNING content at 9:00 AM CST`);
+    // } else if (hour === 13 && minute >= 0 && minute <= 5) {
+    //   actualTimeSlot = 'afternoon';
+    //   console.log(`🌤️ Auto mode: Running AFTERNOON content at 1:00 PM CST`);
+    // } else if (hour === 17 && minute >= 0 && minute <= 5) {
+    //   actualTimeSlot = 'evening';
+    //   console.log(`🌆 Auto mode: Running EVENING content at 5:00 PM CST`);
+    // }
+    else {
+      console.log(`⏰ Auto mode: Not a scheduled time. Current: ${hour}:${minute.toString().padStart(2, '0')} CST`);
+      console.log(`📅 Test schedule: 4:20 PM (morning), 4:30 PM (afternoon), 4:45 PM (evening) CST`);
+      console.log(`📅 Production schedule: 9:00 AM (morning), 1:00 PM (afternoon), 5:00 PM (evening) CST`);
+      console.log(`🚫 Skipping automation - not a scheduled time`);
+      process.exit(0);
+    }
+  } else if (!['morning', 'afternoon', 'evening'].includes(timeSlot)) {
+    console.error('❌ Invalid time slot. Must be: morning, afternoon, evening, or auto');
+    console.log('Usage: node blog-scheduler.js [morning|afternoon|evening|auto]');
+    process.exit(1);
+  }
+  
+  runScheduledAutomation(actualTimeSlot)
     .then(() => {
       console.log('✅ Answer Engine Optimized automation completed successfully');
       process.exit(0);

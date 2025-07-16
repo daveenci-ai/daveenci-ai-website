@@ -92,7 +92,7 @@ const examplePost = {
   tags: ["AI", "Automation", "Business Strategy", "Technology Trends", "Digital Transformation"],
   meta_description: "Explore 5 AI automation trends transforming business in 2024. Learn how conversational AI, predictive analytics, and intelligent automation drive success.",
   meta_keywords: "AI automation, business trends 2024, conversational AI, predictive analytics, intelligent process automation, digital transformation",
-  featured_image_url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+      featured_image_url: "https://picsum.photos/800/400?random=1",
   is_featured: true,
   seo_score: 8.5,
   llm_prompt: "Write a comprehensive blog post about AI automation trends in 2024, focusing on practical business applications and real-world benefits."

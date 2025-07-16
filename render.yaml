@@ -3,7 +3,7 @@ services:
   - type: web
     name: daveenci-ai-backend
     env: node
-    plan: free
+    plan: starter  # Changed from free to starter for cron support
     buildCommand: cd server && npm install
     startCommand: cd server && npm start
     envVars:
@@ -31,4 +31,21 @@ services:
     rootDir: /
     scaling:
       minInstances: 1
-      maxInstances: 1 
+      maxInstances: 1
+
+  # Blog Automation Cron Service
+  - type: cron
+    name: daveenci-blog-automation
+    env: node
+    plan: starter
+    buildCommand: cd server && npm install
+    # Test schedule: 4:20pm, 4:30pm, 4:45pm CST (run 3 times during testing)
+    # Production schedule will be: 9am, 1pm, 5pm CST
+    schedule: "20 21 * * *;30 21 * * *;45 21 * * *"  # 4:20, 4:30, 4:45 PM CST (UTC-5, so 21:20, 21:30, 21:45 UTC)
+    startCommand: cd server && node automation/blog-scheduler.js auto
+    envVars:
+      - key: NODE_ENV
+        value: production
+    autoDeploy: true
+    branch: main
+    rootDir: / 

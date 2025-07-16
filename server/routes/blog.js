@@ -178,7 +178,7 @@ router.get('/posts/:slug', blogLimiter, async (req, res) => {
       tags: parseTags(postResult.rows[0].tags),
       author_name: 'DaVeenci AI Team',
       author_bio: 'Expert insights on AI automation, marketing technology, and business growth strategies.',
-      author_avatar: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80'
+      author_avatar: 'https://via.placeholder.com/200x200/4A90E2/FFFFFF?text=AI'
     };
 
     res.json(post);
@@ -382,7 +382,7 @@ router.get('/featured', blogLimiter, async (req, res) => {
       ...post,
       tags: parseTags(post.tags),
       author_name: 'DaVeenci AI Team',
-      author_avatar: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80'
+      author_avatar: 'https://via.placeholder.com/200x200/4A90E2/FFFFFF?text=AI'
     }));
 
     res.json(posts);
