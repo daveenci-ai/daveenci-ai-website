@@ -216,17 +216,21 @@ const setupBlogAutomation = () => {
     
     let timeSlot = null;
     
-    // Test 1: 2:00 PM CST
-    if (hour === 14 && minute === 0) {
+    // Test 1: 2:20 PM CST
+    if (hour === 14 && minute === 20) {
       timeSlot = 'morning';
     }
     // Test 2: 2:30 PM CST  
     else if (hour === 14 && minute === 30) {
       timeSlot = 'afternoon';
     }
-    // Test 3: 3:00 PM CST
-    else if (hour === 15 && minute === 0) {
+    // Test 3: 2:45 PM CST
+    else if (hour === 14 && minute === 45) {
       timeSlot = 'evening';
+    }
+    // Test 4: 3:00 PM CST
+    else if (hour === 15 && minute === 0) {
+      timeSlot = 'morning';
     }
     
     if (timeSlot) {
@@ -244,7 +248,8 @@ const setupBlogAutomation = () => {
   setInterval(checkAndRunAutomation, 60000); // 60 seconds
   
   console.log('📅 Blog automation testing schedule:');
-  console.log('  🧪 2:00 PM CST  - Test 1 (morning content)');
+  console.log('  🧪 2:20 PM CST  - Test 1 (morning content)');
   console.log('  🧪 2:30 PM CST  - Test 2 (afternoon content)');  
-  console.log('  🧪 3:00 PM CST  - Test 3 (evening content)');
+  console.log('  🧪 2:45 PM CST  - Test 3 (evening content)');
+  console.log('  🧪 3:00 PM CST  - Test 4 (morning content)');
 }; 
