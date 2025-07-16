@@ -145,6 +145,44 @@ app.use((err, req, res, next) => {
   });
 });
 
+// Blog automation setup - runs within backend service
+const setupBlogAutomation = () => {
+  console.log('🤖 Setting up blog automation (every 10 minutes during business hours)...');
+  
+  const checkAndRunAutomation = async () => {
+    try {
+      const now = new Date();
+      const cstTime = new Date(now.toLocaleString("en-US", {timeZone: "America/Chicago"}));
+      const hour = cstTime.getHours();
+      const minute = cstTime.getMinutes();
+      
+      // Only run during business hours (8 AM - 8 PM CST) and every 10 minutes
+      if (hour >= 8 && hour <= 20 && minute % 10 === 0) {
+        console.log(`🕐 Automation check: ${cstTime.toLocaleString('en-US', { timeZone: 'America/Chicago' })} CST`);
+        
+        // Cycle through content types every 10 minutes
+        const timeSlots = ['morning', 'afternoon', 'evening'];
+        const slotIndex = (hour * 6 + Math.floor(minute / 10)) % 3;
+        const timeSlot = timeSlots[slotIndex];
+        
+        console.log(`🚀 Running ${timeSlot} automation...`);
+        
+        // Import and run the automation
+        const { runScheduledAutomation } = await import('./automation/blog-scheduler.js');
+        await runScheduledAutomation(timeSlot);
+        
+        console.log(`✅ ${timeSlot} automation completed successfully`);
+      }
+    } catch (error) {
+      console.error('❌ Blog automation error:', error.message);
+    }
+  };
+  
+  // Check every minute for the 10-minute mark
+  setInterval(checkAndRunAutomation, 60000); // 1 minute
+  console.log('✅ Blog automation scheduler active');
+};
+
 // Start server with database initialization
 const startServer = async () => {
   // Start the server first, then try database initialization
@@ -160,6 +198,9 @@ const startServer = async () => {
       console.log('🔗 Initializing database connection...');
       await initializeDatabase();
       console.log('✅ Database initialized successfully');
+      
+      // Setup blog automation after database is ready
+      setupBlogAutomation();
       
     } catch (error) {
       console.error('❌ Database initialization failed, but server will continue:', error.message);
