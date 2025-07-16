@@ -12,60 +12,133 @@ const __dirname = dirname(__filename);
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
 const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-pro';
 
-// Answer Engine Optimized Topic pools for each time slot
-const TOPIC_POOLS = {
-  morning: [
-    "How to Automate Client Onboarding for Small Businesses (2025 Step-by-Step Guide)",
-    "Why Facebook Ads Don't Convert: 7 AI-Powered Solutions That Work",
-    "Best AI Tools to Grow Your Business in 2025 (Complete Comparison)",
-    "Lead Generation Problems? 5 AI Solutions That Actually Work",
-    "Affordable Business Automation for Small Companies (Under $500/Month)",
-    "How to Automate Your Sales Process: 8 Steps to 3x Revenue",
-    "AI Customer Service Tools: Complete Setup Guide for 2025",
-    "Email Marketing Automation: How to Nurture 1000+ Leads Daily",
-    "Why Your CRM Fails: 6 Automation Fixes That Increase Sales 40%",
-    "Free Automation Tools Every Small Business Needs (2025 List)",
-    "Stop Losing Leads: How Automation Captures 95% More Prospects",
-    "Social Media Automation: Post 50x Faster Without Losing Engagement",
-    "Save 10 Hours Per Week: Essential Business Workflows to Automate",
-    "Automate Invoicing and Payments: Complete Guide for Small Business",
-    "AI Chatbots for Small Business: Setup Guide With 3 Free Tools"
-  ],
-  afternoon: [
-    "AI Marketing Agencies in Houston: Top 10 Services for 2025",
-    "Best CRM Automation Services 2025: Houston Business Guide",
-    "Marketing AI Tools for Real Estate Agents: Complete Texas Guide", 
-    "Custom GPT Agents for Law Firms: 5 Ways to Automate Legal Work",
-    "No-Code Lead Generation: Houston Small Business Success Stories",
-    "Houston Digital Marketing Automation: Local Agency Comparison",
-    "AI Solutions for Texas Small Businesses (Industry-Specific Guide)",
-    "Best CRM for Houston Real Estate: Local Agent Success Stories",
-    "Local SEO Automation for Texas Businesses: 2025 Complete Guide",
-    "Marketing Automation for Austin Startups: Cost vs ROI Analysis",
-    "AI Tools for Dallas Entrepreneurs: Local Business Case Studies", 
-    "Restaurant Automation in Houston: 5 Systems That Increase Revenue",
-    "Texas Lead Generation Services: Local vs National Comparison",
-    "AI Marketing for Service Businesses: Houston Success Stories",
-    "Salon and Spa Automation Systems: Texas Business Owner Guide"
-  ],
-  evening: [
-    "How AI Will Change Digital Marketing in 2025: 7 Key Predictions",
-    "Automation Strategies for Solopreneurs: Complete 2025 Playbook", 
-    "AI Marketing Trends 2025: What Small Business Owners Must Know",
-    "ChatGPT for Sales Funnels: Complete Setup Guide With Examples",
-    "Marketing Automation vs AI Personalization: Which Drives More Sales?",
-    "Future of Business Automation: 10 Trends Shaping 2025-2030",
-    "Why Every Business Needs AI Automation in 2025 (Data-Backed Guide)",
-    "AI vs Traditional Marketing: ROI Comparison With Real Numbers",
-    "Prepare Your Business for AI Disruption: 2025 Strategic Guide",
-    "Top AI Trends That Will Dominate 2025: Business Impact Analysis",
-    "ROI of AI Automation: Small Business Investment Guide With Case Studies",
-    "Building AI-First Business Strategies: Complete 2025 Framework",
-    "Why AI Automation Is No Longer Optional: Market Research Report",
-    "AI Business Transformation Guide: Step-by-Step for 2025",
-    "How AI Changes Customer Expectations: 2025 Behavior Report"
-  ]
+// Content type guidelines for dynamic topic generation
+const CONTENT_GUIDELINES = {
+  morning: {
+    type: "How-To Guides & Step-by-Step Tutorials",
+    description: "Practical, actionable guides that solve specific business problems. Focus on automation, AI tools, lead generation, sales processes, and operational efficiency.",
+    examples: ["How to automate X", "Step-by-step guide to Y", "Complete setup guide for Z"]
+  },
+  afternoon: {
+    type: "Local Business & Service Comparisons", 
+    description: "Location-specific business guides, service comparisons, and industry-specific solutions. Focus on Houston, Texas, Austin, Dallas markets.",
+    examples: ["Best X services in Houston", "Texas business guide to Y", "Local vs national comparison of Z"]
+  },
+  evening: {
+    type: "Industry Trends & Future Predictions",
+    description: "Thought leadership articles about AI trends, future predictions, strategic insights, and market analysis.",
+    examples: ["Future of X in 2025", "Y trends that will dominate Z", "How X changes Y expectations"]
+  }
 };
+
+// Fetch recent blog post titles to avoid duplication
+async function fetchRecentBlogTitles() {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/blog/posts?limit=10&page=1`);
+    if (!response.ok) {
+      console.warn('Could not fetch recent blog posts for duplication check');
+      return [];
+    }
+    
+    const data = await response.json();
+    const recentTitles = data.posts ? data.posts.map(post => post.title) : [];
+    console.log(`📚 Found ${recentTitles.length} recent blog posts for duplication check`);
+    return recentTitles;
+  } catch (error) {
+    console.warn('Error fetching recent blog posts:', error.message);
+    return [];
+  }
+}
+
+// Generate dynamic topic using AI
+async function generateDynamicTopic(timeSlot, model = DEFAULT_GEMINI_MODEL) {
+  console.log(`🎯 Generating dynamic ${timeSlot} topic...`);
+  
+  try {
+    // Get recent blog titles to avoid duplication
+    const recentTitles = await fetchRecentBlogTitles();
+    const recentTitlesText = recentTitles.length > 0 
+      ? `\n\nRECENT BLOG POSTS TO AVOID DUPLICATING:\n${recentTitles.map(title => `- ${title}`).join('\n')}`
+      : '';
+    
+    const guideline = CONTENT_GUIDELINES[timeSlot];
+    
+    const topicPrompt = `You are a content strategist for DaVeenci AI, a company specializing in business automation and AI solutions.
+
+Generate a compelling, unique blog post title for our ${timeSlot} content slot.
+
+CONTENT TYPE: ${guideline.type}
+DESCRIPTION: ${guideline.description}
+EXAMPLES: ${guideline.examples.join(', ')}
+
+REQUIREMENTS:
+1. Create a title that follows the ${timeSlot} content style but is completely unique
+2. Focus on business automation, AI tools, lead generation, marketing automation, or operational efficiency
+3. Include specific numbers, years (2025), or concrete benefits when relevant
+4. Make it actionable and solution-oriented
+5. Ensure it's different from all recent blog posts listed below
+6. 60-80 characters for optimal SEO
+7. Include power words like "Complete Guide", "Step-by-Step", "Proven", "Ultimate", etc.
+
+AVOID:
+- Generic topics that don't provide specific value
+- Topics too similar to recent posts
+- Overly technical jargon
+- Topics outside our business automation/AI focus${recentTitlesText}
+
+Return ONLY the blog post title, nothing else.`;
+
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{
+            text: topicPrompt
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.8,
+          topK: 40,
+          topP: 0.9,
+          maxOutputTokens: 100,
+        }
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Topic generation API error: ${response.status} ${response.statusText} - ${errorText}`);
+    }
+
+    const data = await response.json();
+    
+    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+      throw new Error('Invalid response structure from topic generation API');
+    }
+    
+    const generatedTopic = data.candidates[0].content.parts[0].text.trim()
+      .replace(/^["']|["']$/g, '') // Remove quotes
+      .replace(/\n.*$/s, ''); // Remove any extra lines
+    
+    console.log(`✅ Generated dynamic topic: ${generatedTopic}`);
+    return generatedTopic;
+    
+  } catch (error) {
+    console.error(`❌ Error generating dynamic topic:`, error);
+    
+    // Fallback to a generic topic based on time slot
+    const fallbackTopics = {
+      morning: "How to Automate Your Business Processes: Complete 2025 Implementation Guide",
+      afternoon: "Best Business Automation Services in Texas: Local vs National Comparison",
+      evening: "Future of AI Automation: 5 Trends That Will Transform Business in 2025"
+    };
+    
+    return fallbackTopics[timeSlot] || fallbackTopics.morning;
+  }
+}
 
 // Answer Engine Optimized content generation with structured prompts
 async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI_MODEL) {
@@ -587,11 +660,10 @@ async function createBlogPost(postData) {
   }
 }
 
-// Get random topic from pool
-function getRandomTopic(timeSlot) {
-  const pool = TOPIC_POOLS[timeSlot];
-  const randomIndex = Math.floor(Math.random() * pool.length);
-  return pool[randomIndex];
+// This function is now replaced by generateDynamicTopic()
+// Keeping for backward compatibility but it now calls the dynamic generator
+async function getRandomTopic(timeSlot) {
+  return await generateDynamicTopic(timeSlot);
 }
 
 // Main automation function for specific time slots
@@ -599,9 +671,9 @@ async function runScheduledAutomation(timeSlot) {
   console.log(`🚀 Starting ${timeSlot} AEO blog automation at ${new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' })} CST`);
   
   try {
-    // Get random topic for this time slot
-    const topic = getRandomTopic(timeSlot);
-    console.log(`📝 Selected AEO topic: ${topic}`);
+    // Generate dynamic topic for this time slot
+    const topic = await getRandomTopic(timeSlot);
+    console.log(`📝 Generated dynamic topic: ${topic}`);
     
     // Generate Answer Engine Optimized content with Gemini
     const postData = await generateContentWithGemini(topic, timeSlot);
