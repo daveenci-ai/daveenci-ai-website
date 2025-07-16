@@ -335,7 +335,7 @@ CRITICAL FORMATTING RULES:
 2. Every major section MUST start with <h2>Section Title</h2>
 3. Every subsection MUST use <h3>Subsection Title</h3>
 4. Every paragraph MUST be wrapped in <p>content</p> tags
-5. Add 2-3 images using: <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI automation concept" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+5. Add 2-3 relevant images using reliable sources like: <img src="https://picsum.photos/1200/400?random=${Date.now()}" alt="AI automation concept" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
 6. Use bullet points as <ul><li>item</li></ul> and numbered lists as <ol><li>item</li></ol>
 7. Bold important text with <strong>text</strong>
 
@@ -350,7 +350,7 @@ EXAMPLE STRUCTURE:
 <li>Bullet point two</li>
 </ul>
 
-<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI technology" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+<img src="https://picsum.photos/1200/400?random=4" alt="AI technology" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
 
 ARTICLE TOPIC: ${topic}
 RAW CONTENT: ${rawContent}
@@ -415,22 +415,72 @@ Format the content following the exact structure above. Return ONLY clean HTML, 
   }
 }
 
+// Enhanced image generation with multiple reliable sources
+function getReliableImages(topic, count = 3) {
+  // Generate different image styles based on topic keywords
+  const topicLower = topic.toLowerCase();
+  const images = [];
+  
+  // Use different reliable image services for variety
+  const services = [
+    { name: 'picsum', baseUrl: 'https://picsum.photos/1200/400' },
+    { name: 'placeholder', baseUrl: 'https://via.placeholder.com/1200x400/4A90E2/FFFFFF' },
+    { name: 'dummyimage', baseUrl: 'https://dummyimage.com/1200x400/ef4444/ffffff' }
+  ];
+  
+  // Generate appropriate alt text based on topic
+  let altTexts = [];
+  if (topicLower.includes('ai') || topicLower.includes('artificial')) {
+    altTexts = [
+      "AI and artificial intelligence technology concept",
+      "Machine learning and automation in business",
+      "Digital transformation and AI implementation"
+    ];
+  } else if (topicLower.includes('business') || topicLower.includes('automation')) {
+    altTexts = [
+      "Modern business automation workflow",
+      "Digital workplace and productivity tools", 
+      "Business process optimization and efficiency"
+    ];
+  } else if (topicLower.includes('marketing') || topicLower.includes('sales')) {
+    altTexts = [
+      "Marketing automation and lead generation",
+      "Sales process optimization tools",
+      "Customer relationship management system"
+    ];
+  } else {
+    altTexts = [
+      "Professional business technology concept",
+      "Modern digital workplace environment",
+      "Business growth and innovation strategy"
+    ];
+  }
+  
+  for (let i = 0; i < count; i++) {
+    const service = services[i % services.length];
+    let imageUrl;
+    
+    if (service.name === 'picsum') {
+      imageUrl = `${service.baseUrl}?random=${Date.now() + i}`;
+    } else if (service.name === 'placeholder') {
+      imageUrl = `${service.baseUrl}&text=Business+Technology`;
+    } else {
+      imageUrl = `${service.baseUrl}&text=AI+Business`;
+    }
+    
+    images.push({
+      url: imageUrl,
+      alt: altTexts[i % altTexts.length]
+    });
+  }
+  
+  return images;
+}
+
 // Add default images to content if none were added
 function addDefaultImages(content, topic) {
-  const images = [
-    {
-      url: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "AI and artificial intelligence technology concept"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "Modern business automation and digital workplace"
-    },
-    {
-      url: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
-      alt: "Data analytics and business intelligence dashboard"
-    }
-  ];
+  // Using multiple reliable image services that will never 404
+  const images = getReliableImages(topic, 3);
   
   const sections = content.split('<h2>');
   if (sections.length > 1) {
@@ -507,7 +557,7 @@ function basicHTMLFormat(content, topic) {
     
     // Add image after first major section
     if (index === 0 && !imageAdded) {
-      htmlOutput += '\n<img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI automation and business technology" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n';
+      htmlOutput += '\n<img src="https://picsum.photos/1200/400?random=5" alt="AI automation and business technology" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n';
       imageAdded = true;
     }
   });
@@ -519,7 +569,7 @@ function basicHTMLFormat(content, topic) {
     if (insertPoint !== -1) {
       const beforeInsert = htmlOutput.substring(0, insertPoint + 4);
       const afterInsert = htmlOutput.substring(insertPoint + 4);
-      htmlOutput = beforeInsert + '\n\n<img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Modern business automation workflow" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n' + afterInsert;
+      htmlOutput = beforeInsert + '\n\n<img src="https://picsum.photos/1200/400?random=6" alt="Modern business automation workflow" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />\n\n' + afterInsert;
     }
   }
   
@@ -637,7 +687,7 @@ function createFallbackContent(topic, timeSlot) {
     <h2>Quick Answer</h2>
     <p>${topic} is an essential strategy for modern businesses looking to improve efficiency and growth. This comprehensive guide will walk you through the implementation process step by step.</p>
     
-    <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="AI and automation technology concept" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+    <img src="https://picsum.photos/1200/400?random=7" alt="AI and automation technology concept" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
     
     <h2>Key Benefits</h2>
     <p>Implementing this solution brings numerous advantages to your business operations:</p>
@@ -658,7 +708,7 @@ function createFallbackContent(topic, timeSlot) {
       <li><strong>Monitor and optimize performance</strong> - Continuously improve and refine your systems</li>
     </ol>
     
-    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Modern business team working with automation tools" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
+    <img src="https://picsum.photos/1200/400?random=8" alt="Modern business team working with automation tools" class="w-full h-64 object-cover rounded-lg shadow-md my-6" />
     
     <h2>Frequently Asked Questions</h2>
     
