@@ -124,7 +124,7 @@ const Pricing = () => {
           {
             name: "Auto-Reply Email System",
             type: "Add-on",
-            /*starter: false,*/
+            starter: false,
             growth: true,
             aiMax: true,
             price: "$150",
@@ -151,7 +151,7 @@ const Pricing = () => {
           {
             name: "Analytics Dashboard",
             type: "Add-on",
-            /*starter: true,*/
+            starter: false,
             growth: true,
             aiMax: true,
             price: "$2,000",

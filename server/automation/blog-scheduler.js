@@ -16,22 +16,91 @@ dotenv.config({ path: join(serverDir, '.env') });
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
 const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-pro';
 
-// Content type guidelines for dynamic topic generation
+// Diverse topic categories for dynamic content generation
+const TOPIC_CATEGORIES = {
+  // AI and Technology Focus
+  ai_solutions: [
+    "AI-powered customer service automation",
+    "Machine learning in business decision making", 
+    "AI chatbots vs human customer support",
+    "Computer vision applications for retail",
+    "Natural language processing for content",
+    "AI-driven predictive analytics",
+    "Smart automation vs traditional workflows"
+  ],
+  
+  // Search and Digital Marketing
+  seo_aeo_geo: [
+    "SEO vs AEO vs GEO: Complete 2025 comparison",
+    "Answer Engine Optimization strategies",
+    "Generative Engine Optimization tactics", 
+    "Voice search optimization techniques",
+    "Local SEO vs traditional SEO",
+    "Schema markup for answer engines",
+    "AI search and ranking factors"
+  ],
+
+  // CRM and Sales Technology  
+  smart_crm: [
+    "Smart CRM systems with AI integration",
+    "CRM automation workflows that work",
+    "Lead scoring with machine learning",
+    "Customer journey mapping tools",
+    "Sales pipeline automation strategies",
+    "CRM data analytics and insights",
+    "Integrating CRM with marketing tools"
+  ],
+
+  // Content and Marketing Automation
+  content_automation: [
+    "Automating blog content with AI",
+    "Social media scheduling and automation",
+    "Email marketing automation best practices", 
+    "Content personalization at scale",
+    "Automated content distribution strategies",
+    "AI content generation workflows",
+    "Video marketing automation tools"
+  ],
+
+  // Digital Marketing and Growth
+  digital_marketing: [
+    "AI in digital marketing campaigns",
+    "Programmatic advertising automation",
+    "Marketing attribution and analytics",
+    "Customer segmentation with AI",
+    "Conversion rate optimization tools",
+    "Marketing funnel automation",
+    "Cross-channel marketing integration"
+  ],
+
+  // Business Operations and Productivity
+  business_ops: [
+    "Workflow automation for remote teams",
+    "Document management automation",
+    "Invoice and billing automation",
+    "Project management with AI",
+    "Team collaboration automation tools",
+    "Business process optimization",
+    "Data integration and synchronization"
+  ]
+};
+
+// Content type guidelines for different time slots
 const CONTENT_GUIDELINES = {
   morning: {
-    type: "How-To Guides & Step-by-Step Tutorials",
-    description: "Practical, actionable guides that solve specific business problems. Focus on automation, AI tools, lead generation, sales processes, and operational efficiency.",
-    examples: ["How to automate X", "Step-by-step guide to Y", "Complete setup guide for Z"]
+    type: "How-To Guides & Implementation",
+    description: "Practical, step-by-step guides that solve specific business problems across AI, marketing, CRM, and operations.",
+    categories: ["ai_solutions", "content_automation", "business_ops"]
   },
   afternoon: {
-    type: "Local Business & Service Comparisons", 
-    description: "Location-specific business guides, service comparisons, and industry-specific solutions. Focus on Houston, Texas, Austin, Dallas markets.",
-    examples: ["Best X services in Houston", "Texas business guide to Y", "Local vs national comparison of Z"]
+    type: "Comparisons & Analysis", 
+    description: "Deep comparisons, tool evaluations, and strategic analysis for business decision makers.",
+    categories: ["seo_aeo_geo", "smart_crm", "digital_marketing"]
   },
   evening: {
-    type: "Industry Trends & Future Predictions",
-    description: "Thought leadership articles about AI trends, future predictions, strategic insights, and market analysis.",
-    examples: ["Future of X in 2025", "Y trends that will dominate Z", "How X changes Y expectations"]
+    type: "Trends & Strategic Insights",
+    description: "Industry trends, future predictions, and strategic insights about technology and business.",
+    categories: ["ai_solutions", "digital_marketing", "business_ops"]
   }
 };
 
@@ -54,41 +123,92 @@ async function fetchRecentBlogTitles() {
   }
 }
 
-// Generate dynamic topic using AI
-async function generateDynamicTopic(timeSlot, model = DEFAULT_GEMINI_MODEL) {
-  console.log(`🎯 Generating dynamic ${timeSlot} topic...`);
+// Smart topic selection with category rotation and duplicate avoidance
+async function selectDiverseTopic(timeSlot) {
+  console.log(`🎯 Selecting diverse topic for ${timeSlot}...`);
   
   try {
-    // Get recent blog titles to avoid duplication
+    // Get recent blog titles to check for duplicates
     const recentTitles = await fetchRecentBlogTitles();
+    const recentTopicsLower = recentTitles.map(title => title.toLowerCase());
+    
+    const guideline = CONTENT_GUIDELINES[timeSlot];
+    const availableCategories = guideline.categories;
+    
+    // Try each category to find a unique topic
+    for (const category of availableCategories) {
+      const topicPool = TOPIC_CATEGORIES[category];
+      
+      for (const baseTopic of topicPool) {
+        // Check if this topic concept is already covered recently
+        const topicWords = baseTopic.toLowerCase().split(' ');
+        const isUnique = !recentTopicsLower.some(recentTitle => {
+          const recentWords = recentTitle.split(' ');
+          const commonWords = topicWords.filter(word => 
+            recentWords.some(recentWord => recentWord.includes(word) || word.includes(recentWord))
+          );
+          return commonWords.length >= 3; // If 3+ common words, consider it similar
+        });
+        
+        if (isUnique) {
+          console.log(`✅ Selected unique topic from ${category}: ${baseTopic}`);
+          return baseTopic;
+        }
+      }
+    }
+    
+    // If no unique topic found, generate one with AI
+    console.log('🤖 No unique predefined topic found, generating with AI...');
+    return await generateAIDrivenTopic(timeSlot, recentTitles);
+    
+  } catch (error) {
+    console.error('❌ Error in topic selection:', error);
+    return await generateAIDrivenTopic(timeSlot, []);
+  }
+}
+
+// AI-driven topic generation with enhanced prompts
+async function generateAIDrivenTopic(timeSlot, recentTitles = [], model = DEFAULT_GEMINI_MODEL) {
+  console.log(`🧠 Generating AI-driven ${timeSlot} topic...`);
+  
+  try {
     const recentTitlesText = recentTitles.length > 0 
       ? `\n\nRECENT BLOG POSTS TO AVOID DUPLICATING:\n${recentTitles.map(title => `- ${title}`).join('\n')}`
       : '';
     
     const guideline = CONTENT_GUIDELINES[timeSlot];
+    const categoryExamples = guideline.categories.map(cat => 
+      TOPIC_CATEGORIES[cat].slice(0, 2).join(', ')
+    ).join(', ');
     
-    const topicPrompt = `You are a content strategist for DaVeenci AI, a company specializing in business automation and AI solutions.
+    const topicPrompt = `You are a content strategist for DaVeenci AI, a company specializing in AI solutions and business automation.
 
 Generate a compelling, unique blog post title for our ${timeSlot} content slot.
 
 CONTENT TYPE: ${guideline.type}
 DESCRIPTION: ${guideline.description}
-EXAMPLES: ${guideline.examples.join(', ')}
+
+TOPIC INSPIRATION (create something NEW based on these themes):
+${categoryExamples}
 
 REQUIREMENTS:
-1. Create a title that follows the ${timeSlot} content style but is completely unique
-2. Focus on business automation, AI tools, lead generation, marketing automation, or operational efficiency
-3. Include specific numbers, years (2025), or concrete benefits when relevant
-4. Make it actionable and solution-oriented
-5. Ensure it's different from all recent blog posts listed below
-6. 60-80 characters for optimal SEO
-7. Include power words like "Complete Guide", "Step-by-Step", "Proven", "Ultimate", etc.
+1. Create a completely unique title that hasn't been covered recently
+2. Focus on: AI solutions, CRM systems, SEO/AEO/GEO, content automation, digital marketing, or business operations
+3. Include specific elements: numbers, year (2025), concrete benefits, or comparisons
+4. Make it actionable and solution-oriented for business leaders
+5. 60-80 characters for optimal SEO
+6. Use power words: "Complete", "Ultimate", "Proven", "Advanced", "Smart", "Strategic"
+
+CONTENT STYLE BY TIME:
+- Morning: How-to guides, implementation steps, practical tutorials
+- Afternoon: Comparisons, analysis, tool evaluations, strategic decisions  
+- Evening: Trends, predictions, insights, future planning
 
 AVOID:
-- Generic topics that don't provide specific value
-- Topics too similar to recent posts
+- Topics similar to recent posts listed below
+- Generic or vague titles
 - Overly technical jargon
-- Topics outside our business automation/AI focus${recentTitlesText}
+- Topics outside AI/automation/marketing focus${recentTitlesText}
 
 Return ONLY the blog post title, nothing else.`;
 
@@ -104,9 +224,9 @@ Return ONLY the blog post title, nothing else.`;
           }]
         }],
         generationConfig: {
-          temperature: 0.8,
+          temperature: 0.9,
           topK: 40,
-          topP: 0.9,
+          topP: 0.95,
           maxOutputTokens: 100,
         }
       })
@@ -114,33 +234,75 @@ Return ONLY the blog post title, nothing else.`;
 
     if (!response.ok) {
       const errorText = await response.text();
-      throw new Error(`Topic generation API error: ${response.status} ${response.statusText} - ${errorText}`);
+      throw new Error(`AI topic generation error: ${response.status} ${response.statusText} - ${errorText}`);
     }
 
     const data = await response.json();
     
     if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-      throw new Error('Invalid response structure from topic generation API');
+      throw new Error('Invalid response from AI topic generation');
     }
     
     const generatedTopic = data.candidates[0].content.parts[0].text.trim()
       .replace(/^["']|["']$/g, '') // Remove quotes
       .replace(/\n.*$/s, ''); // Remove any extra lines
     
-    console.log(`✅ Generated dynamic topic: ${generatedTopic}`);
+    console.log(`✅ AI generated unique topic: ${generatedTopic}`);
     return generatedTopic;
     
   } catch (error) {
-    console.error(`❌ Error generating dynamic topic:`, error);
+    console.error(`❌ Error in AI topic generation:`, error);
     
-    // Fallback to a generic topic based on time slot
+    // Enhanced fallback topics based on new categories
     const fallbackTopics = {
-      morning: "How to Automate Your Business Processes: Complete 2025 Implementation Guide",
-      afternoon: "Best Business Automation Services in Texas: Local vs National Comparison",
-      evening: "Future of AI Automation: 5 Trends That Will Transform Business in 2025"
+      morning: "Smart CRM Automation: Complete Implementation Guide for Small Businesses",
+      afternoon: "SEO vs AEO vs GEO: Which Strategy Works Best in 2025?",
+      evening: "AI-Powered Content Marketing: 7 Trends Reshaping Digital Strategy"
     };
     
     return fallbackTopics[timeSlot] || fallbackTopics.morning;
+  }
+}
+
+// Updated main topic generation function
+async function generateDynamicTopic(timeSlot, model = DEFAULT_GEMINI_MODEL) {
+  console.log(`🎯 Generating diverse topic for ${timeSlot}...`);
+  
+  try {
+    // First try to select from predefined diverse topics
+    const topic = await selectDiverseTopic(timeSlot);
+    
+    // If we got an AI-generated topic, enhance it with time-specific formatting
+    if (topic.includes('Complete') || topic.includes('Guide') || topic.includes('vs')) {
+      console.log(`📝 Using topic: ${topic}`);
+      return topic;
+    }
+    
+    // Enhance basic topics with time-specific formatting
+    const timeFormatting = {
+      morning: (topic) => `How to ${topic}: Complete 2025 Implementation Guide`,
+      afternoon: (topic) => `${topic}: Comprehensive Comparison and Analysis`,
+      evening: (topic) => `${topic}: Strategic Insights for 2025`
+    };
+    
+    const enhancedTopic = timeFormatting[timeSlot] 
+      ? timeFormatting[timeSlot](topic)
+      : topic;
+    
+    console.log(`✨ Enhanced topic: ${enhancedTopic}`);
+    return enhancedTopic;
+    
+  } catch (error) {
+    console.error(`❌ Error in topic generation:`, error);
+    
+    // Final fallback
+    const fallbacks = {
+      morning: "Advanced CRM Integration: Step-by-Step Setup Guide",
+      afternoon: "Marketing Automation vs Manual Processes: ROI Analysis",
+      evening: "AI Business Intelligence: Future Trends and Predictions"
+    };
+    
+    return fallbacks[timeSlot] || fallbacks.morning;
   }
 }
 
