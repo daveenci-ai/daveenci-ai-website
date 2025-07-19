@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Check, X, Star, ArrowRight } from 'lucide-react';
+import { Check, X, Star, ArrowRight, Brain } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 
@@ -135,7 +135,7 @@ const Pricing = () => {
         {
           name: "Customer Journey",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$1,500",
@@ -144,7 +144,7 @@ const Pricing = () => {
         {
           name: "Lead Scoring System",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$1,500",
@@ -153,7 +153,7 @@ const Pricing = () => {
         {
           name: "Personalized Email Marketing",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$1,150",
@@ -171,7 +171,7 @@ const Pricing = () => {
         {
           name: "Email Newsletters",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$400",
@@ -180,7 +180,7 @@ const Pricing = () => {
         {
           name: "SMS",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$700",
@@ -189,7 +189,7 @@ const Pricing = () => {
         {
           name: "Analytics Dashboard",
           type: "Add-on",
-          starter: false,
+          /*starter: true,*/
           growth: true,
           aiMax: true,
           price: "$2,000",
@@ -377,7 +377,10 @@ const Pricing = () => {
                 <div className="bg-gray-50 rounded-2xl overflow-hidden">
                   <div className="grid grid-cols-6 gap-4 p-6 bg-gray-100 text-sm font-medium text-gray-600">
                     <div className="col-span-2">Feature</div>
-                    <div className="text-center">🔥 AI</div>
+                    <div className="text-center flex items-center justify-center">
+                      <Brain className="w-4 h-4 mr-1" />
+                      AI
+                    </div>
                     <div className="text-center">⚡ Auto</div>
                     <div className="text-center">💾 DB</div>
                     <div className="text-center">Price</div>
