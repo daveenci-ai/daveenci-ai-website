@@ -8,6 +8,7 @@ import Chatbot from "./components/Chatbot";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Services from "./pages/Services";
+import Pricing from "./pages/Pricing";
 import CaseStudies from "./pages/CaseStudies";
 import AboutUs from "./pages/AboutUs";
 import Blog from "./pages/Blog";
@@ -36,6 +37,7 @@ const App = () => (
           <Route path="/services/marketing-automation" element={<MarketingAutomation />} />
           <Route path="/services/custom-software" element={<CustomSoftware />} />
           <Route path="/services/systems-integration" element={<SystemsIntegration />} />
+          <Route path="/pricing" element={<Pricing />} />
           <Route path="/case-studies" element={<CaseStudies />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />
