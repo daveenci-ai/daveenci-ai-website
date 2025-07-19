@@ -458,16 +458,6 @@ const Pricing = () => {
         </div>
       </section>
 
-      {/* Build Custom Solution */}
-      <section className="py-24 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">Build a Custom Solution</h2>
-            <p className="text-xl text-gray-600">Select individual services to create a system that's perfectly tailored to your needs.</p>
-          </div>
-        </div>
-      </section>
-
       {/* System Foundations */}
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
