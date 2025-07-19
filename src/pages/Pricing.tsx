@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Check, X, Star, ArrowRight, Brain } from 'lucide-react';
+import { Check, X, Star, ArrowRight, Brain, Zap, Database } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 
@@ -26,7 +26,7 @@ const Pricing = () => {
       features: [
         "Everything in Starter",
         "Smart Blog",
-        "Chatbot",
+        "Chatbot Assistant",
         "Lead Scoring",
         "Email Newsletters"
       ]
@@ -47,6 +47,118 @@ const Pricing = () => {
   ];
 
   const detailedFeatures = [
+
+    {
+      category: "Website",
+      color: "blue",
+      items: [
+        {
+          name: "Landing Page + Intake Form / Calendar",
+          type: "Core",
+          starter: true,
+          growth: true,
+          aiMax: true,
+          price: "$2,500",
+          period: "One-time"
+        },
+        {
+          name: "Smart Blog (SEO & AEO Optimized)",
+          type: "Add-on",
+          starter: false,
+          growth: true,
+          aiMax: true,
+          price: "$900",
+          period: "One-time"
+        },
+        {
+          name: "Chatbot Assistant",
+          type: "Add-on",
+          starter: false,
+          growth: true,
+          aiMax: true,
+          price: "$1,000",
+          period: "One-time"
+        }
+      ]
+    },
+    {
+        category: "CRM",
+        color: "green",
+        items: [
+          {
+            name: "CRM Table",
+            type: "Core",
+            starter: true,
+            growth: true,
+            aiMax: true,
+            price: "$1,000",
+            period: "One-time"
+          },
+          {
+            name: "Customer Journey",
+            type: "Add-on",
+            starter: true,
+            growth: true,
+            aiMax: true,
+            price: "$1,500",
+            period: "One-time"
+          },
+          {
+            name: "Lead Scoring System",
+            type: "Add-on",
+            starter: true,
+            growth: true,
+            aiMax: true,
+            price: "$1,500",
+            period: "One-time"
+          },
+          {
+            name: "Personalized Email Marketing",
+            type: "Add-on",
+            starter: true,
+            growth: true,
+            aiMax: true,
+            price: "$1,150",
+            period: "One-time"
+          },
+          {
+            name: "Auto-Reply Email System",
+            type: "Add-on",
+            /*starter: false,*/
+            growth: true,
+            aiMax: true,
+            price: "$150",
+            period: "One-time"
+          },
+          {
+            name: "Email Newsletters",
+            type: "Add-on",
+            starter: true,
+            growth: true,
+            aiMax: true,
+            price: "$400",
+            period: "One-time"
+          },
+          {
+            name: "SMS",
+            type: "Add-on",
+            starter: true,
+            growth: true,
+            aiMax: true,
+            price: "$700",
+            period: "One-time"
+          },
+          {
+            name: "Analytics Dashboard",
+            type: "Add-on",
+            /*starter: true,*/
+            growth: true,
+            aiMax: true,
+            price: "$2,000",
+            period: "One-time"
+          }
+        ]
+      },
     {
       category: "Marketing",
       color: "purple",
@@ -54,7 +166,7 @@ const Pricing = () => {
         {
           name: "Paid Media",
           type: "Core",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$1,250",
@@ -63,7 +175,7 @@ const Pricing = () => {
         {
           name: "Organic Media",
           type: "Core",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$500",
@@ -72,13 +184,13 @@ const Pricing = () => {
       ]
     },
     {
-      category: "Tool",
+      category: "Tools",
       color: "orange",
       items: [
         {
-          name: "AI-Powered Copywriter Tool",
+          name: "AI-Copywriter Tune Up",
           type: "By Requirement",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$500",
@@ -87,7 +199,7 @@ const Pricing = () => {
         {
           name: "AI Avatar Image Generator",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$500",
@@ -96,7 +208,7 @@ const Pricing = () => {
         {
           name: "AI Avatar Video Generator",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$1,500",
@@ -111,122 +223,11 @@ const Pricing = () => {
         {
           name: "Voice Assistant Integration",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "Talk To Us",
           period: ""
-        }
-      ]
-    },
-    {
-      category: "CRM",
-      color: "green",
-      items: [
-        {
-          name: "CRM Table",
-          type: "Core",
-          starter: true,
-          growth: true,
-          aiMax: true,
-          price: "$1,000",
-          period: "One-time"
-        },
-        {
-          name: "Customer Journey",
-          type: "Add-on",
-          starter: true,
-          growth: true,
-          aiMax: true,
-          price: "$1,500",
-          period: "One-time"
-        },
-        {
-          name: "Lead Scoring System",
-          type: "Add-on",
-          starter: true,
-          growth: true,
-          aiMax: true,
-          price: "$1,500",
-          period: "One-time"
-        },
-        {
-          name: "Personalized Email Marketing",
-          type: "Add-on",
-          starter: true,
-          growth: true,
-          aiMax: true,
-          price: "$1,150",
-          period: "One-time"
-        },
-        {
-          name: "Auto-Reply Email System",
-          type: "Add-on",
-          starter: false,
-          growth: true,
-          aiMax: true,
-          price: "$150",
-          period: "One-time"
-        },
-        {
-          name: "Email Newsletters",
-          type: "Add-on",
-          starter: true,
-          growth: true,
-          aiMax: true,
-          price: "$400",
-          period: "One-time"
-        },
-        {
-          name: "SMS",
-          type: "Add-on",
-          starter: true,
-          growth: true,
-          aiMax: true,
-          price: "$700",
-          period: "One-time"
-        },
-        {
-          name: "Analytics Dashboard",
-          type: "Add-on",
-          /*starter: true,*/
-          growth: true,
-          aiMax: true,
-          price: "$2,000",
-          period: "One-time"
-        }
-      ]
-    },
-    {
-      category: "Website",
-      color: "blue",
-      items: [
-        {
-          name: "Landing Page + Intake form/calendar",
-          type: "Core",
-          starter: true,
-          growth: true,
-          aiMax: true,
-          price: "$2,500",
-          period: "One-time"
-        },
-        {
-          name: "Smart Blog (SEO Optimized)",
-          type: "Add-on",
-          starter: false,
-          growth: true,
-          aiMax: true,
-          price: "$900",
-          period: "One-time"
-        },
-        {
-          name: "Chatbot",
-          type: "Add-on",
-          starter: false,
-          growth: true,
-          aiMax: true,
-          price: "$1,000",
-          period: "One-time"
         }
       ]
     }
@@ -381,8 +382,14 @@ const Pricing = () => {
                       <Brain className="w-4 h-4 mr-1" />
                       AI
                     </div>
-                    <div className="text-center">⚡ Auto</div>
-                    <div className="text-center">💾 DB</div>
+                    <div className="text-center flex items-center justify-center">
+                      <Zap className="w-4 h-4 mr-1" />
+                      Auto
+                    </div>
+                    <div className="text-center flex items-center justify-center">
+                      <Database className="w-4 h-4 mr-1" />
+                      DB
+                    </div>
                     <div className="text-center">Price</div>
                   </div>
                   
