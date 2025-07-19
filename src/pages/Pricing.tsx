@@ -41,7 +41,7 @@ const Pricing = () => {
     {
       name: "AI Max",
       price: "$10,000+",
-      description: "Best for established enterprises needing a complete, custom ecosystem.",
+      description: "Best for enterprises wanting complete AI automation.",
       priceNote: "Custom Quote",
       popular: false,
       featuresHeader: "Includes everything in Growth, plus:",
@@ -313,9 +313,9 @@ const Pricing = () => {
             <p className="text-xl text-gray-600">Get started quickly with our expertly crafted packages.</p>
           </div>
           
-          <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto items-end">
+          <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto items-end justify-center">
             {pricingTiers.map((tier, index) => (
-              <div key={index} className={`relative flex flex-col ${tier.popular ? 'lg:w-80 lg:scale-105' : 'lg:w-72'} ${tier.popular ? 'z-10' : 'z-0'}`}>
+              <div key={index} className={`relative flex flex-col ${tier.popular ? 'lg:w-80 lg:scale-105' : 'lg:w-72'} ${tier.popular ? 'z-10' : 'z-0'} mx-auto lg:mx-0`}>
                 {tier.popular && (
                   <div className="bg-red-500 text-white text-center py-3 px-4 text-sm font-bold flex items-center justify-center rounded-t-2xl -mb-1 relative z-20 shadow-lg">
                     <Star className="w-4 h-4 mr-2" fill="currentColor" />
