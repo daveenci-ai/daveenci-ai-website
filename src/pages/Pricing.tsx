@@ -313,16 +313,17 @@ const Pricing = () => {
             <p className="text-xl text-gray-600">Get started quickly with our expertly crafted packages.</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto items-end">
             {pricingTiers.map((tier, index) => (
-              <div key={index} className={`relative bg-white rounded-2xl shadow-lg overflow-hidden ${tier.popular ? 'ring-2 ring-red-500' : ''}`}>
+              <div key={index} className={`relative flex flex-col ${tier.popular ? 'lg:w-80 lg:scale-105' : 'lg:w-72'} ${tier.popular ? 'z-10' : 'z-0'}`}>
                 {tier.popular && (
-                  <div className="bg-red-500 text-white text-center py-2 px-4 text-sm font-medium flex items-center justify-center">
+                  <div className="bg-red-500 text-white text-center py-3 px-4 text-sm font-bold flex items-center justify-center rounded-t-2xl -mb-1 relative z-20 shadow-lg">
                     <Star className="w-4 h-4 mr-2" fill="currentColor" />
                     Most Popular
                   </div>
                 )}
-                <div className="p-8">
+                <div className={`bg-white shadow-lg overflow-hidden flex flex-col h-full ${tier.popular ? 'shadow-xl border-2 border-red-500 rounded-b-2xl' : 'rounded-2xl'}`}>
+                  <div className="p-8 flex-1 flex flex-col">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{tier.name}</h3>
                   <p className="text-gray-600 mb-6">{tier.description}</p>
                   
@@ -335,7 +336,7 @@ const Pricing = () => {
                   <hr className="border-gray-200 mb-6" />
                   
                   {/* Features */}
-                  <div className="mb-8">
+                  <div className="flex-1 mb-8">
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">{tier.featuresHeader}</h4>
                     <ul className="space-y-3">
                       {tier.features.map((feature, featureIndex) => (
@@ -346,7 +347,9 @@ const Pricing = () => {
                     </ul>
                   </div>
                   
-                  <Button 
+                  {/* Button - Always at bottom */}
+                  <div className="mt-auto">
+                    <Button 
                     className={`w-full py-4 text-lg ${
                       tier.popular 
                         ? 'bg-red-600 hover:bg-red-700 text-white' 
@@ -361,7 +364,9 @@ const Pricing = () => {
                     }}
                   >
                     {tier.buttonText} <ArrowRight className="w-5 h-5 ml-2" />
-                  </Button>
+                    </Button>
+                  </div>
+                  </div>
                 </div>
               </div>
             ))}
