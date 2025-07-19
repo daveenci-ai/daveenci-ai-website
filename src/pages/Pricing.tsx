@@ -235,35 +235,37 @@ const Pricing = () => {
   const systemFoundations = [
     {
       name: "GitHub Account",
-      price: "$250",
+      price: "$150",
       period: "One-time"
     },
     {
       name: "Domain / DNS Records",
-      price: "$250",
+      price: "$150",
       period: "One-time"
     },
     {
       name: "Hosting / Server / Database",
-      price: "$500",
+      price: "$350",
       period: "One-time"
     },
     {
       name: "APIs / Webhooks",
-      price: "$500",
+      price: "$350",
       period: "One-time"
     }
   ];
 
-  const renderStatusIcon = (included: boolean, tier: string) => {
-    if (included && tier === 'growth') {
-      return <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center"><Check className="w-4 h-4 text-white" /></div>;
-    } else if (included && tier === 'aiMax') {
-      return <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center"><Check className="w-4 h-4 text-white" /></div>;
-    } else if (included && tier === 'starter') {
-      return <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center"><Check className="w-4 h-4 text-white" /></div>;
+  const renderStatusIcon = (included: boolean, column: string) => {
+    if (included) {
+      if (column === 'ai') {
+        return <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center mx-auto"><Check className="w-4 h-4 text-white" /></div>;
+      } else if (column === 'auto') {
+        return <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center mx-auto"><Check className="w-4 h-4 text-white" /></div>;
+      } else if (column === 'db') {
+        return <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center mx-auto"><Check className="w-4 h-4 text-white" /></div>;
+      }
     } else {
-      return <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center"><X className="w-4 h-4 text-white" /></div>;
+      return <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center mx-auto"><X className="w-4 h-4 text-white" /></div>;
     }
   };
 
@@ -396,9 +398,9 @@ const Pricing = () => {
                           <div className="text-sm text-gray-500 mt-1">+ AI-Powered Copywriter Tool on request</div>
                         )}
                       </div>
-                      <div className="text-center">{renderStatusIcon(item.starter, 'starter')}</div>
-                      <div className="text-center">{renderStatusIcon(item.growth, 'growth')}</div>
-                      <div className="text-center">{renderStatusIcon(item.aiMax, 'aiMax')}</div>
+                                             <div className="text-center">{renderStatusIcon(item.starter, 'ai')}</div>
+                       <div className="text-center">{renderStatusIcon(item.growth, 'auto')}</div>
+                       <div className="text-center">{renderStatusIcon(item.aiMax, 'db')}</div>
                       <div className="text-right">
                         <div className="font-bold text-gray-900">{item.price}</div>
                         {item.period && <div className="text-sm text-gray-500">{item.period}</div>}
