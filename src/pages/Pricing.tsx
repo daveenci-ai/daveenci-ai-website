@@ -9,40 +9,50 @@ const Pricing = () => {
     {
       name: "Starter",
       price: "$5,000",
-      description: "Perfect for small businesses getting started",
+      description: "Best for small businesses getting started.",
+      priceNote: "One-time fee",
       popular: false,
+      featuresHeader: "Core Features:",
       features: [
-        "Landing Page + Form",
-        "Basic CRM",
-        "Email Marketing",
-        "System Setup"
-      ]
+        "🌐 Landing Page + Form",
+        "👥 Basic CRM", 
+        "📧 Email Marketing",
+        "🛠️ System Setup"
+      ],
+      buttonText: "Get Started",
+      buttonAction: "starter"
     },
     {
       name: "Growth",
-      price: "$8,000",
-      description: "Scale your business with AI-powered tools",
+      price: "$8,000", 
+      description: "Best for scaling businesses ready for AI-powered tools.",
+      priceNote: "One-time fee",
       popular: true,
+      featuresHeader: "Includes everything in Starter, plus:",
       features: [
-        "Everything in Starter",
-        "Smart Blog",
-        "Chatbot Assistant",
-        "Lead Scoring",
-        "Email Newsletters"
-      ]
+        "✍️ Smart Blog",
+        "🤖 AI Chatbot",
+        "⭐ Lead Scoring", 
+        "📰 Email Newsletters"
+      ],
+      buttonText: "Get Started",
+      buttonAction: "growth"
     },
     {
       name: "AI Max",
       price: "$10,000+",
-      description: "Complete AI-powered business ecosystem",
+      description: "Best for established enterprises needing a complete, custom ecosystem.",
+      priceNote: "Custom Quote",
       popular: false,
+      featuresHeader: "Includes everything in Growth, plus:",
       features: [
-        "Everything in Growth",
-        "Analytics Dashboard",
-        "AI Avatar Tools",
-        "Advanced Automation",
-        "Custom Integrations"
-      ]
+        "📊 Analytics Dashboard",
+        "👤 AI Avatar Tools",
+        "⚙️ Advanced Automation",
+        "🔌 Custom Integrations"
+      ],
+      buttonText: "Contact Sales",
+      buttonAction: "contact"
     }
   ];
 
@@ -64,7 +74,7 @@ const Pricing = () => {
         {
           name: "Smart Blog (SEO & AEO Optimized)",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$900",
@@ -73,7 +83,7 @@ const Pricing = () => {
         {
           name: "Chatbot Assistant",
           type: "Add-on",
-          starter: false,
+          starter: true,
           growth: true,
           aiMax: true,
           price: "$1,000",
@@ -124,7 +134,7 @@ const Pricing = () => {
           {
             name: "Auto-Reply Email System",
             type: "Add-on",
-            starter: false,
+            starter: true,
             growth: true,
             aiMax: true,
             price: "$150",
@@ -151,7 +161,7 @@ const Pricing = () => {
           {
             name: "Analytics Dashboard",
             type: "Add-on",
-            starter: false,
+            starter: true,
             growth: true,
             aiMax: true,
             price: "$2,000",
@@ -315,23 +325,42 @@ const Pricing = () => {
                 <div className="p-8">
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{tier.name}</h3>
                   <p className="text-gray-600 mb-6">{tier.description}</p>
-                  <div className="text-4xl font-bold text-gray-900 mb-8">{tier.price}</div>
-                  <ul className="space-y-4 mb-8">
-                    {tier.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center">
-                        <Check className="w-5 h-5 text-green-500 mr-3" />
-                        <span className="text-gray-700">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  
+                  {/* Price Section */}
+                  <div className="mb-6">
+                    <div className="text-4xl font-bold text-gray-900 mb-2">{tier.price}</div>
+                    <div className="text-sm text-gray-500">{tier.priceNote}</div>
+                  </div>
+                  
+                  <hr className="border-gray-200 mb-6" />
+                  
+                  {/* Features */}
+                  <div className="mb-8">
+                    <h4 className="text-sm font-semibold text-gray-900 mb-4">{tier.featuresHeader}</h4>
+                    <ul className="space-y-3">
+                      {tier.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-start">
+                          <span className="text-gray-700">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
                   <Button 
                     className={`w-full py-4 text-lg ${
                       tier.popular 
                         ? 'bg-red-600 hover:bg-red-700 text-white' 
                         : 'bg-gray-900 hover:bg-gray-800 text-white'
                     }`}
+                    onClick={() => {
+                      if (tier.buttonAction === 'contact') {
+                        window.open('https://calendly.com/daveenci/astrid', '_blank');
+                      } else {
+                        window.open('https://calendly.com/daveenci/astrid', '_blank');
+                      }
+                    }}
                   >
-                    Choose {tier.name} <ArrowRight className="w-5 h-5 ml-2" />
+                    {tier.buttonText} <ArrowRight className="w-5 h-5 ml-2" />
                   </Button>
                 </div>
               </div>
@@ -380,17 +409,17 @@ const Pricing = () => {
                     <div className="col-span-2">Feature</div>
                     <div className="text-center flex items-center justify-center">
                       <Brain className="w-4 h-4 mr-1" />
-                      AI
+                      Artificial Intelligence
                     </div>
                     <div className="text-center flex items-center justify-center">
                       <Zap className="w-4 h-4 mr-1" />
-                      Auto
+                      Automation
                     </div>
                     <div className="text-center flex items-center justify-center">
                       <Database className="w-4 h-4 mr-1" />
-                      DB
+                      Database
                     </div>
-                    <div className="text-center">Price</div>
+                    <div className="text-right">Price</div>
                   </div>
                   
                   {category.items.map((item, itemIndex) => (

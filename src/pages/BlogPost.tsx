@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { ArrowLeft, Calendar, Clock, Eye, Tag, Share2, Twitter, Facebook, Linkedin } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Tag, Share2, Twitter, Facebook, Linkedin } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { getApiEndpoint } from '@/utils/api';
@@ -280,10 +280,6 @@ const BlogPost = () => {
                       <Clock className="w-4 h-4 mr-1" />
                       {post.read_time_minutes} min read
                     </span>
-                    <span className="flex items-center">
-                      <Eye className="w-4 h-4 mr-1" />
-                      {post.view_count} views
-                    </span>
                   </div>
                 </div>
               </div>
@@ -329,7 +325,7 @@ const BlogPost = () => {
 
       {/* Article Content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           {/* Article Body */}
           <article className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-12">
             <div 

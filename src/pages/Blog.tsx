@@ -255,10 +255,6 @@ const Blog = () => {
                           <Clock className="w-4 h-4 mr-1" />
                           {featuredPost.read_time_minutes} min read
                         </span>
-                        <span className="flex items-center">
-                          <Eye className="w-4 h-4 mr-1" />
-                          {featuredPost.view_count} views
-                        </span>
                       </div>
                     </div>
                   </div>
@@ -406,10 +402,6 @@ const Blog = () => {
                         <span className="flex items-center">
                           <Clock className="w-3 h-3 mr-1" />
                           {post.read_time_minutes} min
-                        </span>
-                        <span className="flex items-center">
-                          <Eye className="w-3 h-3 mr-1" />
-                          {post.view_count}
                         </span>
                       </div>
                       <Link to={`/blog/${post.slug}`}>
