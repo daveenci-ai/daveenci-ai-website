@@ -442,7 +442,7 @@ const AIAutomationWorkshopAustin = () => {
                     <Calendar className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">Tuesday, July 30, 2025</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">Wednesday, July 30, 2025</div>
                   </div>
                 </div>
 
