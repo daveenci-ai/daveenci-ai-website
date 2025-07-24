@@ -442,7 +442,8 @@ const AIAutomationWorkshopAustin = () => {
                     <Calendar className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">Wednesday, July 30, 2025</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">July 30, 2025</div>
+                    <div className="text-gray-600 text-sm md:text-base">Wednesday</div>
                   </div>
                 </div>
 
@@ -520,7 +521,7 @@ const AIAutomationWorkshopAustin = () => {
             href="#form" 
             className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
           >
-            <span className="hidden md:inline">Tuesday, July 30, 2025 • 2:00 PM CST • Austin, TX</span>
+            <span className="hidden md:inline">Wednesday, July 30, 2025 • 2:00 PM CST • Austin, TX</span>
             <span className="md:hidden">Register Now - July 30, 2:00 PM CST</span>
             <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
           </a>
