@@ -77,7 +77,9 @@ app.use(helmet({
       ],
       connectSrc: [
         "'self'",
+        "https://daveenci-ai-backend.onrender.com", // Backend API calls
         "https://www.google-analytics.com",
+        "https://analytics.google.com", // Google Analytics collect endpoint
         "https://www.googletagmanager.com"
       ]
     },
