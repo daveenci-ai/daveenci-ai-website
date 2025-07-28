@@ -62,7 +62,7 @@ const Hero = () => {
             <div className="aspect-video relative">
               <iframe
                 className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/Z0s5-RKHCnI?rel=0&showinfo=0&modestbranding=1"
+                src="https://www.youtube.com/embed/SJYIHasLPS0?rel=0&showinfo=0&modestbranding=1"
                 title="DaVeenci AI-Powered Marketing Automation Demo"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
