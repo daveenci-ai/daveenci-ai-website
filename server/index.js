@@ -27,14 +27,62 @@ const __dirname = path.dirname(__filename);
 // Load environment variables
 dotenv.config();
 
+// Force Render deployment trigger - debugging frontend issues
+console.log('🔧 Deployment trigger: Frontend debugging v1.0');
+console.log('📦 NODE_ENV:', process.env.NODE_ENV);
+console.log('🌐 Static files path:', path.join(__dirname, '..', 'dist'));
+
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Trust proxy headers from Render (specific to avoid rate limiting warnings)
 app.set('trust proxy', 1);
 
-// Security middleware
-app.use(helmet());
+// Security middleware with custom CSP for external content
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'", 
+        "'unsafe-inline'", // For Google Tag Manager
+        "https://www.googletagmanager.com",
+        "https://www.google-analytics.com"
+      ],
+      styleSrc: [
+        "'self'", 
+        "'unsafe-inline'", // For inline styles
+        "https://fonts.googleapis.com"
+      ],
+      imgSrc: [
+        "'self'", 
+        "data:",
+        "https:", // Allow all HTTPS images
+        "http:", // Allow HTTP images for development
+        "https://raw.githubusercontent.com", // GitHub images
+        "https://picsum.photos", // Lorem Picsum
+        "https://via.placeholder.com", // Placeholder.com
+        "https://dummyimage.com", // DummyImage
+        "https://images.unsplash.com" // Unsplash
+      ],
+      frameSrc: [
+        "'self'",
+        "https://www.youtube.com", // YouTube embeds
+        "https://youtube.com",
+        "https://www.googletagmanager.com" // Google Tag Manager
+      ],
+      fontSrc: [
+        "'self'",
+        "https://fonts.gstatic.com"
+      ],
+      connectSrc: [
+        "'self'",
+        "https://www.google-analytics.com",
+        "https://www.googletagmanager.com"
+      ]
+    },
+  },
+}));
 
 // Rate limiting
 const limiter = rateLimit({
