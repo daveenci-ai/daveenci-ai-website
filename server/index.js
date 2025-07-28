@@ -3,6 +3,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 // Import routes
 import { workshopRoutes } from './routes/workshop.js';
@@ -16,6 +19,10 @@ import { closePool } from './config/database.js';
 
 // Import blog automation for manual triggers only
 import { runScheduledAutomation } from './automation/blog-scheduler.js';
+
+// Setup for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables
 dotenv.config();
@@ -36,15 +43,14 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// CORS configuration - Allow your static site domains
+// CORS configuration - Simplified since we're serving everything from one domain
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'http://localhost:8080', 
-    'http://localhost:8081',
+    'http://localhost:3001',
     'https://daveenci.ai',
     'https://www.daveenci.ai',
-    'https://daveenci-ai-frontend.onrender.com'
+    'https://daveenci-ai-backend.onrender.com'  // All traffic will come through backend now
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -58,6 +64,11 @@ app.use((req, res, next) => {
   console.log(`📨 ${req.method} ${req.path} - Origin: ${req.headers.origin}`);
   next();
 });
+
+// Serve static files from dist directory (built frontend)
+const distPath = path.join(__dirname, '..', 'dist');
+console.log(`📁 Serving static files from: ${distPath}`);
+app.use(express.static(distPath));
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
@@ -87,9 +98,9 @@ app.use('/api/auth', authRoutes);
 app.post('/api/blog/automation/trigger', async (req, res) => {
   const { timeSlot } = req.body;
   
-  if (!timeSlot || !['morning', 'afternoon', 'evening'].includes(timeSlot)) {
+  if (!timeSlot || !['early_morning', 'morning', 'afternoon', 'evening', 'late_evening'].includes(timeSlot)) {
     return res.status(400).json({ 
-      error: 'Invalid time slot. Must be: morning, afternoon, or evening' 
+      error: 'Invalid time slot. Must be: early_morning, morning, afternoon, evening, or late_evening' 
     });
   }
   
@@ -115,25 +126,31 @@ app.use('/api/*', (req, res) => {
   res.status(404).json({ error: 'API endpoint not found' });
 });
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'DaVeenci Server API',
-    version: '1.0.0',
-    endpoints: [
-      '/health',
-      '/api/workshop/register',
-      '/api/workshop/info',
-      '/api/blog/posts',
-      '/api/blog/posts/:slug',
-      '/api/blog/posts/bulk',
-      '/api/blog/tags',
-      '/api/blog/featured',
-      '/api/blog/sitemap',
-      '/api/chat/summary',
-      '/api/chat/summaries'
-    ]
-  });
+// SPA routing handler - serve index.html for all non-API routes
+app.get('*', (req, res) => {
+  // Skip API routes (they're handled above)
+  if (req.path.startsWith('/api/')) {
+    return res.status(404).json({ error: 'API route not found' });
+  }
+  
+  // Check if the file exists in the dist directory first
+  const filePath = path.join(distPath, req.path);
+  
+  if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
+    // File exists, serve it
+    res.sendFile(filePath);
+  } else {
+    // File doesn't exist, serve index.html for SPA routing
+    const indexPath = path.join(distPath, 'index.html');
+    if (fs.existsSync(indexPath)) {
+      res.sendFile(indexPath);
+    } else {
+      res.status(404).json({ 
+        error: 'Frontend not found. Please build the frontend first.',
+        hint: 'Run: npm run build'
+      });
+    }
+  }
 });
 
 // Error handling middleware
