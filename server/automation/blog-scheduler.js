@@ -82,25 +82,95 @@ const TOPIC_CATEGORIES = {
     "Team collaboration automation tools",
     "Business process optimization",
     "Data integration and synchronization"
+  ],
+
+  // ===== INDUSTRY-SPECIFIC CATEGORIES =====
+  
+  // Insurance Brokerage Services
+  insurance_brokerage: [
+    "Digital transformation for nationwide insurance brokerages",
+    "AI-powered auto insurance quote comparison systems",
+    "Home insurance risk assessment automation",
+    "Life insurance lead generation and nurturing",
+    "Health insurance enrollment automation platforms",
+    "Business insurance portfolio management systems",
+    "Multi-carrier insurance quote automation",
+    "Customer onboarding for insurance brokerages",
+    "Claims processing automation for brokers",
+    "Insurance policy renewal automation",
+    "Cross-selling strategies for insurance products",
+    "Insurance broker CRM integration best practices"
+  ],
+
+  // Mid-Market Law Firms
+  legal_services: [
+    "Document automation for mid-market law firms",
+    "Client intake automation for legal practices",
+    "Case management systems for growing law firms",
+    "Legal billing and time tracking automation",
+    "Contract review automation with AI",
+    "Legal research AI tools for mid-market firms",
+    "Client communication automation for lawyers",
+    "Practice management software comparison",
+    "Legal marketing automation strategies",
+    "Compliance tracking for law firm operations",
+    "Legal discovery process automation",
+    "Client portal development for law firms"
+  ],
+
+  // Energy and Industrial Services
+  energy_industrial: [
+    "Predictive maintenance for industrial equipment",
+    "Energy consumption optimization systems",
+    "Industrial IoT implementation strategies",
+    "Equipment monitoring and automation",
+    "Energy management software solutions",
+    "Industrial safety compliance automation",
+    "Supply chain optimization for energy sector",
+    "Asset management for industrial operations",
+    "Energy trading platform automation",
+    "Industrial process optimization with AI",
+    "Renewable energy project management",
+    "Industrial equipment lease management"
   ]
 };
 
-// Content type guidelines for different time slots
+// Enhanced content guidelines with industry rotation and 5 daily time slots
 const CONTENT_GUIDELINES = {
+  early_morning: {
+    type: "Quick Start Guides & Fundamentals",
+    description: "Essential basics and quick implementation guides for busy professionals starting their day.",
+    core_categories: ["ai_solutions", "business_ops"],
+    industry_categories: ["insurance_brokerage", "legal_services"],
+    industry_probability: 0.3 // 30% chance of industry-specific content
+  },
   morning: {
     type: "How-To Guides & Implementation",
     description: "Practical, step-by-step guides that solve specific business problems across AI, marketing, CRM, and operations.",
-    categories: ["ai_solutions", "content_automation", "business_ops"]
+    core_categories: ["ai_solutions", "content_automation", "business_ops"],
+    industry_categories: ["insurance_brokerage", "legal_services", "energy_industrial"],
+    industry_probability: 0.4 // 40% chance of industry-specific content
   },
   afternoon: {
     type: "Comparisons & Analysis", 
     description: "Deep comparisons, tool evaluations, and strategic analysis for business decision makers.",
-    categories: ["seo_aeo_geo", "smart_crm", "digital_marketing"]
+    core_categories: ["seo_aeo_geo", "smart_crm", "digital_marketing"],
+    industry_categories: ["insurance_brokerage", "legal_services", "energy_industrial"],
+    industry_probability: 0.35 // 35% chance of industry-specific content
   },
   evening: {
     type: "Trends & Strategic Insights",
     description: "Industry trends, future predictions, and strategic insights about technology and business.",
-    categories: ["ai_solutions", "digital_marketing", "business_ops"]
+    core_categories: ["ai_solutions", "digital_marketing", "business_ops"],
+    industry_categories: ["insurance_brokerage", "legal_services", "energy_industrial"],
+    industry_probability: 0.45 // 45% chance of industry-specific content
+  },
+  late_evening: {
+    type: "Deep Dives & Advanced Strategies",
+    description: "Comprehensive analysis and advanced strategies for serious business leaders and decision makers.",
+    core_categories: ["smart_crm", "digital_marketing", "content_automation"],
+    industry_categories: ["energy_industrial", "legal_services"],
+    industry_probability: 0.5 // 50% chance of industry-specific content
   }
 };
 
@@ -123,7 +193,7 @@ async function fetchRecentBlogTitles() {
   }
 }
 
-// Smart topic selection with category rotation and duplicate avoidance
+// Industry-aware topic selection with balanced rotation
 async function selectDiverseTopic(timeSlot) {
   console.log(`🎯 Selecting diverse topic for ${timeSlot}...`);
   
@@ -133,11 +203,23 @@ async function selectDiverseTopic(timeSlot) {
     const recentTopicsLower = recentTitles.map(title => title.toLowerCase());
     
     const guideline = CONTENT_GUIDELINES[timeSlot];
-    const availableCategories = guideline.categories;
+    
+    // Determine if this should be industry-specific content
+    const shouldUseIndustryContent = Math.random() < guideline.industry_probability;
+    const categoryPool = shouldUseIndustryContent 
+      ? guideline.industry_categories 
+      : guideline.core_categories;
+    
+    console.log(`🎲 ${shouldUseIndustryContent ? 'Industry-specific' : 'Core AI/tech'} content selected for ${timeSlot}`);
     
     // Try each category to find a unique topic
-    for (const category of availableCategories) {
+    for (const category of categoryPool) {
       const topicPool = TOPIC_CATEGORIES[category];
+      
+      if (!topicPool) {
+        console.warn(`⚠️ Topic category '${category}' not found`);
+        continue;
+      }
       
       for (const baseTopic of topicPool) {
         // Check if this topic concept is already covered recently
@@ -157,9 +239,37 @@ async function selectDiverseTopic(timeSlot) {
       }
     }
     
-    // If no unique topic found, generate one with AI
+    // If no unique predefined topic found, try the other category pool
+    console.log(`🔄 No unique topic in ${shouldUseIndustryContent ? 'industry' : 'core'} categories, trying alternative...`);
+    const alternativePool = shouldUseIndustryContent 
+      ? guideline.core_categories 
+      : guideline.industry_categories;
+    
+    for (const category of alternativePool) {
+      const topicPool = TOPIC_CATEGORIES[category];
+      
+      if (!topicPool) continue;
+      
+      for (const baseTopic of topicPool) {
+        const topicWords = baseTopic.toLowerCase().split(' ');
+        const isUnique = !recentTopicsLower.some(recentTitle => {
+          const recentWords = recentTitle.split(' ');
+          const commonWords = topicWords.filter(word => 
+            recentWords.some(recentWord => recentWord.includes(word) || word.includes(recentWord))
+          );
+          return commonWords.length >= 3;
+        });
+        
+        if (isUnique) {
+          console.log(`✅ Selected unique topic from alternative ${category}: ${baseTopic}`);
+          return baseTopic;
+        }
+      }
+    }
+    
+    // If still no unique topic found, generate one with AI
     console.log('🤖 No unique predefined topic found, generating with AI...');
-    return await generateAIDrivenTopic(timeSlot, recentTitles);
+    return await generateAIDrivenTopic(timeSlot, recentTitles, shouldUseIndustryContent);
     
   } catch (error) {
     console.error('❌ Error in topic selection:', error);
@@ -168,8 +278,8 @@ async function selectDiverseTopic(timeSlot) {
 }
 
 // AI-driven topic generation with enhanced prompts
-async function generateAIDrivenTopic(timeSlot, recentTitles = [], model = DEFAULT_GEMINI_MODEL) {
-  console.log(`🧠 Generating AI-driven ${timeSlot} topic...`);
+async function generateAIDrivenTopic(timeSlot, recentTitles = [], useIndustryContent = false, model = DEFAULT_GEMINI_MODEL) {
+  console.log(`🧠 Generating AI-driven ${timeSlot} topic (${useIndustryContent ? 'industry-specific' : 'core tech'})...`);
   
   try {
     const recentTitlesText = recentTitles.length > 0 
@@ -177,9 +287,34 @@ async function generateAIDrivenTopic(timeSlot, recentTitles = [], model = DEFAUL
       : '';
     
     const guideline = CONTENT_GUIDELINES[timeSlot];
-    const categoryExamples = guideline.categories.map(cat => 
-      TOPIC_CATEGORIES[cat].slice(0, 2).join(', ')
-    ).join(', ');
+    
+    // Select appropriate categories based on content type
+    const selectedCategories = useIndustryContent 
+      ? guideline.industry_categories 
+      : guideline.core_categories;
+    
+    const categoryExamples = selectedCategories.map(cat => 
+      TOPIC_CATEGORIES[cat] ? TOPIC_CATEGORIES[cat].slice(0, 2).join(', ') : ''
+    ).filter(example => example).join(', ');
+    
+    // Industry-specific content instructions
+    const industryInstructions = useIndustryContent ? `
+
+INDUSTRY FOCUS: Generate content specifically for one of these sectors:
+- Insurance Brokerage Firms: Auto, home, life, health, business insurance products
+- Mid-Market Law Firms: Legal practices serving mid-market businesses  
+- Energy/Industrial Services: Industrial equipment, energy management, operations
+
+INDUSTRY REQUIREMENTS:
+- Address specific pain points and challenges in the chosen industry
+- Include relevant compliance, regulatory, or industry-standard considerations
+- Focus on technology solutions that serve these specific sectors
+- Use industry-appropriate terminology and examples` : `
+
+CORE TECHNOLOGY FOCUS:
+- AI solutions, automation, CRM systems, digital marketing
+- Business operations, content automation, SEO/AEO strategies
+- Technology implementation and optimization`;
     
     const topicPrompt = `You are a content strategist for DaVeenci AI, a company specializing in AI solutions and business automation.
 
@@ -189,26 +324,26 @@ CONTENT TYPE: ${guideline.type}
 DESCRIPTION: ${guideline.description}
 
 TOPIC INSPIRATION (create something NEW based on these themes):
-${categoryExamples}
+${categoryExamples}${industryInstructions}
 
 REQUIREMENTS:
 1. Create a completely unique title that hasn't been covered recently
-2. Focus on: AI solutions, CRM systems, SEO/AEO/GEO, content automation, digital marketing, or business operations
-3. Include specific elements: numbers, year (2025), concrete benefits, or comparisons
-4. Make it actionable and solution-oriented for business leaders
-5. 60-80 characters for optimal SEO
-6. Use power words: "Complete", "Ultimate", "Proven", "Advanced", "Smart", "Strategic"
+2. Include specific elements: numbers, year (2025), concrete benefits, or comparisons
+3. Make it actionable and solution-oriented for business leaders
+4. 60-80 characters for optimal SEO and Answer Engine Optimization (AEO)
+5. Use power words: "Complete", "Ultimate", "Proven", "Advanced", "Smart", "Strategic"
 
 CONTENT STYLE BY TIME:
-- Morning: How-to guides, implementation steps, practical tutorials
-- Afternoon: Comparisons, analysis, tool evaluations, strategic decisions  
-- Evening: Trends, predictions, insights, future planning
+- Early Morning (6am): Quick starts, fundamentals, basics
+- Morning (10am): How-to guides, implementation steps, practical tutorials
+- Afternoon (2pm): Comparisons, analysis, tool evaluations, strategic decisions  
+- Evening (6pm): Trends, predictions, insights, future planning
+- Late Evening (10pm): Deep dives, advanced strategies, comprehensive analysis
 
 AVOID:
 - Topics similar to recent posts listed below
 - Generic or vague titles
-- Overly technical jargon
-- Topics outside AI/automation/marketing focus${recentTitlesText}
+- Overly technical jargon${recentTitlesText}
 
 Return ONLY the blog post title, nothing else.`;
 
@@ -253,11 +388,19 @@ Return ONLY the blog post title, nothing else.`;
   } catch (error) {
     console.error(`❌ Error in AI topic generation:`, error);
     
-    // Enhanced fallback topics based on new categories
-    const fallbackTopics = {
+    // Enhanced fallback topics with industry options and 5 time slots
+    const fallbackTopics = useIndustryContent ? {
+      early_morning: "Insurance Technology Basics: Getting Started with Digital Transformation",
+      morning: "Insurance Broker CRM Integration: Complete Setup Guide for 2025",
+      afternoon: "Legal Practice Management Software: Top 5 Solutions Compared", 
+      evening: "Industrial IoT Trends: How Energy Companies Are Innovating",
+      late_evening: "Advanced Energy Management: Comprehensive Automation Strategies"
+    } : {
+      early_morning: "AI Fundamentals: Quick Start Guide for Business Leaders",
       morning: "Smart CRM Automation: Complete Implementation Guide for Small Businesses",
       afternoon: "SEO vs AEO vs GEO: Which Strategy Works Best in 2025?",
-      evening: "AI-Powered Content Marketing: 7 Trends Reshaping Digital Strategy"
+      evening: "AI-Powered Content Marketing: 7 Trends Reshaping Digital Strategy",
+      late_evening: "Advanced Marketing Automation: Deep Dive Strategy Guide"
     };
     
     return fallbackTopics[timeSlot] || fallbackTopics.morning;
@@ -278,11 +421,13 @@ async function generateDynamicTopic(timeSlot, model = DEFAULT_GEMINI_MODEL) {
       return topic;
     }
     
-    // Enhance basic topics with time-specific formatting
+    // Enhance basic topics with time-specific formatting for 5 daily posts
     const timeFormatting = {
+      early_morning: (topic) => `${topic}: Quick Start Guide for Busy Professionals`,
       morning: (topic) => `How to ${topic}: Complete 2025 Implementation Guide`,
       afternoon: (topic) => `${topic}: Comprehensive Comparison and Analysis`,
-      evening: (topic) => `${topic}: Strategic Insights for 2025`
+      evening: (topic) => `${topic}: Strategic Insights for 2025`,
+      late_evening: (topic) => `${topic}: Advanced Deep Dive and Complete Strategy`
     };
     
     const enhancedTopic = timeFormatting[timeSlot] 
@@ -295,11 +440,13 @@ async function generateDynamicTopic(timeSlot, model = DEFAULT_GEMINI_MODEL) {
   } catch (error) {
     console.error(`❌ Error in topic generation:`, error);
     
-    // Final fallback
+    // Final fallback with 5 time slots
     const fallbacks = {
+      early_morning: "Business Automation Basics: Essential Getting Started Guide",
       morning: "Advanced CRM Integration: Step-by-Step Setup Guide",
       afternoon: "Marketing Automation vs Manual Processes: ROI Analysis",
-      evening: "AI Business Intelligence: Future Trends and Predictions"
+      evening: "AI Business Intelligence: Future Trends and Predictions",
+      late_evening: "Advanced Automation Strategies: Comprehensive Implementation"
     };
     
     return fallbacks[timeSlot] || fallbacks.morning;
@@ -311,6 +458,38 @@ async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI
   console.log(`🧠 Generating ${timeSlot} content with Gemini ${model}: ${topic}`);
   
   const promptTemplates = {
+    early_morning: `Write a concise Answer Engine Optimized blog post about "${topic}".
+
+    STRUCTURE FOR AI CITATION:
+    
+    Title: ${topic}
+    
+    Create content perfect for busy professionals starting their day. Use this exact structure:
+    
+    ## Quick Answer
+    [Write a direct, quotable answer in 2-3 sentences that fully answers the main question]
+    
+    ## Why This Matters Now
+    [Brief explanation with specific stats/data - focus on immediate benefits]
+    
+    ## Essential Steps
+    [Numbered list of 3-5 quick actionable steps]
+    
+    ## Key Tools
+    [Bullet points of 2-3 essential tools with quick descriptions]
+    
+    ## Quick FAQ
+    **Q: [Most common question]**
+    A: [Direct, quotable answer]
+    
+    **Q: [Implementation question]**
+    A: [Actionable advice]
+    
+    ## Bottom Line
+    [2-3 bullet points summarizing key takeaways]
+    
+    Make it 600-800 words, extremely quotable, with specific examples and immediate value. Use HTML formatting (h2, h3, p, ul, li, strong).`,
+
     morning: `Write an Answer Engine Optimized blog post about "${topic}".
 
     STRUCTURE FOR AI CITATION:
@@ -434,7 +613,55 @@ async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI
     ## Future Outlook
     [Long-term vision with specific implications]
     
-    1000-1400 words, highly quotable with data, predictions, and strategic insights. Use HTML formatting.`
+    1000-1400 words, highly quotable with data, predictions, and strategic insights. Use HTML formatting.`,
+
+    late_evening: `Write a comprehensive Answer Engine Optimized deep-dive article about "${topic}".
+    
+    STRUCTURE FOR AI CITATION:
+    
+    Title: ${topic}
+    
+    ## Executive Overview
+    [Comprehensive summary that AI models will quote for detailed explanations]
+    
+    ## Complete Analysis Framework
+    [In-depth methodology with specific parameters and measurements]
+    
+    ## Advanced Implementation Strategy
+    [Detailed numbered list of 7-10 comprehensive steps with sub-steps]
+    
+    ## Technology Stack Deep Dive
+    [Detailed analysis of tools, platforms, and integrations with technical specifications]
+    
+    ## Risk Assessment and Mitigation
+    [Comprehensive list of potential challenges with detailed solutions]
+    
+    ## ROI and Performance Metrics
+    [Detailed financial analysis with specific formulas and benchmarks]
+    
+    ## Advanced Case Studies
+    [2-3 detailed real-world examples with specific results and lessons learned]
+    
+    ## Expert Implementation FAQ
+    **Q: What are the most complex challenges?**
+    A: [Detailed technical answer with solutions]
+    
+    **Q: How do you measure advanced success metrics?**
+    A: [Specific measurement frameworks]
+    
+    **Q: What's the complete implementation timeline?**
+    A: [Detailed project timeline with milestones]
+    
+    **Q: How do you scale this approach?**
+    A: [Scaling strategies with specific examples]
+    
+    ## Strategic Recommendations
+    [Comprehensive action plan with priorities and timelines]
+    
+    ## Future Considerations
+    [Long-term strategic implications and evolution paths]
+    
+    1400-1800 words, highly detailed and authoritative, perfect for serious business leaders. Use HTML formatting.`
   };
 
   const prompt = promptTemplates[timeSlot] || promptTemplates.morning;
@@ -1041,32 +1268,38 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const isTestingMode = process.env.NODE_ENV === 'production' && hour >= 8 && hour <= 20; // Testing during business hours
     
     if (isTestingMode) {
-      // Testing mode: Cycle through content types every 10 minutes
-      const timeSlots = ['morning', 'afternoon', 'evening'];
-      const slotIndex = (hour * 6 + Math.floor(minute / 10)) % 3; // Rotate every ~10 minutes
+      // Testing mode: Cycle through content types every 10 minutes (5 slots)
+      const timeSlots = ['early_morning', 'morning', 'afternoon', 'evening', 'late_evening'];
+      const slotIndex = (hour * 6 + Math.floor(minute / 10)) % 5; // Rotate every ~10 minutes through 5 slots
       actualTimeSlot = timeSlots[slotIndex];
       console.log(`🧪 TEST MODE: Running ${actualTimeSlot.toUpperCase()} content (every 10 minutes rotation)`);
     } 
-    // Production schedule:
-    else if (hour === 9 && minute >= 0 && minute <= 5) {
+    // Production schedule (5 times daily):
+    else if (hour === 6 && minute >= 0 && minute <= 5) {
+      actualTimeSlot = 'early_morning';
+      console.log(`🌅 PRODUCTION: Running EARLY MORNING content at 6:00 AM CST`);
+    } else if (hour === 10 && minute >= 0 && minute <= 5) {
       actualTimeSlot = 'morning';
-      console.log(`🌅 PRODUCTION: Running MORNING content at 9:00 AM CST`);
-    } else if (hour === 13 && minute >= 0 && minute <= 5) {
+      console.log(`🌤️ PRODUCTION: Running MORNING content at 10:00 AM CST`);
+    } else if (hour === 14 && minute >= 0 && minute <= 5) {
       actualTimeSlot = 'afternoon';
-      console.log(`🌤️ PRODUCTION: Running AFTERNOON content at 1:00 PM CST`);
-    } else if (hour === 17 && minute >= 0 && minute <= 5) {
+      console.log(`☀️ PRODUCTION: Running AFTERNOON content at 2:00 PM CST`);
+    } else if (hour === 18 && minute >= 0 && minute <= 5) {
       actualTimeSlot = 'evening';
-      console.log(`🌆 PRODUCTION: Running EVENING content at 5:00 PM CST`);
+      console.log(`🌆 PRODUCTION: Running EVENING content at 6:00 PM CST`);
+    } else if (hour === 22 && minute >= 0 && minute <= 5) {
+      actualTimeSlot = 'late_evening';
+      console.log(`🌙 PRODUCTION: Running LATE EVENING content at 10:00 PM CST`);
     } else if (!isTestingMode) {
       // Only exit if not in testing mode
       console.log(`⏰ Auto mode: Not a scheduled time. Current: ${hour}:${minute.toString().padStart(2, '0')} CST`);
-      console.log(`📅 PRODUCTION: 9:00 AM (morning), 1:00 PM (afternoon), 5:00 PM (evening) CST`);
+      console.log(`📅 PRODUCTION: 6:00 AM (early_morning), 10:00 AM (morning), 2:00 PM (afternoon), 6:00 PM (evening), 10:00 PM (late_evening) CST`);
       console.log(`🚫 Skipping automation - not a scheduled time`);
       process.exit(0);
     }
-  } else if (!['morning', 'afternoon', 'evening'].includes(timeSlot)) {
-    console.error('❌ Invalid time slot. Must be: morning, afternoon, evening, or auto');
-    console.log('Usage: node blog-scheduler.js [morning|afternoon|evening|auto]');
+  } else if (!['early_morning', 'morning', 'afternoon', 'evening', 'late_evening'].includes(timeSlot)) {
+    console.error('❌ Invalid time slot. Must be: early_morning, morning, afternoon, evening, late_evening, or auto');
+    console.log('Usage: node blog-scheduler.js [early_morning|morning|afternoon|evening|late_evening|auto]');
     process.exit(1);
   }
   
