@@ -71,9 +71,9 @@ router.post('/register', formLimiter, async (req, res) => {
         )
         SELECT 'success' as result
       `, [
-        '2025-07-30 14:00:00',
+        '2025-07-30 14:30:00',
         'AI Automation Workshop - Austin',
-        '7800 North Mopac Expressway Austin, TX 78759',
+        '9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)',
         'workshop',
         'Learn AI-powered content marketing strategies, master CRM lead qualification with AI, and get hands-on experience with no-code automation tools.',
         40,
@@ -112,8 +112,8 @@ router.post('/register', formLimiter, async (req, res) => {
       <h3>Event Details:</h3>
       <ul>
         <li><strong>Date:</strong> July 30, 2025</li>
-        <li><strong>Time:</strong> 2:00 PM - 4:00 PM CST</li>
-        <li><strong>Location:</strong> 7800 North Mopac Expressway, Austin, TX 78759</li>
+        <li><strong>Time:</strong> 2:30 PM - 4:30 PM CST</li>
+        <li><strong>Location:</strong> 9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)</li>
       </ul>
       
       <p>What to expect:</p>
@@ -171,10 +171,10 @@ router.get('/info', (req, res) => {
   res.json({
     title: 'AI Automation Workshop - Austin',
     date: '2025-07-30',
-    time: '14:00:00-05:00',
-    endTime: '16:00:00-05:00',
-    timeDisplay: '2:00 PM - 4:00 PM CST',
-    location: '7800 North Mopac Expressway, Austin, TX 78759',
+    time: '14:30:00-05:00',
+    endTime: '16:30:00-05:00',
+    timeDisplay: '2:30 PM - 4:30 PM CST',
+    location: '9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)',
     capacity: 40,
     price: 'Free',
     status: 'open'

@@ -27,7 +27,7 @@ const AIAutomationWorkshopAustin = () => {
 
   // Countdown timer logic
   useEffect(() => {
-    const targetDate = new Date('2025-07-30T14:00:00-05:00'); // July 30, 2025, 2:00 PM CST
+    const targetDate = new Date('2025-07-30T14:30:00-05:00'); // July 30, 2025, 2:30 PM CST
 
     const timer = setInterval(() => {
       const now = new Date().getTime();
@@ -452,7 +452,7 @@ const AIAutomationWorkshopAustin = () => {
                     <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">2:00 PM CST</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">2:30 PM CST</div>
                     <div className="text-gray-600 text-sm md:text-base">Duration: 2 hours</div>
                   </div>
                 </div>
@@ -462,8 +462,8 @@ const AIAutomationWorkshopAustin = () => {
                     <MapPin className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">7800 North Mopac Expressway</div>
-                    <div className="text-gray-600 text-sm md:text-base">Austin, TX 78759</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">9606 N Mopac Expy #400</div>
+                    <div className="text-gray-600 text-sm md:text-base">Austin, TX 78759 (Roku on Mopac)</div>
                   </div>
                 </div>
 
@@ -485,7 +485,7 @@ const AIAutomationWorkshopAustin = () => {
               
               <div className="mb-4 md:mb-6">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.8!2d-97.7431!3d30.3878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644cb4e7e7e7e7e%3A0x7e7e7e7e7e7e7e7e!2s7800%20N%20Mopac%20Expy%2C%20Austin%2C%20TX%2078759!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.6!2d-97.7431!3d30.3883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644caaacf68e8a3%3A0x1c8d7e1a5e7c3e1c!2s9606%20N%20MoPac%20Expy%20%23400%2C%20Austin%2C%20TX%2078759!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
                   width="100%"
                   height="200"
                   style={{ border: 0 }}
@@ -521,8 +521,8 @@ const AIAutomationWorkshopAustin = () => {
             href="#form" 
             className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
           >
-            <span className="hidden md:inline">Wednesday, July 30, 2025 • 2:00 PM CST • Austin, TX</span>
-            <span className="md:hidden">Register Now - July 30, 2:00 PM CST</span>
+            <span className="hidden md:inline">Wednesday, July 30, 2025 • 2:30 PM CST • Austin, TX</span>
+            <span className="md:hidden">Register Now - July 30, 2:30 PM CST</span>
             <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
           </a>
         </div>

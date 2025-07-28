@@ -51,15 +51,15 @@ const ThankYouEvent = () => {
                 <Clock className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Time</div>
-                  <div className="font-semibold text-gray-900">2:00 PM - 4:00 PM CST</div>
+                  <div className="font-semibold text-gray-900">2:30 PM - 4:30 PM CST</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Location</div>
-                  <div className="font-semibold text-gray-900">7800 North Mopac Expressway</div>
-                  <div className="text-sm text-gray-500">Austin, TX 78759</div>
+                  <div className="font-semibold text-gray-900">9606 N Mopac Expy #400</div>
+                  <div className="text-sm text-gray-500">Austin, TX 78759 (Roku on Mopac)</div>
                 </div>
               </div>
             </div>
