@@ -664,7 +664,21 @@ async function generateContentWithGemini(topic, timeSlot, model = DEFAULT_GEMINI
     1400-1800 words, highly detailed and authoritative, perfect for serious business leaders. Use HTML formatting.`
   };
 
-  const prompt = promptTemplates[timeSlot] || promptTemplates.morning;
+  const basePrompt = promptTemplates[timeSlot] || promptTemplates.morning;
+  
+  // Add critical content rules to prevent placeholder variables
+  const prompt = basePrompt + `
+
+CRITICAL CONTENT RULES:
+❌ NEVER use placeholder variables in brackets like [Your City], [Your Business], [Company Name], [Industry], etc.
+❌ NEVER include template-style placeholders that make content look generic
+❌ NEVER use phrases like "insert your", "fill in your", "customize for your"
+✅ Always write specific, complete content with real examples
+✅ Use actual city names (Austin, Dallas, Houston, etc.) when location is relevant
+✅ Use actual company examples and real industry names
+✅ Write as if for a specific business audience, not as a template
+
+This is final published content - it must be complete and professional, not a template.`;
 
   try {
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${process.env.GEMINI_API_KEY}`, {
@@ -747,6 +761,12 @@ EXAMPLE STRUCTURE:
 
 ARTICLE TOPIC: ${topic}
 RAW CONTENT: ${rawContent}
+
+CRITICAL CONTENT RULES:
+❌ NEVER introduce placeholder variables like [Your City], [Your Business], [Company Name], etc.
+❌ NEVER add template-style placeholders during formatting
+✅ Keep all content specific and complete as provided
+✅ Maintain real examples and actual company/location names
 
 Format the content following the exact structure above. Return ONLY clean HTML, no explanations.`;
 
