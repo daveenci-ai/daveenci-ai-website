@@ -1,81 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, TrendingUp, Users, Zap, FileText } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import { getUseCases } from '@/config/api';
+import { UseCase } from '@/types';
 
 const UseCases = () => {
-  const useCases = [
-    {
-      title: "E-commerce Lead Generation Automation",
-      client: "Tech Retailer",
-      industry: "E-commerce",
-      challenge: "Manual lead qualification was consuming 20+ hours per week and missing qualified prospects.",
-      solution: "Built an AI-powered lead scoring system with automated email sequences and CRM integration.",
-      results: [
-        "300% increase in qualified leads",
-        "80% reduction in manual work",
-        "45% improvement in conversion rates",
-        "ROI achieved in 6 weeks"
-      ],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-    },
-    {
-      title: "Real Estate CRM Integration & Automation",
-      client: "Property Management Firm",
-      industry: "Real Estate",
-      challenge: "Disconnected systems causing data silos and missed follow-ups with potential tenants.",
-      solution: "Integrated multiple platforms and created automated workflows for lead nurturing and property matching.",
-      results: [
-        "90% faster lead response time",
-        "60% increase in tenant conversions",
-        "50% reduction in administrative tasks",
-        "Complete data synchronization"
-      ],
-      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-    },
-    {
-      title: "SaaS Customer Onboarding Automation",
-      client: "Software Company",
-      industry: "SaaS",
-      challenge: "High customer churn during onboarding due to complexity and lack of personalized guidance.",
-      solution: "Developed an AI-driven onboarding system with personalized workflows and proactive support triggers.",
-      results: [
-        "75% reduction in churn rate",
-        "40% faster time-to-value",
-        "95% customer satisfaction score",
-        "85% reduction in support tickets"
-      ],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-    },
-    {
-      title: "E-commerce Automation Revolution",
-      client: "TechRetail Co.",
-      industry: "E-commerce",
-      challenge: "Manual order processing and customer service consuming 60+ hours weekly",
-      solution: "Custom AI chatbot + automated order processing system",
-      results: ["85% reduction in manual tasks", "24/7 customer support", "$50K annual savings"],
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      title: "Lead Generation on Autopilot",
-      client: "GrowthStart Agency",
-      industry: "Marketing",
-      challenge: "Inconsistent lead quality and time-intensive qualification process",
-      solution: "AI-powered lead scoring + automated nurture sequences",
-      results: ["300% increase in qualified leads", "50% faster sales cycle", "ROI of 450%"],
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-    },
-    {
-      title: "Operations Intelligence System",
-      client: "ManufacturePro Inc.",
-      industry: "Manufacturing",
-      challenge: "No visibility into production bottlenecks and inefficiencies",
-      solution: "Custom dashboard with predictive analytics and real-time monitoring",
-      results: ["40% improvement in efficiency", "Predictive maintenance", "15% cost reduction"],
-      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-    }
-  ];
+  const [useCases, setUseCases] = useState<UseCase[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUseCases = async () => {
+      try {
+        setLoading(true);
+        const response = await getUseCases();
+        setUseCases(response.data);
+        setError(null);
+      } catch (err) {
+        setError('Failed to load use cases. Please try again later.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUseCases();
+  }, []);
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -102,13 +55,15 @@ const UseCases = () => {
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="space-y-24">
-            {useCases.map((study, index) => (
-              <div key={index} className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
+            {loading && <p>Loading use cases...</p>}
+            {error && <p className="text-red-500">{error}</p>}
+            {!loading && !error && useCases.map((study, index) => (
+              <div key={study.id} className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 {/* Image */}
                 <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
                   <div className="relative rounded-2xl overflow-hidden shadow-xl">
                     <img 
-                      src={study.image} 
+                      src={study.image_url} 
                       alt={study.title}
                       className="w-full h-80 object-cover"
                     />
@@ -121,8 +76,6 @@ const UseCases = () => {
                   <div className="space-y-6">
                     <div>
                       <div className="flex items-center space-x-2 text-sm text-red-600 font-medium mb-2">
-                        <span>{study.client}</span>
-                        <span>•</span>
                         <span>{study.industry}</span>
                       </div>
                       <h3 className="text-3xl font-bold text-gray-900 mb-4">{study.title}</h3>

@@ -12,13 +12,15 @@ import { workshopRoutes } from './routes/workshop.js';
 import { authRoutes } from './routes/auth.js';
 import { chatRoutes } from './routes/chat.js';
 import { blogRoutes } from './routes/blog.js';
+import useCaseRoutes from './routes/useCases.js';
 
 // Import database initialization
 import { initializeDatabase } from './config/init-db.js';
 import { closePool } from './config/database.js';
 
 // Import blog automation for manual triggers only
-import { runScheduledAutomation } from './automation/blog-scheduler.js';
+import { runScheduledAutomation as runBlogAutomation } from './automation/blog-scheduler.js';
+import { runAutomation as runUseCaseAutomation } from './automation/use-case-scheduler.js';
 
 // Setup for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -141,6 +143,7 @@ app.use('/api/workshop', workshopRoutes);
 app.use('/api/blog', blogRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/use-cases', useCaseRoutes);
 // Future routes can be added here:
 // app.use('/api/admin', adminRoutes);
 
@@ -156,7 +159,7 @@ app.post('/api/blog/automation/trigger', async (req, res) => {
   
   try {
     console.log(`🚀 Manual trigger: Running ${timeSlot} blog automation`);
-    const result = await runScheduledAutomation(timeSlot);
+    const result = await runBlogAutomation(timeSlot);
     res.json({ 
       success: true, 
       message: `${timeSlot} blog automation completed successfully`,
@@ -242,8 +245,7 @@ const setupBlogAutomation = () => {
         console.log(`🚀 Running ${timeSlot} automation...`);
         
         // Import and run the automation
-        const { runScheduledAutomation } = await import('./automation/blog-scheduler.js');
-        await runScheduledAutomation(timeSlot);
+        await runBlogAutomation(timeSlot);
         
         console.log(`✅ ${timeSlot} automation completed successfully`);
       }
@@ -255,6 +257,32 @@ const setupBlogAutomation = () => {
   // Check every minute for the exact hour
   setInterval(checkAndRunAutomation, 60000); // 1 minute
   console.log('✅ Blog automation scheduler active');
+};
+
+const setupUseCaseAutomation = () => {
+  console.log('🤖 Setting up use case automation (twice a week: Tue & Thu at 10am CST)...');
+
+  const checkAndRunUseCaseAutomation = async () => {
+    try {
+      const now = new Date();
+      const cstTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
+      const day = cstTime.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, ...
+      const hour = cstTime.getHours();
+      const minute = cstTime.getMinutes();
+
+      // Run on Tuesday (2) and Thursday (4) at 10:00 AM CST
+      if ((day === 2 || day === 4) && hour === 10 && minute === 0) {
+        console.log(`🚀 Running use case automation...`);
+        await runUseCaseAutomation();
+        console.log(`✅ Use case automation completed successfully`);
+      }
+    } catch (error) {
+      console.error('❌ Use case automation error:', error.message);
+    }
+  };
+
+  setInterval(checkAndRunUseCaseAutomation, 60000); // 1 minute
+  console.log('✅ Use case automation scheduler active');
 };
 
 // Start server with database initialization
@@ -275,6 +303,7 @@ const startServer = async () => {
       
       // Setup blog automation after database is ready
       setupBlogAutomation();
+      setupUseCaseAutomation();
       
     } catch (error) {
       console.error('❌ Database initialization failed, but server will continue:', error.message);

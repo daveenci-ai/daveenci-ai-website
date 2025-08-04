@@ -21,6 +21,9 @@ export const apiConfig = {
     blog: {
       posts: '/api/blog/posts',
       create: '/api/blog/create'
+    },
+    useCases: {
+      getAll: '/api/use-cases'
     }
   }
 };
@@ -90,3 +93,11 @@ export const apiClient = {
     }
   }
 }; 
+
+// Standalone API functions
+
+import axios from 'axios';
+
+export const getUseCases = () => {
+  return axios.get(`${apiConfig.baseUrl}${apiConfig.endpoints.useCases.getAll}`);
+} 

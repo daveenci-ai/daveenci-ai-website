@@ -52,4 +52,18 @@ export interface LLMResponse {
   fallbackUsed: boolean;
   reasoning?: string;
   suggestedActions?: string[];
+}
+
+export interface UseCase {
+  id: number;
+  title: string;
+  slug: string;
+  industry: string;
+  challenge: string;
+  solution: string;
+  results: string[];
+  image_url: string;
+  published_at: string;
+  created_at: string;
+  updated_at: string;
 } 

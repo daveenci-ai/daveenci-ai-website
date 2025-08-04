@@ -15,7 +15,8 @@
     "setup-cron": "./automation/cron-setup.sh",
     "blog-logs": "tail -f logs/automation.log",
     "blog-status": "tail -20 logs/automation.log | grep -E '(success|failed)'",
-    "create-admin": "node scripts/create-admin.js"
+    "create-admin": "node scripts/create-admin.js",
+    "use-case-automation": "node automation/use-case-scheduler.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
@@ -27,6 +28,7 @@
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "node-fetch": "^3.3.2",
+    "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.7",
     "pg": "^8.16.3",
     "resend": "^4.6.0"
