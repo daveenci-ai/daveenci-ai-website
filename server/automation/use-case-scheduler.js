@@ -29,16 +29,18 @@ const generateSlug = (title) => {
 const generateUseCase = async (industry, category, topic) => {
 
     const prompt = `
-        Generate a detailed business use case for the ${industry} on the topic of "${topic}".
-        The use case should be from the perspective of a company in that industry that successfully implemented this solution.
+        Generate a detailed and compelling business use case for a fictional company in the ${industry} on the topic of "${topic}".
+        The tone should be professional, informative, and persuasive, showcasing the transformative impact of the solution.
         
-        Format the output as a JSON object with three keys: "challenge", "solution", and "results".
+        Format the output as a JSON object with four keys: "clientProfile", "challenge", "solution", and "results".
         
-        - "challenge": A string containing well-formatted HTML. Start with an <h2> title for the challenge. Follow this with 2-3 paragraphs (<p> tags) describing the business problem in detail.
-        - "solution": A string containing well-formatted HTML. Start with an <h2> title for the solution. Follow this with 2-3 paragraphs describing the implemented solution. Then, include an unordered list (<ul>) with 3-5 list items (<li>) detailing the key features or steps taken.
-        - "results": An array of short, quantifiable strings highlighting the main outcomes.
+        - "clientProfile": An object with "name", "industry", and a short "description" of the fictional client.
+        - "challenge": A string containing well-formatted HTML. Start with an <h2> title. Follow with 2-3 detailed paragraphs (<p> tags) that vividly describe the business problems and pain points.
+        - "solution": A string containing well-formatted HTML. Start with an <h2> title. Follow with 2-3 paragraphs describing the implemented solution. Then, include an unordered list (<ul>) with 3-5 list items (<li>) detailing the key features, technologies, or steps taken.
+        - "results": An array of 4-5 short, quantifiable, and impressive KPI-driven outcomes. Use strong action verbs and specific metrics (e.g., "45% Reduction in...
+        ", "300% Increase in...", "$250,000 Annual Savings in...").
         
-        Ensure all HTML is clean, valid, and ready to be rendered.
+        Ensure all HTML is clean, valid, and ready to be rendered. Do not include the main use case title in the JSON content.
     `;
 
     let model = 'gemini-2.5-pro';
@@ -99,7 +101,7 @@ const generateUseCase = async (industry, category, topic) => {
     const newUseCase = {
         title: topic,
         slug,
-        industry: `${industry} - ${category}`,
+        industry: `${useCaseContent.clientProfile.name} - ${category}`,
         challenge: useCaseContent.challenge,
         solution: useCaseContent.solution,
         results: useCaseContent.results,
