@@ -6,7 +6,7 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex flex-col pt-24 sm:pt-28 pb-12 sm:pb-16" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
       {/* Enhanced Grid Background */}
-      <div className="absolute inset-0 bg-grid-subtle"></div>
+      <div className="absolute inset-0 bg-grid"></div>
       
       {/* Hero Content */}
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10 py-12 sm:py-16">
@@ -24,9 +24,9 @@ const Hero = () => {
             {/* Social Proof */}
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 pt-6 sm:pt-8">
               <div className="flex -space-x-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-red-500 border-3 border-white shadow-lg"></div>
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-500 border-3 border-white shadow-lg"></div>
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-500 border-3 border-white shadow-lg"></div>
+                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="User 1" />
+                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="User 2" />
+                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="User 3" />
               </div>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 font-medium text-center">
                 Unlock Your Business's Growth Potential

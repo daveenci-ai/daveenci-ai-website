@@ -46,7 +46,7 @@ const FAQ = () => {
   return (
     <section className="py-24 bg-white relative">
       {/* Subtle Grid Background */}
-      <div className="absolute inset-0 bg-grid-subtle"></div>
+      <div className="absolute inset-0 bg-grid"></div>
       
       <div className="mx-auto max-w-4xl px-6 lg:px-8 relative z-10">
         <div className="mx-auto max-w-2xl text-center mb-16">

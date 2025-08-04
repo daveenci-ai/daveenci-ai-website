@@ -38,7 +38,7 @@ const UseCases = () => {
   return (
     <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-gray-100/50 to-orange-200/60 relative">
       {/* Enhanced Grid Background */}
-      <div className="absolute inset-0 bg-grid-subtle"></div>
+      <div className="absolute inset-0 bg-grid"></div>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">

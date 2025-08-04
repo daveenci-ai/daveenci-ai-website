@@ -65,7 +65,7 @@ const MarketingAutomation = () => {
       <Navigation />
       {/* Hero Section */}
       <section className="relative pt-32 pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
-        <div className="absolute inset-0 bg-grid-subtle"></div>
+        <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-3xl mx-auto mb-8">
@@ -108,7 +108,7 @@ const MarketingAutomation = () => {
 
       {/* Benefits Section */}
       <section className="py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
-        <div className="absolute inset-0 bg-grid-subtle"></div>
+        <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
@@ -168,7 +168,7 @@ const MarketingAutomation = () => {
 
       {/* Process Section */}
       <section className="py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
-        <div className="absolute inset-0 bg-grid-subtle"></div>
+        <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Marketing Automation Process</h2>

@@ -286,7 +286,7 @@ const Pricing = () => {
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-12 sm:pb-16" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
-        <div className="absolute inset-0 bg-grid-subtle"></div>
+        <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <div className="flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-3xl mx-auto mb-6 sm:mb-8">

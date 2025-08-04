@@ -47,6 +47,33 @@ const CaseStudies = () => {
         "85% reduction in support tickets"
       ],
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+    },
+    {
+      title: "E-commerce Automation Revolution",
+      client: "TechRetail Co.",
+      industry: "E-commerce",
+      challenge: "Manual order processing and customer service consuming 60+ hours weekly",
+      solution: "Custom AI chatbot + automated order processing system",
+      results: ["85% reduction in manual tasks", "24/7 customer support", "$50K annual savings"],
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      title: "Lead Generation on Autopilot",
+      client: "GrowthStart Agency",
+      industry: "Marketing",
+      challenge: "Inconsistent lead quality and time-intensive qualification process",
+      solution: "AI-powered lead scoring + automated nurture sequences",
+      results: ["300% increase in qualified leads", "50% faster sales cycle", "ROI of 450%"],
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+      title: "Operations Intelligence System",
+      client: "ManufacturePro Inc.",
+      industry: "Manufacturing",
+      challenge: "No visibility into production bottlenecks and inefficiencies",
+      solution: "Custom dashboard with predictive analytics and real-time monitoring",
+      results: ["40% improvement in efficiency", "Predictive maintenance", "15% cost reduction"],
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     }
   ];
 
@@ -55,7 +82,7 @@ const CaseStudies = () => {
       <Navigation />
       {/* Hero Section */}
       <section className="relative pt-32 pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
-        <div className="absolute inset-0 bg-grid-subtle"></div>
+        <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
             <div className="flex items-center justify-center w-20 h-20 bg-gradient-to-br from-red-100 to-red-200 rounded-3xl mx-auto mb-8">
@@ -116,7 +143,7 @@ const CaseStudies = () => {
                         <h4 className="font-semibold text-gray-900 mb-3">Results</h4>
                         <div className="grid sm:grid-cols-2 gap-3">
                           {study.results.map((result, resultIndex) => (
-                            <div key={resultIndex} className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                            <div key={resultIndex} className="flex items-center space-x-3 p-3 bg-green-100 rounded-lg">
                               <TrendingUp className="w-5 h-5 text-green-600 flex-shrink-0" />
                               <span className="text-gray-700 font-medium">{result}</span>
                             </div>
@@ -134,7 +161,7 @@ const CaseStudies = () => {
 
       {/* Stats Section */}
       <section className="py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
-        <div className="absolute inset-0 bg-grid-subtle"></div>
+        <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
