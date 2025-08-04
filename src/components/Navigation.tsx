@@ -81,8 +81,8 @@ const Navigation = () => {
             )}
           </div>
 
-          <Link to="/case-studies" className="text-gray-700 hover:text-red-600 transition-colors font-medium">
-            Case Studies
+          <Link to="/use-cases" className="text-gray-700 hover:text-red-600 transition-colors font-medium">
+            Use Cases
           </Link>
           <Link to="/about-us" className="text-gray-700 hover:text-red-600 transition-colors font-medium">
             About Us
@@ -138,8 +138,8 @@ const Navigation = () => {
                 </Link>
               </div>
             </div>
-            <Link to="/case-studies" className="block py-2 text-gray-700 hover:text-red-600 transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>
-              Case Studies
+            <Link to="/use-cases" className="block py-2 text-gray-700 hover:text-red-600 transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>
+              Use Cases
             </Link>
             <Link to="/about-us" className="block py-2 text-gray-700 hover:text-red-600 transition-colors font-medium" onClick={() => setIsMobileMenuOpen(false)}>
               About Us

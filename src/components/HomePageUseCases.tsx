@@ -1,7 +1,7 @@
 import React from 'react';
 import { Zap, Target, Users, BarChart3, Cog, Rocket } from 'lucide-react';
 
-const UseCases = () => {
+const HomePageUseCases = () => {
   const useCases = [
     {
       icon: Target,
@@ -88,4 +88,4 @@ const UseCases = () => {
   );
 };
 
-export default UseCases; 
+export default HomePageUseCases; 

@@ -4,8 +4,8 @@ import { ArrowRight, TrendingUp, Users, Zap, FileText } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 
-const CaseStudies = () => {
-  const caseStudies = [
+const UseCases = () => {
+  const useCases = [
     {
       title: "E-commerce Lead Generation Automation",
       client: "Tech Retailer",
@@ -89,7 +89,7 @@ const CaseStudies = () => {
               <FileText className="w-10 h-10 text-red-600" />
             </div>
             <h1 className="text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl leading-tight mb-8">
-              <span className="text-red-600">Case Studies</span>
+              <span className="text-red-600">Use Cases</span>
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               See how we've helped businesses transform their operations with AI-powered marketing automation and custom solutions.
@@ -98,11 +98,11 @@ const CaseStudies = () => {
         </div>
       </section>
 
-      {/* Case Studies */}
+      {/* Use Cases */}
       <section className="py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="space-y-24">
-            {caseStudies.map((study, index) => (
+            {useCases.map((study, index) => (
               <div key={index} className={`grid lg:grid-cols-2 gap-12 items-center ${index % 2 === 1 ? 'lg:grid-flow-col-dense' : ''}`}>
                 {/* Image */}
                 <div className={`${index % 2 === 1 ? 'lg:col-start-2' : ''}`}>
@@ -221,4 +221,4 @@ const CaseStudies = () => {
   );
 };
 
-export default CaseStudies; 
+export default UseCases; 
