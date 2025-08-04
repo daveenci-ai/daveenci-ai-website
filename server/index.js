@@ -260,19 +260,17 @@ const setupBlogAutomation = () => {
 };
 
 const setupUseCaseAutomation = () => {
-  console.log('🤖 Setting up use case automation (twice a week: Tue & Thu at 10am CST)...');
+  console.log('🤖 Setting up use case automation (hourly for review)...');
 
   const checkAndRunUseCaseAutomation = async () => {
     try {
       const now = new Date();
       const cstTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
-      const day = cstTime.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, ...
-      const hour = cstTime.getHours();
       const minute = cstTime.getMinutes();
 
-      // Run on Tuesday (2) and Thursday (4) at 10:00 AM CST
-      if ((day === 2 || day === 4) && hour === 10 && minute === 0) {
-        console.log(`🚀 Running use case automation...`);
+      // Run at the top of every hour
+      if (minute === 0) {
+        console.log(`🚀 Running use case automation (hourly check)...`);
         await runUseCaseAutomation();
         console.log(`✅ Use case automation completed successfully`);
       }
@@ -281,8 +279,9 @@ const setupUseCaseAutomation = () => {
     }
   };
 
-  setInterval(checkAndRunUseCaseAutomation, 60000); // 1 minute
-  console.log('✅ Use case automation scheduler active');
+  // Check every minute
+  setInterval(checkAndRunUseCaseAutomation, 60000); 
+  console.log('✅ Use case automation scheduler active (hourly)');
 };
 
 // Start server with database initialization
