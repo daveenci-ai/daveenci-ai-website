@@ -36,35 +36,35 @@ const UseCases = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white via-gray-100/50 to-orange-200/60 relative">
+    <section className="py-16 sm:py-20 lg:py-24 bg-gradient-to-b from-white via-gray-100/50 to-orange-200/60 relative">
       {/* Enhanced Grid Background */}
       <div className="absolute inset-0 bg-grid-subtle"></div>
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
-        <div className="mx-auto max-w-3xl text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="mx-auto max-w-3xl text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Save time, money and headaches.<br />
             We build your <span className="text-red-600">marketing systems</span> for you.
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-lg sm:text-xl text-gray-600 px-4">
             No hiring developers, no learning complex tools, no time-consuming setup.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {useCases.map((useCase, index) => {
             const Icon = useCase.icon;
             return (
               <div 
                 key={index} 
-                className="group p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white hover:from-white hover:to-red-50/20 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-red-200/50"
+                className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-gray-50 to-white hover:from-white hover:to-red-50/20 hover:shadow-xl transition-all duration-300 border border-transparent hover:border-red-200/50"
               >
-                <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-red-100 to-red-200 group-hover:from-red-600 group-hover:to-red-700 mb-6 transition-all duration-300 shadow-sm group-hover:shadow-lg">
-                  <Icon className="w-6 h-6 text-red-600 group-hover:text-white transition-colors duration-200" />
+                <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-red-100 to-red-200 group-hover:from-red-600 group-hover:to-red-700 mb-4 sm:mb-6 transition-all duration-300 shadow-sm group-hover:shadow-lg">
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 group-hover:text-white transition-colors duration-200" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">
                   {useCase.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   {useCase.description}
                 </p>
               </div>
@@ -72,12 +72,12 @@ const UseCases = () => {
           })}
         </div>
 
-        <div className="text-center mt-16">
-          <p className="text-lg text-gray-600 mb-8">
+        <div className="text-center mt-12 sm:mt-16">
+          <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 px-4">
             Ready to transform your marketing operations?
           </p>
           <button 
-            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
+            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-semibold text-base sm:text-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
             onClick={() => window.open('https://calendly.com/daveenci/astrid', '_blank')}
           >
             Schedule a Consultation
