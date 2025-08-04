@@ -31,15 +31,16 @@ const generateUseCase = async (industry, category, topic) => {
     const prompt = `
         Generate a detailed and compelling business use case for a fictional company in the ${industry} on the topic of "${topic}".
         The tone should be professional, informative, and persuasive, showcasing the transformative impact of the solution.
+        Create a realistic scenario that demonstrates measurable business value and ROI.
         
         Format the output as a JSON object with four keys: "clientProfile", "challenge", "solution", and "results".
         
         - "clientProfile": An object with "name", "industry", and a short "description" of the fictional client.
-        - "challenge": A string containing well-formatted HTML. Start with an <h2> title. Follow with 2-3 detailed paragraphs (<p> tags) that vividly describe the business problems and pain points.
-        - "solution": A string containing well-formatted HTML. Start with an <h2> title. Follow with 2-3 paragraphs describing the implemented solution. Then, include an unordered list (<ul>) with 3-5 list items (<li>) detailing the key features, technologies, or steps taken.
-        - "results": An array of 4-5 short, quantifiable, and impressive KPI-driven outcomes. Use strong action verbs and specific metrics (e.g., "45% Reduction in...
-        ", "300% Increase in...", "$250,000 Annual Savings in...").
+        - "challenge": A string containing well-formatted HTML. Start with an <h2>The Challenge</h2> title. Follow with 2-3 detailed paragraphs (<p> tags) that vividly describe the business problems and pain points. Include specific challenges like inefficiencies, costs, time waste, or missed opportunities.
+        - "solution": A string containing well-formatted HTML. Start with an <h2>Our Solution</h2> title. Follow with 2-3 paragraphs describing the implemented solution in detail. Then, include an unordered list (<ul>) with 4-6 list items (<li>) detailing the key technologies, features, or implementation steps taken.
+        - "results": An array of exactly 5 short, quantifiable, and impressive KPI-driven outcomes. Each result MUST include specific numbers and percentages. Examples: "75% Reduction in Processing Time", "300% Increase in Lead Conversion", "$450,000 Annual Cost Savings", "90% Improvement in Customer Satisfaction", "50% Faster Time-to-Market".
         
+        CRITICAL: Each result in the "results" array must contain specific metrics (percentages, dollar amounts, or multipliers like "3x faster").
         Ensure all HTML is clean, valid, and ready to be rendered. Do not include the main use case title in the JSON content.
     `;
 
