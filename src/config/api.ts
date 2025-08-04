@@ -23,7 +23,8 @@ export const apiConfig = {
       create: '/api/blog/create'
     },
     useCases: {
-      getAll: '/api/use-cases'
+      getAll: '/api/use-cases',
+      getBySlug: '/api/use-cases/' // slug will be appended
     }
   }
 };
@@ -100,4 +101,8 @@ import axios from 'axios';
 
 export const getUseCases = () => {
   return axios.get(`${apiConfig.baseUrl}${apiConfig.endpoints.useCases.getAll}`);
+} 
+
+export const getUseCaseBySlug = (slug: string) => {
+  return axios.get(`${apiConfig.baseUrl}${apiConfig.endpoints.useCases.getBySlug}${slug}`);
 } 

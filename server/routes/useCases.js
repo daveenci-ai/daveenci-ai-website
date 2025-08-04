@@ -14,6 +14,21 @@ router.get('/', async (req, res) => {
   }
 });
 
+// GET single use case by slug
+router.get('/:slug', async (req, res) => {
+  const { slug } = req.params;
+  try {
+    const result = await query('SELECT * FROM use_cases WHERE slug = $1', [slug]);
+    if (result.rows.length === 0) {
+      return res.status(404).json({ msg: 'Use case not found' });
+    }
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 // POST a new use case (for automation)
 router.post('/', async (req, res) => {
   // Add authentication middleware here later

@@ -4,58 +4,41 @@ import { query } from '../config/database.js';
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-const USE_CASE_CATEGORIES = [
-  {
-    name: 'Automation',
-    topics: [
-      "Automated Lead Nurturing for Sales Teams",
-      "Streamlining Client Onboarding with Automation",
-      "Workflow Automation for Creative Agencies",
-      "Automating Financial Reporting for SMBs"
-    ]
-  },
-  {
-    name: 'CRM',
-    topics: [
-      "Integrating CRM with Marketing Automation Platforms",
-      "Custom CRM Dashboards for Sales Analytics",
-      "Automating Data Entry in CRM Systems",
-      "Smart CRM for Personalized Customer Journeys"
-    ]
-  },
-  {
-    name: 'Content',
-    topics: [
-      "AI-Powered Content Generation for Blogs",
-      "Automating Social Media Content Schedules",
-      "Smart Blogging: From SEO Research to Publication",
-      "Personalized Email Content at Scale"
-    ]
-  },
-  {
-    name: 'Avatars',
-    topics: [
-      "Creating AI Avatars for Customer Support",
-      "Using AI Avatars for Corporate Training Videos",
-      "Personalized Video Messaging with AI Avatars",
-      "24/7 AI Sales Avatars for E-commerce Websites"
-    ]
-  }
+const INDUSTRIES = ['Law Firm', 'Energy Sector'];
+const CATEGORIES = [
+  'Automation',
+  'CRM',
+  'Content Creation',
+  'AI Avatars',
+  'Document Processing & Compliance',
+  'RFP & Proposal Management',
+  'Knowledge Management (RAG Systems)',
+  'Lead & Matter Scoring',
+  'Email & Calendar Triage',
+  'Reporting & Analytics Dashboards',
+  'Data Enrichment & Verification',
+  'Workflow Integration (MS 365, SharePoint, Teams)',
+  'Training & Change Management',
+  'AI Chatbots & Self-Service Portals'
 ];
 
 const generateSlug = (title) => {
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 };
 
-const generateUseCase = async (category) => {
-    const topic = category.topics[Math.floor(Math.random() * category.topics.length)];
+const generateUseCase = async (industry, category, topic) => {
 
     const prompt = `
-        Generate a detailed business use case on the topic of "${topic}".
-        The use case should be from the perspective of a company that successfully implemented this solution.
-        It must include a "Challenge" section describing the problem, a "Solution" section detailing how it was solved, and a "Results" section with 3-5 specific, quantifiable outcomes.
-        Format the output as a JSON object with the following keys: "challenge", "solution", "results".
-        The results should be an array of strings.
+        Generate a detailed business use case for the ${industry} on the topic of "${topic}".
+        The use case should be from the perspective of a company in that industry that successfully implemented this solution.
+        
+        Format the output as a JSON object with three keys: "challenge", "solution", and "results".
+        
+        - "challenge": A string containing well-formatted HTML. Start with an <h2> title for the challenge. Follow this with 2-3 paragraphs (<p> tags) describing the business problem in detail.
+        - "solution": A string containing well-formatted HTML. Start with an <h2> title for the solution. Follow this with 2-3 paragraphs describing the implemented solution. Then, include an unordered list (<ul>) with 3-5 list items (<li>) detailing the key features or steps taken.
+        - "results": An array of short, quantifiable strings highlighting the main outcomes.
+        
+        Ensure all HTML is clean, valid, and ready to be rendered.
     `;
 
     let model = 'gemini-2.5-pro';
@@ -116,7 +99,7 @@ const generateUseCase = async (category) => {
     const newUseCase = {
         title: topic,
         slug,
-        industry: category.name, // Using category name as the 'industry'
+        industry: `${industry} - ${category}`,
         challenge: useCaseContent.challenge,
         solution: useCaseContent.solution,
         results: useCaseContent.results,
@@ -128,41 +111,68 @@ const generateUseCase = async (category) => {
             'INSERT INTO use_cases (title, slug, industry, challenge, solution, results, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
             [newUseCase.title, newUseCase.slug, newUseCase.industry, newUseCase.challenge, newUseCase.solution, newUseCase.results, newUseCase.image_url]
         );
-        console.log(`✅ Use case "${result.rows[0].title}" created successfully.`);
+        console.log(`✅ Use case "${result.rows[0].title}" created successfully for ${industry} - ${category}.`);
     } catch (err) {
-        console.error('❌ Error creating use case:', err);
+        console.error(`❌ Error creating use case for ${industry} - ${category}:`, err);
     }
 };
 
+const generateTopic = async (industry, category) => {
+  const prompt = `
+    Generate a compelling, specific use case title for a ${industry} using ${category}.
+    The title should be concise, professional, and results-oriented.
+    Do not use placeholders like [Company Name] or [Product].
+    Return only the title as a single string.
+
+    Example: "AI-Powered Contract Analysis for Corporate Law Firms"
+  `;
+  
+  const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+  });
+
+  if (!response.ok) throw new Error('Failed to generate topic');
+
+  const data = await response.json();
+  return data.candidates[0].content.parts[0].text.trim().replace(/"/g, '');
+}
+
 const runAutomation = async () => {
-    // Get all existing slugs from the database to ensure uniqueness
     const existingSlugsResult = await query('SELECT slug FROM use_cases');
     const existingSlugs = new Set(existingSlugsResult.rows.map(r => r.slug));
 
     let attempts = 0;
-    const maxAttempts = USE_CASE_CATEGORIES.length * 2; // Safety break
+    const maxAttempts = (INDUSTRIES.length * CATEGORIES.length) * 2;
 
-    const categoriesToPost = [];
-    
-    while (categoriesToPost.length < 2 && attempts < maxAttempts) {
-        const randomCategory = USE_CASE_CATEGORIES[Math.floor(Math.random() * USE_CASE_CATEGORIES.length)];
-        const randomTopic = randomCategory.topics[Math.floor(Math.random() * randomCategory.topics.length)];
-        const slug = generateSlug(randomTopic);
+    let useCaseGenerated = false;
 
-        if (!existingSlugs.has(slug) && !categoriesToPost.find(c => c.name === randomCategory.name)) {
-             categoriesToPost.push({ ...randomCategory, topics: [randomTopic] }); // Use the selected topic
+    while (!useCaseGenerated && attempts < maxAttempts) {
+        const industry = INDUSTRIES[Math.floor(Math.random() * INDUSTRIES.length)];
+        const category = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+
+        try {
+            console.log(`🧠 Generating a topic for ${industry} and ${category}...`);
+            const topic = await generateTopic(industry, category);
+            const slug = generateSlug(topic);
+
+            if (!existingSlugs.has(slug)) {
+                console.log(`🚀 Generating new use case: "${topic}"`);
+                await generateUseCase(industry, category, topic);
+                useCaseGenerated = true;
+            } else {
+                console.log(`⏩ Topic "${topic}" already exists, skipping.`);
+            }
+        } catch (error) {
+            console.error(`❌ Failed to generate topic or use case for ${industry}/${category}:`, error.message);
         }
+
         attempts++;
     }
 
-    if (categoriesToPost.length < 2) {
-      console.warn("⚠️ Could not find two unique use cases to generate. Skipping.");
-      return;
-    }
-
-    console.log(`🚀 Generating ${categoriesToPost.length} new use cases...`);
-    for (const category of categoriesToPost) {
-        await generateUseCase(category);
+    if (!useCaseGenerated) {
+        console.warn(`⚠️ Could not generate a unique use case after ${maxAttempts} attempts.`);
     }
 };
 

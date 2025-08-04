@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import Services from "./pages/Services";
 import Pricing from "./pages/Pricing";
 import UseCases from "./pages/UseCases";
+import UseCasePost from "./pages/UseCasePost";
 import AboutUs from "./pages/AboutUs";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
@@ -39,6 +40,7 @@ const App = () => (
           <Route path="/services/systems-integration" element={<SystemsIntegration />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/use-cases" element={<UseCases />} />
+          <Route path="/use-cases/:slug" element={<UseCasePost />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
