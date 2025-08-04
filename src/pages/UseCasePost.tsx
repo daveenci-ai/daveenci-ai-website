@@ -107,7 +107,7 @@ const UseCasePost = () => {
                       {useCase.title}
                     </h1>
                     <p className="mt-4 text-xl text-red-100 max-w-3xl">
-                      Discover how {clientName} transformed their operations with our {category.toLowerCase()} solution
+                      Discover how a {useCase.industry.split(' - ')[0].toLowerCase()} company transformed their operations with our {category.toLowerCase()} solution
                     </p>
                   </div>
                 </div>
@@ -172,15 +172,10 @@ const UseCasePost = () => {
                   <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
                     <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
                       <Building className="h-6 w-6 text-red-500 mr-3" />
-                      Project Details
+                      Project Snapshot
                     </h3>
                     
                     <div className="space-y-6">
-                      <div className="border-l-4 border-red-500 pl-4">
-                        <p className="font-semibold text-gray-900 mb-1">Client</p>
-                        <p className="text-lg text-gray-700">{clientName}</p>
-                      </div>
-                      
                       <div className="border-l-4 border-blue-500 pl-4">
                         <p className="font-semibold text-gray-900 mb-1">Industry</p>
                         <p className="text-lg text-gray-700">{useCase.industry.split(' - ')[0]}</p>
