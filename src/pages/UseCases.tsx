@@ -90,7 +90,7 @@ const UseCases = () => {
           {!loading && !error && (
             <div className="grid lg:grid-cols-2 gap-12">
               {useCases.map((useCase) => {
-                const [industry, category] = useCase.industry.split(' - ');
+                const industry = useCase.industry.includes(' - ') ? useCase.industry.split(' - ')[1] : useCase.industry;
                 const challengeText = getTextFromHTML(useCase.challenge);
                 const solutionText = getTextFromHTML(useCase.solution);
                 
@@ -101,14 +101,14 @@ const UseCases = () => {
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-2">
                           <span className="text-sm font-semibold text-red-600">{industry}</span>
-                          <span className="text-gray-300">•</span>
-                          <span className="text-sm font-medium text-gray-600">{category}</span>
                         </div>
                         <Building className="h-5 w-5 text-gray-400" />
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-6 group-hover:text-red-700 transition-colors duration-300">
-                        {useCase.title}
-                      </h3>
+                      <Link to={`/use-cases/${useCase.slug}`}>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-6 group-hover:text-red-700 transition-colors duration-300 cursor-pointer">
+                          {useCase.title}
+                        </h3>
+                      </Link>
                     </div>
 
                     {/* Image */}

@@ -87,6 +87,7 @@ const generateEnergyUseCase = async () => {
     - Describe the impact on ${decisionMaker} responsibilities and KPIs
     - Connect the urgency to ${buyingTrigger} timing
     - Use 2-3 paragraphs with industry-specific terminology for semantic matching
+    - DO NOT mention "Energy Companies" - focus on the specific company type instead
     
     **solution**: HTML content starting with <h2>AI Automation Solution: [Solution Category]</h2>
     - Begin with a clear value proposition statement
@@ -99,6 +100,7 @@ const generateEnergyUseCase = async () => {
       • "Seamlessly integrates..."
       • "Continuously learns..."
       • "Instantly provides..."
+    - DO NOT mention "Energy Companies" - focus on the specific company type and operations
     
     **results**: Array of exactly 5 quantifiable business outcomes using this AEO-optimized format:
     - Start each result with a specific metric (percentage, dollar amount, time unit)
@@ -182,9 +184,10 @@ const generateTopic = async () => {
     - "AI-Powered RFP Management: Streamlining Bid Processes for EPC Contractors"
     - "Automated Compliance Tracking: Reducing Audit Preparation Time for Industrial Services"
     - "Smart Email Triage System: Eliminating Information Overload in Oilfield Operations"
-    - "Digital Document Management: Transforming Knowledge Access for Utilities Companies"
+    - "Digital Document Management: Transforming Knowledge Access for Utilities"
     
     Generate a similar title that combines your targeting elements.
+    DO NOT mention "Energy Companies" in the title - focus on the specific solution and company type.
     Return only the optimized title.
   `;
   
@@ -222,7 +225,7 @@ const runAutomation = async () => {
                 const newUseCase = {
                     title: topic,
                     slug,
-                    industry: 'Energy Companies - AI Automation',
+                    industry: `AI Automation`,
                     challenge: useCaseContent.challenge,
                     solution: useCaseContent.solution,
                     results: useCaseContent.results,

@@ -65,8 +65,8 @@ const UseCasePost = () => {
     );
   }
 
-  // Split industry string to separate industry from category
-  const [industry, category] = useCase.industry.split(' - ');
+  // Split industry string to get category only (no need to mention Energy Companies)
+  const category = useCase.industry.includes(' - ') ? useCase.industry.split(' - ')[1] : useCase.industry;
 
   // Extract key metrics from results for visual display
   const extractMetric = (result: string) => {
@@ -108,7 +108,7 @@ const UseCasePost = () => {
                       {useCase.title}
                     </h1>
                     <p className="mt-4 text-xl text-red-100 max-w-3xl">
-                      Discover how a {industry.toLowerCase()} company transformed their operations with our {category.toLowerCase()} solution
+                      Discover how AI automation transformed operations with our {category.toLowerCase()} solution
                     </p>
                   </div>
                 </div>
@@ -177,11 +177,6 @@ const UseCasePost = () => {
                     </h3>
                     
                     <div className="space-y-6">
-                      <div className="border-l-4 border-blue-500 pl-4">
-                        <p className="font-semibold text-gray-900 mb-1">Industry</p>
-                        <p className="text-lg text-gray-700">{industry}</p>
-                      </div>
-                      
                       <div className="border-l-4 border-purple-500 pl-4">
                         <p className="font-semibold text-gray-900 mb-1">Solution Type</p>
                         <p className="text-lg text-gray-700">{category}</p>
