@@ -228,12 +228,14 @@ const UseCasePost = () => {
                     <p className="text-red-100 mb-6 text-sm leading-relaxed">
                       Let's discuss how we can help you achieve comparable transformation in your organization.
                     </p>
-                    <Link 
-                      to="/contact" 
+                    <a 
+                      href="https://calendly.com/daveenci/astrid" 
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-block bg-white text-red-600 font-semibold py-3 px-6 rounded-lg hover:bg-red-50 transition-colors"
                     >
                       Start Your Project
-                    </Link>
+                    </a>
                   </div>
                 </div>
               </div>
