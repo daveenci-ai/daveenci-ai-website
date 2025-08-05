@@ -14,7 +14,7 @@ const serverDir = dirname(__dirname);
 dotenv.config({ path: join(serverDir, '.env') });
 
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
-const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-pro';
+const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-flash-lite';
 
 // Energy sector focused topic categories for dynamic content generation
 const TOPIC_CATEGORIES = {
@@ -676,9 +676,15 @@ This is final published content - it must be complete and professional, not a te
     return structured;
     
   } catch (error) {
-    console.error(`❌ Error generating content with Gemini:`, error);
+    console.error(`❌ Error generating content with ${model}:`, error);
     
-    // Fallback content if Gemini fails
+    // Try fallback model if primary failed and we're not already using fallback
+    if (model === DEFAULT_GEMINI_MODEL && model !== 'gemini-2.5-flash') {
+      console.warn(`⚠️ Primary model failed. Falling back to gemini-2.5-flash...`);
+      return await generateContentWithGemini(topic, timeSlot, 'gemini-2.5-flash');
+    }
+    
+    // Fallback content if all models fail
     return createFallbackContent(topic, timeSlot);
   }
 }
@@ -773,7 +779,13 @@ Format the content following the exact structure above. Return ONLY clean HTML, 
     return formattedHTML;
     
   } catch (error) {
-    console.error(`❌ Error formatting content as HTML:`, error);
+    console.error(`❌ Error formatting content as HTML with ${model}:`, error);
+    
+    // Try fallback model if primary failed and we're not already using fallback
+    if (model === DEFAULT_GEMINI_MODEL && model !== 'gemini-2.5-flash') {
+      console.warn(`⚠️ HTML formatting with primary model failed. Falling back to gemini-2.5-flash...`);
+      return await formatContentAsHTML(rawContent, topic, timeSlot, 'gemini-2.5-flash');
+    }
     
     // Fallback: basic HTML formatting
     return basicHTMLFormat(rawContent, topic);
