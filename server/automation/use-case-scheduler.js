@@ -4,145 +4,188 @@ import { query } from '../config/database.js';
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-const INDUSTRIES = ['Law Firms', 'Energy Companies', 'Healthcare Organizations', 'Manufacturing Companies', 'Financial Services', 'Real Estate Firms'];
-const CATEGORIES = [
-  'Process Automation',
-  'CRM & Lead Management', 
-  'Content Creation & Marketing',
-  'AI Chatbots & Virtual Assistants',
-  'Document Processing & Compliance',
-  'Proposal & RFP Management',
-  'Knowledge Management Systems',
-  'Lead Scoring & Analytics',
-  'Email & Calendar Automation',
-  'Reporting & Business Intelligence',
-  'Data Verification & Enrichment',
-  'Workflow Integration',
-  'Training & Change Management',
-  'Customer Service Automation'
-];
+// Vectorized Breakdown for Energy Sector
+const ENERGY_SECTOR = {
+  companyTypes: [
+    'EPC Contractors (Engineering, Procurement, Construction)',
+    'Oilfield Services (maintenance, logistics, inspection)',
+    'Industrial Services (scaffolding, coatings, safety)',
+    'Utilities & Power (electric, gas, renewable)',
+    'Specialty Subcontractors (fabrication, welding, instrumentation)'
+  ],
+  decisionMakers: [
+    'Operations Director/Project Manager/Field Supervisor',
+    'Business Development Manager/Estimator/Proposal Coordinator',
+    'Compliance Manager/HSE Manager/Safety Officer',
+    'IT Manager/SharePoint Admin/Digital Transformation Lead',
+    'COO/VP Operations/Managing Director'
+  ],
+  painPoints: [
+    'Email & Intake Overload (RFQs, COIs, incident reports piling up)',
+    'RFP / Bid Management Chaos (missed requirements, slow responses)',
+    'Compliance Lookup Delays (OSHA/ISO, SOP retrieval takes hours)',
+    'COI / Vendor Tracking Gaps (expired docs, missed renewals)',
+    'Fragmented Knowledge (policy/procedure docs scattered across folders)',
+    'Manual Data Entry (duplicate effort between email, CRM, SharePoint)'
+  ],
+  buyingTriggers: [
+    'Large upcoming bid or project',
+    'Upcoming audit (OSHA, ISO, client compliance)',
+    'Missed bid or lost revenue from delays',
+    'Merger or expansion requiring system integration',
+    'Safety incident increasing compliance scrutiny',
+    'New O365/SharePoint rollout (or migration from legacy system)'
+  ],
+  techEnvironments: [
+    'Microsoft 365 stack (Exchange, SharePoint, Teams)',
+    'CRM (HubSpot, Zoho, Dynamics, Salesforce)',
+    'Document Management (SharePoint, OneDrive, network drives)',
+    'Bid Portals (ISNetworld, Avetta, Ariba)',
+    'Project Management Tools (Procore, Primavera, internal ERP)'
+  ]
+};
 
 const generateSlug = (title) => {
     return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 };
 
-const generateUseCase = async (industry, category, topic) => {
+const generateEnergyUseCase = async () => {
+  // Randomly select elements from each vector
+  const companyType = ENERGY_SECTOR.companyTypes[Math.floor(Math.random() * ENERGY_SECTOR.companyTypes.length)];
+  const decisionMaker = ENERGY_SECTOR.decisionMakers[Math.floor(Math.random() * ENERGY_SECTOR.decisionMakers.length)];
+  const painPoint = ENERGY_SECTOR.painPoints[Math.floor(Math.random() * ENERGY_SECTOR.painPoints.length)];
+  const buyingTrigger = ENERGY_SECTOR.buyingTriggers[Math.floor(Math.random() * ENERGY_SECTOR.buyingTriggers.length)];
+  const techEnvironment = ENERGY_SECTOR.techEnvironments[Math.floor(Math.random() * ENERGY_SECTOR.techEnvironments.length)];
 
-    const prompt = `
-        Generate a hypothetical, educational business use case that shows how AI and automation can help ${industry} with ${category}. 
-        This should be a relatable scenario that helps readers understand the potential applications, NOT a specific company case study.
-        
-        Focus on:
-        - Common challenges that most businesses in this industry face
-        - How AI/automation solutions can address these challenges  
-        - Realistic benefits and outcomes that readers can envision for their own business
-        - Educational value that helps people understand AI/automation capabilities
-        
-        Use generic terms like "a typical law firm", "most energy companies", "organizations in this sector" instead of specific company names.
-        
-        Format the output as a JSON object with three keys: "challenge", "solution", and "results".
-        
-        - "challenge": A string containing well-formatted HTML. Start with an <h2>Common Industry Challenge</h2> title. Follow with 2-3 detailed paragraphs (<p> tags) describing typical problems that businesses in this industry face. Focus on pain points that readers will recognize from their own experience.
-        
-        - "solution": A string containing well-formatted HTML. Start with an <h2>How AI & Automation Can Help</h2> title. Follow with 2-3 paragraphs explaining how AI/automation addresses these challenges. Then include an unordered list (<ul>) with 4-6 list items (<li>) detailing specific AI/automation features and capabilities.
-        
-        - "results": An array of exactly 5 realistic, quantifiable outcomes that businesses could expect. Each result MUST include specific metrics. Examples: "65% Reduction in Manual Processing Time", "250% Increase in Lead Response Speed", "$180,000 Annual Labor Cost Savings", "85% Improvement in Accuracy", "40% Faster Decision Making".
-        
-        CRITICAL: 
-        - No specific company names or fictional company names
-        - Use industry-generic language ("organizations", "firms", "companies")
-        - Focus on educational value and relatability
-        - Each result must contain specific metrics (percentages, dollar amounts, time savings)
-        - Ensure all HTML is clean and valid
-    `;
-
-    let model = 'gemini-2.5-pro';
-    let response;
-
-    try {
-      console.log(`🤖 Attempting to generate content with ${model}...`);
-      response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-              contents: [{ parts: [{ text: prompt }] }],
-              generationConfig: {
-                  response_mime_type: "application/json",
-              }
-          })
-      });
-
-      if (!response.ok) {
-        throw new Error(`Primary model (${model}) failed with status: ${response.status}`);
-      }
-
-    } catch (error) {
-      console.warn(`⚠️ Primary model failed: ${error.message}. Falling back to flash model.`);
-      model = 'gemini-2.5-flash';
-      response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            contents: [{ parts: [{ text: prompt }] }],
-            generationConfig: {
-                response_mime_type: "application/json",
-            }
-        })
-      });
-    }
-
-    if (!response.ok) {
-        throw new Error(`Gemini API error with fallback model ${model}: ${response.status} ${response.statusText}`);
-    }
-
-    const data = await response.json();
+  const prompt = `
+    Create an AEO-optimized business use case that answer engines like ChatGPT and Perplexity can easily discover and reference.
     
-    if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts[0]) {
-      console.error('❌ Invalid response structure from Gemini API:', data);
-      throw new Error('Invalid or empty response from Gemini API.');
-    }
+    TARGETING CONTEXT:
+    - Industry Segment: ${companyType}
+    - Key Stakeholder: ${decisionMaker}
+    - Business Challenge: ${painPoint}
+    - Urgency Driver: ${buyingTrigger}
+    - Technology Stack: ${techEnvironment}
+    
+    CONTENT REQUIREMENTS for AEO Optimization:
+    1. Use semantic keywords and natural language patterns
+    2. Structure content to answer common "how", "what", "why" questions
+    3. Include industry-specific terminology for better semantic matching
+    4. Create scannable, quotable content blocks
+    5. Use definitive statements that AI can confidently cite
+    
+    Generate educational content showing how AI automation solves this specific business scenario.
+    Focus on practical, implementable solutions that demonstrate clear ROI.
+    
+    IMPORTANT: Use generic industry terms only - no specific company names or fictional entities.
+    
+    Format as JSON with three keys: "challenge", "solution", and "results".
+    
+    **challenge**: HTML content starting with <h2>Business Challenge: [Brief Challenge Title]</h2>
+    - Start with a clear problem statement that includes semantic keywords
+    - Explain why this specific challenge affects ${companyType} operations
+    - Describe the impact on ${decisionMaker} responsibilities and KPIs
+    - Connect the urgency to ${buyingTrigger} timing
+    - Use 2-3 paragraphs with industry-specific terminology for semantic matching
+    
+    **solution**: HTML content starting with <h2>AI Automation Solution: [Solution Category]</h2>
+    - Begin with a clear value proposition statement
+    - Explain how AI integrates with ${techEnvironment} infrastructure
+    - Focus on measurable business outcomes and workflow improvements
+    - Include an unordered list with 5-6 specific AI capabilities using action verbs:
+      • "Automatically processes..." 
+      • "Intelligently routes..."
+      • "Proactively identifies..."
+      • "Seamlessly integrates..."
+      • "Continuously learns..."
+      • "Instantly provides..."
+    
+    **results**: Array of exactly 5 quantifiable business outcomes using this AEO-optimized format:
+    - Start each result with a specific metric (percentage, dollar amount, time unit)
+    - Use strong action verbs ("reduces", "increases", "eliminates", "accelerates")
+    - Include context about what specifically improved
+    - Make each result independently quotable by AI systems
+    - Examples: "75% reduction in manual document processing time", "85% faster compliance reporting cycles", "$250,000 annual operational cost savings"
+    
+    Ensure all content is structured for easy parsing by answer engines and uses industry terminology that matches common search queries.
+  `;
 
-    const useCaseContent = JSON.parse(data.candidates[0].content.parts[0].text);
-
-    const slug = generateSlug(topic);
-    const imageUrl = `https://picsum.photos/seed/${slug}/800/600`;
-
-    const newUseCase = {
-        title: topic,
-        slug,
-        industry: `${industry} - ${category}`,
-        challenge: useCaseContent.challenge,
-        solution: useCaseContent.solution,
-        results: useCaseContent.results,
-        image_url: imageUrl
-    };
-
-    try {
-        const result = await query(
-            'INSERT INTO use_cases (title, slug, industry, challenge, solution, results, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-            [newUseCase.title, newUseCase.slug, newUseCase.industry, newUseCase.challenge, newUseCase.solution, newUseCase.results, newUseCase.image_url]
-        );
-        console.log(`✅ Use case "${result.rows[0].title}" created successfully for ${industry} - ${category}.`);
-    } catch (err) {
-        console.error(`❌ Error creating use case for ${industry} - ${category}:`, err);
-    }
+  return await callAI(prompt, companyType, painPoint);
 };
 
-const generateTopic = async (industry, category) => {
-  const prompt = `
-    Generate a compelling, educational use case title that shows how ${category} can help ${industry}.
-    The title should be professional, clear, and focus on the business value/solution.
-    Do not use specific company names - keep it generic and educational.
-    Return only the title as a single string.
+const callAI = async (prompt, industry, category) => {
+  let model = 'gemini-2.5-pro';
+  let response;
 
-    Examples: 
-    - "Automated Document Review for Legal Practice Efficiency"
-    - "AI-Powered Lead Scoring for Energy Sector Sales Teams"
-    - "Intelligent Customer Service Automation for Healthcare"
+  try {
+    console.log(`🤖 Attempting to generate content with ${model}...`);
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            contents: [{ parts: [{ text: prompt }] }],
+            generationConfig: { response_mime_type: "application/json" }
+        })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Primary model (${model}) failed with status: ${response.status}`);
+    }
+  } catch (error) {
+    console.warn(`⚠️ Primary model failed: ${error.message}. Falling back to flash model.`);
+    model = 'gemini-2.5-flash';
+    response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${GEMINI_API_KEY}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { response_mime_type: "application/json" }
+      })
+    });
+  }
+
+  if (!response.ok) {
+      throw new Error(`Gemini API error with fallback model ${model}: ${response.status} ${response.statusText}`);
+  }
+
+  const data = await response.json();
+  
+  if (!data.candidates || !data.candidates[0] || !data.candidates[0].content || !data.candidates[0].content.parts[0]) {
+    console.error('❌ Invalid response structure from Gemini API:', data);
+    throw new Error('Invalid or empty response from Gemini API.');
+  }
+
+  return JSON.parse(data.candidates[0].content.parts[0].text);
+};
+
+const generateTopic = async () => {
+  // Create a specific title based on the vectorized approach
+  const companyType = ENERGY_SECTOR.companyTypes[Math.floor(Math.random() * ENERGY_SECTOR.companyTypes.length)];
+  const painPoint = ENERGY_SECTOR.painPoints[Math.floor(Math.random() * ENERGY_SECTOR.painPoints.length)];
+  
+  const prompt = `
+    Generate an AEO-optimized use case title that answer engines like ChatGPT and Perplexity will easily discover.
+    
+    TARGET: Combine ${companyType} with ${painPoint}
+    
+    AEO TITLE REQUIREMENTS:
+    1. Use semantic keywords that match common search queries
+    2. Include industry-specific terminology for better discoverability
+    3. Structure as a solution-focused statement
+    4. Make it quotable and reference-worthy for AI systems
+    5. Use natural language patterns people actually search for
+    
+    Create a title that answers "How can [industry] solve [problem]?" type queries.
+    Focus on business value and practical implementation.
+    
+    EXAMPLES of AEO-optimized titles:
+    - "AI-Powered RFP Management: Streamlining Bid Processes for EPC Contractors"
+    - "Automated Compliance Tracking: Reducing Audit Preparation Time for Industrial Services"
+    - "Smart Email Triage System: Eliminating Information Overload in Oilfield Operations"
+    - "Digital Document Management: Transforming Knowledge Access for Utilities Companies"
+    
+    Generate a similar title that combines your targeting elements.
+    Return only the optimized title.
   `;
   
   const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
@@ -152,38 +195,52 @@ const generateTopic = async (industry, category) => {
   });
 
   if (!response.ok) throw new Error('Failed to generate topic');
-
   const data = await response.json();
   return data.candidates[0].content.parts[0].text.trim().replace(/"/g, '');
-}
+};
 
 const runAutomation = async () => {
     const existingSlugsResult = await query('SELECT slug FROM use_cases');
     const existingSlugs = new Set(existingSlugsResult.rows.map(r => r.slug));
 
     let attempts = 0;
-    const maxAttempts = (INDUSTRIES.length * CATEGORIES.length) * 2;
-
+    const maxAttempts = 50;
     let useCaseGenerated = false;
 
-    while (!useCaseGenerated && attempts < maxAttempts) {
-        const industry = INDUSTRIES[Math.floor(Math.random() * INDUSTRIES.length)];
-        const category = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
-
+    while (!useCaseGenerated && attempts < maxAttempts) {        
         try {
-            console.log(`🧠 Generating a topic for ${industry} and ${category}...`);
-            const topic = await generateTopic(industry, category);
+            console.log(`🧠 Generating Energy Sector use case...`);
+            const useCaseContent = await generateEnergyUseCase();
+            const topic = await generateTopic();
             const slug = generateSlug(topic);
 
             if (!existingSlugs.has(slug)) {
                 console.log(`🚀 Generating new use case: "${topic}"`);
-                await generateUseCase(industry, category, topic);
+                
+                const imageUrl = `https://picsum.photos/seed/${slug}/800/600`;
+
+                const newUseCase = {
+                    title: topic,
+                    slug,
+                    industry: 'Energy Companies - AI Automation',
+                    challenge: useCaseContent.challenge,
+                    solution: useCaseContent.solution,
+                    results: useCaseContent.results,
+                    image_url: imageUrl
+                };
+
+                const result = await query(
+                    'INSERT INTO use_cases (title, slug, industry, challenge, solution, results, image_url) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
+                    [newUseCase.title, newUseCase.slug, newUseCase.industry, newUseCase.challenge, newUseCase.solution, newUseCase.results, newUseCase.image_url]
+                );
+                
+                console.log(`✅ Use case "${result.rows[0].title}" created successfully for Energy Companies.`);
                 useCaseGenerated = true;
             } else {
                 console.log(`⏩ Topic "${topic}" already exists, skipping.`);
             }
         } catch (error) {
-            console.error(`❌ Failed to generate topic or use case for ${industry}/${category}:`, error.message);
+            console.error(`❌ Failed to generate use case:`, error.message);
         }
 
         attempts++;

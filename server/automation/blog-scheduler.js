@@ -16,122 +16,72 @@ dotenv.config({ path: join(serverDir, '.env') });
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
 const DEFAULT_GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-2.5-pro';
 
-// Diverse topic categories for dynamic content generation
+// Energy sector focused topic categories for dynamic content generation
 const TOPIC_CATEGORIES = {
-  // AI and Technology Focus
-  ai_solutions: [
-    "AI-powered customer service automation",
-    "Machine learning in business decision making", 
-    "AI chatbots vs human customer support",
-    "Computer vision applications for retail",
-    "Natural language processing for content",
-    "AI-driven predictive analytics",
-    "Smart automation vs traditional workflows"
+  // Energy Sector Core Topics
+  energy_automation: [
+    "AI-powered equipment monitoring for energy companies",
+    "Predictive maintenance in oil and gas operations", 
+    "Automated compliance reporting for energy sector",
+    "Smart grid management with AI technology",
+    "Energy trading automation platforms",
+    "Industrial IoT for energy infrastructure",
+    "Automated safety monitoring systems"
   ],
   
-  // Search and Digital Marketing
-  seo_aeo_geo: [
-    "SEO vs AEO vs GEO: Complete 2025 comparison",
-    "Answer Engine Optimization strategies",
-    "Generative Engine Optimization tactics", 
-    "Voice search optimization techniques",
-    "Local SEO vs traditional SEO",
-    "Schema markup for answer engines",
-    "AI search and ranking factors"
+  // Energy Operations & Management
+  energy_operations: [
+    "Digital transformation for EPC contractors",
+    "Project management automation for energy projects",
+    "Asset management systems for utilities",
+    "Energy consumption optimization strategies",
+    "Industrial process automation solutions",
+    "Renewable energy project coordination",
+    "Energy facility maintenance scheduling"
   ],
 
-  // CRM and Sales Technology  
-  smart_crm: [
-    "Smart CRM systems with AI integration",
-    "CRM automation workflows that work",
-    "Lead scoring with machine learning",
-    "Customer journey mapping tools",
-    "Sales pipeline automation strategies",
-    "CRM data analytics and insights",
-    "Integrating CRM with marketing tools"
+  // Energy Compliance & Safety  
+  energy_compliance: [
+    "OSHA compliance automation for energy companies",
+    "Environmental reporting automation systems",
+    "Safety incident tracking and analysis",
+    "Regulatory compliance management platforms",
+    "ISO certification process automation",
+    "Energy sector audit preparation tools",
+    "Automated safety training management"
   ],
 
-  // Content and Marketing Automation
-  content_automation: [
-    "Automating blog content with AI",
-    "Social media scheduling and automation",
-    "Email marketing automation best practices", 
-    "Content personalization at scale",
-    "Automated content distribution strategies",
-    "AI content generation workflows",
-    "Video marketing automation tools"
+  // Energy Business Development
+  energy_business: [
+    "RFP management automation for energy contractors",
+    "Bid tracking systems for EPC companies",
+    "Lead scoring for energy sector sales",
+    "Customer relationship management for utilities",
+    "Proposal generation automation tools",
+    "Energy market analysis and forecasting",
+    "Contract management for energy projects"
   ],
 
-  // Digital Marketing and Growth
-  digital_marketing: [
-    "AI in digital marketing campaigns",
-    "Programmatic advertising automation",
-    "Marketing attribution and analytics",
-    "Customer segmentation with AI",
-    "Conversion rate optimization tools",
-    "Marketing funnel automation",
-    "Cross-channel marketing integration"
+  // Energy Technology & Innovation
+  energy_tech: [
+    "Machine learning for energy demand forecasting",
+    "AI applications in renewable energy",
+    "Smart sensor networks for oil and gas",
+    "Automated data analysis for energy companies",
+    "Digital twin technology for energy assets",
+    "Blockchain applications in energy trading",
+    "Cloud computing for energy sector operations"
   ],
 
-  // Business Operations and Productivity
-  business_ops: [
-    "Workflow automation for remote teams",
-    "Document management automation",
-    "Invoice and billing automation",
-    "Project management with AI",
-    "Team collaboration automation tools",
-    "Business process optimization",
-    "Data integration and synchronization"
-  ],
-
-  // ===== INDUSTRY-SPECIFIC CATEGORIES =====
-  
-  // Insurance Brokerage Services
-  insurance_brokerage: [
-    "Digital transformation for nationwide insurance brokerages",
-    "AI-powered auto insurance quote comparison systems",
-    "Home insurance risk assessment automation",
-    "Life insurance lead generation and nurturing",
-    "Health insurance enrollment automation platforms",
-    "Business insurance portfolio management systems",
-    "Multi-carrier insurance quote automation",
-    "Customer onboarding for insurance brokerages",
-    "Claims processing automation for brokers",
-    "Insurance policy renewal automation",
-    "Cross-selling strategies for insurance products",
-    "Insurance broker CRM integration best practices"
-  ],
-
-  // Mid-Market Law Firms
-  legal_services: [
-    "Document automation for mid-market law firms",
-    "Client intake automation for legal practices",
-    "Case management systems for growing law firms",
-    "Legal billing and time tracking automation",
-    "Contract review automation with AI",
-    "Legal research AI tools for mid-market firms",
-    "Client communication automation for lawyers",
-    "Practice management software comparison",
-    "Legal marketing automation strategies",
-    "Compliance tracking for law firm operations",
-    "Legal discovery process automation",
-    "Client portal development for law firms"
-  ],
-
-  // Energy and Industrial Services
-  energy_industrial: [
-    "Predictive maintenance for industrial equipment",
-    "Energy consumption optimization systems",
-    "Industrial IoT implementation strategies",
-    "Equipment monitoring and automation",
-    "Energy management software solutions",
-    "Industrial safety compliance automation",
-    "Supply chain optimization for energy sector",
-    "Asset management for industrial operations",
-    "Energy trading platform automation",
-    "Industrial process optimization with AI",
-    "Renewable energy project management",
-    "Industrial equipment lease management"
+  // Energy Document & Data Management
+  energy_data: [
+    "Document automation for energy contractors",
+    "Data integration platforms for utilities",
+    "Electronic records management for energy firms",
+    "Automated reporting for energy operations",
+    "Knowledge management systems for energy sector",
+    "Digital workflows for energy project documentation",
+    "Automated invoice processing for energy companies"
   ]
 };
 
@@ -140,36 +90,36 @@ const CONTENT_GUIDELINES = {
   early_morning: {
     type: "Quick Start Guides & Fundamentals",
     description: "Essential basics and quick implementation guides for busy professionals starting their day.",
-    core_categories: ["ai_solutions", "business_ops"],
-    industry_categories: ["insurance_brokerage", "legal_services"],
+    core_categories: ["energy_automation", "energy_operations"],
+    industry_categories: ["energy_compliance", "energy_business"],
     industry_probability: 0.3 // 30% chance of industry-specific content
   },
   morning: {
     type: "How-To Guides & Implementation",
     description: "Practical, step-by-step guides that solve specific business problems across AI, marketing, CRM, and operations.",
-    core_categories: ["ai_solutions", "content_automation", "business_ops"],
-    industry_categories: ["insurance_brokerage", "legal_services", "energy_industrial"],
+    core_categories: ["energy_automation", "energy_operations", "energy_compliance"],
+    industry_categories: ["energy_business", "energy_tech", "energy_data"],
     industry_probability: 0.4 // 40% chance of industry-specific content
   },
   afternoon: {
     type: "Comparisons & Analysis", 
     description: "Deep comparisons, tool evaluations, and strategic analysis for business decision makers.",
-    core_categories: ["seo_aeo_geo", "smart_crm", "digital_marketing"],
-    industry_categories: ["insurance_brokerage", "legal_services", "energy_industrial"],
+    core_categories: ["energy_business", "energy_tech"],
+    industry_categories: ["energy_compliance", "energy_data"],
     industry_probability: 0.35 // 35% chance of industry-specific content
   },
   evening: {
     type: "Trends & Strategic Insights",
     description: "Industry trends, future predictions, and strategic insights about technology and business.",
-    core_categories: ["ai_solutions", "digital_marketing", "business_ops"],
-    industry_categories: ["insurance_brokerage", "legal_services", "energy_industrial"],
+    core_categories: ["energy_automation", "energy_business", "energy_operations"],
+    industry_categories: ["energy_compliance", "energy_data"],
     industry_probability: 0.45 // 45% chance of industry-specific content
   },
   late_evening: {
     type: "Deep Dives & Advanced Strategies",
     description: "Comprehensive analysis and advanced strategies for serious business leaders and decision makers.",
-    core_categories: ["smart_crm", "digital_marketing", "content_automation"],
-    industry_categories: ["energy_industrial", "legal_services"],
+    core_categories: ["energy_operations", "energy_business", "energy_compliance"],
+    industry_categories: ["energy_data"],
     industry_probability: 0.5 // 50% chance of industry-specific content
   }
 };
@@ -300,12 +250,14 @@ async function generateAIDrivenTopic(timeSlot, recentTitles = [], useIndustryCon
     // Industry-specific content instructions
     const industryInstructions = useIndustryContent ? `
 
-INDUSTRY FOCUS: Generate content specifically for one of these sectors:
-- Insurance Brokerage Firms: Auto, home, life, health, business insurance products
-- Mid-Market Law Firms: Legal practices serving mid-market businesses  
-- Energy/Industrial Services: Industrial equipment, energy management, operations
-
-INDUSTRY REQUIREMENTS:
+  INDUSTRY FOCUS: Generate content specifically for the Energy Sector:
+- Energy Companies: Equipment monitoring, predictive maintenance, smart grid management
+- EPC Contractors: Project management, asset management, industrial process automation
+- Utilities: Compliance reporting, safety incident tracking, renewable energy coordination
+- Oilfield Services: Maintenance, logistics, inspection automation
+- Industrial Services: Scaffolding, coatings, safety compliance automation
+  
+  INDUSTRY REQUIREMENTS:
 - Address specific pain points and challenges in the chosen industry
 - Include relevant compliance, regulatory, or industry-standard considerations
 - Focus on technology solutions that serve these specific sectors
@@ -388,13 +340,13 @@ Return ONLY the blog post title, nothing else.`;
   } catch (error) {
     console.error(`❌ Error in AI topic generation:`, error);
     
-    // Enhanced fallback topics with industry options and 5 time slots
+    // Enhanced fallback topics with energy sector focus for 5 time slots
     const fallbackTopics = useIndustryContent ? {
-      early_morning: "Insurance Technology Basics: Getting Started with Digital Transformation",
-      morning: "Insurance Broker CRM Integration: Complete Setup Guide for 2025",
-      afternoon: "Legal Practice Management Software: Top 5 Solutions Compared", 
+      early_morning: "Energy Technology Basics: Getting Started with Digital Transformation",
+      morning: "Energy CRM Integration: Complete Setup Guide for 2025",
+      afternoon: "Energy Management Software: Top 5 Solutions Compared", 
       evening: "Industrial IoT Trends: How Energy Companies Are Innovating",
-      late_evening: "Advanced Energy Management: Comprehensive Automation Strategies"
+              late_evening: "Advanced Energy Analytics: Predictive Modeling for Modern Energy Operations"
     } : {
       early_morning: "AI Fundamentals: Quick Start Guide for Business Leaders",
       morning: "Smart CRM Automation: Complete Implementation Guide for Small Businesses",

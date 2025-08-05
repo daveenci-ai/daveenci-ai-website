@@ -260,27 +260,19 @@ const setupBlogAutomation = () => {
 };
 
 const setupUseCaseAutomation = () => {
-  console.log('🤖 Setting up use case automation (every 8 hours: 6am, 2pm, 10pm CT)...');
+  console.log('🤖 Setting up use case automation (every 30 minutes at XX:15 and XX:45 CT)...');
 
   const checkAndRunUseCaseAutomation = async () => {
     try {
       const now = new Date();
       const cstTime = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" }));
-      const hour = cstTime.getHours();
       const minute = cstTime.getMinutes();
 
-      // Run at 6am, 2pm (14), and 10pm (22) CT, only at the exact minute (minute 0)
-      if ((hour === 6 || hour === 14 || hour === 22) && minute === 0) {
-        const timeSlots = {
-          6: 'morning',      // 6am
-          14: 'afternoon',   // 2pm  
-          22: 'evening'      // 10pm
-        };
-        const timeSlot = timeSlots[hour];
-        
-        console.log(`🚀 Running ${timeSlot} use case automation...`);
+      // Run at 15 and 45 minutes past the hour
+      if (minute === 15 || minute === 45) {
+        console.log(`🚀 Running use case automation (30-minute cycle)...`);
         await runUseCaseAutomation();
-        console.log(`✅ ${timeSlot} use case automation completed successfully`);
+        console.log(`✅ Use case automation completed successfully`);
       }
     } catch (error) {
       console.error('❌ Use case automation error:', error.message);
@@ -289,7 +281,7 @@ const setupUseCaseAutomation = () => {
 
   // Check every minute
   setInterval(checkAndRunUseCaseAutomation, 60000); 
-  console.log('✅ Use case automation scheduler active (every 8 hours)');
+  console.log('✅ Use case automation scheduler active (every 30 minutes)');
 };
 
 // Start server with database initialization
