@@ -4,22 +4,22 @@ import { query } from '../config/database.js';
 const API_BASE_URL = process.env.API_BASE_URL || 'http://localhost:3001';
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
 
-const INDUSTRIES = ['Law Firm', 'Energy Sector'];
+const INDUSTRIES = ['Law Firms', 'Energy Companies', 'Healthcare Organizations', 'Manufacturing Companies', 'Financial Services', 'Real Estate Firms'];
 const CATEGORIES = [
-  'Automation',
-  'CRM',
-  'Content Creation',
-  'AI Avatars',
+  'Process Automation',
+  'CRM & Lead Management', 
+  'Content Creation & Marketing',
+  'AI Chatbots & Virtual Assistants',
   'Document Processing & Compliance',
-  'RFP & Proposal Management',
-  'Knowledge Management (RAG Systems)',
-  'Lead & Matter Scoring',
-  'Email & Calendar Triage',
-  'Reporting & Analytics Dashboards',
-  'Data Enrichment & Verification',
-  'Workflow Integration (MS 365, SharePoint, Teams)',
+  'Proposal & RFP Management',
+  'Knowledge Management Systems',
+  'Lead Scoring & Analytics',
+  'Email & Calendar Automation',
+  'Reporting & Business Intelligence',
+  'Data Verification & Enrichment',
+  'Workflow Integration',
   'Training & Change Management',
-  'AI Chatbots & Self-Service Portals'
+  'Customer Service Automation'
 ];
 
 const generateSlug = (title) => {
@@ -29,19 +29,31 @@ const generateSlug = (title) => {
 const generateUseCase = async (industry, category, topic) => {
 
     const prompt = `
-        Generate a detailed and compelling business use case for a fictional company in the ${industry} on the topic of "${topic}".
-        The tone should be professional, informative, and persuasive, showcasing the transformative impact of the solution.
-        Create a realistic scenario that demonstrates measurable business value and ROI.
+        Generate a hypothetical, educational business use case that shows how AI and automation can help ${industry} with ${category}. 
+        This should be a relatable scenario that helps readers understand the potential applications, NOT a specific company case study.
         
-        Format the output as a JSON object with four keys: "clientProfile", "challenge", "solution", and "results".
+        Focus on:
+        - Common challenges that most businesses in this industry face
+        - How AI/automation solutions can address these challenges  
+        - Realistic benefits and outcomes that readers can envision for their own business
+        - Educational value that helps people understand AI/automation capabilities
         
-        - "clientProfile": An object with "name", "industry", and a short "description" of the fictional client.
-        - "challenge": A string containing well-formatted HTML. Start with an <h2>The Challenge</h2> title. Follow with 2-3 detailed paragraphs (<p> tags) that vividly describe the business problems and pain points. Include specific challenges like inefficiencies, costs, time waste, or missed opportunities.
-        - "solution": A string containing well-formatted HTML. Start with an <h2>Our Solution</h2> title. Follow with 2-3 paragraphs describing the implemented solution in detail. Then, include an unordered list (<ul>) with 4-6 list items (<li>) detailing the key technologies, features, or implementation steps taken.
-        - "results": An array of exactly 5 short, quantifiable, and impressive KPI-driven outcomes. Each result MUST include specific numbers and percentages. Examples: "75% Reduction in Processing Time", "300% Increase in Lead Conversion", "$450,000 Annual Cost Savings", "90% Improvement in Customer Satisfaction", "50% Faster Time-to-Market".
+        Use generic terms like "a typical law firm", "most energy companies", "organizations in this sector" instead of specific company names.
         
-        CRITICAL: Each result in the "results" array must contain specific metrics (percentages, dollar amounts, or multipliers like "3x faster").
-        Ensure all HTML is clean, valid, and ready to be rendered. Do not include the main use case title in the JSON content.
+        Format the output as a JSON object with three keys: "challenge", "solution", and "results".
+        
+        - "challenge": A string containing well-formatted HTML. Start with an <h2>Common Industry Challenge</h2> title. Follow with 2-3 detailed paragraphs (<p> tags) describing typical problems that businesses in this industry face. Focus on pain points that readers will recognize from their own experience.
+        
+        - "solution": A string containing well-formatted HTML. Start with an <h2>How AI & Automation Can Help</h2> title. Follow with 2-3 paragraphs explaining how AI/automation addresses these challenges. Then include an unordered list (<ul>) with 4-6 list items (<li>) detailing specific AI/automation features and capabilities.
+        
+        - "results": An array of exactly 5 realistic, quantifiable outcomes that businesses could expect. Each result MUST include specific metrics. Examples: "65% Reduction in Manual Processing Time", "250% Increase in Lead Response Speed", "$180,000 Annual Labor Cost Savings", "85% Improvement in Accuracy", "40% Faster Decision Making".
+        
+        CRITICAL: 
+        - No specific company names or fictional company names
+        - Use industry-generic language ("organizations", "firms", "companies")
+        - Focus on educational value and relatability
+        - Each result must contain specific metrics (percentages, dollar amounts, time savings)
+        - Ensure all HTML is clean and valid
     `;
 
     let model = 'gemini-2.5-pro';
@@ -102,7 +114,7 @@ const generateUseCase = async (industry, category, topic) => {
     const newUseCase = {
         title: topic,
         slug,
-        industry: `${useCaseContent.clientProfile.name} - ${category}`,
+        industry: `${industry} - ${category}`,
         challenge: useCaseContent.challenge,
         solution: useCaseContent.solution,
         results: useCaseContent.results,
@@ -122,12 +134,15 @@ const generateUseCase = async (industry, category, topic) => {
 
 const generateTopic = async (industry, category) => {
   const prompt = `
-    Generate a compelling, specific use case title for a ${industry} using ${category}.
-    The title should be concise, professional, and results-oriented.
-    Do not use placeholders like [Company Name] or [Product].
+    Generate a compelling, educational use case title that shows how ${category} can help ${industry}.
+    The title should be professional, clear, and focus on the business value/solution.
+    Do not use specific company names - keep it generic and educational.
     Return only the title as a single string.
 
-    Example: "AI-Powered Contract Analysis for Corporate Law Firms"
+    Examples: 
+    - "Automated Document Review for Legal Practice Efficiency"
+    - "AI-Powered Lead Scoring for Energy Sector Sales Teams"
+    - "Intelligent Customer Service Automation for Healthcare"
   `;
   
   const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {

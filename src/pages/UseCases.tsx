@@ -90,7 +90,7 @@ const UseCases = () => {
           {!loading && !error && (
             <div className="grid lg:grid-cols-2 gap-12">
               {useCases.map((useCase) => {
-                const [clientName, category] = useCase.industry.split(' - ');
+                const [industry, category] = useCase.industry.split(' - ');
                 const challengeText = getTextFromHTML(useCase.challenge);
                 const solutionText = getTextFromHTML(useCase.solution);
                 
@@ -100,7 +100,7 @@ const UseCases = () => {
                     <div className="px-8 pt-8 pb-4">
                       <div className="flex items-center justify-between mb-4">
                         <div className="flex items-center space-x-2">
-                          <span className="text-sm font-semibold text-red-600">{clientName}</span>
+                          <span className="text-sm font-semibold text-red-600">{industry}</span>
                           <span className="text-gray-300">•</span>
                           <span className="text-sm font-medium text-gray-600">{category}</span>
                         </div>

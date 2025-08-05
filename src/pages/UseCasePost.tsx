@@ -5,6 +5,7 @@ import { getUseCaseBySlug } from '@/config/api';
 import { UseCase } from '@/types';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import '@/styles/blog-post.css';
 
 const UseCasePost = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -64,8 +65,8 @@ const UseCasePost = () => {
     );
   }
 
-  // Split industry string to separate client from category
-  const [clientName, category] = useCase.industry.split(' - ');
+  // Split industry string to separate industry from category
+  const [industry, category] = useCase.industry.split(' - ');
 
   // Extract key metrics from results for visual display
   const extractMetric = (result: string) => {
@@ -107,7 +108,7 @@ const UseCasePost = () => {
                       {useCase.title}
                     </h1>
                     <p className="mt-4 text-xl text-red-100 max-w-3xl">
-                      Discover how a {useCase.industry.split(' - ')[0].toLowerCase()} company transformed their operations with our {category.toLowerCase()} solution
+                      Discover how a {industry.toLowerCase()} company transformed their operations with our {category.toLowerCase()} solution
                     </p>
                   </div>
                 </div>
@@ -155,11 +156,11 @@ const UseCasePost = () => {
                 {/* Challenge and Solution */}
                 <div className="prose prose-lg max-w-none">
                   <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
-                    <div dangerouslySetInnerHTML={{ __html: useCase.challenge }} />
+                    <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: useCase.challenge }} />
                   </div>
                   
                   <div className="bg-white rounded-2xl shadow-lg p-8">
-                    <div dangerouslySetInnerHTML={{ __html: useCase.solution }} />
+                    <div className="blog-content-container" dangerouslySetInnerHTML={{ __html: useCase.solution }} />
                   </div>
                 </div>
               </div>
@@ -178,7 +179,7 @@ const UseCasePost = () => {
                     <div className="space-y-6">
                       <div className="border-l-4 border-blue-500 pl-4">
                         <p className="font-semibold text-gray-900 mb-1">Industry</p>
-                        <p className="text-lg text-gray-700">{useCase.industry.split(' - ')[0]}</p>
+                        <p className="text-lg text-gray-700">{industry}</p>
                       </div>
                       
                       <div className="border-l-4 border-purple-500 pl-4">
