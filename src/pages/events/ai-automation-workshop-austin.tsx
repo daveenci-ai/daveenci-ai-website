@@ -127,8 +127,8 @@ const AIAutomationWorkshopAustin = () => {
   const benefits = [
     {
       icon: Target,
-      title: "Automate Your Content Marketing",
-      description: "Learn AI-powered strategies to create, schedule, and optimize content across all platforms"
+      title: "Discoverability (AEO/GEO vs SEO)",
+      description: "Structure questions → answers → proof → action. Build entity pages and FAQ stacks that answer engines cite."
     },
     {
       icon: User,
@@ -178,7 +178,7 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Sub-Headline */}
             <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6 md:mb-12 px-4 md:px-0">
-              Unlock the Power of AI Automations for Your Business. Learn how to save time, increase ROI, and streamline your content, CRM, and marketing using AI tools.
+              Discoverability first: AEO/GEO vs SEO. Structure content the way buyers and answer engines ask—then layer CRM Copilot essentials to convert.
             </p>
 
             {/* Countdown Timer */}

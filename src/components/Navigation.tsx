@@ -27,7 +27,7 @@ const Navigation = () => {
       <div className="fixed top-0 left-0 right-0 z-50">
         <div className="bg-gradient-to-r from-red-600 to-orange-500 text-white text-sm md:text-base">
           <div className="max-w-7xl mx-auto px-6 lg:px-8 py-2 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-            <span className="font-semibold">AI Automation Workshop — Austin</span>
+            <span className="font-semibold">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
             <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
             <Link to="/events/ai-automation-workshop-austin" className="inline-flex items-center bg-white/10 hover:bg-white/20 transition-colors px-3 py-1 rounded-md">
               Reserve my seat

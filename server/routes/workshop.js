@@ -238,7 +238,7 @@ router.post('/register', formLimiter, async (req, res) => {
 
     const confirmationHtml = `
       <h2>Thank you for registering, ${firstName}!</h2>
-      <p>We're excited to have you join us for the AI Automation Workshop in Austin.</p>
+      <p>You're confirmed for our Discoverability Workshop (AEO/GEO vs SEO) in Austin.</p>
       
       <h3>Event Details:</h3>
       <ul>
@@ -247,17 +247,14 @@ router.post('/register', formLimiter, async (req, res) => {
         <li><strong>Location:</strong> 9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)</li>
       </ul>
       
-      <p>What to expect:</p>
+      <p>What you'll learn:</p>
       <ul>
-        <li>Learn AI-powered content marketing strategies</li>
-        <li>Master CRM lead qualification with AI</li>
-        <li>Hands-on experience with no-code automation tools</li>
-        <li>Live walkthroughs and case studies</li>
-        <li>Networking with fellow entrepreneurs</li>
-        <li>Take-home templates and resources</li>
+        <li>Discoverability first: AEO/GEO vs SEO — structure pages for questions → answers → proof → action</li>
+        <li>Build entity pages and FAQ stacks that answer engines cite</li>
+        <li>CRM Copilot essentials (data hygiene, lead scoring, auto‑reply assistant)</li>
       </ul>
       
-      <p>We'll send you more details and updates as the event approaches.</p>
+      <p>We'll send you reminders and resources before the event.</p>
       
       ${phone ? `<p><strong>SMS Updates:</strong> You'll receive text message updates about the workshop at ${phone}. Reply STOP to opt out at any time.</p>` : ''}
       
