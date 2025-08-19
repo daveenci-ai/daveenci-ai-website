@@ -27,6 +27,7 @@ const AIAutomationWorkshopAustin = () => {
 
   // Countdown timer logic
   useEffect(() => {
+    document.title = 'Be The Answer Buyers See First — Discoverability Workshop | DaVeenci';
     const targetDate = new Date('2025-08-28T14:30:00-05:00'); // Aug 28, 2025, 2:30 PM CT
 
     const timer = setInterval(() => {
@@ -173,12 +174,12 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Main Headline */}
             <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-8">
-              If it <span className="text-orange-600">Repeats</span>, it <span className="text-pink-600">Automates</span>
+              Be The Answer Buyers See First
             </h1>
 
             {/* Sub-Headline */}
             <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6 md:mb-12 px-4 md:px-0">
-              Discoverability first: AEO/GEO vs SEO. Structure content the way buyers and answer engines ask—then layer CRM Copilot essentials to convert.
+              Discoverability first: AEO/GEO vs SEO. Structure content the way buyers, customers, and clients actually ask—across products, services, and local queries—then layer CRM Copilot essentials to convert.
             </p>
 
             {/* Countdown Timer */}
