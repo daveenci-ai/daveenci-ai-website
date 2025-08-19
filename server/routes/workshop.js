@@ -24,6 +24,57 @@ router.options('/info', (req, res) => {
   res.status(200).end();
 });
 
+// Syllabus/lead capture preflight
+router.options('/lead', (req, res) => {
+  res.status(200).end();
+});
+
+// Simple lead capture for syllabus
+router.post('/lead', async (req, res) => {
+  try {
+    const { email, name } = req.body || {};
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: 'Valid email is required' });
+    }
+
+    const adminEmail = process.env.NOTIFICATION_EMAIL || process.env.FROM_EMAIL || 'support@daveenci.ai';
+    const safeName = typeof name === 'string' ? name.trim() : '';
+    const subject = 'New syllabus request — Discoverability Workshop (Austin)';
+    const adminHtml = `
+      <h2>Syllabus Request</h2>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Name:</strong> ${safeName || '—'}</p>
+      <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
+    `;
+    const userHtml = `
+      <h2>Your Workshop Syllabus</h2>
+      <p>Thanks${safeName ? `, ${safeName}` : ''}! Here’s what we’ll cover in the 90‑minute workshop:</p>
+      <ul>
+        <li><strong>AEO/GEO vs SEO</strong> — Q→A→Proof→Action, FAQ stacks, entity cues</li>
+        <li><strong>CRM Copilot</strong> — enrichment, recap, replies, next actions</li>
+        <li><strong>Setup</strong> — Render deploy, Stripe Checkout, Resend emails/.ics</li>
+      </ul>
+      <p>
+        Date: <strong>Aug 28, 2025</strong> • Time: <strong>2:30 PM CT</strong> • Location: <strong>Austin, TX</strong>
+      </p>
+      <p>
+        Ready to join? <a href="${process.env.PUBLIC_URL || 'https://daveenci.ai/events/ai-automation-workshop-austin'}" target="_blank">Reserve your seat</a>.
+      </p>
+      <p>— DaVeenci</p>
+    `;
+
+    // Fire-and-forget
+    Promise.all([
+      sendEmail(adminEmail, subject, adminHtml).catch(() => {}),
+      sendEmail(email, 'Your Workshop Syllabus', userHtml).catch(() => {}),
+    ]);
+
+    return res.json({ ok: true });
+  } catch {
+    return res.status(500).json({ error: 'Failed to store lead' });
+  }
+});
+
 // Stripe preflight
 router.options('/checkout', (req, res) => {
   res.status(200).end();

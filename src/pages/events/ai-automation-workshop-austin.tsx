@@ -15,15 +15,9 @@ const AIAutomationWorkshopAustin = () => {
     seconds: 0
   });
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    company_name: '',
-    website: '',
-    question: ''
-  });
+  const [formData, setFormData] = useState({ email: '', firstName: '', lastName: '' });
+  const [syllabusEmail, setSyllabusEmail] = useState('');
+  const [syllabusStatus, setSyllabusStatus] = useState<string | null>(null);
 
   // Countdown timer logic
   useEffect(() => {
@@ -63,31 +57,19 @@ const AIAutomationWorkshopAustin = () => {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const requestSyllabus = async () => {
     setIsSubmitting(true);
-    setSubmitMessage('');
-
+    setSyllabusStatus(null);
     try {
-      const response = await fetch(`${apiConfig.baseUrl}/api/workshop/register`, {
+      const r = await fetch(`${apiConfig.baseUrl}/api/workshop/lead`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: syllabusEmail, name: `${formData.firstName} ${formData.lastName}`.trim() || undefined })
       });
-
-      const result = await response.json();
-
-      if (response.ok) {
-        // Redirect to thank you page
-        navigate('/events/thank-you-event');
-      } else {
-        setSubmitMessage(result.error || 'Registration failed. Please try again.');
-      }
-    } catch (error) {
-      console.error('Registration error:', error);
-      setSubmitMessage('Network error. Please check your connection and try again.');
+      if (r.ok) setSyllabusStatus('Sent! Check your email for the syllabus.');
+      else setSyllabusStatus('Could not send syllabus. Please try again.');
+    } catch {
+      setSyllabusStatus('Network error. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -198,28 +180,23 @@ const AIAutomationWorkshopAustin = () => {
               <span className="text-sm md:text-lg font-bold text-red-600 text-center">Limited to 40 seats!</span>
             </div>
 
-            {/* Primary & Secondary CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-6 md:mb-10">
+            {/* Primary CTA only */}
+            <div className="flex items-center justify-center mb-6 md:mb-10">
               <Button
-                onClick={() => handleCheckout('general')}
-                disabled={isCheckingOut}
+                onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })}
+                disabled={false}
                 className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
               >
-                {isCheckingOut ? 'Redirecting…' : 'Reserve my seat'}
+                Reserve my seat
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
-              <a
-                href="#form"
-                className="px-6 md:px-8 py-3 md:py-4 bg-white border border-gray-300 hover:border-gray-400 text-gray-900 text-base md:text-lg font-semibold rounded-lg transition-all duration-200"
-              >
-                Get the syllabus
-              </a>
             </div>
             {checkoutError && (
               <div className="mx-auto max-w-xl text-sm md:text-base text-red-700 bg-red-100 border border-red-200 rounded-md px-4 py-2 mb-4">
                 {checkoutError}
               </div>
             )}
+            
 
             {/* Event Perks */}
             <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm md:text-base">
@@ -249,11 +226,7 @@ const AIAutomationWorkshopAustin = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6 md:mb-8">Reserve Your Spot</h2>
             
             {submitMessage && (
-              <div className={`p-4 rounded-lg mb-6 ${
-                submitMessage.includes('successful') 
-                  ? 'bg-green-100 text-green-800 border border-green-200' 
-                  : 'bg-red-100 text-red-800 border border-red-200'
-              }`}>
+              <div className={`p-4 rounded-lg mb-6 ${submitMessage.toLowerCase().includes('failed') || submitMessage.toLowerCase().includes('error') ? 'bg-red-100 text-red-800 border border-red-200' : 'bg-green-100 text-green-800 border border-green-200'}`}>
                 {submitMessage}
               </div>
             )}
