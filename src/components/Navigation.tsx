@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,22 @@ const Navigation = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Dismissible event banner
+  const BANNER_STORAGE_KEY = 'workshopBanner_v20250828';
+  const [showBanner, setShowBanner] = useState(true);
+
+  useEffect(() => {
+    try {
+      const hidden = localStorage.getItem(BANNER_STORAGE_KEY) === '1';
+      if (hidden) setShowBanner(false);
+    } catch {}
+  }, []);
+
+  const dismissBanner = () => {
+    setShowBanner(false);
+    try { localStorage.setItem(BANNER_STORAGE_KEY, '1'); } catch {}
+  };
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
@@ -23,25 +39,8 @@ const Navigation = () => {
 
   return (
     <>
-      {/* Site-wide Workshop Banner */}
-      <div className="fixed top-0 left-0 right-0 z-50 shadow-sm">
-        <div className="bg-red-600 text-white">
-          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-2 flex flex-wrap items-center justify-center gap-2 md:gap-4 text-[13px] md:text-sm">
-            <span className="font-semibold tracking-tight">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
-            <span className="opacity-90">•</span>
-            <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
-            <span className="opacity-90 hidden sm:inline">•</span>
-            <Link
-              to="/events/ai-automation-workshop-austin"
-              className="inline-flex items-center rounded-full bg-white text-rose-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors"
-            >
-              Reserve my seat
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      <nav className="fixed top-10 md:top-12 left-0 right-0 z-40 px-6 py-3 lg:px-8 bg-white border-b border-gray-200 shadow-sm">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div className="px-6 py-3 lg:px-8">
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div className="flex items-center">
@@ -131,6 +130,27 @@ const Navigation = () => {
             )}
           </button>
         </div>
+      </div>
+
+      {/* Banner attached below the menu */}
+      {showBanner && (
+        <div className="bg-red-600 text-white">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-2 flex items-center gap-2 md:gap-4 text-[13px] md:text-sm">
+            <span className="font-semibold tracking-tight">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
+            <span className="opacity-90 hidden sm:inline">•</span>
+            <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
+            <Link
+              to="/events/ai-automation-workshop-austin"
+              className="ml-auto inline-flex items-center rounded-full bg-white text-red-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors"
+            >
+              Reserve my seat
+            </Link>
+            <button aria-label="Dismiss banner" onClick={dismissBanner} className="ml-1 inline-flex items-center justify-center px-2 py-1 text-white/90 hover:text-white">
+              <X className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
+      )}
       </div>
 
       {/* Mobile Menu */}
