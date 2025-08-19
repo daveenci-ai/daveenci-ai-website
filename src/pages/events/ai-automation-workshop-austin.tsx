@@ -8,6 +8,7 @@ import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, Boo
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { apiConfig } from '@/config/api';
+import FAQ from '@/components/FAQ';
 
 const AIAutomationWorkshopAustin = () => {
   const navigate = useNavigate();
@@ -296,21 +297,32 @@ const AIAutomationWorkshopAustin = () => {
 
       {/* Outcomes Section */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Outcomes</h2>
-          <p className="text-gray-600 mb-8">Why this matters and what you’ll take home.</p>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6 text-left">
-            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-              <h3 className="font-semibold text-gray-900 mb-2">AEO/GEO page template</h3>
-              <p className="text-gray-600 text-sm">A proven structure that answer engines prefer—ready to copy into your CMS.</p>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Outcomes</h2>
+            <p className="text-gray-600 mt-2">Why this matters and what you’ll take home.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4 md:gap-8">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">AEO/GEO page template</h3>
+              <p className="text-sm md:text-base text-gray-600">A proven structure answer engines cite—ready to paste into your CMS.</p>
             </div>
-            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-              <h3 className="font-semibold text-gray-900 mb-2">CRM Copilot prompt pack</h3>
-              <p className="text-gray-600 text-sm">Prompts for research → recap → next action to keep deals moving.</p>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <User className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">CRM Copilot prompt pack</h3>
+              <p className="text-sm md:text-base text-gray-600">Prompts for research → recap → next action to keep deals moving.</p>
             </div>
-            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
-              <h3 className="font-semibold text-gray-900 mb-2">Minimal tech recipe</h3>
-              <p className="text-gray-600 text-sm">Render + Stripe + Resend. A simple, repeatable setup—no heavy stack.</p>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <Settings className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">Minimal tech recipe</h3>
+              <p className="text-sm md:text-base text-gray-600">Render + Stripe + Resend—simple, repeatable, no heavy stack.</p>
             </div>
           </div>
         </div>
@@ -322,17 +334,26 @@ const AIAutomationWorkshopAustin = () => {
         <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-10">What You’ll Learn</h2>
           <div className="grid md:grid-cols-3 gap-4 md:gap-8">
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Discoverability (AEO/GEO vs SEO)</h3>
-              <p className="text-gray-600 text-sm">Q→A→Proof→Action, entity cues, and FAQ stacks that LLMs cite.</p>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">Discoverability (AEO/GEO vs SEO)</h3>
+              <p className="text-sm md:text-base text-gray-600">Q→A→Proof→Action, entity cues, and FAQ stacks that LLMs cite.</p>
             </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">CRM Copilot</h3>
-              <p className="text-gray-600 text-sm">Auto‑enrich, summarize calls, draft follow‑ups, and set next actions.</p>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <User className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">CRM Copilot</h3>
+              <p className="text-sm md:text-base text-gray-600">Auto‑enrich, summarize calls, draft follow‑ups, and set next actions.</p>
             </div>
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Technical Setup (simple)</h3>
-              <p className="text-gray-600 text-sm">Render deploy, Stripe Checkout, and Resend emails (.ics included).</p>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <Settings className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">Technical Setup (simple)</h3>
+              <p className="text-sm md:text-base text-gray-600">Render deploy, Stripe Checkout, and Resend emails (.ics included).</p>
             </div>
           </div>
         </div>
@@ -340,26 +361,37 @@ const AIAutomationWorkshopAustin = () => {
 
       {/* What We’ll Build Live */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">What We’ll Build Live</h2>
-          <ul className="space-y-3 text-gray-700 max-w-3xl mx-auto list-disc list-inside">
-            <li>Checkout → ticket email (.ics) → CRM tag</li>
-            <li>Refactor one page into AEO/GEO format + mini FAQ stack</li>
-            <li>Copilot prompts for reply + next‑best‑action</li>
-          </ul>
+          <div className="grid md:grid-cols-3 gap-4 md:gap-8">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Ticket flow</h3>
+              <p className="text-gray-600 text-sm">Checkout → ticket email (.ics) → CRM tag.</p>
+            </div>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">AEO/GEO page</h3>
+              <p className="text-gray-600 text-sm">Refactor one page + mini FAQ stack for Discoverability.</p>
+            </div>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Copilot prompts</h3>
+              <p className="text-gray-600 text-sm">Reply and next‑best‑action prompts wired into CRM.</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Agenda */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Agenda (90 minutes)</h2>
-          <div className="text-gray-700 space-y-2">
-            <div>0:00–0:10 — The landscape: why SEO stalls; what AEO/GEO changes</div>
-            <div>0:10–0:35 — AEO/GEO playbook + live page rework</div>
-            <div>0:35–1:00 — CRM Copilot build</div>
-            <div>1:00–1:20 — Tools checklist (Render/Stripe/Resend)</div>
-            <div>1:20–1:30 — Q&A</div>
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-6">Agenda (90 minutes)</h2>
+            <div className="text-gray-700 space-y-3">
+              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">0:00–0:10</span><span>The landscape: why SEO stalls; what AEO/GEO changes</span></div>
+              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">0:10–0:35</span><span>AEO/GEO playbook + live page rework</span></div>
+              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">0:35–1:00</span><span>CRM Copilot build</span></div>
+              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">1:00–1:20</span><span>Tools checklist (Render/Stripe/Resend)</span></div>
+              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">1:20–1:30</span><span>Q&A</span></div>
+            </div>
           </div>
         </div>
       </section>
@@ -370,8 +402,8 @@ const AIAutomationWorkshopAustin = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
           <p className="text-gray-600 mb-8">General Admission — $59 • Includes recording, slides, templates, Copilot prompts, SOPs</p>
           <div className="mx-auto max-w-xl bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow border border-gray-200">
-            <Button onClick={() => handleCheckout('general')} disabled={isCheckingOut} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 text-lg font-semibold rounded-lg transition-all duration-200">
-              {isCheckingOut ? 'Redirecting…' : 'Reserve my seat'}
+            <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 text-lg font-semibold rounded-lg transition-all duration-200">
+              Reserve my seat
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
             <div className="mt-4 text-sm text-gray-600">Secure checkout by Stripe • Apple Pay & Google Pay</div>
@@ -394,44 +426,17 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* FAQs */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">FAQs</h2>
-          <div className="space-y-4 text-gray-700">
-            <div>
-              <div className="font-semibold">Is this beginner‑friendly?</div>
-              <p className="text-sm">Yes—no code required. We keep it practical and hands‑on.</p>
-            </div>
-            <div>
-              <div className="font-semibold">Do I get the recording?</div>
-              <p className="text-sm">Yes—recording and slides are included for all attendees.</p>
-            </div>
-            <div>
-              <div className="font-semibold">What tools do I need?</div>
-              <p className="text-sm">We demo Render, Stripe, and Resend. We’ll show free/low‑cost options.</p>
-            </div>
-            <div>
-              <div className="font-semibold">Payments & tax?</div>
-              <p className="text-sm">Stripe Checkout with Automatic Tax for Texas is enabled.</p>
-            </div>
-            <div>
-              <div className="font-semibold">Refunds?</div>
-              <p className="text-sm">7‑day, no‑questions‑asked guarantee.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* FAQs (reuse site component) */}
+      <FAQ />
 
       {/* Footer CTA */}
       <section className="py-12 md:py-16 bg-white">
         <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
           <p className="text-gray-600 mb-4">Have questions? Email support@daveenci.ai</p>
-          <Button onClick={() => handleCheckout('general')} disabled={isCheckingOut} className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200">
-            {isCheckingOut ? 'Redirecting…' : 'Reserve my seat'}
+          <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200">
+            Reserve my seat
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
-          <div className="text-xs text-gray-500 mt-2">Money‑back guarantee: 7‑day, no‑questions‑asked</div>
         </div>
       </section>
       {/* Syllabus Modal */}
