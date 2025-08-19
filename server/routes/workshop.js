@@ -32,7 +32,7 @@ router.options('/lead', (req, res) => {
 // Simple lead capture for syllabus
 router.post('/lead', async (req, res) => {
   try {
-    const { email, name } = req.body || {};
+    const { email, name, question } = req.body || {};
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ error: 'Valid email is required' });
     }
@@ -44,6 +44,7 @@ router.post('/lead', async (req, res) => {
       <h2>Syllabus Request</h2>
       <p><strong>Email:</strong> ${email}</p>
       <p><strong>Name:</strong> ${safeName || '—'}</p>
+      <p><strong>Question:</strong> ${question ? String(question).slice(0, 1000) : '—'}</p>
       <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
     `;
     const userHtml = `
@@ -54,6 +55,7 @@ router.post('/lead', async (req, res) => {
         <li><strong>CRM Copilot</strong> — enrichment, recap, replies, next actions</li>
         <li><strong>Setup</strong> — Render deploy, Stripe Checkout, Resend emails/.ics</li>
       </ul>
+      ${question ? `<p><strong>Your question:</strong> ${String(question).slice(0, 500)}</p>` : ''}
       <p>
         Date: <strong>Aug 28, 2025</strong> • Time: <strong>2:30 PM CT</strong> • Location: <strong>Austin, TX</strong>
       </p>

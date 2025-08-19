@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, BookOpen, TrendingUp, Zap } from 'lucide-react';
@@ -62,6 +65,10 @@ const AIAutomationWorkshopAustin = () => {
   const [submitMessage, setSubmitMessage] = useState('');
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
+  const [isSyllabusOpen, setIsSyllabusOpen] = useState(false);
+  const [leadEmail, setLeadEmail] = useState('');
+  const [leadQuestion, setLeadQuestion] = useState('');
+  const [leadStatus, setLeadStatus] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -134,6 +141,27 @@ const AIAutomationWorkshopAustin = () => {
       setCheckoutError('Network error. Please try again.');
     } finally {
       setIsCheckingOut(false);
+    }
+  };
+
+  const submitLead = async () => {
+    setIsSubmitting(true);
+    setLeadStatus(null);
+    try {
+      const r = await fetch(`${apiConfig.baseUrl}/api/workshop/lead`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: leadEmail, name: `${formData.firstName} ${formData.lastName}`.trim() || undefined, question: leadQuestion })
+      });
+      if (r.ok) {
+        setLeadStatus('Syllabus sent! Check your email.');
+      } else {
+        setLeadStatus('Could not send syllabus. Please try again.');
+      }
+    } catch {
+      setLeadStatus('Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -221,14 +249,21 @@ const AIAutomationWorkshopAustin = () => {
               <span className="text-sm md:text-lg font-bold text-red-600 text-center">Limited to 40 seats!</span>
             </div>
 
-            {/* Primary CTA only */}
-            <div className="flex items-center justify-center mb-6 md:mb-10">
+            {/* Primary + Secondary CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-6 md:mb-10">
               <Button
                 onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
               >
                 Reserve my seat
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => setIsSyllabusOpen(true)}
+                className="px-6 md:px-8 py-3 md:py-4 border border-gray-300 hover:border-gray-400 text-gray-900 text-base md:text-lg font-semibold rounded-lg"
+              >
+                Get the syllabus
               </Button>
             </div>
             {checkoutError && (
@@ -258,6 +293,23 @@ const AIAutomationWorkshopAustin = () => {
           </div>
         </div>
       </section>
+
+      {/* Syllabus Modal */}
+      <Dialog open={isSyllabusOpen} onOpenChange={setIsSyllabusOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Get the syllabus</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-3 mt-2">
+            <Input type="email" placeholder="you@company.com" value={leadEmail} onChange={(e) => setLeadEmail(e.target.value)} />
+            <Textarea placeholder="Optional question" value={leadQuestion} onChange={(e) => setLeadQuestion(e.target.value)} />
+            {leadStatus && <div className="text-sm text-gray-700">{leadStatus}</div>}
+          </div>
+          <DialogFooter>
+            <Button onClick={submitLead} disabled={isSubmitting || !leadEmail}>Send</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Registration Form Section */}
       <section id="form" className="py-12 md:py-16 bg-white">
