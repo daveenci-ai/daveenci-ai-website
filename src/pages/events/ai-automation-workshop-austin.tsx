@@ -252,7 +252,7 @@ const AIAutomationWorkshopAustin = () => {
             {/* Primary + Secondary CTAs */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-6 md:mb-10">
               <Button
-                onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
               >
                 Reserve my seat
@@ -294,6 +294,146 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
+      {/* Outcomes Section */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Outcomes</h2>
+          <p className="text-gray-600 mb-8">Why this matters and what you’ll take home.</p>
+          <div className="grid md:grid-cols-3 gap-4 md:gap-6 text-left">
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-2">AEO/GEO page template</h3>
+              <p className="text-gray-600 text-sm">A proven structure that answer engines prefer—ready to copy into your CMS.</p>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-2">CRM Copilot prompt pack</h3>
+              <p className="text-gray-600 text-sm">Prompts for research → recap → next action to keep deals moving.</p>
+            </div>
+            <div className="bg-gray-50 rounded-xl p-5 border border-gray-200">
+              <h3 className="font-semibold text-gray-900 mb-2">Minimal tech recipe</h3>
+              <p className="text-gray-600 text-sm">Render + Stripe + Resend. A simple, repeatable setup—no heavy stack.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What You’ll Learn (3 pillars) */}
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
+        <div className="absolute inset-0 bg-grid"></div>
+        <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-10">What You’ll Learn</h2>
+          <div className="grid md:grid-cols-3 gap-4 md:gap-8">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Discoverability (AEO/GEO vs SEO)</h3>
+              <p className="text-gray-600 text-sm">Q→A→Proof→Action, entity cues, and FAQ stacks that LLMs cite.</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900 mb-2">CRM Copilot</h3>
+              <p className="text-gray-600 text-sm">Auto‑enrich, summarize calls, draft follow‑ups, and set next actions.</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900 mb-2">Technical Setup (simple)</h3>
+              <p className="text-gray-600 text-sm">Render deploy, Stripe Checkout, and Resend emails (.ics included).</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What We’ll Build Live */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">What We’ll Build Live</h2>
+          <ul className="space-y-3 text-gray-700 max-w-3xl mx-auto list-disc list-inside">
+            <li>Checkout → ticket email (.ics) → CRM tag</li>
+            <li>Refactor one page into AEO/GEO format + mini FAQ stack</li>
+            <li>Copilot prompts for reply + next‑best‑action</li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Agenda */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Agenda (90 minutes)</h2>
+          <div className="text-gray-700 space-y-2">
+            <div>0:00–0:10 — The landscape: why SEO stalls; what AEO/GEO changes</div>
+            <div>0:10–0:35 — AEO/GEO playbook + live page rework</div>
+            <div>0:35–1:00 — CRM Copilot build</div>
+            <div>1:00–1:20 — Tools checklist (Render/Stripe/Resend)</div>
+            <div>1:20–1:30 — Q&A</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing (single option) */}
+      <section id="pricing" className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
+          <p className="text-gray-600 mb-8">General Admission — $59 • Includes recording, slides, templates, Copilot prompts, SOPs</p>
+          <div className="mx-auto max-w-xl bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow border border-gray-200">
+            <Button onClick={() => handleCheckout('general')} disabled={isCheckingOut} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 text-lg font-semibold rounded-lg transition-all duration-200">
+              {isCheckingOut ? 'Redirecting…' : 'Reserve my seat'}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <div className="mt-4 text-sm text-gray-600">Secure checkout by Stripe • Apple Pay & Google Pay</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 text-center">
+          <div className="text-gray-500 text-sm">Trusted by teams shipping with AI</div>
+          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 opacity-80">
+            <div className="h-8 bg-gray-100 rounded" />
+            <div className="h-8 bg-gray-100 rounded" />
+            <div className="h-8 bg-gray-100 rounded" />
+            <div className="h-8 bg-gray-100 rounded" />
+            <div className="h-8 bg-gray-100 rounded" />
+            <div className="h-8 bg-gray-100 rounded" />
+          </div>
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">FAQs</h2>
+          <div className="space-y-4 text-gray-700">
+            <div>
+              <div className="font-semibold">Is this beginner‑friendly?</div>
+              <p className="text-sm">Yes—no code required. We keep it practical and hands‑on.</p>
+            </div>
+            <div>
+              <div className="font-semibold">Do I get the recording?</div>
+              <p className="text-sm">Yes—recording and slides are included for all attendees.</p>
+            </div>
+            <div>
+              <div className="font-semibold">What tools do I need?</div>
+              <p className="text-sm">We demo Render, Stripe, and Resend. We’ll show free/low‑cost options.</p>
+            </div>
+            <div>
+              <div className="font-semibold">Payments & tax?</div>
+              <p className="text-sm">Stripe Checkout with Automatic Tax for Texas is enabled.</p>
+            </div>
+            <div>
+              <div className="font-semibold">Refunds?</div>
+              <p className="text-sm">7‑day, no‑questions‑asked guarantee.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer CTA */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+          <p className="text-gray-600 mb-4">Have questions? Email support@daveenci.ai</p>
+          <Button onClick={() => handleCheckout('general')} disabled={isCheckingOut} className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200">
+            {isCheckingOut ? 'Redirecting…' : 'Reserve my seat'}
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+          <div className="text-xs text-gray-500 mt-2">Money‑back guarantee: 7‑day, no‑questions‑asked</div>
+        </div>
+      </section>
       {/* Syllabus Modal */}
       <Dialog open={isSyllabusOpen} onOpenChange={setIsSyllabusOpen}>
         <DialogContent>
