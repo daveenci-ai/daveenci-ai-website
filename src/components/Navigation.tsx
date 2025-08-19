@@ -132,25 +132,6 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Banner attached below the menu */}
-      {showBanner && (
-        <div className="bg-red-600 text-white">
-          <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-2 flex items-center gap-2 md:gap-4 text-[13px] md:text-sm">
-            <span className="font-semibold tracking-tight">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
-            <span className="opacity-90 hidden sm:inline">•</span>
-            <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
-            <Link
-              to="/events/ai-automation-workshop-austin"
-              className="ml-auto inline-flex items-center rounded-full bg-white text-red-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors"
-            >
-              Reserve my seat
-            </Link>
-            <button aria-label="Dismiss banner" onClick={dismissBanner} className="ml-1 inline-flex items-center justify-center px-2 py-1 text-white/90 hover:text-white">
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-        </div>
-      )}
       </div>
 
       {/* Mobile Menu */}

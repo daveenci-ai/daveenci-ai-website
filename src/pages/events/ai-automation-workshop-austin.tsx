@@ -15,9 +15,15 @@ const AIAutomationWorkshopAustin = () => {
     seconds: 0
   });
 
-  const [formData, setFormData] = useState({ email: '', firstName: '', lastName: '' });
-  const [syllabusEmail, setSyllabusEmail] = useState('');
-  const [syllabusStatus, setSyllabusStatus] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    company_name: '',
+    website: '',
+    question: ''
+  });
 
   // Countdown timer logic
   useEffect(() => {
@@ -57,19 +63,43 @@ const AIAutomationWorkshopAustin = () => {
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
 
-  const requestSyllabus = async () => {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    setSyllabusStatus(null);
+    setSubmitMessage('');
     try {
-      const r = await fetch(`${apiConfig.baseUrl}/api/workshop/lead`, {
+      // Save registration first
+      const registerRes = await fetch(`${apiConfig.baseUrl}/api/workshop/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: syllabusEmail, name: `${formData.firstName} ${formData.lastName}`.trim() || undefined })
+        body: JSON.stringify(formData),
       });
-      if (r.ok) setSyllabusStatus('Sent! Check your email for the syllabus.');
-      else setSyllabusStatus('Could not send syllabus. Please try again.');
-    } catch {
-      setSyllabusStatus('Network error. Please try again.');
+      const registerJson = await registerRes.json();
+      if (!registerRes.ok) {
+        setSubmitMessage(registerJson.error || 'Registration failed. Please try again.');
+        return;
+      }
+
+      // Then create Checkout session with saved contact info
+      const checkoutRes = await fetch(`${apiConfig.baseUrl}/api/workshop/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          plan: 'general',
+          productId: 'prod_StiXnR9cZOv96D',
+          email: formData.email,
+          name: `${formData.firstName} ${formData.lastName}`.trim() || undefined,
+        }),
+      });
+      const checkoutJson = await checkoutRes.json();
+      if (checkoutRes.ok && checkoutJson.url) {
+        window.location.href = checkoutJson.url;
+      } else {
+        setSubmitMessage(checkoutJson.error || 'Unable to start checkout. Please try again.');
+      }
+    } catch (err) {
+      console.error('Registration/Checkout error:', err);
+      setSubmitMessage('Network error. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -143,7 +173,18 @@ const AIAutomationWorkshopAustin = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      
+      {/* Site-wide banner under header only on this page */}
+      <div className="w-full bg-red-600 text-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-2 flex items-center gap-2 md:gap-4 text-[13px] md:text-sm">
+          <span className="font-semibold tracking-tight">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
+          <span className="opacity-90 hidden sm:inline">•</span>
+          <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
+          <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="ml-auto inline-flex items-center rounded-full bg-white text-red-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors">
+            Reserve my seat
+          </Button>
+        </div>
+      </div>
+
       {/* Hero Section */}
       <section className="relative pt-20 md:pt-32 pb-16 md:pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
         <div className="absolute inset-0 bg-grid"></div>
@@ -184,7 +225,6 @@ const AIAutomationWorkshopAustin = () => {
             <div className="flex items-center justify-center mb-6 md:mb-10">
               <Button
                 onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })}
-                disabled={false}
                 className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
               >
                 Reserve my seat
@@ -283,26 +323,8 @@ const AIAutomationWorkshopAustin = () => {
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                  Phone Number (we'll remind you 24 hours in advance via SMS)
-                </label>
-                <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <span className="text-gray-500 text-sm">🇺🇸 +1</span>
-                  </div>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="(555) 123-4567"
-                    className="w-full pl-16 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                  />
-                </div>
-                <p className="mt-2 text-xs text-gray-600">
-                  By entering your phone number, you consent to receive messages for this event via SMS. Message and data rates may apply. Reply STOP to opt out.
-                </p>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Phone Number (optional)</label>
+                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="(555) 123-4567" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
               </div>
 
               <div>
