@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import Stripe from 'stripe';
 
 // Import routes
 import { workshopRoutes } from './routes/workshop.js';
@@ -16,7 +17,7 @@ import useCaseRoutes from './routes/useCases.js';
 
 // Import database initialization
 import { initializeDatabase } from './config/init-db.js';
-import { closePool } from './config/database.js';
+import { closePool, query } from './config/database.js';
 
 // Import blog automation for manual triggers only
 import { runScheduledAutomation as runBlogAutomation } from './automation/blog-scheduler.js';
@@ -36,6 +37,7 @@ console.log('🌐 Static files path:', path.join(__dirname, '..', 'dist'));
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-06-20' }) : null;
 
 // Trust proxy headers from Render (specific to avoid rate limiting warnings)
 app.set('trust proxy', 1);
@@ -49,7 +51,8 @@ app.use(helmet({
         "'self'", 
         "'unsafe-inline'", // For Google Tag Manager
         "https://www.googletagmanager.com",
-        "https://www.google-analytics.com"
+        "https://www.google-analytics.com",
+        "https://js.stripe.com"
       ],
       styleSrc: [
         "'self'", 
@@ -71,7 +74,9 @@ app.use(helmet({
         "'self'",
         "https://www.youtube.com", // YouTube embeds
         "https://youtube.com",
-        "https://www.googletagmanager.com" // Google Tag Manager
+        "https://www.googletagmanager.com", // Google Tag Manager
+        "https://js.stripe.com",
+        "https://checkout.stripe.com"
       ],
       fontSrc: [
         "'self'",
@@ -82,7 +87,8 @@ app.use(helmet({
         "https://daveenci-ai-backend.onrender.com", // Backend API calls
         "https://www.google-analytics.com",
         "https://analytics.google.com", // Google Analytics collect endpoint
-        "https://www.googletagmanager.com"
+        "https://www.googletagmanager.com",
+        "https://api.stripe.com"
       ]
     },
   },
@@ -122,7 +128,107 @@ const distPath = path.join(__dirname, '..', 'dist');
 console.log(`📁 Serving static files from: ${distPath}`);
 app.use(express.static(distPath));
 
-// Body parsing middleware
+// Stripe webhook must be defined BEFORE body parsers to preserve raw body
+if (stripe && process.env.STRIPE_WEBHOOK_SECRET) {
+  app.post('/webhooks/stripe', express.raw({ type: 'application/json' }), (req, res) => {
+    const sig = req.headers['stripe-signature'];
+    let event;
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
+    } catch (err) {
+      console.error('❌ Webhook signature verification failed:', err.message);
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    if (event.type === 'checkout.session.completed') {
+      const session = event.data.object;
+      console.log('✅ Checkout completed:', session.id, session.metadata);
+      // Idempotency: skip if this event was processed
+      // Persist attendee to DB (best effort; do not block webhook response)
+      (async () => {
+        try {
+          // If DB is not configured, skip
+          if (!process.env.DATABASE_URL) {
+            console.log('ℹ️ DATABASE_URL not set; skipping attendee persistence');
+            return;
+          }
+
+          // Check processed_stripe_events
+          const seen = await query('SELECT 1 FROM processed_stripe_events WHERE stripe_event_id = $1', [event.id]);
+          if (seen.rows.length > 0) {
+            console.log('↩️ Stripe event already processed:', event.id);
+            return;
+          }
+
+          const email = session.customer_details?.email || session.metadata?.email || null;
+          const fullName = session.customer_details?.name || session.metadata?.name || null;
+          const phone = session.customer_details?.phone || null;
+          // Extract custom fields if present
+          const customFields = Array.isArray(session.custom_fields) ? session.custom_fields : [];
+          const companyField = customFields.find(f => f.key === 'company_name');
+          const websiteField = customFields.find(f => f.key === 'website');
+          const companyName = companyField && companyField.text ? companyField.text.value : null;
+          const website = websiteField && websiteField.text ? websiteField.text.value : null;
+          const notes = `Stripe session ${session.id}; plan=${session.metadata?.plan || ''}; vip=${session.metadata?.vip || ''}`;
+
+          // Upsert event (based on name + type unique index)
+          await query(`
+            WITH event_upsert AS (
+              INSERT INTO events (event_date, event_name, event_address, event_type, event_description, event_capacity, event_status)
+              VALUES ($1, $2, $3, $4, $5, $6, $7)
+              ON CONFLICT (event_name, event_type) DO UPDATE SET
+                event_date = EXCLUDED.event_date,
+                event_address = EXCLUDED.event_address,
+                event_description = EXCLUDED.event_description,
+                event_capacity = EXCLUDED.event_capacity,
+                dt_updated = CURRENT_TIMESTAMP
+              RETURNING id
+            ),
+            participant_upsert AS (
+              INSERT INTO event_participants (event_id, full_name, email, phone, company_name, website, notes)
+              VALUES ((SELECT id FROM event_upsert), $8, $9, $10, $11, $12, $13)
+              ON CONFLICT (event_id, email) DO UPDATE SET
+                full_name = COALESCE(EXCLUDED.full_name, event_participants.full_name),
+                notes = COALESCE(event_participants.notes, '') || '\n' || EXCLUDED.notes,
+                dt_updated = CURRENT_TIMESTAMP
+              RETURNING id
+            )
+            SELECT 'success' as result
+          `, [
+            '2025-07-30 14:30:00',
+            'AI Automation Workshop - Austin',
+            '9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)',
+            'workshop',
+            'Hands-on AI workshop covering AEO/GEO, CRM Copilot essentials, and practical tools & skills.',
+            40,
+            'active',
+            fullName,
+            email,
+            phone,
+            companyName,
+            website,
+            notes
+          ]);
+
+          console.log('🗄️ Attendee persisted from Stripe session:', email || '(no email)');
+
+          // Mark processed
+          await query('INSERT INTO processed_stripe_events (stripe_event_id) VALUES ($1) ON CONFLICT (stripe_event_id) DO NOTHING', [event.id]);
+        } catch (dbErr) {
+          console.error('❌ Failed to persist attendee from webhook:', dbErr.message);
+        }
+      })();
+    }
+
+    res.json({ received: true });
+  });
+} else {
+  app.post('/webhooks/stripe', (req, res) => {
+    return res.status(501).json({ error: 'Stripe webhook not configured' });
+  });
+}
+
+// Body parsing middleware (after webhook)
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 

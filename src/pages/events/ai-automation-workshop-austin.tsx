@@ -59,6 +59,8 @@ const AIAutomationWorkshopAustin = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [checkoutError, setCheckoutError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -90,6 +92,38 @@ const AIAutomationWorkshopAustin = () => {
     }
   };
 
+  const handleCheckout = async (plan: 'early' | 'general' | 'team' = 'general', addVip = false) => {
+    setIsCheckingOut(true);
+    setCheckoutError('');
+    try {
+      const response = await fetch(`${apiConfig.baseUrl}/api/workshop/checkout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          plan,
+          addOns: addVip ? ['vip'] : [],
+          // You provided a product ID for Stripe
+          productId: 'prod_StiXnR9cZOv96D',
+          email: formData.email || undefined,
+          name: `${formData.firstName} ${formData.lastName}`.trim() || undefined,
+        }),
+      });
+      const result = await response.json();
+      if (response.ok && result.url) {
+        window.location.href = result.url;
+      } else {
+        setCheckoutError(result.error || 'Checkout failed. Please try again.');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      setCheckoutError('Network error. Please try again.');
+    } finally {
+      setIsCheckingOut(false);
+    }
+  };
+
   const benefits = [
     {
       icon: Target,
@@ -98,8 +132,8 @@ const AIAutomationWorkshopAustin = () => {
     },
     {
       icon: User,
-      title: "AI-Powered CRM Lead Qualification",
-      description: "Use AI to qualify leads automatically and engage customers at the perfect moment"
+      title: "CRM Copilot Essentials",
+      description: "Data hygiene + CRM entry, lead scoring, and an auto‑reply assistant for faster first responses"
     },
     {
       icon: Settings,
@@ -163,11 +197,34 @@ const AIAutomationWorkshopAustin = () => {
               <span className="text-sm md:text-lg font-bold text-red-600 text-center">Limited to 40 seats!</span>
             </div>
 
+            {/* Primary & Secondary CTAs */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-6 md:mb-10">
+              <Button
+                onClick={() => handleCheckout('general')}
+                disabled={isCheckingOut}
+                className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
+              >
+                {isCheckingOut ? 'Redirecting…' : 'Reserve my seat'}
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+              </Button>
+              <a
+                href="#form"
+                className="px-6 md:px-8 py-3 md:py-4 bg-white border border-gray-300 hover:border-gray-400 text-gray-900 text-base md:text-lg font-semibold rounded-lg transition-all duration-200"
+              >
+                Get the syllabus
+              </a>
+            </div>
+            {checkoutError && (
+              <div className="mx-auto max-w-xl text-sm md:text-base text-red-700 bg-red-100 border border-red-200 rounded-md px-4 py-2 mb-4">
+                {checkoutError}
+              </div>
+            )}
+
             {/* Event Perks */}
             <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm md:text-base">
               <div className="flex items-center space-x-2">
                 <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
-                <span>Free event</span>
+                <span>Recording included</span>
               </div>
               <span className="hidden md:inline text-gray-400">•</span>
               <div className="flex items-center space-x-2">
@@ -517,14 +574,19 @@ const AIAutomationWorkshopAustin = () => {
             Join us on July 30th and discover how AI automation can revolutionize your workflow
           </p>
           
-          <a 
-            href="#form" 
+          <Button
+            onClick={() => handleCheckout('general')}
+            disabled={isCheckingOut}
             className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
           >
-            <span className="hidden md:inline">Wednesday, July 30, 2025 • 2:30 PM CST • Austin, TX</span>
-            <span className="md:hidden">Register Now - July 30, 2:30 PM CST</span>
-            <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-          </a>
+            {isCheckingOut ? 'Redirecting…' : (
+              <>
+                <span className="hidden md:inline">Wednesday, July 30, 2025 • 2:30 PM CST • Austin, TX</span>
+                <span className="md:hidden">Reserve my seat</span>
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+              </>
+            )}
+          </Button>
         </div>
       </section>
 

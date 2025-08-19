@@ -2,8 +2,11 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import { sendEmail } from '../utils/sendEmail.js';
 import { query } from '../config/database.js';
+import Stripe from 'stripe';
 
 const router = express.Router();
+const stripeSecret = process.env.STRIPE_SECRET_KEY;
+const stripe = stripeSecret ? new Stripe(stripeSecret, { apiVersion: '2024-06-20' }) : null;
 
 // Rate limiting for form submissions
 const formLimiter = rateLimit({
@@ -19,6 +22,134 @@ router.options('/register', (req, res) => {
 
 router.options('/info', (req, res) => {
   res.status(200).end();
+});
+
+// Stripe preflight
+router.options('/checkout', (req, res) => {
+  res.status(200).end();
+});
+
+// Create Stripe Checkout Session
+router.post('/checkout', async (req, res) => {
+  try {
+    if (!stripe) {
+      return res.status(501).json({ error: 'Payments not configured' });
+    }
+
+    const { plan = 'general', addOns = [], email, name, priceId, productId, lookupKey } = req.body || {};
+
+    const priceMap = {
+      early: process.env.EARLY_PRICE_ID,
+      general: process.env.GA_PRICE_ID,
+      team: process.env.TEAM_PRICE_ID,
+      vip: process.env.VIP_PRICE_ID
+    };
+
+    const lineItems = [];
+
+    // Resolve primary price
+    let primaryPriceId = priceId || null;
+
+    try {
+      if (!primaryPriceId && lookupKey) {
+        const prices = await stripe.prices.list({ lookup_keys: [lookupKey], active: true, limit: 1 });
+        primaryPriceId = prices.data[0]?.id || null;
+      }
+      if (!primaryPriceId && productId) {
+        // Prefer product default_price if set
+        const product = await stripe.products.retrieve(productId);
+        if (product.default_price) {
+          primaryPriceId = typeof product.default_price === 'string' ? product.default_price : product.default_price.id;
+        }
+        if (!primaryPriceId) {
+          const prices = await stripe.prices.list({ product: productId, active: true, limit: 10 });
+          const oneTime = prices.data.find(p => p.type === 'one_time');
+          primaryPriceId = (oneTime || prices.data[0])?.id || null;
+        }
+      }
+    } catch (resolveErr) {
+      console.error('Error resolving price from product/lookupKey:', resolveErr);
+    }
+
+    if (!primaryPriceId) {
+      primaryPriceId = priceMap[plan] || null;
+    }
+
+    if (!primaryPriceId) {
+      return res.status(400).json({ error: 'No valid price found. Provide plan, priceId, productId, or lookupKey.' });
+    }
+
+    lineItems.push({ price: primaryPriceId, quantity: plan === 'team' ? 3 : 1 });
+
+    if (Array.isArray(addOns) && addOns.includes('vip') && priceMap.vip) {
+      lineItems.push({ price: priceMap.vip, quantity: 1 });
+    }
+
+    const publicUrl = process.env.PUBLIC_URL || 'https://daveenci.ai/events/ai-automation-workshop-austin';
+    const thankYouUrl = process.env.THANK_YOU_URL || 'https://daveenci.ai/events/thank-you-event';
+
+    // Quick capacity pre-check (best-effort; hard cap enforced via webhook logic you can add later)
+    try {
+      if (process.env.DATABASE_URL) {
+        const result = await query(
+          `SELECT 
+             COALESCE(event_capacity, 40) AS capacity,
+             (SELECT COUNT(*) FROM event_participants ep INNER JOIN events e ON ep.event_id = e.id 
+              WHERE e.event_name = $1 AND e.event_type = $2) AS sold
+           FROM events WHERE event_name = $1 AND event_type = $2 LIMIT 1`,
+          ['AI Automation Workshop - Austin', 'workshop']
+        );
+        if (result.rows.length > 0) {
+          const { capacity, sold } = result.rows[0];
+          const requested = plan === 'team' ? 3 : 1;
+          if (sold + requested > capacity) {
+            return res.status(409).json({ error: 'Sold out or not enough seats' });
+          }
+        }
+      }
+    } catch (e) {
+      console.warn('Seat pre-check skipped due to DB error');
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      allow_promotion_codes: true,
+      automatic_tax: { enabled: true },
+      success_url: `${thankYouUrl}?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${publicUrl}`,
+      customer_email: email || undefined,
+      phone_number_collection: { enabled: true },
+      custom_fields: [
+        {
+          key: 'company_name',
+          label: { type: 'custom', custom: 'Company Name' },
+          type: 'text',
+          optional: true
+        },
+        {
+          key: 'website',
+          label: { type: 'custom', custom: 'Company Website' },
+          type: 'text',
+          optional: true
+        }
+      ],
+      client_reference_id: 'ai-automation-workshop-austin',
+      metadata: {
+        workshop: 'ai-automation-workshop-austin',
+        plan,
+        vip: Array.isArray(addOns) && addOns.includes('vip') ? 'true' : 'false',
+        name: name || '',
+        email: email || ''
+      }
+    });
+
+    return res.json({ url: session.url });
+  } catch (error) {
+    console.error('Stripe checkout error:', error);
+    return res.status(500).json({ error: 'Failed to create checkout session' });
+  }
 });
 
 // Workshop registration endpoint

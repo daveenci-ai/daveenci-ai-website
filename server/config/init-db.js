@@ -37,6 +37,15 @@ const initializeTables = async () => {
       )
     `);
 
+    // Processed Stripe events table for idempotency
+    await query(`
+      CREATE TABLE IF NOT EXISTS processed_stripe_events (
+        id SERIAL PRIMARY KEY,
+        stripe_event_id TEXT UNIQUE NOT NULL,
+        processed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
     // Simplified Blog Posts table
     await query(`
       CREATE TABLE IF NOT EXISTS blog_posts (

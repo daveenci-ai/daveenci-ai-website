@@ -16,7 +16,8 @@
     "blog-logs": "tail -f logs/automation.log",
     "blog-status": "tail -20 logs/automation.log | grep -E '(success|failed)'",
     "create-admin": "node scripts/create-admin.js",
-    "use-case-automation": "node automation/use-case-scheduler.js"
+    "use-case-automation": "node automation/use-case-scheduler.js",
+    "seed-event": "node scripts/seed-event.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.21.0",
@@ -31,7 +32,8 @@
     "node-schedule": "^2.1.1",
     "nodemailer": "^6.9.7",
     "pg": "^8.16.3",
-    "resend": "^4.6.0"
+    "resend": "^4.6.0",
+    "stripe": "^14.22.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

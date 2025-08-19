@@ -825,7 +825,7 @@ function getReliableImages(topic, count = 3) {
       "Sales process optimization tools",
       "Customer relationship management system"
     ];
-  } else {
+        } else {
     altTexts = [
       "Professional business technology concept",
       "Modern digital workplace environment",
@@ -881,7 +881,7 @@ function basicHTMLFormat(content, topic) {
     .split('\n')
     .map(line => line.trim())
     .filter(line => line.length > 0)
-    .join('\n');
+      .join('\n');
 
   // Split into sections and paragraphs
   const sections = formattedContent.split(/(?=##\s)|(?=###\s)/).filter(section => section.trim());
@@ -1207,8 +1207,8 @@ async function logAutomation(entry) {
   try {
     const logDir = join(__dirname, '../logs');
     const logFile = join(logDir, 'automation.log');
-    const logLine = `${entry.timestamp} - ${entry.timeSlot} - ${entry.status} - ${entry.title || entry.error || 'Unknown'} - SEO: ${entry.seoScore || 'N/A'}\n`;
-    
+  const logLine = `${entry.timestamp} - ${entry.timeSlot} - ${entry.status} - ${entry.title || entry.error || 'Unknown'} - SEO: ${entry.seoScore || 'N/A'}\n`;
+  
     // Create logs directory if it doesn't exist
     await fs.mkdir(logDir, { recursive: true });
     await fs.appendFile(logFile, logLine);
