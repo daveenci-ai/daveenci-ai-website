@@ -27,7 +27,7 @@ const AIAutomationWorkshopAustin = () => {
 
   // Countdown timer logic
   useEffect(() => {
-    const targetDate = new Date('2025-07-30T14:30:00-05:00'); // July 30, 2025, 2:30 PM CST
+    const targetDate = new Date('2025-08-28T14:30:00-05:00'); // Aug 28, 2025, 2:30 PM CT
 
     const timer = setInterval(() => {
       const now = new Date().getTime();
@@ -499,8 +499,8 @@ const AIAutomationWorkshopAustin = () => {
                     <Calendar className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">July 30, 2025</div>
-                    <div className="text-gray-600 text-sm md:text-base">Wednesday</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">August 28, 2025</div>
+                    <div className="text-gray-600 text-sm md:text-base">Thursday</div>
                   </div>
                 </div>
 
@@ -509,7 +509,7 @@ const AIAutomationWorkshopAustin = () => {
                     <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">2:30 PM CST</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">2:30 PM CT</div>
                     <div className="text-gray-600 text-sm md:text-base">Duration: 2 hours</div>
                   </div>
                 </div>
@@ -571,7 +571,7 @@ const AIAutomationWorkshopAustin = () => {
             Ready to Transform Your Business?
           </h2>
           <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 leading-relaxed">
-            Join us on July 30th and discover how AI automation can revolutionize your workflow
+            Join us on August 28th and discover how AI automation can revolutionize your workflow
           </p>
           
           <Button
@@ -581,7 +581,7 @@ const AIAutomationWorkshopAustin = () => {
           >
             {isCheckingOut ? 'Redirecting…' : (
               <>
-                <span className="hidden md:inline">Wednesday, July 30, 2025 • 2:30 PM CST • Austin, TX</span>
+                <span className="hidden md:inline">Thursday, Aug 28, 2025 • 2:30 PM CT • Austin, TX</span>
                 <span className="md:hidden">Reserve my seat</span>
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </>

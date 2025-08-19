@@ -39,7 +39,7 @@ async function sendEmailWithResend(to, subject, htmlContent) {
 
 // Fallback SMTP function (backup)
 async function sendEmailWithSMTP(to, subject, htmlContent) {
-  const transporter = nodemailer.createTransporter({
+  const transporter = nodemailer.createTransport({
     service: process.env.EMAIL_SERVICE || 'gmail',
     auth: {
       user: process.env.EMAIL_USER,

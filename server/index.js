@@ -195,7 +195,7 @@ if (stripe && process.env.STRIPE_WEBHOOK_SECRET) {
             )
             SELECT 'success' as result
           `, [
-            '2025-07-30 14:30:00',
+            '2025-08-28 14:30:00',
             'AI Automation Workshop - Austin',
             '9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)',
             'workshop',

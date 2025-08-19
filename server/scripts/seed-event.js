@@ -7,7 +7,7 @@ import { query } from '../config/database.js';
 const DEFAULTS = {
   name: process.env.EVENT_NAME || 'AI Automation Workshop - Austin',
   type: process.env.EVENT_TYPE || 'workshop',
-  date: process.env.EVENT_DATE || '2025-07-30 14:30:00',
+  date: process.env.EVENT_DATE || '2025-08-28 14:30:00',
   address: process.env.EVENT_ADDRESS || '9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)',
   description:
     process.env.EVENT_DESC ||
