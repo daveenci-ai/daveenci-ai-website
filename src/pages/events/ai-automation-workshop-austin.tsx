@@ -70,6 +70,7 @@ const AIAutomationWorkshopAustin = () => {
   const [leadEmail, setLeadEmail] = useState('');
   const [leadQuestion, setLeadQuestion] = useState('');
   const [leadStatus, setLeadStatus] = useState<string | null>(null);
+  const [selectedPlan, setSelectedPlan] = useState<'regular' | 'consult'>('regular');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,7 +94,7 @@ const AIAutomationWorkshopAustin = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          plan: 'general',
+          plan: selectedPlan,
           productId: 'prod_StiXnR9cZOv96D',
           email: formData.email,
           name: `${formData.firstName} ${formData.lastName}`.trim() || undefined,
@@ -398,51 +399,64 @@ const AIAutomationWorkshopAustin = () => {
       <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">What We’ll Build Live</h2>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-4 md:gap-8">
             <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Ticket flow</h3>
-              <p className="text-gray-600 text-sm">Checkout → ticket email (.ics) → CRM tag.</p>
+              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl mb-3">
+                <Globe className="w-6 h-6 text-orange-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Website (live)</h3>
+              <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
+                <li>Fully functional website</li>
+                <li>Smart form (routes + qualifies)</li>
+                <li>Chatbot (answers + handoff)</li>
+                <li>AEO/GEO‑ready blog</li>
+              </ul>
             </div>
             <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">AEO/GEO page</h3>
-              <p className="text-gray-600 text-sm">Refactor one page + mini FAQ stack for Discoverability.</p>
-            </div>
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Copilot prompts</h3>
-              <p className="text-gray-600 text-sm">Reply and next‑best‑action prompts wired into CRM.</p>
+              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl mb-3">
+                <BookOpen className="w-6 h-6 text-orange-600" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Content for Social</h3>
+              <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
+                <li>Plan, generate, and package posts</li>
+                <li>Copy + images aligned to your page</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Agenda */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-6">Agenda (90 minutes)</h2>
-            <div className="text-gray-700 space-y-3">
-              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">0:00–0:10</span><span>The landscape: why SEO stalls; what AEO/GEO changes</span></div>
-              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">0:10–0:35</span><span>AEO/GEO playbook + live page rework</span></div>
-              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">0:35–1:00</span><span>CRM Copilot build</span></div>
-              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">1:00–1:20</span><span>Tools checklist (Render/Stripe/Resend)</span></div>
-              <div className="flex items-start gap-3"><span className="font-semibold text-gray-900 w-28">1:20–1:30</span><span>Q&A</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Agenda removed per request */}
 
-      {/* Pricing (single option) */}
+      {/* Pricing Tiers */}
       <section id="pricing" className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
-          <p className="text-gray-600 mb-8">General Admission — $59 • Includes recording, slides, templates, Copilot prompts, SOPs</p>
-          <div className="mx-auto max-w-xl bg-gradient-to-br from-gray-50 to-white rounded-2xl p-6 shadow border border-gray-200">
-            <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-4 text-lg font-semibold rounded-lg transition-all duration-200">
-              Reserve my seat
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <div className="mt-4 text-sm text-gray-600">Secure checkout by Stripe • Apple Pay & Google Pay</div>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">Pricing</h2>
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            {/* Regular Ticket */}
+            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-white rounded-2xl p-6 shadow-sm border ${selectedPlan==='regular' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
+              <div className="flex items-baseline justify-between">
+                <div>
+                  <div className="text-xl font-bold text-gray-900">Regular Ticket</div>
+                  <div className="text-sm text-gray-600">Recording, slides, templates, Copilot prompts, SOPs</div>
+                </div>
+                <div className="text-2xl font-extrabold text-gray-900">$44.95</div>
+              </div>
+              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="mt-4 w-full bg-gradient-to-r from-red-600 to-red-700 text-white">Reserve my seat</Button>
+            </div>
+            {/* Private Consultation */}
+            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-white rounded-2xl p-6 shadow-sm border ${selectedPlan==='consult' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
+              <div className="flex items-baseline justify-between">
+                <div>
+                  <div className="text-xl font-bold text-gray-900">Private Consultation</div>
+                  <div className="text-sm text-gray-600">$150 saving + 10% off all other services</div>
+                </div>
+                <div className="text-2xl font-extrabold text-gray-900">$89.95</div>
+              </div>
+              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="mt-4 w-full bg-gradient-to-r from-red-600 to-red-700 text-white">Reserve my seat</Button>
+            </div>
           </div>
+          <div className="text-center mt-4 text-sm text-gray-600">Secure checkout by Stripe • Apple Pay & Google Pay</div>
         </div>
       </section>
 
