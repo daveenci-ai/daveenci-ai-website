@@ -635,7 +635,7 @@ const AIAutomationWorkshopAustin = () => {
                 </div>
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900">Astrid Abrahamyan</h3>
-              <p className="text-sm md:text-base text-red-600 font-medium">AI Automation Expert</p>
+              <p className="text-sm md:text-base text-red-600 font-medium">Co-Founder & COO @ DaVeenci.ai | AI Ops for Energy Sector</p>
               <p className="text-sm text-gray-700 mt-3">Helps teams ship practical automations that save time and compound results.</p>
             </div>
 
@@ -643,7 +643,7 @@ const AIAutomationWorkshopAustin = () => {
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
               <div className="relative inline-block mb-4">
                 <img 
-                  src="/placeholder.svg" 
+                  src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_anton.webp" 
                   alt="Anton Osipov"
                   className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
                 />
@@ -652,8 +652,8 @@ const AIAutomationWorkshopAustin = () => {
                 </div>
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900">Anton Osipov</h3>
-              <p className="text-sm md:text-base text-red-600 font-medium">Director of Marketing Data Science • Founder, DaVeenci</p>
-              <p className="text-sm text-gray-700 mt-3">Focuses on discoverability systems (AEO/GEO) and revenue ops.</p>
+              <p className="text-sm md:text-base text-red-600 font-medium">Co-Founder & CTO @ DaVeenci.ai | AI Dev for Energy Sector</p>
+              <p className="text-sm text-gray-700 mt-3">Focuses on discoverability systems (AEO/GEO) and AI engineering for energy.</p>
             </div>
 
             {/* Kiko */}
@@ -661,16 +661,16 @@ const AIAutomationWorkshopAustin = () => {
               <div className="relative inline-block mb-4">
                 <img 
                   src="/placeholder.svg" 
-                  alt="Kiko"
+                  alt="Federico Lopez (Kiko)"
                   className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
                 />
                 <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
                   <span className="text-white text-lg">"</span>
                 </div>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Kiko</h3>
-              <p className="text-sm md:text-base text-red-600 font-medium">AI Engineer</p>
-              <p className="text-sm text-gray-700 mt-3">Builds the workflows, guardrails, and integrations that make it run.</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Federico Lopez (Kiko)</h3>
+              <p className="text-sm md:text-base text-red-600 font-medium">🎯 Creative Strategist | Content Architect | UX Storyteller</p>
+              <p className="text-sm text-gray-700 mt-3">Emotional intelligence in action—making brands actually sound human.</p>
             </div>
           </div>
         </div>
