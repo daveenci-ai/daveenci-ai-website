@@ -612,57 +612,65 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Meet Your Expert Section */}
+      {/* Meet Your Experts Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
-              Meet Your <span className="text-red-600">Expert</span>
+              Meet Your <span className="text-red-600">Experts</span>
             </h2>
           </div>
 
-          <div className="max-w-5xl mx-auto">
-            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200">
-              <div className="grid lg:grid-cols-2 gap-6 md:gap-8 items-center">
-                {/* Expert Image */}
-                <div className="text-center lg:text-left">
-                  <div className="relative inline-block">
-                    <img 
-                      src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png" 
-                      alt="Astrid Abrahamyan, AI Automation Expert"
-                      className="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-xl mx-auto lg:mx-0"
-                    />
-                    <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xl md:text-2xl">"</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Expert Details */}
-                <div className="space-y-4 md:space-y-6">
-                  <div>
-                    <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-1 md:mb-2">Astrid Abrahamyan</h3>
-                    <p className="text-base md:text-lg text-red-600 font-medium">AI Automation Expert</p>
-                  </div>
-
-                  <blockquote className="text-base md:text-lg text-gray-700 italic leading-relaxed">
-                    "I specialize in helping businesses save time and increase efficiency through strategic AI automation. My mission is to make advanced automation accessible to every business owner, regardless of technical background."
-                  </blockquote>
-
-                  <div className="grid grid-cols-2 gap-3 md:gap-4">
-                    <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-lg p-3 md:p-4 text-center">
-                      <div className="text-xl md:text-2xl font-bold text-red-600">5+</div>
-                      <div className="text-xs md:text-sm text-gray-700">Years Experience</div>
-                    </div>
-                    <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-3 md:p-4 text-center">
-                      <div className="text-xl md:text-2xl font-bold text-orange-600">100%</div>
-                      <div className="text-xs md:text-sm text-gray-700">Practical Focus</div>
-                    </div>
-                  </div>
-
-
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+            {/* Astrid */}
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
+              <div className="relative inline-block mb-4">
+                <img 
+                  src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png" 
+                  alt="Astrid Abrahamyan"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                />
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg">"</span>
                 </div>
               </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Astrid Abrahamyan</h3>
+              <p className="text-sm md:text-base text-red-600 font-medium">AI Automation Expert</p>
+              <p className="text-sm text-gray-700 mt-3">Helps teams ship practical automations that save time and compound results.</p>
+            </div>
+
+            {/* Anton */}
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
+              <div className="relative inline-block mb-4">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="Anton Osipov"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                />
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg">"</span>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Anton Osipov</h3>
+              <p className="text-sm md:text-base text-red-600 font-medium">Director of Marketing Data Science • Founder, DaVeenci</p>
+              <p className="text-sm text-gray-700 mt-3">Focuses on discoverability systems (AEO/GEO) and revenue ops.</p>
+            </div>
+
+            {/* Kiko */}
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
+              <div className="relative inline-block mb-4">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="Kiko"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                />
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg">"</span>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Kiko</h3>
+              <p className="text-sm md:text-base text-red-600 font-medium">AI Engineer</p>
+              <p className="text-sm text-gray-700 mt-3">Builds the workflows, guardrails, and integrations that make it run.</p>
             </div>
           </div>
         </div>
