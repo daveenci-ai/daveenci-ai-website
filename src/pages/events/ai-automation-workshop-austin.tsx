@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, BookOpen, TrendingUp, Zap } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, BookOpen, TrendingUp, Zap, Globe } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { apiConfig } from '@/config/api';
@@ -302,13 +302,36 @@ const AIAutomationWorkshopAustin = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What You’ll Master (and Take Home)</h2>
             <p className="text-gray-600 mt-2">Why this matters and what you’ll build—at a glance.</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Discoverability */}
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+
+          {/* Top row: Website (left), Discoverability (center larger), CRM (right) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+            {/* Website */}
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              </div>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900">Website</h3>
+              <div className="border-t border-gray-100 my-3"></div>
+              <div className="text-sm md:text-base text-gray-700 space-y-2">
+                <div className="font-semibold text-gray-900">Learn</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>Smart Forms that route and qualify</li>
+                  <li>Chatbots that answer + handoff</li>
+                </ul>
+                <div className="border-t border-gray-100 my-3"></div>
+                <div className="font-semibold text-gray-900">Take home</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>Form + chatbot snippets wired to your CRM</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Discoverability (center, larger) */}
+            <div className="md:scale-105 md:shadow-md bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900">Discoverability (AEO/GEO vs SEO)</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Discoverability (AEO/GEO vs SEO)</h3>
               <div className="border-t border-gray-100 my-3"></div>
               <div className="text-sm md:text-base text-gray-700 space-y-2">
                 <div className="font-semibold text-gray-900">Learn</div>
@@ -325,7 +348,7 @@ const AIAutomationWorkshopAustin = () => {
             </div>
 
             {/* CRM Copilot */}
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <User className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
@@ -344,27 +367,30 @@ const AIAutomationWorkshopAustin = () => {
                 </ul>
               </div>
             </div>
+          </div>
 
-            {/* Technical Setup */}
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
-                <Settings className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+          {/* Technical setup (full width, short) */}
+          <div className="mt-6 md:mt-8">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl">
+                  <Settings className="w-5 h-5 text-orange-600" />
+                </div>
+                <h3 className="text-lg md:text-xl font-bold text-gray-900">Technical Setup (simple)</h3>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900">Technical Setup (simple)</h3>
-              <div className="border-t border-gray-100 my-3"></div>
-              <div className="text-sm md:text-base text-gray-700 space-y-2">
-                <div className="font-semibold text-gray-900">Learn</div>
-                <ul className="list-disc list-inside text-gray-600">
-                  <li>Render deploy, Stripe Checkout, Resend emails (.ics)</li>
-                </ul>
-                <div className="border-t border-gray-100 my-3"></div>
-                <div className="font-semibold text-gray-900">Take home</div>
-                <ul className="list-disc list-inside text-gray-600">
-                  <li>Setup checklist + working checkout flow</li>
-                </ul>
+              <div className="grid md:grid-cols-2 gap-4 mt-3 text-sm text-gray-700">
+                <div>
+                  <div className="font-semibold text-gray-900">Learn</div>
+                  <div>Render deploy, Stripe Checkout, Resend emails (.ics)</div>
+                </div>
+                <div>
+                  <div className="font-semibold text-gray-900">Take home</div>
+                  <div>Setup checklist + working checkout flow</div>
+                </div>
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
