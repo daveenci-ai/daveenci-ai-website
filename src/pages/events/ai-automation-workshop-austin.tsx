@@ -295,65 +295,74 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Outcomes Section */}
+      {/* What You’ll Master (and Take Home) */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Outcomes</h2>
-            <p className="text-gray-600 mt-2">Why this matters and what you’ll take home.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What You’ll Master (and Take Home)</h2>
+            <p className="text-gray-600 mt-2">Why this matters and what you’ll build—at a glance.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-8">
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Discoverability */}
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">AEO/GEO page template</h3>
-              <p className="text-sm md:text-base text-gray-600">A proven structure answer engines cite—ready to paste into your CMS.</p>
-            </div>
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
-              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
-                <User className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              <h3 className="text-lg md:text-xl font-bold text-gray-900">Discoverability (AEO/GEO vs SEO)</h3>
+              <div className="border-t border-gray-100 my-3"></div>
+              <div className="text-sm md:text-base text-gray-700 space-y-2">
+                <div className="font-semibold text-gray-900">Learn</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>Q→A→Proof→Action page structure</li>
+                  <li>Entity cues + FAQ stacks LLMs cite</li>
+                </ul>
+                <div className="border-t border-gray-100 my-3"></div>
+                <div className="font-semibold text-gray-900">Take home</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>AEO/GEO page template + mini FAQ pack</li>
+                </ul>
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">CRM Copilot prompt pack</h3>
-              <p className="text-sm md:text-base text-gray-600">Prompts for research → recap → next action to keep deals moving.</p>
             </div>
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
-              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
-                <Settings className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
-              </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">Minimal tech recipe</h3>
-              <p className="text-sm md:text-base text-gray-600">Render + Stripe + Resend—simple, repeatable, no heavy stack.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* What You’ll Learn (3 pillars) */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
-        <div className="absolute inset-0 bg-grid"></div>
-        <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-10">What You’ll Learn</h2>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-8">
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
-              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
-                <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
-              </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">Discoverability (AEO/GEO vs SEO)</h3>
-              <p className="text-sm md:text-base text-gray-600">Q→A→Proof→Action, entity cues, and FAQ stacks that LLMs cite.</p>
-            </div>
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+            {/* CRM Copilot */}
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <User className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">CRM Copilot</h3>
-              <p className="text-sm md:text-base text-gray-600">Auto‑enrich, summarize calls, draft follow‑ups, and set next actions.</p>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900">CRM Copilot</h3>
+              <div className="border-t border-gray-100 my-3"></div>
+              <div className="text-sm md:text-base text-gray-700 space-y-2">
+                <div className="font-semibold text-gray-900">Learn</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>Auto‑enrich leads, summarize calls</li>
+                  <li>Draft follow‑ups + set next actions</li>
+                </ul>
+                <div className="border-t border-gray-100 my-3"></div>
+                <div className="font-semibold text-gray-900">Take home</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>Prompt pack (research → recap → next action)</li>
+                </ul>
+              </div>
             </div>
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+
+            {/* Technical Setup */}
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Settings className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2">Technical Setup (simple)</h3>
-              <p className="text-sm md:text-base text-gray-600">Render deploy, Stripe Checkout, and Resend emails (.ics included).</p>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900">Technical Setup (simple)</h3>
+              <div className="border-t border-gray-100 my-3"></div>
+              <div className="text-sm md:text-base text-gray-700 space-y-2">
+                <div className="font-semibold text-gray-900">Learn</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>Render deploy, Stripe Checkout, Resend emails (.ics)</li>
+                </ul>
+                <div className="border-t border-gray-100 my-3"></div>
+                <div className="font-semibold text-gray-900">Take home</div>
+                <ul className="list-disc list-inside text-gray-600">
+                  <li>Setup checklist + working checkout flow</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
