@@ -1,4 +1,16 @@
 import React, { useState, useEffect } from 'react';
+
+// Declare Stripe buy button custom element for TypeScript
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'stripe-buy-button': {
+        'buy-button-id': string;
+        'publishable-key': string;
+      };
+    }
+  }
+}
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 
@@ -29,7 +41,7 @@ const AIAutomationWorkshopAustin = () => {
     question: ''
   });
 
-  // Countdown timer logic
+  // Countdown timer logic and Stripe buy button script loading
   useEffect(() => {
     document.title = 'Be The Answer Buyers See First — Discoverability Workshop | DaVeenci';
     const targetDate = new Date('2025-08-28T14:30:00-05:00'); // Aug 28, 2025, 2:30 PM CT
@@ -50,6 +62,14 @@ const AIAutomationWorkshopAustin = () => {
         setTimeLeft({ days, hours, minutes, seconds });
       }
     }, 1000);
+
+    // Load Stripe buy button script
+    if (!document.querySelector('script[src="https://js.stripe.com/v3/buy-button.js"]')) {
+      const script = document.createElement('script');
+      script.src = 'https://js.stripe.com/v3/buy-button.js';
+      script.async = true;
+      document.head.appendChild(script);
+    }
 
     return () => clearInterval(timer);
   }, []);
@@ -499,45 +519,47 @@ const AIAutomationWorkshopAustin = () => {
           
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
             {/* Regular Ticket */}
-            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-gradient-to-br from-gray-50 to-white rounded-xl md:rounded-2xl p-6 md:p-8 border transition-all duration-200 hover:shadow-md ${selectedPlan==='regular' ? 'border-red-300 ring-2 ring-red-100' : 'border-gray-200 hover:border-red-200'}`}>
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl md:rounded-2xl p-6 md:p-8 border border-gray-200 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1">
               <div className="text-center">
-                <div className="text-lg md:text-xl font-bold text-gray-900 mb-1">Regular Ticket</div>
+                <div className="text-lg md:text-xl font-bold text-gray-900 mb-1">Standard Ticket</div>
                 <div className="text-2xl md:text-3xl font-extrabold text-red-600 mb-2">$44.95</div>
-                <div className="text-sm text-gray-600 mb-4">
+                <div className="text-sm text-gray-600 mb-6">
                   ✓ Live workshop access<br/>
                   ✓ Recording & slides<br/>
                   ✓ Templates & prompts<br/>
                   ✓ SOPs & checklists
                 </div>
-                <Button 
-                  onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} 
-                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2 md:py-3 text-sm md:text-base font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-sm"
-                >
-                  Select Regular
-                </Button>
+                <div className="stripe-buy-button-wrapper">
+                  <stripe-buy-button
+                    buy-button-id="buy_btn_1RygXXHqDeIQZvjwX2dPoAr0"
+                    publishable-key="pk_test_51RxuucHqDeIQZvjw37VntHFIReSkqaN1bZhpylzH6rjmeFVJhyN7sgYc2ZOppdTS4l8OP8IJPJQkdYX4AkjferIu00zJcqJ5zj"
+                  >
+                  </stripe-buy-button>
+                </div>
               </div>
             </div>
 
             {/* VIP Bundle */}
-            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-gradient-to-br from-red-50 to-orange-50 rounded-xl md:rounded-2xl p-6 md:p-8 border transition-all duration-200 hover:shadow-md ${selectedPlan==='consult' ? 'border-red-300 ring-2 ring-red-100' : 'border-red-200 hover:border-red-300'} relative overflow-hidden`}>
+            <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl md:rounded-2xl p-6 md:p-8 border border-red-200 shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1 relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 rounded-bl-lg font-semibold">
                 POPULAR
               </div>
               <div className="text-center">
                 <div className="text-lg md:text-xl font-bold text-gray-900 mb-1">VIP Bundle</div>
                 <div className="text-2xl md:text-3xl font-extrabold text-red-600 mb-2">$89.95</div>
-                <div className="text-sm text-gray-600 mb-4">
-                  ✓ Everything in Regular<br/>
+                <div className="text-sm text-gray-600 mb-6">
+                  ✓ Everything in Standard<br/>
                   ✓ Private 30-min consultation<br/>
                   ✓ 10% off future services<br/>
                   ✓ Priority support access
                 </div>
-                <Button 
-                  onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} 
-                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2 md:py-3 text-sm md:text-base font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-sm"
-                >
-                  Select VIP
-                </Button>
+                <div className="stripe-buy-button-wrapper">
+                  <stripe-buy-button
+                    buy-button-id="buy_btn_1RygdPHqDeIQZvjwpm7lMm9C"
+                    publishable-key="pk_test_51RxuucHqDeIQZvjw37VntHFIReSkqaN1bZhpylzH6rjmeFVJhyN7sgYc2ZOppdTS4l8OP8IJPJQkdYX4AkjferIu00zJcqJ5zj"
+                  >
+                  </stripe-buy-button>
+                </div>
               </div>
             </div>
           </div>
