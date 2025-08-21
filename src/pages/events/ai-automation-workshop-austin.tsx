@@ -185,27 +185,33 @@ const AIAutomationWorkshopAustin = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-20 md:pt-32 pb-16 md:pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
+      <section className="relative pt-16 md:pt-24 pb-12 md:pb-16 bg-gradient-to-br from-gray-50 via-white to-gray-50">
         <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl text-center">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
             {/* Pre-Header Announcement */}
-            <div className="inline-flex items-center px-4 md:px-6 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full text-xs md:text-sm font-medium mb-4 md:mb-8">
-              ☆ Live Online Workshop ☆
-            </div>
+            <div className="lg:col-span-1 order-2 lg:order-1 text-center lg:text-left">
+              <div className="inline-flex items-center px-3 py-1 bg-red-600 text-white rounded-full text-[11px] md:text-xs font-semibold mb-3">Next‑Generation Digital Strategy</div>
 
             {/* Main Headline */}
-            <h1 className="text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-8">
-              Be The Answer Buyers See First
-            </h1>
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
+                Be The Answer Buyers See First
+              </h1>
 
             {/* Sub-Headline */}
-            <p className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6 md:mb-12 px-4 md:px-0">
-              Discoverability first: AEO/GEO vs SEO. Structure content the way buyers, customers, and clients actually ask—across products, services, and local queries—then layer CRM Copilot essentials to convert.
-            </p>
+              <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-5">
+                Discoverability first: AEO/GEO vs SEO. Structure content the way people actually ask—then layer CRM Copilot essentials to convert.
+              </p>
 
-            {/* Countdown Timer */}
-            <div className="flex justify-center space-x-2 md:space-x-4 mb-6 md:mb-8">
+              {/* Chips */}
+              <div className="flex flex-wrap gap-2 mb-5 justify-center lg:justify-start">
+                <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">Answer Engine Strategy</span>
+                <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">CRM Integration</span>
+                <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">Technical Setup</span>
+              </div>
+
+              {/* Countdown Timer */}
+              <div className="flex lg:justify-start justify-center space-x-2 md:space-x-4 mb-6 md:mb-8">
               {Object.entries(timeLeft).map(([unit, value]) => (
                 <div key={unit} className="text-center bg-white rounded-lg shadow-md p-2 md:p-4 min-w-[60px] md:min-w-[80px]">
                   <div className="text-xl md:text-3xl font-bold text-gray-900">{value.toString().padStart(2, '0')}</div>
@@ -214,15 +220,15 @@ const AIAutomationWorkshopAustin = () => {
               ))}
             </div>
 
-            {/* Live/Trust badges */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-4 mb-6 md:mb-8 px-4">
+              {/* Live/Trust badges */}
+              <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-2 md:gap-3 mb-6 md:mb-8">
               <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200">🔴 Live online event</span>
               <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">🎥 Recording included</span>
               <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">🧰 Templates provided</span>
             </div>
 
-            {/* Primary + Secondary CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 md:gap-4 mb-6 md:mb-10">
+              {/* Primary + Secondary CTAs */}
+              <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-3 md:gap-4 mb-6 md:mb-6">
               <Button
                 onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
@@ -237,16 +243,16 @@ const AIAutomationWorkshopAustin = () => {
               >
                 Get the syllabus
               </Button>
-            </div>
+              </div>
             {checkoutError && (
               <div className="mx-auto max-w-xl text-sm md:text-base text-red-700 bg-red-100 border border-red-200 rounded-md px-4 py-2 mb-4">
                 {checkoutError}
               </div>
             )}
-            
+              
 
-            {/* Event Perks */}
-            <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm md:text-base">
+              {/* Event Perks */}
+              <div className="flex flex-col md:flex-row md:flex-wrap lg:justify-start justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm md:text-base">
               <div className="flex items-center space-x-2">
                 <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
                 <span>Live online event</span>
@@ -261,6 +267,16 @@ const AIAutomationWorkshopAustin = () => {
                 <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
                 <span>Templates & prompts provided</span>
               </div>
+              </div>
+            </div>
+
+            {/* Right visual */}
+            <div className="lg:col-span-1 order-1 lg:order-2">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl">
+                <img src="/lovable-uploads/0ed0dcdd-2d65-497a-9184-40b58303266e.png" alt="Workshop preview" className="w-full h-auto" />
+                <div className="absolute top-3 right-3 text-[11px] bg-red-600 text-white px-2 py-1 rounded-full shadow">Trending</div>
+                <div className="absolute bottom-3 left-3 text-[11px] bg-white/90 text-gray-900 px-2 py-1 rounded-full shadow">Recordings included</div>
+              </div>
             </div>
           </div>
         </div>
@@ -270,8 +286,9 @@ const AIAutomationWorkshopAustin = () => {
       <section className="py-16 md:py-24 bg-white">
         <div className="mx-auto max-w-6xl px-4 md:px-6">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What You’ll Master (and Take Home)</h2>
-            <p className="text-gray-600 mt-2">Why this matters and what you’ll build—at a glance.</p>
+            <div className="inline-flex items-center gap-2 text-[11px] md:text-xs text-gray-500 mb-2">Composite learning path</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What You’ll Master <span className="text-gray-500">(and Take Home)</span></h2>
+            <p className="text-gray-600 mt-2">A comprehensive system for AI‑powered discovery with a simple technical foundation.</p>
           </div>
 
           {/* Top row: Website (left), Discoverability (center larger), CRM (right) */}
@@ -365,6 +382,9 @@ const AIAutomationWorkshopAustin = () => {
                   <div>Setup checklist + working checkout flow</div>
                 </div>
               </div>
+            </div>
+            <div className="flex justify-center mt-4">
+              <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-gray-100 text-gray-700 border border-gray-200">All resources included for immediate implementation</span>
             </div>
           </div>
 
@@ -826,29 +846,42 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 md:mb-6">
-            Ready to Transform Your Business?
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 leading-relaxed">
-            Join us on August 28th and discover how AI automation can revolutionize your workflow
-          </p>
-          
-          <Button
-            onClick={() => handleCheckout('general')}
-            disabled={isCheckingOut}
-            className="inline-flex items-center justify-center px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
-          >
-            {isCheckingOut ? 'Redirecting…' : (
-              <>
-                <span className="hidden md:inline">Thursday, Aug 28, 2025 • 2:30 PM CT • Online</span>
-                <span className="md:hidden">Reserve my seat</span>
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-              </>
-            )}
-          </Button>
+      {/* Final CTA Section (Blue gradient) */}
+      <section className="py-20 md:py-28 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 text-[11px] md:text-xs bg-white/10 text-white px-3 py-1 rounded-full mb-3">Limited Time Offer</div>
+            <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">Transform Your Digital Strategy<br/>Starting Today</h2>
+            <p className="text-white/80 mt-3">Join the businesses already winning AI‑powered search. Get everything you need for AEO/GEO discoverability and seamless CRM integration.</p>
+          </div>
+
+          {/* Center Card */}
+          <div className="max-w-xl mx-auto bg-white text-gray-900 rounded-2xl shadow-xl p-6 md:p-8">
+            <h3 className="text-xl font-bold text-center mb-4">Reserve Your Spot</h3>
+            <ul className="text-sm text-gray-700 grid grid-cols-1 gap-2 mb-4">
+              <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-600"></span>Complete AEO/GEO starter pack</li>
+              <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-600"></span>Working CRM Copilot basics</li>
+              <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-600"></span>Templates, prompts, and a deployment guide</li>
+            </ul>
+            <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white">Secure My Seat Now</Button>
+            <div className="text-center text-xs text-gray-500 mt-3">Or download the free syllabus</div>
+          </div>
+
+          {/* Feature tiles */}
+          <div className="grid md:grid-cols-3 gap-6 mt-10 text-center">
+            <div className="bg-white/10 rounded-xl p-6">
+              <div className="text-lg font-semibold">Bonus Resources</div>
+              <div className="text-white/80 text-sm mt-1">Take‑home templates and SOPs</div>
+            </div>
+            <div className="bg-white/10 rounded-xl p-6">
+              <div className="text-lg font-semibold">Expert Network</div>
+              <div className="text-white/80 text-sm mt-1">Curated Slack for ongoing Q&A</div>
+            </div>
+            <div className="bg-white/10 rounded-xl p-6">
+              <div className="text-lg font-semibold">Implementation Support</div>
+              <div className="text-white/80 text-sm mt-1">Set‑up clinic post‑workshop</div>
+            </div>
+          </div>
         </div>
       </section>
 
