@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, Clock, Target, User, Settings, BookOpen, Globe } from 'lucide-react';
@@ -68,7 +68,7 @@ const AIAutomationWorkshopAustin = () => {
   const [checkoutError, setCheckoutError] = useState('');
   const [isSyllabusOpen, setIsSyllabusOpen] = useState(false);
   const [leadEmail, setLeadEmail] = useState('');
-  const [leadQuestion, setLeadQuestion] = useState('');
+
   const [leadStatus, setLeadStatus] = useState<string | null>(null);
   const [selectedPlan, setSelectedPlan] = useState<'regular' | 'consult'>('regular');
 
@@ -153,7 +153,7 @@ const AIAutomationWorkshopAustin = () => {
       const r = await fetch(`${apiConfig.baseUrl}/api/workshop/lead`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: leadEmail, name: `${formData.firstName} ${formData.lastName}`.trim() || undefined, question: leadQuestion })
+        body: JSON.stringify({ email: leadEmail, name: `${formData.firstName} ${formData.lastName}`.trim() || undefined })
       });
       if (r.ok) {
         setLeadStatus('Syllabus sent! Check your email.');
@@ -312,13 +312,13 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Discoverability (center, larger with highlight) */}
             <div className="relative group">
-              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-200/50 to-orange-200/50 blur-xl opacity-40 group-hover:opacity-100 transition-opacity duration-300"></div>
-              <div className="relative md:scale-105 bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+              <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-red-300/60 to-orange-300/60 blur-xl opacity-60 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative md:scale-110 bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border-2 border-red-200 flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl">
                 <div className="absolute top-4 right-4 text-[11px] bg-red-50 text-red-700 px-2 py-1 rounded-full border border-red-200">Discoverability</div>
                 <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                   <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900">AEO/GEO vs SEO</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900">AEO vs. SEO</h3>
                 <p className="text-sm text-gray-600 mt-1">Structure Q→A→Proof→Action so models can choose and cite you.</p>
                 <div className="border-t border-gray-100 my-3"></div>
                 <div className="text-sm md:text-base text-gray-700 space-y-2">
@@ -352,27 +352,34 @@ const AIAutomationWorkshopAustin = () => {
             </div>
           </div>
 
-          {/* Technical setup (full width, short) */}
+          {/* Technical setup (full width, consistent sizing) */}
           <div className="mt-6 md:mt-8">
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
-              <div className="flex items-center gap-3">
-                <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl">
-                  <Settings className="w-5 h-5 text-orange-600" />
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl">
+                  <Settings className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
                 </div>
-                <h3 className="text-lg md:text-xl font-bold text-gray-900">Technical Setup</h3>
-                <span className="ml-auto text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">Foundation</span>
+                <div className="flex-1">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Technical Setup</h3>
+                  <p className="text-sm text-gray-600 mt-1">Deployment, payment processing, and infrastructure fundamentals.</p>
+                </div>
+                <span className="text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">Foundation</span>
               </div>
-              <div className="grid md:grid-cols-2 gap-4 mt-3 text-sm text-gray-700">
-                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                  <li>Render deployment with environment config</li>
-                  <li>Stripe Checkout with Automatic Tax + promo codes</li>
-                  <li>Resend emails with calendar (.ics) attachments</li>
-                </ul>
-                <ul className="list-disc list-inside text-gray-700 space-y-1">
-                  <li>Webhook architecture with idempotency</li>
-                  <li>Performance + SEO technical foundations</li>
-                  <li>Analytics + conversion tracking setup</li>
-                </ul>
+              <div className="border-t border-gray-100 mb-3"></div>
+              <div className="text-sm md:text-base text-gray-700 space-y-2">
+                <div className="font-semibold text-gray-900">What you'll master</div>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <ul className="list-disc list-inside text-gray-600 space-y-1">
+                    <li>Render deployment with environment config</li>
+                    <li>Stripe Checkout with Automatic Tax + promo codes</li>
+                    <li>Resend emails with calendar (.ics) attachments</li>
+                  </ul>
+                  <ul className="list-disc list-inside text-gray-600 space-y-1">
+                    <li>Webhook architecture with idempotency</li>
+                    <li>Performance + SEO technical foundations</li>
+                    <li>Analytics + conversion tracking setup</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -433,7 +440,8 @@ const AIAutomationWorkshopAustin = () => {
                   alt="Astrid Abrahamyan"
                   className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
                 />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                <div className="absolute -top-2 -right
+                -2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
                   <span className="text-white text-lg">"</span>
                 </div>
               </div>
@@ -479,19 +487,19 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Compact Pricing Section */}
-      <section id="pricing" className="py-12 md:py-16 bg-white border-t border-gray-100">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="text-center mb-6 md:mb-8">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+      {/* Workshop Investment Section */}
+      <section id="pricing" className="py-16 md:py-20 bg-white border-t border-gray-100">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Workshop <span className="text-red-600">Investment</span>
             </h2>
-            <p className="text-base text-gray-600">Choose your ticket and secure your spot</p>
+            <p className="text-lg text-gray-600">Choose your ticket and secure your spot</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
-            {/* Regular Ticket - Compact */}
-            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-gradient-to-br from-gray-50 to-white rounded-xl p-5 md:p-6 border transition-all duration-200 hover:shadow-md ${selectedPlan==='regular' ? 'border-red-300 ring-2 ring-red-100' : 'border-gray-200 hover:border-red-200'}`}>
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
+            {/* Regular Ticket */}
+            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-gradient-to-br from-gray-50 to-white rounded-xl md:rounded-2xl p-6 md:p-8 border transition-all duration-200 hover:shadow-md ${selectedPlan==='regular' ? 'border-red-300 ring-2 ring-red-100' : 'border-gray-200 hover:border-red-200'}`}>
               <div className="text-center">
                 <div className="text-lg md:text-xl font-bold text-gray-900 mb-1">Regular Ticket</div>
                 <div className="text-2xl md:text-3xl font-extrabold text-red-600 mb-2">$44.95</div>
@@ -510,8 +518,8 @@ const AIAutomationWorkshopAustin = () => {
               </div>
             </div>
 
-            {/* VIP Bundle - Compact */}
-            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-gradient-to-br from-red-50 to-orange-50 rounded-xl p-5 md:p-6 border transition-all duration-200 hover:shadow-md ${selectedPlan==='consult' ? 'border-red-300 ring-2 ring-red-100' : 'border-red-200 hover:border-red-300'} relative overflow-hidden`}>
+            {/* VIP Bundle */}
+            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-gradient-to-br from-red-50 to-orange-50 rounded-xl md:rounded-2xl p-6 md:p-8 border transition-all duration-200 hover:shadow-md ${selectedPlan==='consult' ? 'border-red-300 ring-2 ring-red-100' : 'border-red-200 hover:border-red-300'} relative overflow-hidden`}>
               <div className="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 rounded-bl-lg font-semibold">
                 POPULAR
               </div>
@@ -534,7 +542,7 @@ const AIAutomationWorkshopAustin = () => {
             </div>
           </div>
           
-          <div className="text-center mt-6">
+          <div className="text-center mt-8">
             <div className="inline-flex items-center gap-3 text-sm text-gray-600">
               <span className="flex items-center gap-1">
                 🔒 <span>Secure checkout by Stripe</span>
@@ -758,7 +766,7 @@ const AIAutomationWorkshopAustin = () => {
           <DialogHeader>
             <DialogTitle>Get the Workshop Syllabus</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div>
             <div>
               <label htmlFor="leadEmail" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
               <Input
@@ -768,16 +776,6 @@ const AIAutomationWorkshopAustin = () => {
                 onChange={(e) => setLeadEmail(e.target.value)}
                 placeholder="your@email.com"
                 required
-              />
-            </div>
-            <div>
-              <label htmlFor="leadQuestion" className="block text-sm font-medium text-gray-700 mb-2">Any specific questions? (Optional)</label>
-              <Textarea
-                id="leadQuestion"
-                value={leadQuestion}
-                onChange={(e) => setLeadQuestion(e.target.value)}
-                placeholder="What would you like to know about the workshop?"
-                rows={3}
               />
             </div>
             {leadStatus && (
