@@ -282,7 +282,7 @@ const AIAutomationWorkshopAustin = () => {
 
       {/* What You’ll Master (and Take Home) */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <div className="inline-flex items-center gap-2 text-[11px] md:text-xs text-gray-500 mb-2">Composite learning path</div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What You’ll Master <span className="text-gray-500">(and Take Home)</span></h2>
@@ -297,7 +297,7 @@ const AIAutomationWorkshopAustin = () => {
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900">Website</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Website</h3>
               <p className="text-sm text-gray-600 mt-1">Build a site that captures demand and plugs into your CRM.</p>
               <div className="border-t border-gray-100 my-3"></div>
               <div className="text-sm md:text-base text-gray-700 space-y-2">
@@ -314,7 +314,7 @@ const AIAutomationWorkshopAustin = () => {
             <div className="relative group">
               <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-200/50 to-orange-200/50 blur-xl opacity-40 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative md:scale-105 bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                <div className="absolute top-4 right-4 text-[11px] bg-red-50 text-red-700 px-2 py-1 rounded-full border border-red-200">Core Focus</div>
+                <div className="absolute top-4 right-4 text-[11px] bg-red-50 text-red-700 px-2 py-1 rounded-full border border-red-200">Discoverability</div>
                 <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                   <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
                 </div>
@@ -334,11 +334,11 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* CRM Copilot */}
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-md relative">
-              <div className="absolute top-4 right-4 text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">CRM</div>
+              <div className="absolute top-4 right-4 text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">Smart CRM</div>
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <User className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg md:text-xl font-bold text-gray-900">CRM Copilot</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">CRM Copilot</h3>
               <p className="text-sm text-gray-600 mt-1">A lightweight assistant to speed first reply and next actions.</p>
               <div className="border-t border-gray-100 my-3"></div>
               <div className="text-sm md:text-base text-gray-700 space-y-2">
@@ -360,6 +360,7 @@ const AIAutomationWorkshopAustin = () => {
                   <Settings className="w-5 h-5 text-orange-600" />
                 </div>
                 <h3 className="text-lg md:text-xl font-bold text-gray-900">Technical Setup</h3>
+                <span className="ml-auto text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">Foundation</span>
               </div>
               <div className="grid md:grid-cols-2 gap-4 mt-3 text-sm text-gray-700">
                 <ul className="list-disc list-inside text-gray-700 space-y-1">
