@@ -414,44 +414,7 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Agenda removed per request */}
-
-      {/* Pricing Tiers */}
-      <section id="pricing" className="py-16 md:py-20 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
-            <p className="text-lg text-gray-600">Choose the option that works best for you.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
-            {/* Regular Ticket */}
-            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${selectedPlan==='regular' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
-              <div className="flex items-baseline justify-between mb-4">
-                <div>
-                  <div className="text-xl md:text-2xl font-bold text-gray-900">Regular Ticket</div>
-                  <div className="text-sm md:text-base text-gray-600 mt-1">Recording, slides, templates, Copilot prompts, SOPs</div>
-                </div>
-                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">$44.95</div>
-              </div>
-              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">Reserve my seat</Button>
-            </div>
-            {/* VIP Bundle */}
-            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${selectedPlan==='consult' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
-              <div className="flex items-baseline justify-between mb-4">
-                <div>
-                  <div className="text-xl md:text-2xl font-bold text-gray-900">VIP Bundle</div>
-                  <div className="text-sm md:text-base text-gray-600 mt-1">Includes Private Consultation ($150 value) + 10% off all other services</div>
-                </div>
-                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">$89.95</div>
-              </div>
-              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">Reserve my seat</Button>
-            </div>
-          </div>
-          <div className="text-center mt-4 text-sm text-gray-600">Secure checkout by Stripe • Apple Pay & Google Pay</div>
-        </div>
-      </section>
-
-      {/* Meet Your Experts Section (below pricing) */}
+      {/* Meet Your Experts Section */}
       <section className="py-16 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
@@ -516,7 +479,74 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Registration Form Section (after experts) */}
+      {/* Compact Pricing Section */}
+      <section id="pricing" className="py-12 md:py-16 bg-white border-t border-gray-100">
+        <div className="mx-auto max-w-4xl px-6 lg:px-8">
+          <div className="text-center mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+              Workshop <span className="text-red-600">Investment</span>
+            </h2>
+            <p className="text-base text-gray-600">Choose your ticket and secure your spot</p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
+            {/* Regular Ticket - Compact */}
+            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-gradient-to-br from-gray-50 to-white rounded-xl p-5 md:p-6 border transition-all duration-200 hover:shadow-md ${selectedPlan==='regular' ? 'border-red-300 ring-2 ring-red-100' : 'border-gray-200 hover:border-red-200'}`}>
+              <div className="text-center">
+                <div className="text-lg md:text-xl font-bold text-gray-900 mb-1">Regular Ticket</div>
+                <div className="text-2xl md:text-3xl font-extrabold text-red-600 mb-2">$44.95</div>
+                <div className="text-sm text-gray-600 mb-4">
+                  ✓ Live workshop access<br/>
+                  ✓ Recording & slides<br/>
+                  ✓ Templates & prompts<br/>
+                  ✓ SOPs & checklists
+                </div>
+                <Button 
+                  onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} 
+                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2 md:py-3 text-sm md:text-base font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-sm"
+                >
+                  Select Regular
+                </Button>
+              </div>
+            </div>
+
+            {/* VIP Bundle - Compact */}
+            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-gradient-to-br from-red-50 to-orange-50 rounded-xl p-5 md:p-6 border transition-all duration-200 hover:shadow-md ${selectedPlan==='consult' ? 'border-red-300 ring-2 ring-red-100' : 'border-red-200 hover:border-red-300'} relative overflow-hidden`}>
+              <div className="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 rounded-bl-lg font-semibold">
+                POPULAR
+              </div>
+              <div className="text-center">
+                <div className="text-lg md:text-xl font-bold text-gray-900 mb-1">VIP Bundle</div>
+                <div className="text-2xl md:text-3xl font-extrabold text-red-600 mb-2">$89.95</div>
+                <div className="text-sm text-gray-600 mb-4">
+                  ✓ Everything in Regular<br/>
+                  ✓ Private 30-min consultation<br/>
+                  ✓ 10% off future services<br/>
+                  ✓ Priority support access
+                </div>
+                <Button 
+                  onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} 
+                  className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-2 md:py-3 text-sm md:text-base font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-sm"
+                >
+                  Select VIP
+                </Button>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-6">
+            <div className="inline-flex items-center gap-3 text-sm text-gray-600">
+              <span className="flex items-center gap-1">
+                🔒 <span>Secure checkout by Stripe</span>
+              </span>
+              <span>•</span>
+              <span>Apple Pay & Google Pay accepted</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Registration Form Section (after pricing) */}
       <section id="form" className="py-16 md:py-20 bg-white">
         <div className="mx-auto max-w-2xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
@@ -772,40 +802,95 @@ const AIAutomationWorkshopAustin = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Final CTA Section (Blue gradient) */}
-      <section className="py-20 md:py-28 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <div className="inline-flex items-center gap-2 text-[11px] md:text-xs bg-white/10 text-white px-3 py-1 rounded-full mb-3">Limited Time Offer</div>
-            <h2 className="text-3xl md:text-4xl font-extrabold leading-tight">Transform Your Digital Strategy<br/>Starting Today</h2>
-            <p className="text-white/80 mt-3">Join the businesses already winning AI‑powered search. Get everything you need for AEO/GEO discoverability and seamless CRM integration.</p>
+      {/* Final CTA Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-red-600 via-red-700 to-red-800 relative">
+        <div className="absolute inset-0 bg-grid opacity-10"></div>
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-8 md:mb-12">
+            <div className="inline-flex items-center gap-2 text-xs bg-white/20 text-white px-3 py-1 rounded-full mb-4 shadow-sm">
+              ⏰ Limited Time Offer
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Transform Your Digital Strategy <br className="hidden sm:block" />
+              <span className="text-red-100">Starting Today</span>
+            </h2>
+            <p className="text-lg text-red-100 max-w-3xl mx-auto leading-relaxed">
+              Join the businesses already winning with AI‑powered search. Get everything you need for AEO/GEO discoverability and seamless CRM integration.
+            </p>
           </div>
 
-          {/* Center Card */}
-          <div className="max-w-xl mx-auto bg-white text-gray-900 rounded-2xl shadow-xl p-6 md:p-8">
-            <h3 className="text-xl font-bold text-center mb-4">Reserve Your Spot</h3>
-            <ul className="text-sm text-gray-700 grid grid-cols-1 gap-2 mb-4">
-              <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-600"></span>Complete AEO/GEO starter pack</li>
-              <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-600"></span>Working CRM Copilot basics</li>
-              <li className="flex items-center gap-2"><span className="w-2 h-2 rounded-full bg-red-600"></span>Templates, prompts, and a deployment guide</li>
-            </ul>
-            <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white">Secure My Seat Now</Button>
-            <div className="text-center text-xs text-gray-500 mt-3">Or download the free syllabus</div>
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8 items-center">
+            {/* Left: What You Get */}
+            <div className="lg:text-right text-center">
+              <h3 className="text-lg md:text-xl font-semibold text-white mb-4">What You'll Walk Away With</h3>
+              <div className="space-y-2 text-red-100">
+                <div className="flex items-center justify-center lg:justify-end gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white"></span>
+                  <span>Complete AEO/GEO starter pack</span>
+                </div>
+                <div className="flex items-center justify-center lg:justify-end gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white"></span>
+                  <span>Working CRM Copilot essentials</span>
+                </div>
+                <div className="flex items-center justify-center lg:justify-end gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white"></span>
+                  <span>Templates, prompts, and SOPs</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Center: CTA Card */}
+            <div className="max-w-md mx-auto">
+              <div className="bg-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-xl">
+                <div className="text-center">
+                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Reserve Your Spot</h3>
+                  <div className="text-3xl md:text-4xl font-bold text-red-600 mb-4">Starting at $44.95</div>
+                  <Button 
+                    onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} 
+                    className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg mb-3"
+                  >
+                    Secure My Seat Now
+                  </Button>
+                  <button 
+                    onClick={() => setIsSyllabusOpen(true)}
+                    className="text-sm text-gray-600 hover:text-red-600 underline transition-colors"
+                  >
+                    Or download the free syllabus
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Bonus Features */}
+            <div className="text-center lg:text-left">
+              <h3 className="text-lg md:text-xl font-semibold text-white mb-4">Bonus Included</h3>
+              <div className="space-y-2 text-red-100">
+                <div className="flex items-center justify-center lg:justify-start gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white"></span>
+                  <span>Take‑home templates & SOPs</span>
+                </div>
+                <div className="flex items-center justify-center lg:justify-start gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white"></span>
+                  <span>Expert Slack community access</span>
+                </div>
+                <div className="flex items-center justify-center lg:justify-start gap-2">
+                  <span className="w-2 h-2 rounded-full bg-white"></span>
+                  <span>Post‑workshop setup clinic</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Feature tiles */}
-          <div className="grid md:grid-cols-3 gap-6 mt-10 text-center">
-            <div className="bg-white/10 rounded-xl p-6">
-              <div className="text-lg font-semibold">Bonus Resources</div>
-              <div className="text-white/80 text-sm mt-1">Take‑home templates and SOPs</div>
+          {/* Trust Indicators */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-8 mt-8 md:mt-12 pt-6 md:pt-8 border-t border-white/20">
+            <div className="flex items-center gap-2 text-white text-sm">
+              🔒 <span>Secure checkout by Stripe</span>
             </div>
-            <div className="bg-white/10 rounded-xl p-6">
-              <div className="text-lg font-semibold">Expert Network</div>
-              <div className="text-white/80 text-sm mt-1">Curated Slack for ongoing Q&A</div>
+            <div className="flex items-center gap-2 text-white text-sm">
+              💳 <span>Apple Pay & Google Pay</span>
             </div>
-            <div className="bg-white/10 rounded-xl p-6">
-              <div className="text-lg font-semibold">Implementation Support</div>
-              <div className="text-white/80 text-sm mt-1">Set‑up clinic post‑workshop</div>
+            <div className="flex items-center gap-2 text-white text-sm">
+              ↩️ <span>7-day money-back guarantee</span>
             </div>
           </div>
         </div>

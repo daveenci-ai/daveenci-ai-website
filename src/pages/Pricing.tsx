@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Check, X, Star, ArrowRight, Brain, Zap, Database } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import EventBanner from '@/components/EventBanner';
 
 const Pricing = () => {
   const pricingTiers = [
@@ -283,6 +284,7 @@ const Pricing = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
+      <EventBanner />
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-12 sm:pb-16" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>

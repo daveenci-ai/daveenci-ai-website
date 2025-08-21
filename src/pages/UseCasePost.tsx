@@ -5,6 +5,7 @@ import { getUseCaseBySlug } from '@/config/api';
 import { UseCase } from '@/types';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import EventBanner from '@/components/EventBanner';
 import '@/styles/blog-post.css';
 
 const UseCasePost = () => {
@@ -83,6 +84,7 @@ const UseCasePost = () => {
   return (
     <div className="bg-gradient-to-br from-gray-50 via-white to-gray-100 min-h-screen">
       <Navigation />
+      <EventBanner />
       
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-r from-red-600 via-red-700 to-red-800">

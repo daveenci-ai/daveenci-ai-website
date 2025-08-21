@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, TrendingUp, Users, Zap, FileText, CheckCircle, Building } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
+import EventBanner from '@/components/EventBanner';
 import { getUseCases } from '@/config/api';
 import { UseCase } from '@/types';
 
@@ -52,6 +53,7 @@ const UseCases = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
+      <EventBanner />
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-white">

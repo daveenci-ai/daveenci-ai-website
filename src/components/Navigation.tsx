@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronDown, Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -7,22 +7,6 @@ const Navigation = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  // Dismissible event banner
-  const BANNER_STORAGE_KEY = 'workshopBanner_v20250828';
-  const [showBanner, setShowBanner] = useState(true);
-
-  useEffect(() => {
-    try {
-      const hidden = localStorage.getItem(BANNER_STORAGE_KEY) === '1';
-      if (hidden) setShowBanner(false);
-    } catch {}
-  }, []);
-
-  const dismissBanner = () => {
-    setShowBanner(false);
-    try { localStorage.setItem(BANNER_STORAGE_KEY, '1'); } catch {}
-  };
 
   const handleMouseEnter = () => {
     if (timeoutRef.current) {

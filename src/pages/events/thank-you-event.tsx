@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Calendar, Clock, MapPin, Share2, ArrowRight } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import EventBanner from '@/components/EventBanner';
 
 const ThankYouEvent = () => {
   const handleShare = (platform: string) => {
@@ -21,6 +22,7 @@ const ThankYouEvent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-blue-50">
       <Navigation />
+      <EventBanner />
       {/* Success Header */}
       <section className="pt-32 pb-16 px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
