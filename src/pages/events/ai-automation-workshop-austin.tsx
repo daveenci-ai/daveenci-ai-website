@@ -191,7 +191,7 @@ const AIAutomationWorkshopAustin = () => {
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             {/* Pre-Header Announcement */}
             <div className="lg:col-span-1 order-2 lg:order-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] md:text-xs font-semibold mb-3 bg-white/70 text-gray-800 border border-white/60 shadow-sm backdrop-blur">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] md:text-xs font-semibold mb-3 bg-gray-100 text-gray-800 border border-gray-200 shadow-sm">
                 <Clock className="w-3.5 h-3.5" />
                 <span>Next‑Generation Digital Strategy</span>
               </div>
@@ -208,10 +208,10 @@ const AIAutomationWorkshopAustin = () => {
 
               {/* Chips */}
               <div className="flex flex-wrap gap-2 mb-5 justify-center lg:justify-start">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-emerald-500"></span>Answer Engine Ready</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-blue-500"></span>AI‑Website Assistant</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-blue-500"></span>Smart CRM Integration</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-rose-500"></span>Technical Setup</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-emerald-500"></span>Answer Engine Ready</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-blue-500"></span>AI‑Website Assistant</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-blue-500"></span>Smart CRM Integration</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-rose-500"></span>Technical Setup</span>
               </div>
 
               {/* Countdown Timer */}
@@ -243,7 +243,7 @@ const AIAutomationWorkshopAustin = () => {
               <Button
                 variant="outline"
                 onClick={() => setIsSyllabusOpen(true)}
-                className="px-6 md:px-8 py-3 md:py-4 border border-white/60 bg-white/70 backdrop-blur hover:bg-white/80 text-gray-900 text-base md:text-lg font-semibold rounded-xl shadow-sm"
+                className="px-6 md:px-8 py-3 md:py-4 border border-gray-300 bg-white hover:bg-gray-50 text-gray-900 text-base md:text-lg font-semibold rounded-xl shadow-sm"
               >
                 <BookOpen className="w-4 h-4 mr-2" /> Get Syllabus
               </Button>
@@ -268,9 +268,9 @@ const AIAutomationWorkshopAustin = () => {
             {/* Right visual */}
             <div className="lg:col-span-1 order-1 lg:order-2">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
-                <img src="https://source.unsplash.com/featured/1200x700?analytics,workspace" alt="Workshop preview" className="w-full h-auto" />
-                <div className="absolute top-3 right-3 text-[11px] bg-red-600/90 backdrop-blur text-white px-3 py-1 rounded-full shadow">🔥 Trending</div>
-                <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur text-gray-900 px-4 py-2 rounded-xl shadow">
+                <img src="https://picsum.photos/seed/aeo/1200/700" alt="Workshop preview" className="w-full h-auto" />
+                <div className="absolute top-3 right-3 text-[11px] bg-red-600 text-white px-3 py-1 rounded-full shadow">🔥 Trending</div>
+                <div className="absolute bottom-4 left-4 bg-white text-gray-900 px-4 py-2 rounded-xl shadow">
                   <div className="text-sm font-semibold">Beyond SEO</div>
                   <div className="text-[11px] text-gray-600 -mt-0.5">AI‑First Approach</div>
                 </div>
