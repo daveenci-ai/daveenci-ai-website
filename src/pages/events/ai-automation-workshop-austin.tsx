@@ -245,10 +245,11 @@ const AIAutomationWorkshopAustin = () => {
               ))}
             </div>
 
-            {/* Urgency Message */}
-            <div className="flex items-center justify-center space-x-2 mb-6 md:mb-8 px-4">
-              <span className="text-xl md:text-2xl">🔥</span>
-              <span className="text-sm md:text-lg font-bold text-red-600 text-center">Limited to 40 seats!</span>
+            {/* Live/Trust badges */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 md:gap-4 mb-6 md:mb-8 px-4">
+              <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200">🔴 Live online event</span>
+              <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">🎥 Recording included</span>
+              <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">🧰 Templates provided</span>
             </div>
 
             {/* Primary + Secondary CTAs */}
@@ -279,17 +280,17 @@ const AIAutomationWorkshopAustin = () => {
             <div className="flex flex-col md:flex-row md:flex-wrap justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm md:text-base">
               <div className="flex items-center space-x-2">
                 <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
+                <span>Live online event</span>
+              </div>
+              <span className="hidden md:inline text-gray-400">•</span>
+              <div className="flex items-center space-x-2">
+                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
                 <span>Recording included</span>
               </div>
               <span className="hidden md:inline text-gray-400">•</span>
               <div className="flex items-center space-x-2">
                 <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
-                <span>Networking included</span>
-              </div>
-              <span className="hidden md:inline text-gray-400">•</span>
-              <div className="flex items-center space-x-2">
-                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
-                <span>Take-home resources</span>
+                <span>Templates & prompts provided</span>
               </div>
             </div>
           </div>
@@ -448,8 +449,8 @@ const AIAutomationWorkshopAustin = () => {
             <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-white rounded-2xl p-6 shadow-sm border ${selectedPlan==='consult' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
               <div className="flex items-baseline justify-between">
                 <div>
-                  <div className="text-xl font-bold text-gray-900">Private Consultation</div>
-                  <div className="text-sm text-gray-600">$150 saving + 10% off all other services</div>
+                  <div className="text-xl font-bold text-gray-900">VIP Bundle</div>
+                  <div className="text-sm text-gray-600">Includes Private Consultation ($150 value) + 10% off all other services</div>
                 </div>
                 <div className="text-2xl font-extrabold text-gray-900">$89.95</div>
               </div>
