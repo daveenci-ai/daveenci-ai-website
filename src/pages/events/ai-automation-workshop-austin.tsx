@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, Clock, MapPin, Users, Target, User, Settings, BookOpen, TrendingUp, Zap, Globe } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, Target, User, Settings, BookOpen, Globe } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
 import { apiConfig } from '@/config/api';
@@ -167,38 +167,7 @@ const AIAutomationWorkshopAustin = () => {
     }
   };
 
-  const benefits = [
-    {
-      icon: Target,
-      title: "Discoverability (AEO/GEO vs SEO)",
-      description: "Structure questions → answers → proof → action. Build entity pages and FAQ stacks that answer engines cite."
-    },
-    {
-      icon: User,
-      title: "CRM Copilot Essentials",
-      description: "Data hygiene + CRM entry, lead scoring, and an auto‑reply assistant for faster first responses"
-    },
-    {
-      icon: Settings,
-      title: "No-Code Automation Tools",
-      description: "Master Make.com, Shortcuts, and other tools to build workflows without coding"
-    },
-    {
-      icon: BookOpen,
-      title: "Live Walkthroughs & Case Studies",
-      description: "See real automations in action with step-by-step demonstrations"
-    },
-    {
-      icon: TrendingUp,
-      title: "Increase ROI & Efficiency",
-      description: "Discover how to save hours daily while improving your business results"
-    },
-    {
-      icon: Zap,
-      title: "Instant Implementation",
-      description: "Walk away with ready-to-use templates and automation blueprints"
-    }
-  ];
+  //
 
   return (
     <div className="min-h-screen bg-white">
@@ -222,7 +191,7 @@ const AIAutomationWorkshopAustin = () => {
           <div className="mx-auto max-w-4xl text-center">
             {/* Pre-Header Announcement */}
             <div className="inline-flex items-center px-4 md:px-6 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full text-xs md:text-sm font-medium mb-4 md:mb-8">
-              ☆ Live Workshop • Austin, TX ☆
+              ☆ Live Online Workshop ☆
             </div>
 
             {/* Main Headline */}
@@ -632,32 +601,82 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* What You'll Master Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
-        <div className="absolute inset-0 bg-grid"></div>
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
-              What You'll <span className="text-red-600">Master</span>
+      {/* Comparison: Why Traditional SEO Falls Short */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="text-center mb-10 md:mb-14">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+              Why <span className="text-red-600">Traditional SEO</span> Falls Short in the <span className="text-blue-600">AI Era</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-600">
-              Transform your business operations with cutting-edge AI automation strategies
-            </p>
+            <p className="text-gray-600 mt-2">The game has changed. Here’s how AEO/GEO wins.</p>
           </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-            {benefits.map((benefit, index) => {
-              const Icon = benefit.icon;
-              return (
-                <div key={index} className="bg-white rounded-xl md:rounded-2xl p-4 md:p-8 shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-200">
-                  <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-3 md:mb-6">
-                    <Icon className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 md:mb-4">{benefit.title}</h3>
-                  <p className="text-sm md:text-base text-gray-600 leading-relaxed">{benefit.description}</p>
-                </div>
-              );
-            })}
+          <div className="space-y-6">
+            {/* Row: Search Strategy */}
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="text-sm font-semibold text-gray-500 mb-2">Traditional SEO</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Search Strategy</h3>
+                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                  <li>Optimizes for rankings, crawlers, and keyword volume</li>
+                  <li>Long-form posts, generic tips</li>
+                  <li>KPIs: positions and sessions</li>
+                </ul>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-green-200 ring-1 ring-green-200">
+                <div className="text-sm font-semibold text-green-600 mb-2">AEO/GEO Strategy</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Optimizes for answers</h3>
+                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                  <li>Q→A→Proof→Action briefs; entity cues; FAQ stacks</li>
+                  <li>First‑party evidence (data, screenshots, SOPs)</li>
+                  <li>KPIs: mentions in AI answers, assisted conversions</li>
+                </ul>
+              </div>
+            </div>
+            {/* Row: Content Structure */}
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="text-sm font-semibold text-gray-500 mb-2">Keyword‑Focused Pages</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Content Structure</h3>
+                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                  <li>Writes to keywords rather than user questions</li>
+                  <li>Thin proof and weak trust signals</li>
+                  <li>Backlink‑dependent</li>
+                </ul>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-green-200 ring-1 ring-green-200">
+                <div className="text-sm font-semibold text-green-600 mb-2">Q→A→Proof→Action Format</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">What Works Now</h3>
+                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                  <li>Pages structured like people actually ask</li>
+                  <li>Proof: screenshots, data, checklists</li>
+                  <li>Entity and FAQ cues models can cite</li>
+                </ul>
+              </div>
+            </div>
+            {/* Row: Lead Generation */}
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
+                <div className="text-sm font-semibold text-gray-500 mb-2">Basic Contact Forms</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">Lead Generation</h3>
+                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                  <li>Static forms with slow follow‑up</li>
+                  <li>Manual research and next steps</li>
+                </ul>
+              </div>
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-green-200 ring-1 ring-green-200">
+                <div className="text-sm font-semibold text-green-600 mb-2">Smart CRM Integration</div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">What Wins</h3>
+                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
+                  <li>Qualified routing, summaries, next‑best‑actions</li>
+                  <li>Fast auto‑reply assistant</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 text-center">
+            <div className="inline-flex items-center gap-2 text-white bg-red-600 rounded-full px-4 py-2 text-sm shadow-sm">
+              ⚡ The bottom line: AEO/GEO lifts visibility and lead quality.
+            </div>
           </div>
         </div>
       </section>
@@ -767,49 +786,35 @@ const AIAutomationWorkshopAustin = () => {
 
                 <div className="flex items-start space-x-3 md:space-x-4">
                   <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <MapPin className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
+                    <Globe className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">9606 N Mopac Expy #400</div>
-                    <div className="text-gray-600 text-sm md:text-base">Austin, TX 78759 (Roku on Mopac)</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">Live Online (Zoom)</div>
+                    <div className="text-gray-600 text-sm md:text-base">Join from anywhere • Link sent after purchase</div>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3 md:space-x-4">
                   <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <Users className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
+                    <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">Limited to 40 attendees</div>
-                    <div className="text-pink-600 font-medium text-sm md:text-base">Filling up fast!</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">Recording + Slides Included</div>
+                    <div className="text-gray-600 text-sm md:text-base">Templates and prompts provided</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Location Map */}
+            {/* What You Get */}
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">Location & Directions</h3>
-              
-              <div className="mb-4 md:mb-6">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3344.6!2d-97.7431!3d30.3883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8644caaacf68e8a3%3A0x1c8d7e1a5e7c3e1c!2s9606%20N%20MoPac%20Expy%20%23400%2C%20Austin%2C%20TX%2078759!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
-                  width="100%"
-                  height="200"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="rounded-lg md:h-[250px]"
-                ></iframe>
-              </div>
-
-              <div>
-                <h4 className="font-semibold text-gray-900 mb-2 md:mb-3 text-sm md:text-base">Getting There</h4>
-                <p className="text-gray-600 leading-relaxed text-sm md:text-base">
-                  Free parking available on-site. The venue is easily accessible from I-35 and Loop 1 (MoPac).
-                </p>
-              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">What You Get</h3>
+              <ul className="grid sm:grid-cols-2 gap-3 text-gray-700 text-sm md:text-base">
+                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />AEO/GEO page template + mini FAQ pack</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />CRM Copilot prompt pack</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />Setup checklist + working checkout flow</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />Recording and slides within 24 hours</li>
+              </ul>
             </div>
           </div>
         </div>
@@ -832,7 +837,7 @@ const AIAutomationWorkshopAustin = () => {
           >
             {isCheckingOut ? 'Redirecting…' : (
               <>
-                <span className="hidden md:inline">Thursday, Aug 28, 2025 • 2:30 PM CT • Austin, TX</span>
+                <span className="hidden md:inline">Thursday, Aug 28, 2025 • 2:30 PM CT • Online</span>
                 <span className="md:hidden">Reserve my seat</span>
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </>
