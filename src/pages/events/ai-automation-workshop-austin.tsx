@@ -191,7 +191,10 @@ const AIAutomationWorkshopAustin = () => {
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             {/* Pre-Header Announcement */}
             <div className="lg:col-span-1 order-2 lg:order-1 text-center lg:text-left">
-              <div className="inline-flex items-center px-3 py-1 bg-red-600 text-white rounded-full text-[11px] md:text-xs font-semibold mb-3">Next‑Generation Digital Strategy</div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] md:text-xs font-semibold mb-3 bg-white/70 text-gray-800 border border-white/60 shadow-sm backdrop-blur">
+                <Clock className="w-3.5 h-3.5" />
+                <span>Next‑Generation Digital Strategy</span>
+              </div>
 
             {/* Main Headline */}
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
@@ -205,9 +208,10 @@ const AIAutomationWorkshopAustin = () => {
 
               {/* Chips */}
               <div className="flex flex-wrap gap-2 mb-5 justify-center lg:justify-start">
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">Answer Engine Strategy</span>
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">CRM Integration</span>
-                <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs">Technical Setup</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-emerald-500"></span>Answer Engine Ready</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-blue-500"></span>AI‑Website Assistant</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-blue-500"></span>Smart CRM Integration</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/70 text-gray-800 border border-white/60 text-xs shadow-sm backdrop-blur"><span className="w-2 h-2 rounded-full bg-rose-500"></span>Technical Setup</span>
               </div>
 
               {/* Countdown Timer */}
@@ -222,16 +226,16 @@ const AIAutomationWorkshopAustin = () => {
 
               {/* Live/Trust badges */}
               <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-2 md:gap-3 mb-6 md:mb-8">
-              <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200">🔴 Live online event</span>
-              <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">🎥 Recording included</span>
-              <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">🧰 Templates provided</span>
-            </div>
+                <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200">🔴 Live online event</span>
+                <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">🎥 Recording included</span>
+                <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">🧰 Templates provided</span>
+              </div>
 
               {/* Primary + Secondary CTAs */}
               <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-3 md:gap-4 mb-6 md:mb-6">
               <Button
                 onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
+                className="px-6 md:px-8 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
               >
                 Reserve my seat
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
@@ -239,9 +243,9 @@ const AIAutomationWorkshopAustin = () => {
               <Button
                 variant="outline"
                 onClick={() => setIsSyllabusOpen(true)}
-                className="px-6 md:px-8 py-3 md:py-4 border border-gray-300 hover:border-gray-400 text-gray-900 text-base md:text-lg font-semibold rounded-lg"
+                className="px-6 md:px-8 py-3 md:py-4 border border-white/60 bg-white/70 backdrop-blur hover:bg-white/80 text-gray-900 text-base md:text-lg font-semibold rounded-xl shadow-sm"
               >
-                Get the syllabus
+                <BookOpen className="w-4 h-4 mr-2" /> Get Syllabus
               </Button>
               </div>
             {checkoutError && (
@@ -252,30 +256,24 @@ const AIAutomationWorkshopAustin = () => {
               
 
               {/* Event Perks */}
-              <div className="flex flex-col md:flex-row md:flex-wrap lg:justify-start justify-center items-center space-y-2 md:space-y-0 md:space-x-6 text-gray-700 text-sm md:text-base">
-              <div className="flex items-center space-x-2">
-                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
-                <span>Live online event</span>
-              </div>
-              <span className="hidden md:inline text-gray-400">•</span>
-              <div className="flex items-center space-x-2">
-                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
-                <span>Recording included</span>
-              </div>
-              <span className="hidden md:inline text-gray-400">•</span>
-              <div className="flex items-center space-x-2">
-                <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-red-600" />
-                <span>Templates & prompts provided</span>
-              </div>
+              <div className="flex flex-col md:flex-row md:flex-wrap lg:justify-start justify-center items-center gap-3 text-gray-700 text-sm md:text-base">
+                <div className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Live online workshop</div>
+                <div className="hidden md:block text-gray-300">•</div>
+                <div className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Recording included</div>
+                <div className="hidden md:block text-gray-300">•</div>
+                <div className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Interactive Q&A</div>
               </div>
             </div>
 
             {/* Right visual */}
             <div className="lg:col-span-1 order-1 lg:order-2">
-              <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                <img src="/lovable-uploads/0ed0dcdd-2d65-497a-9184-40b58303266e.png" alt="Workshop preview" className="w-full h-auto" />
-                <div className="absolute top-3 right-3 text-[11px] bg-red-600 text-white px-2 py-1 rounded-full shadow">Trending</div>
-                <div className="absolute bottom-3 left-3 text-[11px] bg-white/90 text-gray-900 px-2 py-1 rounded-full shadow">Recordings included</div>
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
+                <img src="https://source.unsplash.com/featured/1200x700?analytics,workspace" alt="Workshop preview" className="w-full h-auto" />
+                <div className="absolute top-3 right-3 text-[11px] bg-red-600/90 backdrop-blur text-white px-3 py-1 rounded-full shadow">🔥 Trending</div>
+                <div className="absolute bottom-4 left-4 bg-white/80 backdrop-blur text-gray-900 px-4 py-2 rounded-xl shadow">
+                  <div className="text-sm font-semibold">Beyond SEO</div>
+                  <div className="text-[11px] text-gray-600 -mt-0.5">AI‑First Approach</div>
+                </div>
               </div>
             </div>
           </div>
