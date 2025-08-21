@@ -318,7 +318,7 @@ const AIAutomationWorkshopAustin = () => {
                 <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                   <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
                 </div>
-                <h3 className="text-xl md:text-2xl font-bold text-gray-900">Discoverability (AEO/GEO vs SEO)</h3>
+                <h3 className="text-xl md:text-2xl font-bold text-gray-900">AEO/GEO vs SEO</h3>
                 <p className="text-sm text-gray-600 mt-1">Structure Q→A→Proof→Action so models can choose and cite you.</p>
                 <div className="border-t border-gray-100 my-3"></div>
                 <div className="text-sm md:text-base text-gray-700 space-y-2">
@@ -382,14 +382,14 @@ const AIAutomationWorkshopAustin = () => {
 
       {/* What We’ll Build Live */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">What We’ll Build Live</h2>
           <div className="grid md:grid-cols-2 gap-4 md:gap-8">
             <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
               <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl mb-3">
                 <Globe className="w-6 h-6 text-orange-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Website (live)</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Building Website Live</h3>
               <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
                 <li>Fully functional website</li>
                 <li>Smart form (routes + qualifies)</li>
@@ -401,10 +401,10 @@ const AIAutomationWorkshopAustin = () => {
               <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl mb-3">
                 <BookOpen className="w-6 h-6 text-orange-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Content for Social</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Content for Social Media</h3>
               <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
                 <li>Plan, generate, and package posts</li>
-                <li>Copy + images aligned to your page</li>
+                <li>On‑brand avatars and short video teasers</li>
               </ul>
             </div>
           </div>
@@ -445,23 +445,14 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Social Proof */}
-      <section className="py-12 md:py-16 bg-white">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8 text-center">
-          <div className="text-gray-500 text-sm">Trusted by teams shipping with AI</div>
-          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4 opacity-80">
-            <div className="h-8 bg-gray-100 rounded" />
-            <div className="h-8 bg-gray-100 rounded" />
-            <div className="h-8 bg-gray-100 rounded" />
-            <div className="h-8 bg-gray-100 rounded" />
-            <div className="h-8 bg-gray-100 rounded" />
-            <div className="h-8 bg-gray-100 rounded" />
-          </div>
-        </div>
-      </section>
+      
 
       {/* FAQs (reuse site component) */}
-      <FAQ />
+      <section className="py-12 md:py-16 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <FAQ />
+        </div>
+      </section>
 
       {/* Footer CTA */}
       <section className="py-12 md:py-16 bg-white">
