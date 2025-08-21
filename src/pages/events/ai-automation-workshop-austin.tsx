@@ -445,6 +445,120 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
+      {/* Meet Your Experts Section (below pricing) */}
+      <section className="py-12 md:py-20 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-8 md:mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
+              Meet Your <span className="text-red-600">Experts</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+            {/* Astrid */}
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
+              <div className="relative inline-block mb-4">
+                <img 
+                  src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png" 
+                  alt="Astrid Abrahamyan"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                />
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg">"</span>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Astrid Abrahamyan</h3>
+              <p className="text-sm md:text-base text-red-600 font-medium">Co-Founder & COO @ DaVeenci.ai | AI Ops for Energy Sector</p>
+              <p className="text-sm text-gray-700 mt-3">Helps teams ship practical automations that save time and compound results.</p>
+            </div>
+
+            {/* Anton */}
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
+              <div className="relative inline-block mb-4">
+                <img 
+                  src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_anton.webp" 
+                  alt="Anton Osipov"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                />
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg">"</span>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Anton Osipov</h3>
+              <p className="text-sm md:text-base text-red-600 font-medium">Co-Founder & CTO @ DaVeenci.ai | AI Dev for Energy Sector</p>
+              <p className="text-sm text-gray-700 mt-3">Focuses on discoverability systems (AEO/GEO) and AI engineering for energy.</p>
+            </div>
+
+            {/* Kiko */}
+            <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
+              <div className="relative inline-block mb-4">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="Federico Lopez (Kiko)"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                />
+                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg">"</span>
+                </div>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Federico Lopez (Kiko)</h3>
+              <p className="text-sm md:text-base text-red-600 font-medium">🎯 Creative Strategist | Content Architect | UX Storyteller</p>
+              <p className="text-sm text-gray-700 mt-3">Emotional intelligence in action—making brands actually sound human.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Registration Form Section (after experts) */}
+      <section id="form" className="py-12 md:py-16 bg-white">
+        <div className="mx-auto max-w-2xl px-6 lg:px-8">
+          <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6 md:mb-8">Reserve Your Spot</h2>
+            {submitMessage && (
+              <div className={`p-4 rounded-lg mb-6 ${submitMessage.toLowerCase().includes('failed') || submitMessage.toLowerCase().includes('error') ? 'bg-red-100 text-red-800 border border-red-200' : 'bg-green-100 text-green-800 border border-green-200'}`}>
+                {submitMessage}
+              </div>
+            )}
+            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
+              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
+                  <input type="text" id="firstName" name="firstName" required value={formData.firstName} onChange={handleInputChange} placeholder="Enter your first name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
+                  <input type="text" id="lastName" name="lastName" required value={formData.lastName} onChange={handleInputChange} placeholder="Enter your last name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+                <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} placeholder="your@email.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
+              </div>
+              <div>
+                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Phone Number (optional)</label>
+                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="(555) 123-4567" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
+              </div>
+              <div>
+                <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 mb-2">Company Name (Optional)</label>
+                <input type="text" id="company_name" name="company_name" value={formData.company_name} onChange={handleInputChange} placeholder="Enter your company name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
+              </div>
+              <div>
+                <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-2">Company Website (Optional)</label>
+                <input type="text" id="website" name="website" value={formData.website} onChange={handleInputChange} placeholder="example.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
+              </div>
+              <div>
+                <label htmlFor="question" className="block text-sm font-medium text-gray-700 mb-2">What's one question you'd like us to answer? (Optional)</label>
+                <textarea id="question" name="question" rows={4} value={formData.question} onChange={handleInputChange} placeholder="What specific automation challenge would you like help with?" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
+              </div>
+              <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25">
+                {isSubmitting ? 'Registering...' : 'Reserve My Spot'}
+                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+              </Button>
+            </form>
+          </div>
+        </div>
+      </section>
+
       {/* Event Details Section */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
         <div className="absolute inset-0 bg-grid"></div>
