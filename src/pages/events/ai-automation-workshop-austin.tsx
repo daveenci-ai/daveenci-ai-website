@@ -281,11 +281,11 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* What You’ll Master (and Take Home) */}
-      <section className="py-12 md:py-20 bg-white">
+      {/* What You'll Master (and Take Home) */}
+      <section className="py-16 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What You’ll Master <span className="text-gray-500">(and Take Home)</span></h2>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What You'll Master <span className="text-gray-500">(and Take Home)</span></h2>
             <p className="text-gray-600 mt-2">A comprehensive system for AI‑powered discovery with a simple technical foundation.</p>
           </div>
 
@@ -380,29 +380,32 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* What We’ll Build Live */}
-      <section className="py-12 md:py-20 bg-gray-50">
+      {/* What We'll Build Live */}
+      <section className="py-16 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">What We’ll Build Live</h2>
-          <div className="grid md:grid-cols-2 gap-4 md:gap-8">
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl mb-3">
-                <Globe className="w-6 h-6 text-orange-600" />
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What We'll Build Live</h2>
+            <p className="text-lg text-gray-600">Live demonstrations of real implementations you can use immediately.</p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Building Website Live</h3>
-              <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">Building Website Live</h3>
+              <ul className="text-gray-600 text-sm md:text-base list-disc list-inside space-y-2">
                 <li>Fully functional website</li>
                 <li>Smart form (routes + qualifies)</li>
                 <li>Chatbot (answers + handoff)</li>
                 <li>AEO/GEO‑ready blog</li>
               </ul>
             </div>
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
-              <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl mb-3">
-                <BookOpen className="w-6 h-6 text-orange-600" />
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
+                <BookOpen className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">AI Content for Social Media</h3>
-              <ul className="text-gray-600 text-sm list-disc list-inside space-y-1">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">AI Content for Social Media</h3>
+              <ul className="text-gray-600 text-sm md:text-base list-disc list-inside space-y-2">
                 <li>Plan, generate, and package posts</li>
                 <li>On‑brand avatars and short video teasers</li>
               </ul>
@@ -414,31 +417,34 @@ const AIAutomationWorkshopAustin = () => {
       {/* Agenda removed per request */}
 
       {/* Pricing Tiers */}
-      <section id="pricing" className="py-12 md:py-20 bg-gray-50">
+      <section id="pricing" className="py-16 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">Pricing</h2>
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
+            <p className="text-lg text-gray-600">Choose the option that works best for you.</p>
+          </div>
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             {/* Regular Ticket */}
-            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-white rounded-2xl p-6 shadow-sm border ${selectedPlan==='regular' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
-              <div className="flex items-baseline justify-between">
+            <div onClick={() => setSelectedPlan('regular')} className={`cursor-pointer bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${selectedPlan==='regular' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
+              <div className="flex items-baseline justify-between mb-4">
                 <div>
-                  <div className="text-xl font-bold text-gray-900">Regular Ticket</div>
-                  <div className="text-sm text-gray-600">Recording, slides, templates, Copilot prompts, SOPs</div>
+                  <div className="text-xl md:text-2xl font-bold text-gray-900">Regular Ticket</div>
+                  <div className="text-sm md:text-base text-gray-600 mt-1">Recording, slides, templates, Copilot prompts, SOPs</div>
                 </div>
-                <div className="text-2xl font-extrabold text-gray-900">$44.95</div>
+                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">$44.95</div>
               </div>
-              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="mt-4 w-full bg-gradient-to-r from-red-600 to-red-700 text-white">Reserve my seat</Button>
+              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">Reserve my seat</Button>
             </div>
-            {/* Private Consultation */}
-            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-white rounded-2xl p-6 shadow-sm border ${selectedPlan==='consult' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
-              <div className="flex items-baseline justify-between">
+            {/* VIP Bundle */}
+            <div onClick={() => setSelectedPlan('consult')} className={`cursor-pointer bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border transition-all duration-200 hover:-translate-y-1 hover:shadow-md ${selectedPlan==='consult' ? 'border-red-300 ring-1 ring-red-200' : 'border-gray-200'}`}>
+              <div className="flex items-baseline justify-between mb-4">
                 <div>
-                  <div className="text-xl font-bold text-gray-900">VIP Bundle</div>
-                  <div className="text-sm text-gray-600">Includes Private Consultation ($150 value) + 10% off all other services</div>
+                  <div className="text-xl md:text-2xl font-bold text-gray-900">VIP Bundle</div>
+                  <div className="text-sm md:text-base text-gray-600 mt-1">Includes Private Consultation ($150 value) + 10% off all other services</div>
                 </div>
-                <div className="text-2xl font-extrabold text-gray-900">$89.95</div>
+                <div className="text-2xl md:text-3xl font-extrabold text-gray-900">$89.95</div>
               </div>
-              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="mt-4 w-full bg-gradient-to-r from-red-600 to-red-700 text-white">Reserve my seat</Button>
+              <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">Reserve my seat</Button>
             </div>
           </div>
           <div className="text-center mt-4 text-sm text-gray-600">Secure checkout by Stripe • Apple Pay & Google Pay</div>
@@ -446,12 +452,13 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* Meet Your Experts Section (below pricing) */}
-      <section className="py-12 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Meet Your <span className="text-red-600">Experts</span>
             </h2>
+            <p className="text-lg text-gray-600">Learn from experienced practitioners who've built these systems.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
@@ -510,10 +517,13 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* Registration Form Section (after experts) */}
-      <section id="form" className="py-12 md:py-16 bg-white">
+      <section id="form" className="py-16 md:py-20 bg-white">
         <div className="mx-auto max-w-2xl px-6 lg:px-8">
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 text-center mb-6 md:mb-8">Reserve Your Spot</h2>
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Reserve Your Spot</h2>
+            <p className="text-lg text-gray-600">Fill out the form below and proceed to secure checkout.</p>
+          </div>
+          <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
             {submitMessage && (
               <div className={`p-4 rounded-lg mb-6 ${submitMessage.toLowerCase().includes('failed') || submitMessage.toLowerCase().includes('error') ? 'bg-red-100 text-red-800 border border-red-200' : 'bg-green-100 text-green-800 border border-green-200'}`}>
                 {submitMessage}
@@ -550,12 +560,90 @@ const AIAutomationWorkshopAustin = () => {
                 <label htmlFor="question" className="block text-sm font-medium text-gray-700 mb-2">What's one question you'd like us to answer? (Optional)</label>
                 <textarea id="question" name="question" rows={4} value={formData.question} onChange={handleInputChange} placeholder="What specific automation challenge would you like help with?" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
               </div>
-              <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25">
+              <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25">
                 {isSubmitting ? 'Registering...' : 'Reserve My Spot'}
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
               </Button>
             </form>
           </div>
+        </div>
+      </section>
+
+      {/* Why Traditional SEO Falls Short in the AI Era */}
+      <section className="py-16 md:py-20 bg-gray-50">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Why Traditional SEO Falls Short in the <span className="text-red-600">AI Era</span>
+            </h2>
+            <p className="text-lg text-gray-600">The search landscape has fundamentally changed. Here's what you need to know.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+            {/* Traditional SEO */}
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Traditional SEO (Old Playbook)</h3>
+              <ul className="space-y-3 text-gray-600">
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
+                  <span>Focus on ranking pages for specific keywords</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
+                  <span>Long-form content optimized for search crawlers</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
+                  <span>Success measured by positions and sessions</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
+                  <span>Generic tips and keyword-stuffed content</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* AEO/GEO */}
+            <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-red-200">
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">AEO/GEO (New Reality)</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
+                  <span>Get quoted as the definitive answer by AI</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
+                  <span>Q&A blocks, concise briefs, and checklists</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
+                  <span>Mentions in AI answers and assisted conversions</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
+                  <span>First-party data, screenshots, and SOPs</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="text-center mt-8 md:mt-12">
+            <p className="text-lg text-gray-600 mb-6">
+              AI now provides direct answers, integrates sponsored content, and uses virtual shopping assistants. 
+              Success isn't about having the best product—it's about being optimized for how AI selects and presents information.
+            </p>
+            <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">
+              Learn the New Playbook
+              <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 md:py-20 bg-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <FAQ />
         </div>
       </section>
 
@@ -633,6 +721,56 @@ const AIAutomationWorkshopAustin = () => {
           </div>
         </div>
       </section>
+
+      {/* Syllabus Modal */}
+      <Dialog open={isSyllabusOpen} onOpenChange={setIsSyllabusOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Get the Workshop Syllabus</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div>
+              <label htmlFor="leadEmail" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+              <Input
+                id="leadEmail"
+                type="email"
+                value={leadEmail}
+                onChange={(e) => setLeadEmail(e.target.value)}
+                placeholder="your@email.com"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="leadQuestion" className="block text-sm font-medium text-gray-700 mb-2">Any specific questions? (Optional)</label>
+              <Textarea
+                id="leadQuestion"
+                value={leadQuestion}
+                onChange={(e) => setLeadQuestion(e.target.value)}
+                placeholder="What would you like to know about the workshop?"
+                rows={3}
+              />
+            </div>
+            {leadStatus && (
+              <div className={`p-3 rounded-lg text-sm ${
+                leadStatus.includes('sent') || leadStatus.includes('Sent') 
+                  ? 'bg-green-100 text-green-800 border border-green-200' 
+                  : 'bg-red-100 text-red-800 border border-red-200'
+              }`}>
+                {leadStatus}
+              </div>
+            )}
+          </div>
+          <DialogFooter>
+            <Button
+              onClick={submitLead}
+              disabled={!leadEmail || isSubmitting}
+              className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white"
+            >
+              {isSubmitting ? 'Sending...' : 'Send Me the Syllabus'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Final CTA Section (Blue gradient) */}
       <section className="py-20 md:py-28 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
