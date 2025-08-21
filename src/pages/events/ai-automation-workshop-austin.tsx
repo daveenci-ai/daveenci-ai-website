@@ -31,15 +31,7 @@ const AIAutomationWorkshopAustin = () => {
     seconds: 0
   });
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    company_name: '',
-    website: '',
-    question: ''
-  });
+
 
   // Countdown timer logic and Stripe buy button script loading
   useEffect(() => {
@@ -74,97 +66,20 @@ const AIAutomationWorkshopAustin = () => {
     return () => clearInterval(timer);
   }, []);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
-  const [checkoutError, setCheckoutError] = useState('');
+
+
   const [isSyllabusOpen, setIsSyllabusOpen] = useState(false);
   const [leadEmail, setLeadEmail] = useState('');
 
   const [leadStatus, setLeadStatus] = useState<string | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState<'regular' | 'consult'>('regular');
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitMessage('');
-    try {
-      // Save registration first
-      const registerRes = await fetch(`${apiConfig.baseUrl}/api/workshop/register`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const registerJson = await registerRes.json();
-      if (!registerRes.ok) {
-        setSubmitMessage(registerJson.error || 'Registration failed. Please try again.');
-        return;
-      }
 
-      // Then create Checkout session with saved contact info
-      const checkoutRes = await fetch(`${apiConfig.baseUrl}/api/workshop/checkout`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          plan: selectedPlan,
-          productId: 'prod_StiXnR9cZOv96D',
-          email: formData.email,
-          name: `${formData.firstName} ${formData.lastName}`.trim() || undefined,
-        }),
-      });
-      const checkoutJson = await checkoutRes.json();
-      if (checkoutRes.ok && checkoutJson.url) {
-        window.location.href = checkoutJson.url;
-      } else {
-        setSubmitMessage(checkoutJson.error || 'Unable to start checkout. Please try again.');
-      }
-    } catch (err) {
-      console.error('Registration/Checkout error:', err);
-      setSubmitMessage('Network error. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
-  const handleCheckout = async (plan: 'early' | 'general' | 'team' = 'general', addVip = false) => {
-    setIsCheckingOut(true);
-    setCheckoutError('');
-    try {
-      const response = await fetch(`${apiConfig.baseUrl}/api/workshop/checkout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          plan,
-          addOns: addVip ? ['vip'] : [],
-          // You provided a product ID for Stripe
-          productId: 'prod_StiXnR9cZOv96D',
-          email: formData.email || undefined,
-          name: `${formData.firstName} ${formData.lastName}`.trim() || undefined,
-        }),
-      });
-      const result = await response.json();
-      if (response.ok && result.url) {
-        window.location.href = result.url;
-      } else {
-        setCheckoutError(result.error || 'Checkout failed. Please try again.');
-      }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      setCheckoutError('Network error. Please try again.');
-    } finally {
-      setIsCheckingOut(false);
-    }
-  };
+
+
 
   const submitLead = async () => {
     setIsSubmitting(true);
@@ -173,7 +88,7 @@ const AIAutomationWorkshopAustin = () => {
       const r = await fetch(`${apiConfig.baseUrl}/api/workshop/lead`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: leadEmail, name: `${formData.firstName} ${formData.lastName}`.trim() || undefined })
+        body: JSON.stringify({ email: leadEmail })
       });
       if (r.ok) {
         setLeadStatus('Syllabus sent! Check your email.');
@@ -198,8 +113,8 @@ const AIAutomationWorkshopAustin = () => {
           <span className="font-semibold tracking-tight">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
           <span className="opacity-90 hidden sm:inline">•</span>
           <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
-          <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="ml-auto inline-flex items-center rounded-full bg-white text-red-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors">
-            Reserve my seat
+          <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="ml-auto inline-flex items-center rounded-full bg-white text-red-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors">
+            Get tickets
           </Button>
         </div>
       </div>
@@ -218,7 +133,7 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Main Headline */}
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
-                Master AEO: The Future of <br />Search Marketing <span className="text-red-600">(vs. Traditional SEO)</span>
+                Master AEO: The Future of Search <br /><span className="text-red-600">(vs. Traditional SEO)</span>
               </h1>
 
             {/* Sub-Headline */}
@@ -268,11 +183,7 @@ const AIAutomationWorkshopAustin = () => {
                 <BookOpen className="w-4 h-4 mr-2" /> Get AEO Syllabus
               </Button>
               </div>
-            {checkoutError && (
-              <div className="mx-auto max-w-xl text-sm md:text-base text-red-700 bg-red-100 border border-red-200 rounded-md px-4 py-2 mb-4">
-                {checkoutError}
-              </div>
-            )}
+
               
 
               {/* Event Perks */}
@@ -533,8 +444,8 @@ const AIAutomationWorkshopAustin = () => {
                 </div>
                 <div className="stripe-buy-button-wrapper">
                   <stripe-buy-button
-                    buy-button-id="buy_btn_1RygXXHqDeIQZvjwX2dPoAr0"
-                    publishable-key="pk_test_51RxuucHqDeIQZvjw37VntHFIReSkqaN1bZhpylzH6rjmeFVJhyN7sgYc2ZOppdTS4l8OP8IJPJQkdYX4AkjferIu00zJcqJ5zj"
+                    buy-button-id="buy_btn_1RyhFrQd3PdwR2cKEr1N1IJ7"
+                    publishable-key="pk_live_51RxuuTQd3PdwR2cKAI9DkYWdn7njfhxy0WmgkmKMKpFqV90YPZvP6r1VoJklgiB1G9B2V9j9Ehm5I3U7G94EuPJD00LLS4gNLT"
                   >
                   </stripe-buy-button>
                 </div>
@@ -557,8 +468,8 @@ const AIAutomationWorkshopAustin = () => {
                 </div>
                 <div className="stripe-buy-button-wrapper">
                   <stripe-buy-button
-                    buy-button-id="buy_btn_1RygdPHqDeIQZvjwpm7lMm9C"
-                    publishable-key="pk_test_51RxuucHqDeIQZvjw37VntHFIReSkqaN1bZhpylzH6rjmeFVJhyN7sgYc2ZOppdTS4l8OP8IJPJQkdYX4AkjferIu00zJcqJ5zj"
+                    buy-button-id="buy_btn_1RyhCvQd3PdwR2cK6go7eRgQ"
+                    publishable-key="pk_live_51RxuuTQd3PdwR2cKAI9DkYWdn7njfhxy0WmgkmKMKpFqV90YPZvP6r1VoJklgiB1G9B2V9j9Ehm5I3U7G94EuPJD00LLS4gNLT"
                   >
                   </stripe-buy-button>
                 </div>
@@ -578,58 +489,7 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Registration Form Section (after pricing) */}
-      <section id="form" className="py-16 md:py-20 bg-white">
-        <div className="mx-auto max-w-2xl px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Reserve Your Spot</h2>
-            <p className="text-lg text-gray-600">Fill out the form below and proceed to secure checkout.</p>
-          </div>
-          <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
-            {submitMessage && (
-              <div className={`p-4 rounded-lg mb-6 ${submitMessage.toLowerCase().includes('failed') || submitMessage.toLowerCase().includes('error') ? 'bg-red-100 text-red-800 border border-red-200' : 'bg-green-100 text-green-800 border border-green-200'}`}>
-                {submitMessage}
-              </div>
-            )}
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-              <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-2">First Name *</label>
-                  <input type="text" id="firstName" name="firstName" required value={formData.firstName} onChange={handleInputChange} placeholder="Enter your first name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-2">Last Name *</label>
-                  <input type="text" id="lastName" name="lastName" required value={formData.lastName} onChange={handleInputChange} placeholder="Enter your last name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-                <input type="email" id="email" name="email" required value={formData.email} onChange={handleInputChange} placeholder="your@email.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
-              </div>
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Phone Number (optional)</label>
-                <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="(555) 123-4567" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
-              </div>
-              <div>
-                <label htmlFor="company_name" className="block text-sm font-medium text-gray-700 mb-2">Company Name (Optional)</label>
-                <input type="text" id="company_name" name="company_name" value={formData.company_name} onChange={handleInputChange} placeholder="Enter your company name" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
-              </div>
-              <div>
-                <label htmlFor="website" className="block text-sm font-medium text-gray-700 mb-2">Company Website (Optional)</label>
-                <input type="text" id="website" name="website" value={formData.website} onChange={handleInputChange} placeholder="example.com" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
-              </div>
-              <div>
-                <label htmlFor="question" className="block text-sm font-medium text-gray-700 mb-2">What's one question you'd like us to answer? (Optional)</label>
-                <textarea id="question" name="question" rows={4} value={formData.question} onChange={handleInputChange} placeholder="What specific automation challenge would you like help with?" className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" />
-              </div>
-              <Button type="submit" disabled={isSubmitting} className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 disabled:opacity-50 disabled:cursor-not-allowed text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25">
-                {isSubmitting ? 'Registering...' : 'Reserve My Spot'}
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-              </Button>
-            </form>
-          </div>
-        </div>
-      </section>
+
 
       {/* Why Traditional SEO Falls Short in the AI Era */}
       <section className="py-16 md:py-20 bg-gray-50">
@@ -694,7 +554,7 @@ const AIAutomationWorkshopAustin = () => {
               AI now provides direct answers, integrates sponsored content, and uses virtual shopping assistants. 
               Success isn't about having the best product—it's about being optimized for how AI selects and presents information.
             </p>
-            <Button onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">
+            <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">
               Master AEO Today
               <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
             </Button>
@@ -868,10 +728,10 @@ const AIAutomationWorkshopAustin = () => {
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Reserve Your Spot</h3>
                   <div className="text-3xl md:text-4xl font-bold text-red-600 mb-4">Starting at $44.95</div>
                   <Button 
-                    onClick={() => document.getElementById('form')?.scrollIntoView({ behavior: 'smooth' })} 
+                    onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} 
                     className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg mb-3"
                   >
-                    Become an AEO Master
+                    Get Tickets Now
                   </Button>
                   <button 
                     onClick={() => setIsSyllabusOpen(true)}
