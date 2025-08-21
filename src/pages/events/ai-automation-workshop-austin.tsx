@@ -198,7 +198,7 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Main Headline */}
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
-                Be The Answer Buyers See First
+                Be The Answer <br />Buyers See First
               </h1>
 
             {/* Sub-Headline */}
