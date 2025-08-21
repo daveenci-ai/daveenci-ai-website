@@ -133,7 +133,7 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Main Headline */}
               <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
-                Master AEO: The Future of Search <br /><span className="text-red-600">(vs. Traditional SEO)</span>
+                Master AEO: The Future of Search <br /><span className="text-red-600">vs. Traditional SEO</span>
               </h1>
 
             {/* Sub-Headline */}

@@ -8,7 +8,7 @@ import EventBanner from '@/components/EventBanner';
 const ThankYouEvent = () => {
   const handleShare = (platform: string) => {
     const url = encodeURIComponent('https://daveenci.ai/events/ai-automation-workshop-austin');
-    const text = encodeURIComponent('Just registered for the AI Automation Workshop in Austin! Join me to learn how AI can transform your business 🤖✨');
+    const text = encodeURIComponent('Just registered for Master AEO: The Future of Search! Join me to learn how to optimize for AI-driven search engines 🚀🔍');
     
     const shareUrls = {
       twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
@@ -31,12 +31,12 @@ const ThankYouEvent = () => {
           </div>
           
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            🎉 You're In! Welcome to the Future of Business Automation
+            🎉 You're In! Master AEO: The Future of Search
           </h1>
           
           <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-            Thank you for registering for the <strong>AI Automation Workshop</strong> in Austin. 
-            Your spot is confirmed and we're excited to see you there!
+            Thank you for registering for <strong>Master AEO: The Future of Search vs. Traditional SEO</strong>. 
+            Your spot is confirmed and we're excited to help you future-proof your marketing!
           </p>
 
           <div className="bg-white rounded-2xl p-8 shadow-lg border border-gray-200 mb-12">
@@ -46,22 +46,22 @@ const ThankYouEvent = () => {
                 <Calendar className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Date</div>
-                  <div className="font-semibold text-gray-900">July 30, 2025</div>
+                  <div className="font-semibold text-gray-900">August 28, 2025</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <Clock className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Time</div>
-                  <div className="font-semibold text-gray-900">2:30 PM - 4:30 PM CST</div>
+                  <div className="font-semibold text-gray-900">2:30 PM - 4:30 PM CT</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
                 <MapPin className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Location</div>
-                  <div className="font-semibold text-gray-900">9606 N Mopac Expy #400</div>
-                  <div className="text-sm text-gray-500">Austin, TX 78759 (Roku on Mopac)</div>
+                  <div className="font-semibold text-gray-900">Live Online Workshop</div>
+                  <div className="text-sm text-gray-500">Join from anywhere • Link sent via email</div>
                 </div>
               </div>
             </div>
@@ -88,7 +88,7 @@ const ThankYouEvent = () => {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Check Your Email</h3>
               <p className="text-gray-600">
-                You'll receive a confirmation email with all the details. Keep an eye out for updates as we get closer to the event.
+                You'll receive a confirmation email with your workshop access link and AEO preparation materials. Keep an eye out for updates!
               </p>
             </div>
 
@@ -96,9 +96,9 @@ const ThankYouEvent = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-red-600 text-white rounded-full mb-6">
                 <span className="text-2xl font-bold">2</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Get the Location</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Get Workshop Access</h3>
               <p className="text-gray-600">
-                We'll send you the exact venue address 1 week before the workshop, along with parking information.
+                You'll receive your workshop access link and AEO templates 24 hours before the event. Test your connection early!
               </p>
             </div>
 
@@ -106,9 +106,9 @@ const ThankYouEvent = () => {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-green-600 text-white rounded-full mb-6">
                 <span className="text-2xl font-bold">3</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Join & Learn</h3>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Master AEO</h3>
               <p className="text-gray-600">
-                Show up ready to learn! Bring a laptop if you want to follow along with the hands-on demos.
+                Join us online and learn to optimize your content for AI-driven search. Recording included for future reference!
               </p>
             </div>
           </div>
@@ -124,7 +124,7 @@ const ThankYouEvent = () => {
             Spread the Word! 📢
           </h2>
           <p className="text-xl text-gray-600 mb-8">
-            Know someone who could benefit from AI automation? Share this workshop with them!
+            Know someone who could benefit from mastering AEO? Share this workshop with them!
           </p>
 
           <div className="flex justify-center space-x-4 mb-8">
@@ -153,7 +153,7 @@ const ThankYouEvent = () => {
 
           <div className="bg-gray-50 rounded-2xl p-6">
             <p className="text-gray-600 text-sm mb-4">
-              <strong>Referral Bonus:</strong> For every person you refer who attends, you'll get a free 30-minute AI consultation call with our experts!
+              <strong>Referral Bonus:</strong> For every person you refer who attends, you'll get a free 30-minute AEO strategy call with our experts!
             </p>
           </div>
         </div>
@@ -163,17 +163,17 @@ const ThankYouEvent = () => {
       <section className="py-16 bg-gradient-to-br from-red-500 to-orange-500 text-white">
         <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            Ready to Transform Your Business Before the Workshop?
+            Ready to Start Your AEO Journey Before the Workshop?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Don't wait until July 30th! Schedule a free strategy call to get started with AI automation today.
+            Don't wait until August 28th! Schedule a free strategy call to get started with AEO optimization today.
           </p>
           <Button 
             size="lg"
             className="bg-white text-red-600 hover:bg-gray-100 font-semibold px-8 py-4 text-lg"
             onClick={() => window.open('https://calendly.com/daveenci/astrid', '_blank')}
           >
-            Book Free Strategy Call
+            Book Free AEO Strategy Call
             <ArrowRight className="ml-2 h-5 w-5" />
           </Button>
         </div>

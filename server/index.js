@@ -14,6 +14,7 @@ import { authRoutes } from './routes/auth.js';
 import { chatRoutes } from './routes/chat.js';
 import { blogRoutes } from './routes/blog.js';
 import useCaseRoutes from './routes/useCases.js';
+import { sendEmail } from './utils/sendEmail.js';
 
 // Import database initialization
 import { initializeDatabase } from './config/init-db.js';
@@ -197,10 +198,10 @@ if (stripe && process.env.STRIPE_WEBHOOK_SECRET) {
           `, [
             '2025-08-28 14:30:00',
             'AI Automation Workshop - Austin',
-            '9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)',
+            'Live Online Workshop',
             'workshop',
-            'Hands-on AI workshop covering AEO/GEO, CRM Copilot essentials, and practical tools & skills.',
-            40,
+            'Master AEO: The Future of Search vs. Traditional SEO - Learn how to optimize your content for AI-driven answer engines.',
+            100,
             'active',
             fullName,
             email,
@@ -211,6 +212,17 @@ if (stripe && process.env.STRIPE_WEBHOOK_SECRET) {
           ]);
 
           console.log('🗄️ Attendee persisted from Stripe session:', email || '(no email)');
+          
+          // Send confirmation email if we have customer email
+          if (email) {
+            const isVip = session.metadata?.vip === 'true';
+            const plan = session.metadata?.plan || 'standard';
+            await sendWorkshopConfirmationEmail(email, fullName, isVip, plan);
+            
+            // Send admin notification
+            const adminEmail = process.env.NOTIFICATION_EMAIL || process.env.FROM_EMAIL || 'support@daveenci.ai';
+            await sendAdminPurchaseNotification(adminEmail, session, email, fullName, isVip, plan);
+          }
 
           // Mark processed
           await query('INSERT INTO processed_stripe_events (stripe_event_id) VALUES ($1) ON CONFLICT (stripe_event_id) DO NOTHING', [event.id]);
@@ -311,6 +323,160 @@ app.get('*', (req, res) => {
     }
   }
 });
+
+// Workshop confirmation email function
+async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
+  const firstName = name ? name.split(' ')[0] : 'there';
+  
+  const confirmationHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #dc2626 0%, #ea580c 100%); color: white; padding: 30px; text-align: center; border-radius: 8px 8px 0 0; }
+        .content { background: white; padding: 30px; border: 1px solid #e5e7eb; }
+        .footer { background: #f9fafb; padding: 20px; text-align: center; border-radius: 0 0 8px 8px; border: 1px solid #e5e7eb; border-top: 0; }
+        .highlight { background: #fef2f2; border-left: 4px solid #dc2626; padding: 15px; margin: 20px 0; }
+        .vip-badge { background: #dc2626; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; }
+        .event-details { background: #f9fafb; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        ul { padding-left: 20px; }
+        li { margin: 8px 0; }
+        a { color: #dc2626; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>🎉 You're In! Welcome to the Future of Search</h1>
+          <p>Master AEO: The Future of Search vs. Traditional SEO</p>
+          ${isVip ? '<span class="vip-badge">VIP BUNDLE</span>' : ''}
+        </div>
+        
+        <div class="content">
+          <h2>Thank you, ${firstName}! 🚀</h2>
+          <p>Your registration is confirmed for <strong>Master AEO: The Future of Search vs. Traditional SEO</strong>. Get ready to future-proof your marketing with AI-driven search optimization!</p>
+          
+          <div class="event-details">
+            <h3>📅 Workshop Details</h3>
+            <ul style="list-style: none; padding-left: 0;">
+              <li><strong>📅 Date:</strong> August 28, 2025</li>
+              <li><strong>⏰ Time:</strong> 2:30 PM - 4:30 PM CT</li>
+              <li><strong>🌐 Location:</strong> Live Online Workshop</li>
+              <li><strong>🎥 Recording:</strong> Yes, included for all participants</li>
+            </ul>
+          </div>
+
+          <div class="highlight">
+            <h3>🎯 What You'll Master</h3>
+            <ul>
+              <li><strong>AEO vs SEO:</strong> Learn the Q→A→Proof→Action framework for AI optimization</li>
+              <li><strong>Answer Engine Strategy:</strong> Structure content so AI can find and cite your pages</li>
+              <li><strong>Future-Proof Marketing:</strong> Get ahead of the competition in AI-driven search</li>
+              <li><strong>Hands-on Templates:</strong> Walk away with practical tools and frameworks</li>
+            </ul>
+          </div>
+
+          ${isVip ? `
+          <div class="highlight" style="border-left-color: #dc2626;">
+            <h3>⭐ Your VIP Bundle Includes:</h3>
+            <ul>
+              <li>Everything in Standard Ticket</li>
+              <li><strong>Private 60-min consultation</strong> with our AEO experts</li>
+              <li><strong>10% off future services</strong></li>
+              <li><strong>Priority support access</strong></li>
+            </ul>
+          </div>
+          ` : ''}
+
+          <h3>📧 What Happens Next?</h3>
+          <ol>
+            <li><strong>Workshop Access Link:</strong> You'll receive your access link 24 hours before the event</li>
+            <li><strong>AEO Preparation Kit:</strong> Templates and resources will be sent 1 week before</li>
+            <li><strong>Reminders:</strong> We'll send friendly reminders as the date approaches</li>
+          </ol>
+
+          <h3>🎯 Prepare for Success</h3>
+          <p>To get the most out of your AEO workshop:</p>
+          <ul>
+            <li>Think about your current content marketing challenges</li>
+            <li>Have examples of your target audience's questions ready</li>
+            <li>Come ready to implement what you learn!</li>
+          </ul>
+        </div>
+
+        <div class="footer">
+          <p>Questions? Reply to this email or contact us at <a href="mailto:support@daveenci.ai">support@daveenci.ai</a></p>
+          <p><strong>DaVeenci</strong> • Mastering AI-Powered Marketing</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  try {
+    await sendEmail(
+      email,
+      `🎉 You're In! Master AEO Workshop - August 28, 2025`,
+      confirmationHtml
+    );
+    console.log(`✅ Confirmation email sent to ${email}`);
+  } catch (error) {
+    console.error(`❌ Failed to send confirmation email to ${email}:`, error);
+  }
+}
+
+async function sendAdminPurchaseNotification(adminEmail, session, email, name, isVip, plan) {
+  const adminHtml = `
+    <h2>💰 New Workshop Purchase!</h2>
+    <h3>Master AEO: The Future of Search vs. Traditional SEO</h3>
+    
+    <p><strong>Customer Details:</strong></p>
+    <ul>
+      <li><strong>Name:</strong> ${name || 'Not provided'}</li>
+      <li><strong>Email:</strong> ${email}</li>
+      <li><strong>Phone:</strong> ${session.customer_details?.phone || 'Not provided'}</li>
+      <li><strong>Plan:</strong> ${plan} ${isVip ? '+ VIP Bundle' : ''}</li>
+    </ul>
+
+    <p><strong>Payment Details:</strong></p>
+    <ul>
+      <li><strong>Amount:</strong> $${(session.amount_total / 100).toFixed(2)} ${session.currency?.toUpperCase() || 'USD'}</li>
+      <li><strong>Session ID:</strong> ${session.id}</li>
+      <li><strong>Payment Status:</strong> ${session.payment_status}</li>
+      <li><strong>Purchase Time:</strong> ${new Date().toLocaleString()}</li>
+    </ul>
+
+    ${session.custom_fields?.length ? `
+    <p><strong>Additional Information:</strong></p>
+    <ul>
+      ${session.custom_fields.map(field => 
+        `<li><strong>${field.label?.custom || field.key}:</strong> ${field.text?.value || field.dropdown?.value || 'N/A'}</li>`
+      ).join('')}
+    </ul>
+    ` : ''}
+
+    <p><strong>Next Steps:</strong></p>
+    <ul>
+      <li>Participant has been automatically added to the workshop list</li>
+      <li>Confirmation email sent to customer</li>
+      <li>${isVip ? 'Schedule VIP consultation call within 48 hours' : 'Standard participation confirmed'}</li>
+    </ul>
+  `;
+
+  try {
+    await sendEmail(
+      adminEmail,
+      `💰 New AEO Workshop Purchase - ${name || email}`,
+      adminHtml
+    );
+    console.log(`✅ Admin notification sent`);
+  } catch (error) {
+    console.error(`❌ Failed to send admin notification:`, error);
+  }
+}
 
 // Error handling middleware
 app.use((err, req, res, next) => {
