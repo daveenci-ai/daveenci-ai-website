@@ -208,9 +208,10 @@ const AIAutomationWorkshopAustin = () => {
 
               {/* Chips */}
               <div className="flex flex-wrap gap-2 mb-5 justify-center lg:justify-start">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-emerald-500"></span>Answer Engine Ready</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-blue-500"></span>AI‑Website Assistant</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-blue-500"></span>Smart CRM Integration</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-rose-500"></span>AEO vs SEO</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-rose-500"></span>Avatars</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-rose-500"></span>AI Assistant</span>
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-rose-500"></span>Smart CRM</span>
                 <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-rose-500"></span>Technical Setup</span>
               </div>
 
@@ -281,10 +282,9 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* What You’ll Master (and Take Home) */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-12 md:py-20 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <div className="inline-flex items-center gap-2 text-[11px] md:text-xs text-gray-500 mb-2">Composite learning path</div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900">What You’ll Master <span className="text-gray-500">(and Take Home)</span></h2>
             <p className="text-gray-600 mt-2">A comprehensive system for AI‑powered discovery with a simple technical foundation.</p>
           </div>
@@ -381,7 +381,7 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* What We’ll Build Live */}
-      <section className="py-16 md:py-24 bg-white">
+      <section className="py-12 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">What We’ll Build Live</h2>
           <div className="grid md:grid-cols-2 gap-4 md:gap-8">
@@ -414,7 +414,7 @@ const AIAutomationWorkshopAustin = () => {
       {/* Agenda removed per request */}
 
       {/* Pricing Tiers */}
-      <section id="pricing" className="py-16 md:py-24 bg-white">
+      <section id="pricing" className="py-12 md:py-20 bg-gray-50">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-8">Pricing</h2>
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
@@ -448,87 +448,8 @@ const AIAutomationWorkshopAustin = () => {
       
 
       {/* FAQs (reuse site component) */}
-      {/* Comparison: Why Traditional SEO Falls Short */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-10 md:mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-              Why <span className="text-red-600">Traditional SEO</span> Falls Short in the <span className="text-blue-600">AI Era</span>
-            </h2>
-            <p className="text-gray-600 mt-2">The game has changed. Here’s how AEO/GEO wins.</p>
-          </div>
-          <div className="space-y-6">
-            {/* Row: Search Strategy */}
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                <div className="text-sm font-semibold text-gray-500 mb-2">Traditional SEO</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Search Strategy</h3>
-                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
-                  <li>Optimizes for rankings, crawlers, and keyword volume</li>
-                  <li>Long-form posts, generic tips</li>
-                  <li>KPIs: positions and sessions</li>
-                </ul>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-green-200 ring-1 ring-green-200">
-                <div className="text-sm font-semibold text-green-600 mb-2">AEO/GEO Strategy</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Optimizes for answers</h3>
-                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
-                  <li>Q→A→Proof→Action briefs; entity cues; FAQ stacks</li>
-                  <li>First‑party evidence (data, screenshots, SOPs)</li>
-                  <li>KPIs: mentions in AI answers, assisted conversions</li>
-                </ul>
-              </div>
-            </div>
-            {/* Row: Content Structure */}
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                <div className="text-sm font-semibold text-gray-500 mb-2">Keyword‑Focused Pages</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Content Structure</h3>
-                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
-                  <li>Writes to keywords rather than user questions</li>
-                  <li>Thin proof and weak trust signals</li>
-                  <li>Backlink‑dependent</li>
-                </ul>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-green-200 ring-1 ring-green-200">
-                <div className="text-sm font-semibold text-green-600 mb-2">Q→A→Proof→Action Format</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">What Works Now</h3>
-                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
-                  <li>Pages structured like people actually ask</li>
-                  <li>Proof: screenshots, data, checklists</li>
-                  <li>Entity and FAQ cues models can cite</li>
-                </ul>
-              </div>
-            </div>
-            {/* Row: Lead Generation */}
-            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-200">
-                <div className="text-sm font-semibold text-gray-500 mb-2">Basic Contact Forms</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Lead Generation</h3>
-                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
-                  <li>Static forms with slow follow‑up</li>
-                  <li>Manual research and next steps</li>
-                </ul>
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-green-200 ring-1 ring-green-200">
-                <div className="text-sm font-semibold text-green-600 mb-2">Smart CRM Integration</div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">What Wins</h3>
-                <ul className="text-gray-600 text-sm space-y-1 list-disc list-inside">
-                  <li>Qualified routing, summaries, next‑best‑actions</li>
-                  <li>Fast auto‑reply assistant</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="mt-8 text-center">
-            <div className="inline-flex items-center gap-2 text-white bg-red-600 rounded-full px-4 py-2 text-sm shadow-sm">
-              ⚡ The bottom line: AEO/GEO lifts visibility and lead quality.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-12 md:py-16 bg-white">
+      
+      <section className="py-8 md:py-12 bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FAQ />
         </div>
