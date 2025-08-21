@@ -277,7 +277,7 @@ const AIAutomationWorkshopAustin = () => {
           {/* Top row: Website (left), Discoverability (center larger), CRM (right) */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {/* Website */}
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
@@ -297,29 +297,35 @@ const AIAutomationWorkshopAustin = () => {
               </div>
             </div>
 
-            {/* Discoverability (center, larger) */}
-            <div className="md:scale-105 md:shadow-md bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col">
+            {/* Discoverability (center, larger with highlight) */}
+            <div className="relative group">
+              <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-red-200/50 to-orange-200/50 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative md:scale-105 bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Target className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900">Discoverability (AEO/GEO vs SEO)</h3>
               <div className="border-t border-gray-100 my-3"></div>
               <div className="text-sm md:text-base text-gray-700 space-y-2">
+                <p className="text-gray-600">AI results now answer directly, blend sponsored picks into the answer, and drive shopping with AI assistants. If your content isn’t structured the way models select and cite, you don’t get shown.</p>
                 <div className="font-semibold text-gray-900">Learn</div>
                 <ul className="list-disc list-inside text-gray-600">
                   <li>Q→A→Proof→Action page structure</li>
                   <li>Entity cues + FAQ stacks LLMs cite</li>
+                  <li>Model‑friendly copy and data that AIs prefer to surface</li>
                 </ul>
                 <div className="border-t border-gray-100 my-3"></div>
                 <div className="font-semibold text-gray-900">Take home</div>
                 <ul className="list-disc list-inside text-gray-600">
                   <li>AEO/GEO page template + mini FAQ pack</li>
+                  <li>Checklist to align images, titles, and data for AI picks</li>
                 </ul>
+              </div>
               </div>
             </div>
 
             {/* CRM Copilot */}
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <User className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
@@ -342,7 +348,7 @@ const AIAutomationWorkshopAustin = () => {
 
           {/* Technical setup (full width, short) */}
           <div className="mt-6 md:mt-8">
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200">
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
               <div className="flex items-center gap-3">
                 <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl">
                   <Settings className="w-5 h-5 text-orange-600" />
