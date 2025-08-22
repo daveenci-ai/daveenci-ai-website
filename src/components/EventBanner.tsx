@@ -39,59 +39,64 @@ const EventBanner = () => {
 
   return (
     <div className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white sticky top-16 z-40">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
-            {/* Event Icon */}
-            <div className="flex-shrink-0">
-              <div className="flex items-center justify-center w-8 h-8 bg-white/20 rounded-full">
-                <Calendar className="w-4 h-4 text-white" />
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-3">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center space-x-1 sm:space-x-3 min-w-0 flex-1">
+            {/* Event Icon - Hidden on small screens for space */}
+            <div className="hidden sm:flex flex-shrink-0">
+              <div className="flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 bg-white/20 rounded-full">
+                <Calendar className="w-3 h-3 sm:w-4 sm:h-4 text-white" />
               </div>
             </div>
             
             {/* Event Details */}
             <div className="min-w-0 flex-1">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
-                <div className="flex items-center space-x-2 mb-1 sm:mb-0">
-                  <span className="font-semibold text-sm sm:text-base tracking-tight">
-                    🚀 Master AEO: The Future of Search — Aug 28
+              <div className="flex flex-col space-y-0.5 sm:space-y-0 sm:flex-row sm:items-center sm:space-x-3">
+                {/* Main Event Title - Mobile Optimized */}
+                <div className="flex items-center">
+                  <span className="font-semibold text-xs sm:text-sm md:text-base tracking-tight leading-tight">
+                    <span className="sm:hidden">🚀 AEO Workshop — Aug 28</span>
+                    <span className="hidden sm:inline">🚀 Master AEO: Future of Search — Aug 28</span>
                   </span>
                 </div>
-                <div className="flex items-center space-x-3 text-xs sm:text-sm text-red-100">
+                
+                {/* Event Details - Condensed for Mobile */}
+                <div className="flex items-center space-x-2 sm:space-x-3 text-xs sm:text-sm text-red-100">
                   <div className="flex items-center space-x-1">
-                    <Calendar className="w-3 h-3" />
-                    <span>Aug 28, 2025</span>
+                    <Calendar className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" />
+                    <span className="whitespace-nowrap">Aug 28</span>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Clock className="w-3 h-3" />
-                    <span>2:30 PM CT</span>
+                    <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" />
+                    <span className="whitespace-nowrap">2:30 PM CT</span>
                   </div>
-                  <span className="hidden sm:inline">•</span>
-                  <span className="hidden sm:inline opacity-90">Master AEO vs Traditional SEO</span>
+                  <span className="hidden md:inline">•</span>
+                  <span className="hidden md:inline opacity-90">Master AEO vs SEO</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* CTA and Close Button */}
-          <div className="flex items-center space-x-2 ml-2">
+          {/* CTA and Close Button - Mobile Optimized */}
+          <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
             <Button 
               asChild
               size="sm"
-              className="bg-white text-red-700 hover:bg-red-50 font-semibold text-xs sm:text-sm px-3 py-1 h-8 transition-colors shadow-sm"
+              className="bg-white text-red-700 hover:bg-red-50 font-semibold text-xs sm:text-sm px-2 sm:px-3 py-1 h-7 sm:h-8 transition-colors shadow-sm min-w-0 whitespace-nowrap"
             >
               <Link to="/events/ai-automation-workshop-austin">
-                Get Tickets
-                <ArrowRight className="ml-1 h-3 w-3" />
+                <span className="sm:hidden">Tickets</span>
+                <span className="hidden sm:inline">Get Tickets</span>
+                <ArrowRight className="ml-1 h-2.5 w-2.5 sm:h-3 sm:w-3 flex-shrink-0" />
               </Link>
             </Button>
             
             <button
               onClick={dismissBanner}
-              className="p-1 hover:bg-white/20 rounded-full transition-colors flex-shrink-0"
+              className="p-1 sm:p-1.5 hover:bg-white/20 rounded-full transition-colors flex-shrink-0 min-h-[28px] min-w-[28px] sm:min-h-[32px] sm:min-w-[32px] touch-manipulation"
               aria-label="Close banner"
             >
-              <X className="h-4 w-4 text-white" />
+              <X className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
             </button>
           </div>
         </div>

@@ -132,67 +132,67 @@ const AIAutomationWorkshopAustin = () => {
               </div>
 
             {/* Main Headline */}
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
-                Master AEO: The Future of Search <br /><span className="text-red-600">vs. Traditional SEO</span>
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
+                Master AEO: The Future of Search <br className="hidden sm:block" /><span className="text-red-600">vs. Traditional SEO</span>
               </h1>
 
             {/* Sub-Headline */}
-              <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-5">
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-4 sm:mb-5">
                 Unlock the power of AI-driven answer engines. Learn how to optimize your content for AEO and get a head start on the future of search marketing.
               </p>
 
               {/* Chips */}
-              <div className="flex flex-wrap gap-2 mb-5 justify-center lg:justify-start">
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-100 text-red-800 border border-red-200 text-xs shadow-sm font-semibold"><span className="w-2 h-2 rounded-full bg-red-600"></span>AEO Mastery</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-blue-500"></span>AI Search Optimization</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-green-500"></span>Answer Engine Strategy</span>
-                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-xs shadow-sm"><span className="w-2 h-2 rounded-full bg-purple-500"></span>Future-Proof Marketing</span>
+              <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5 justify-center lg:justify-start">
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-red-100 text-red-800 border border-red-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-600"></span>AEO Mastery</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500"></span>AI Search Optimization</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500"></span>Answer Engine Strategy</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-500"></span>Future-Proof Marketing</span>
               </div>
 
               {/* Countdown Timer */}
-              <div className="flex lg:justify-start justify-center space-x-2 md:space-x-4 mb-6 md:mb-8">
+              <div className="flex lg:justify-start justify-center space-x-1.5 sm:space-x-2 md:space-x-4 mb-6 md:mb-8">
               {Object.entries(timeLeft).map(([unit, value]) => (
-                <div key={unit} className="text-center bg-white rounded-lg shadow-md p-2 md:p-4 min-w-[60px] md:min-w-[80px]">
-                  <div className="text-xl md:text-3xl font-bold text-gray-900">{value.toString().padStart(2, '0')}</div>
-                  <div className="text-xs md:text-sm text-gray-600 capitalize">{unit}</div>
+                <div key={unit} className="text-center bg-white rounded-lg shadow-md p-2 sm:p-3 md:p-4 min-w-[50px] sm:min-w-[60px] md:min-w-[80px]">
+                  <div className="text-lg sm:text-xl md:text-3xl font-bold text-gray-900">{value.toString().padStart(2, '0')}</div>
+                  <div className="text-[10px] sm:text-xs md:text-sm text-gray-600 capitalize">{unit}</div>
                 </div>
               ))}
             </div>
 
               {/* Live/Trust badges */}
-              <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-2 md:gap-3 mb-6 md:mb-8">
-                <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200">🔴 Live online event</span>
-                <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200">🎥 Recording included</span>
-                <span className="inline-flex items-center gap-2 text-xs md:text-sm px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200">🧰 Templates provided</span>
+              <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-1.5 sm:gap-2 md:gap-3 mb-6 md:mb-8">
+                <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 py-1 rounded-full bg-red-50 text-red-700 border border-red-200 font-medium">🔴 Live online event</span>
+                <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200 font-medium">🎥 Recording included</span>
+                <span className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs md:text-sm px-2.5 sm:px-3 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-medium">🧰 Templates provided</span>
               </div>
 
               {/* Primary + Secondary CTAs */}
-              <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-3 md:gap-4 mb-6 md:mb-6">
+              <div className="flex flex-col sm:flex-row items-center lg:justify-start justify-center gap-3 md:gap-4 mb-4 sm:mb-6">
               <Button
                 onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
-                className="px-6 md:px-8 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
+                className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
               >
                 Become an AEO Master
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </Button>
               <Button
                 variant="outline"
                 onClick={() => setIsSyllabusOpen(true)}
-                className="px-6 md:px-8 py-3 md:py-4 border border-gray-300 bg-white hover:bg-gray-50 text-gray-900 text-base md:text-lg font-semibold rounded-xl shadow-sm"
+                className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-3 md:py-4 border border-gray-300 bg-white hover:bg-gray-50 text-gray-900 text-sm sm:text-base md:text-lg font-semibold rounded-xl shadow-sm"
               >
-                <BookOpen className="w-4 h-4 mr-2" /> Get AEO Syllabus
+                <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" /> Get AEO Syllabus
               </Button>
               </div>
 
               
 
               {/* Event Perks */}
-              <div className="flex flex-col md:flex-row md:flex-wrap lg:justify-start justify-center items-center gap-3 text-gray-700 text-sm md:text-base">
-                <div className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Live online workshop</div>
-                <div className="hidden md:block text-gray-300">•</div>
-                <div className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Recording included</div>
-                <div className="hidden md:block text-gray-300">•</div>
-                <div className="inline-flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Interactive Q&A</div>
+              <div className="flex flex-col sm:flex-row sm:flex-wrap lg:justify-start justify-center items-center gap-2 sm:gap-3 text-gray-700 text-xs sm:text-sm md:text-base">
+                <div className="inline-flex items-center gap-1.5 sm:gap-2"><span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Live online workshop</div>
+                <div className="hidden sm:block text-gray-300">•</div>
+                <div className="inline-flex items-center gap-1.5 sm:gap-2"><span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Recording included</div>
+                <div className="hidden sm:block text-gray-300">•</div>
+                <div className="inline-flex items-center gap-1.5 sm:gap-2"><span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Interactive Q&A</div>
               </div>
             </div>
 
@@ -212,11 +212,11 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* What You'll Master (and Take Home) */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-white border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Master AEO: <span className="text-red-600">Future-Proof Your Marketing</span></h2>
-            <p className="text-lg text-gray-600 mt-2">Learn the complete AEO system that positions you ahead of the competition in AI-driven search.</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Master AEO: <span className="text-red-600">Future-Proof Your Marketing</span></h2>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Learn the complete AEO system that positions you ahead of the competition in AI-driven search.</p>
           </div>
 
           {/* Top row: Website (left), Discoverability (center larger), CRM (right) */}
@@ -321,11 +321,11 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* What We'll Build Live */}
-      <section className="py-16 md:py-20 bg-gray-50">
+      <section className="py-16 md:py-20 bg-gray-50 border-t border-gray-200">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What We'll Build Live</h2>
-            <p className="text-lg text-gray-600">Live demonstrations of real implementations you can use immediately.</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">What We'll Build Live</h2>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">Live demonstrations of real implementations you can use immediately.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
@@ -355,16 +355,16 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* Meet Your Experts Section */}
-      <section className="py-16 md:py-20 bg-gray-50">
+      <section className="py-16 md:py-20 bg-white border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Meet Your <span className="text-red-600">Experts</span>
             </h2>
-            <p className="text-lg text-gray-600">Learn from experienced practitioners who've built these systems.</p>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">Learn from experienced practitioners who've built these systems.</p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
             {/* Astrid */}
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
               <div className="mb-6">
@@ -389,8 +389,8 @@ const AIAutomationWorkshopAustin = () => {
                 />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Anton Osipov</h3>
-              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & CTO, DaVeenci.ai</p>
-              <p className="text-sm md:text-base text-gray-700 leading-relaxed">The principal architect behind the technology. Anton specializes in building robust discoverability systems and the technical infrastructure required to implement and scale AI-driven marketing.</p>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & CTO, DaVeenci.ai |<br />Lead Technical Architect</p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">The principal architect of the technology, Anton specializes in building robust discoverability systems and the technical infrastructure required for modern AI-driven marketing and scalable growth.</p>
             </div>
 
             {/* Federico */}
@@ -404,8 +404,8 @@ const AIAutomationWorkshopAustin = () => {
                 {/* Note: Professional headshot needed for Federico Lopez */}
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Federico Lopez</h3>
-              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Search & Content Architect</p>
-              <p className="text-sm md:text-base text-gray-700 leading-relaxed">A veteran search expert who bridges the gap between traditional SEO and the future of AI-driven search. Federico architects content strategies that satisfy both search engine algorithms and human intent.</p>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Search & Content Architect |<br />SEO & AEO Specialist</p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">A veteran search expert bridging the gap between traditional SEO and AI-driven search. He architects content strategies that satisfy both search engine algorithms and true human intent.</p>
             </div>
           </div>
         </div>
@@ -415,13 +415,13 @@ const AIAutomationWorkshopAustin = () => {
       <section id="pricing" className="py-16 md:py-20 bg-white border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Workshop <span className="text-red-600">Investment</span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">Choose your ticket and secure your spot in the future of search marketing</p>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">Choose your ticket and secure your spot in the future of search marketing</p>
           </div>
           
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-7xl mx-auto">
             {/* Regular Ticket */}
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl md:rounded-2xl p-8 md:p-10 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1">
               <div className="text-center">
@@ -483,13 +483,13 @@ const AIAutomationWorkshopAustin = () => {
 
 
       {/* Why Traditional SEO Falls Short in the AI Era */}
-      <section className="py-16 md:py-20 bg-gray-50">
+      <section className="py-16 md:py-20 bg-gray-50 border-t border-gray-200">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Why Traditional SEO Falls Short in the <span className="text-red-600">AI Era</span>
             </h2>
-            <p className="text-lg text-gray-600">The search landscape has fundamentally changed. Here's what you need to know.</p>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">The search landscape has fundamentally changed. Here's what you need to know.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12">
@@ -541,14 +541,14 @@ const AIAutomationWorkshopAustin = () => {
           </div>
 
           <div className="text-center mt-8 md:mt-12">
-            <p className="text-lg text-gray-600 mb-8">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed">
               AI now provides direct answers, integrates sponsored content, and uses virtual shopping assistants. 
               Success isn't about having the best product—it's about being optimized for how AI selects and presents information.
             </p>
             <div className="flex justify-center">
-              <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">
+              <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-5 sm:px-6 md:px-8 py-3 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">
                 Master AEO: Secure Your Spot
-                <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
+                <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </Button>
             </div>
           </div>
@@ -556,21 +556,21 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-white border-t border-gray-100">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <FAQ />
         </div>
       </section>
 
       {/* Event Details Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative border-t border-gray-200">
         <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Event <span className="text-red-600">Details</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-600">
+            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               Everything you need to know about the workshop
             </p>
           </div>
@@ -678,18 +678,18 @@ const AIAutomationWorkshopAustin = () => {
       </Dialog>
 
       {/* Final CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-red-600 via-red-700 to-red-800 relative">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-red-600 via-red-700 to-red-800 relative border-t border-red-500">
         <div className="absolute inset-0 bg-grid opacity-10"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <div className="inline-flex items-center gap-2 text-xs bg-white/20 text-white px-3 py-1 rounded-full mb-4 shadow-sm">
+            <div className="inline-flex items-center gap-2 text-[10px] sm:text-xs bg-white/20 text-white px-2.5 sm:px-3 py-1 rounded-full mb-4 shadow-sm">
               ⏰ Limited Time Offer
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
               Future-Proof Your Marketing: <br className="hidden sm:block" />
               <span className="text-red-100">Unlock the Future of Search with AEO</span>
             </h2>
-            <p className="text-lg text-red-100 max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-sm sm:text-base md:text-lg text-red-100 max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8">
               Join the businesses already winning with AI‑powered search. Master AEO and position yourself ahead of the competition.
             </p>
 

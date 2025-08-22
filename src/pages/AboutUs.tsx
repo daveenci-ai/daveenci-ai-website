@@ -93,8 +93,8 @@ const AboutUs = () => {
             </div>
             <div className="relative">
               <img 
-                src="/placeholder.svg"
-                alt="Team collaboration"
+                src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_us.png"
+                alt="DaVeenci team story - Our journey from vision to reality"
                 className="rounded-2xl shadow-xl w-full"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl"></div>
