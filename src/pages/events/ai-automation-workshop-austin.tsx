@@ -199,7 +199,7 @@ const AIAutomationWorkshopAustin = () => {
             {/* Right visual */}
             <div className="lg:col-span-1 order-1 lg:order-2">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
-                <img src="https://picsum.photos/seed/aeo/1200/700" alt="Workshop preview" className="w-full h-auto" />
+                <img src="https://picsum.photos/seed/aeo/800/800" alt="Workshop preview" className="w-full h-auto aspect-square object-cover" />
                 <div className="absolute top-3 right-3 text-[11px] bg-red-600 text-white px-3 py-1 rounded-full shadow">🔥 Trending</div>
                 <div className="absolute bottom-4 left-4 bg-white text-gray-900 px-4 py-2 rounded-xl shadow">
                   <div className="text-sm font-semibold">Beyond SEO</div>
@@ -226,8 +226,8 @@ const AIAutomationWorkshopAustin = () => {
             {/* Website */}
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-md relative">
               <div className="absolute top-4 right-4 text-[11px] bg-blue-100 text-blue-700 px-2 py-1 rounded-full border border-blue-200 font-semibold">Attract</div>
-              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
-                <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl md:rounded-2xl mb-4">
+                <Globe className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900">AEO-Optimized Website</h3>
               <p className="text-sm text-gray-600 mt-1">Build a website structure optimized for both traditional SEO and AI-powered answer engines.</p>
@@ -270,8 +270,8 @@ const AIAutomationWorkshopAustin = () => {
             {/* CRM Copilot */}
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-md relative">
               <div className="absolute top-4 right-4 text-[11px] bg-green-100 text-green-700 px-2 py-1 rounded-full border border-green-200 font-semibold">Convert</div>
-              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl md:rounded-2xl mb-4">
-                <User className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
+              <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl md:rounded-2xl mb-4">
+                <User className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900">AI CRM</h3>
               <p className="text-sm text-gray-600 mt-1">Supporting systems to convert your AEO-driven traffic into customers.</p>
@@ -291,8 +291,8 @@ const AIAutomationWorkshopAustin = () => {
           <div className="mt-6 md:mt-8">
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
               <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl">
-                  <Settings className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+                <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl md:rounded-2xl">
+                  <Settings className="w-6 h-6 md:w-8 md:h-8 text-purple-600" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900">Technical Setup</h3>
