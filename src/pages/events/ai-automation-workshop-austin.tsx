@@ -109,7 +109,7 @@ const AIAutomationWorkshopAustin = () => {
       <Navigation />
       {/* Site-wide banner under header only on this page */}
       <div className="w-full bg-red-600 text-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-2 flex items-center gap-2 md:gap-4 text-[13px] md:text-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-2 md:gap-4 text-[13px] md:text-sm">
           <span className="font-semibold tracking-tight">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
           <span className="opacity-90 hidden sm:inline">•</span>
           <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
@@ -120,9 +120,9 @@ const AIAutomationWorkshopAustin = () => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-16 md:pt-24 pb-12 md:pb-16 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+      <section className="relative py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50">
         <div className="absolute inset-0 bg-grid"></div>
-        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 items-center">
             {/* Pre-Header Announcement */}
             <div className="lg:col-span-1 order-2 lg:order-1 text-center lg:text-left">
@@ -212,8 +212,10 @@ const AIAutomationWorkshopAustin = () => {
       </section>
 
       {/* What You'll Master (and Take Home) */}
-      <section className="py-16 md:py-20 bg-white border-t border-gray-100">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="py-16 md:py-20 lg:py-24 bg-white border-t-2 border-gray-100 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-50/30"></div>
+        <div className="relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Master AEO: <span className="text-red-600">Future-Proof Your Marketing</span></h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Learn the complete AEO system that positions you ahead of the competition in AI-driven search.</p>
@@ -318,11 +320,14 @@ const AIAutomationWorkshopAustin = () => {
           </div>
 
         </div>
+        </div>
       </section>
 
       {/* What We'll Build Live */}
-      <section className="py-16 md:py-20 bg-gray-50 border-t border-gray-200">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="py-16 md:py-20 lg:py-24 bg-gray-50 border-t-2 border-gray-200 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100/30"></div>
+        <div className="relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">What We'll Build Live</h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">Live demonstrations of real implementations you can use immediately.</p>
@@ -352,11 +357,14 @@ const AIAutomationWorkshopAustin = () => {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       {/* Meet Your Experts Section */}
-      <section className="py-16 md:py-20 bg-white border-t border-gray-100">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="py-16 md:py-20 lg:py-24 bg-white border-t-2 border-gray-100 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-50/20"></div>
+        <div className="relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Meet Your <span className="text-red-600">Experts</span>
@@ -409,11 +417,14 @@ const AIAutomationWorkshopAustin = () => {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       {/* Workshop Investment Section */}
-      <section id="pricing" className="py-16 md:py-20 bg-white border-t border-gray-100">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section id="pricing" className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 to-white border-t-2 border-gray-100 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white"></div>
+        <div className="relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Workshop <span className="text-red-600">Investment</span>
@@ -424,15 +435,15 @@ const AIAutomationWorkshopAustin = () => {
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-7xl mx-auto">
             {/* Regular Ticket */}
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-xl md:rounded-2xl p-8 md:p-10 border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200 hover:-translate-y-1">
-              <div className="text-center">
-                <div className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Standard Ticket</div>
-                <div className="text-3xl md:text-4xl font-extrabold text-red-600 mb-4">$44.95</div>
-                <div className="text-base md:text-lg text-gray-700 mb-8 space-y-2">
-                  <div>✓ Live workshop access</div>
-                  <div>✓ Recording & slides</div>
-                  <div>✓ AEO templates & prompts</div>
-                  <div>✓ Implementation checklists</div>
-                </div>
+                          <div className="text-center">
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2">Standard Ticket</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-red-600 mb-4 sm:mb-6">$44.95</div>
+              <div className="text-sm sm:text-base md:text-lg text-gray-700 mb-6 sm:mb-8 space-y-1.5 sm:space-y-2">
+                <div>✓ Live workshop access</div>
+                <div>✓ Recording & slides</div>
+                <div>✓ AEO templates & prompts</div>
+                <div>✓ Implementation checklists</div>
+              </div>
                 <div className="stripe-buy-button-wrapper">
                   <stripe-buy-button
                     buy-button-id="buy_btn_1RyhFrQd3PdwR2cKEr1N1IJ7"
@@ -448,15 +459,15 @@ const AIAutomationWorkshopAustin = () => {
               <div className="absolute top-0 right-0 bg-red-600 text-white text-sm px-3 py-2 rounded-bl-lg font-bold">
                 POPULAR
               </div>
-              <div className="text-center">
-                <div className="text-xl md:text-2xl font-bold text-gray-900 mb-2">VIP Bundle</div>
-                <div className="text-3xl md:text-4xl font-extrabold text-red-600 mb-4">$89.95</div>
-                <div className="text-base md:text-lg text-gray-700 mb-8 space-y-2">
-                  <div>✓ Everything in Standard</div>
-                  <div>✓ Private 60-min consultation</div>
-                  <div>✓ 10% off future services</div>
-                  <div>✓ Priority support access</div>
-                </div>
+                          <div className="text-center">
+              <div className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-2">VIP Bundle</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-red-600 mb-4 sm:mb-6">$89.95</div>
+              <div className="text-sm sm:text-base md:text-lg text-gray-700 mb-6 sm:mb-8 space-y-1.5 sm:space-y-2">
+                <div>✓ Everything in Standard</div>
+                <div>✓ Private 60-min consultation</div>
+                <div>✓ 10% off future services</div>
+                <div>✓ Priority support access</div>
+              </div>
                 <div className="stripe-buy-button-wrapper">
                   <stripe-buy-button
                     buy-button-id="buy_btn_1RyhCvQd3PdwR2cK6go7eRgQ"
@@ -468,23 +479,24 @@ const AIAutomationWorkshopAustin = () => {
             </div>
           </div>
           
-          <div className="text-center mt-10">
-            <div className="inline-flex items-center gap-4 text-base text-gray-600">
+          <div className="text-center mt-8 sm:mt-10">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm sm:text-base text-gray-600">
               <span className="flex items-center gap-2">
                 🔒 <span>Secure checkout by Stripe</span>
               </span>
-              <span>•</span>
+              <span className="hidden sm:inline">•</span>
               <span>Apple Pay & Google Pay accepted</span>
             </div>
           </div>
         </div>
+        </div>
       </section>
 
-
-
       {/* Why Traditional SEO Falls Short in the AI Era */}
-      <section className="py-16 md:py-20 bg-gray-50 border-t border-gray-200">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="py-16 md:py-20 lg:py-24 bg-gray-50 border-t-2 border-gray-200 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50 to-gray-100/30"></div>
+        <div className="relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Why Traditional SEO Falls Short in the <span className="text-red-600">AI Era</span>
@@ -553,17 +565,21 @@ const AIAutomationWorkshopAustin = () => {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 md:py-20 bg-white border-t border-gray-100">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <section className="py-16 md:py-20 lg:py-24 bg-white border-t-2 border-gray-100 relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-white to-gray-50/20"></div>
+        <div className="relative z-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <FAQ />
+        </div>
         </div>
       </section>
 
       {/* Event Details Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative border-t border-gray-200">
+      <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-100 via-red-100/40 to-orange-100/30 relative border-t-2 border-gray-200">
         <div className="absolute inset-0 bg-grid"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-16">
@@ -577,60 +593,60 @@ const AIAutomationWorkshopAustin = () => {
 
           <div className="grid lg:grid-cols-2 gap-6 md:gap-12">
             {/* Workshop Information */}
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-6 md:mb-8">Workshop Information</h3>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 shadow-lg border border-gray-200">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-6 md:mb-8">Workshop Information</h3>
               
-              <div className="space-y-4 md:space-y-6">
-                <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <Calendar className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
+              <div className="space-y-3 sm:space-y-4 md:space-y-6">
+                <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <Calendar className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 text-sm md:text-base">August 28, 2025</div>
-                    <div className="text-gray-600 text-sm md:text-base">Thursday</div>
+                    <div className="text-gray-600 text-xs sm:text-sm md:text-base">Thursday</div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <Clock className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
+                <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">11:00 AM EST (10:00 AM CST)</div>
-                    <div className="text-gray-600 text-sm md:text-base">Duration: 1.5 hours</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">2:30 PM - 4:30 PM CT</div>
+                    <div className="text-gray-600 text-xs sm:text-sm md:text-base">Duration: 2 hours</div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <Globe className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
+                <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <Globe className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">Live Online (Zoom)</div>
-                    <div className="text-gray-600 text-sm md:text-base">Join from anywhere • Link sent after purchase</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">Live Online Workshop</div>
+                    <div className="text-gray-600 text-xs sm:text-sm md:text-base">Join from anywhere • Link sent after purchase</div>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-3 md:space-x-4">
-                  <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <BookOpen className="w-5 h-5 md:w-6 md:h-6 text-red-600" />
+                <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4">
+                  <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
+                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">Demos + Recording Available</div>
-                    <div className="text-gray-600 text-sm md:text-base">Access right after the presentation</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">Recording Available</div>
+                    <div className="text-gray-600 text-xs sm:text-sm md:text-base">Access right after the workshop</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* What You Get */}
-            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-lg border border-gray-200">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4 md:mb-6">What You Get</h3>
-              <ul className="grid sm:grid-cols-2 gap-3 text-gray-700 text-sm md:text-base">
-                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />AEO/GEO page template + mini FAQ pack</li>
-                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />CRM Copilot prompt pack</li>
-                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />Setup checklist + working checkout flow</li>
-                <li className="flex items-center gap-2"><ArrowRight className="w-4 h-4 text-red-600" />Recording and slides within 24 hours</li>
+            <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 shadow-lg border border-gray-200">
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">What You Get</h3>
+              <ul className="grid sm:grid-cols-2 gap-2 sm:gap-3 text-gray-700 text-xs sm:text-sm md:text-base">
+                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />AEO templates & prompts</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />Implementation checklists</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />Q&A framework guide</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />Recording & slides</li>
               </ul>
             </div>
           </div>
@@ -678,7 +694,7 @@ const AIAutomationWorkshopAustin = () => {
       </Dialog>
 
       {/* Final CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-red-600 via-red-700 to-red-800 relative border-t border-red-500">
+      <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-red-600 via-red-700 to-red-800 relative border-t-4 border-red-500">
         <div className="absolute inset-0 bg-grid opacity-10"></div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
