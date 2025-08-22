@@ -223,7 +223,7 @@ const AIAutomationWorkshopAustin = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
             {/* Website */}
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-md relative">
-              <div className="absolute top-4 right-4 text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">Website</div>
+              <div className="absolute top-4 right-4 text-[11px] bg-blue-100 text-blue-700 px-2 py-1 rounded-full border border-blue-200 font-semibold">Attract</div>
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
@@ -244,7 +244,7 @@ const AIAutomationWorkshopAustin = () => {
             <div className="relative group">
               <div className="absolute -inset-3 rounded-3xl bg-gradient-to-r from-red-400/70 to-orange-400/70 blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
               <div className="relative md:scale-115 bg-gradient-to-br from-red-50 to-orange-50 rounded-xl md:rounded-3xl p-8 md:p-10 shadow-2xl border-3 border-red-300 flex flex-col transition-transform duration-300 hover:-translate-y-3 hover:shadow-3xl">
-                <div className="absolute top-4 right-4 text-[11px] bg-red-600 text-white px-3 py-1 rounded-full font-bold shadow-sm">CORE FOCUS</div>
+                <div className="absolute top-4 right-4 text-[11px] bg-orange-100 text-orange-700 px-2 py-1 rounded-full border border-orange-200 font-semibold">Engage</div>
                 <div className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl md:rounded-3xl mb-6 shadow-lg">
                   <Target className="w-8 h-8 md:w-10 md:h-10 text-white" />
                 </div>
@@ -267,7 +267,7 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* CRM Copilot */}
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 flex flex-col transition-transform duration-300 hover:-translate-y-1 hover:shadow-md relative">
-              <div className="absolute top-4 right-4 text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">AI CRM</div>
+              <div className="absolute top-4 right-4 text-[11px] bg-green-100 text-green-700 px-2 py-1 rounded-full border border-green-200 font-semibold">Convert</div>
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl md:rounded-2xl mb-4">
                 <User className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
               </div>
@@ -296,7 +296,7 @@ const AIAutomationWorkshopAustin = () => {
                   <h3 className="text-xl md:text-2xl font-bold text-gray-900">Technical Setup</h3>
                   <p className="text-sm text-gray-600 mt-1">Deployment, payment processing, and infrastructure fundamentals.</p>
                 </div>
-                <span className="text-[11px] bg-gray-100 text-gray-700 px-2 py-1 rounded-full border border-gray-200">Foundation</span>
+                <span className="text-[11px] bg-purple-100 text-purple-700 px-2 py-1 rounded-full border border-purple-200 font-semibold">Build</span>
               </div>
               <div className="border-t border-gray-100 mb-3"></div>
               <div className="text-sm md:text-base text-gray-700 space-y-2">
