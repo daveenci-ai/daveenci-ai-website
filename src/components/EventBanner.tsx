@@ -38,7 +38,7 @@ const EventBanner = () => {
   }
 
   return (
-    <div className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white relative">
+    <div className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white sticky top-16 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
