@@ -367,54 +367,45 @@ const AIAutomationWorkshopAustin = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
             {/* Astrid */}
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
-              <div className="relative inline-block mb-4">
+              <div className="mb-6">
                 <img 
                   src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png" 
                   alt="Astrid Abrahamyan"
-                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl mx-auto"
                 />
-                <div className="absolute -top-2 -right
-                -2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                  <span className="text-white text-lg">"</span>
-                </div>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Astrid Abrahamyan</h3>
-              <p className="text-sm md:text-base text-red-600 font-medium">Co-Founder & COO @ DaVeenci.ai | AI Ops for Energy Sector</p>
-              <p className="text-sm text-gray-700 mt-3">Helps teams ship practical automations that save time and compound results.</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Astrid Abrahamyan</h3>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & COO, DaVeenci.ai | Marketing Systems Strategist</p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">The strategist who connects advanced technology to tangible business outcomes. Astrid focuses on designing practical marketing automation systems that drive efficiency and measurable growth.</p>
             </div>
 
             {/* Anton */}
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
-              <div className="relative inline-block mb-4">
+              <div className="mb-6">
                 <img 
                   src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_anton.webp" 
                   alt="Anton Osipov"
-                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl mx-auto"
                 />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                  <span className="text-white text-lg">"</span>
-                </div>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Anton Osipov</h3>
-              <p className="text-sm md:text-base text-red-600 font-medium">Co-Founder & CTO @ DaVeenci.ai | AI Dev for Energy Sector</p>
-              <p className="text-sm text-gray-700 mt-3">Focuses on discoverability systems (AEO/GEO) and AI engineering for energy.</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Anton Osipov</h3>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & CTO, DaVeenci.ai</p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">The principal architect behind the technology. Anton specializes in building robust discoverability systems and the technical infrastructure required to implement and scale AI-driven marketing.</p>
             </div>
 
-            {/* Kiko */}
+            {/* Federico */}
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
-              <div className="relative inline-block mb-4">
+              <div className="mb-6">
                 <img 
                   src="/placeholder.svg" 
-                  alt="Federico Lopez (Kiko)"
-                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl"
+                  alt="Federico Lopez"
+                  className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl mx-auto"
                 />
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-600 rounded-full flex items-center justify-center">
-                  <span className="text-white text-lg">"</span>
-                </div>
+                {/* Note: Professional headshot needed for Federico Lopez */}
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900">Federico Lopez (Kiko)</h3>
-              <p className="text-sm md:text-base text-red-600 font-medium">🎯 Creative Strategist | Content Architect | UX Storyteller</p>
-              <p className="text-sm text-gray-700 mt-3">Emotional intelligence in action—making brands actually sound human.</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Federico Lopez</h3>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Search & Content Architect</p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">A veteran search expert who bridges the gap between traditional SEO and the future of AI-driven search. Federico architects content strategies that satisfy both search engine algorithms and human intent.</p>
             </div>
           </div>
         </div>
