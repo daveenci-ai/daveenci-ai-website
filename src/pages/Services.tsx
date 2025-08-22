@@ -41,6 +41,7 @@ const Services = () => {
     <div className="min-h-screen bg-white">
       <Navigation />
       <EventBanner />
+      <EventBanner />
       {/* Hero Section */}
       <section className="relative pt-32 pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
         <div className="absolute inset-0 bg-grid"></div>

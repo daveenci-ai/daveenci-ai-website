@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { X, Calendar, Clock, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
 const EventBanner = () => {
   // Dismissible event banner with localStorage
   const BANNER_STORAGE_KEY = 'eventBanner_austin_workshop_v2025';
   const [showBanner, setShowBanner] = useState(true);
+  const location = useLocation();
+
+  // Don't show banner on the workshop landing page itself
+  if (location.pathname === '/events/ai-automation-workshop-austin') {
+    return null;
+  }
 
   useEffect(() => {
     try {
@@ -48,7 +54,7 @@ const EventBanner = () => {
               <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4">
                 <div className="flex items-center space-x-2 mb-1 sm:mb-0">
                   <span className="font-semibold text-sm sm:text-base tracking-tight">
-                    🚀 AI Automation Workshop — Austin
+                    🚀 Master AEO: The Future of Search — Aug 28
                   </span>
                 </div>
                 <div className="flex items-center space-x-3 text-xs sm:text-sm text-red-100">
@@ -61,7 +67,7 @@ const EventBanner = () => {
                     <span>2:30 PM CT</span>
                   </div>
                   <span className="hidden sm:inline">•</span>
-                  <span className="hidden sm:inline opacity-90">Learn AEO/GEO vs SEO</span>
+                  <span className="hidden sm:inline opacity-90">Master AEO vs Traditional SEO</span>
                 </div>
               </div>
             </div>
@@ -75,7 +81,7 @@ const EventBanner = () => {
               className="bg-white text-red-700 hover:bg-red-50 font-semibold text-xs sm:text-sm px-3 py-1 h-8 transition-colors shadow-sm"
             >
               <Link to="/events/ai-automation-workshop-austin">
-                Reserve Seat
+                Get Tickets
                 <ArrowRight className="ml-1 h-3 w-3" />
               </Link>
             </Button>

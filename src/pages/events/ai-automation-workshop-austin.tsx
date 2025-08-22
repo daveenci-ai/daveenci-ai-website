@@ -216,14 +216,7 @@ const AIAutomationWorkshopAustin = () => {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Master AEO: <span className="text-red-600">Future-Proof Your Marketing</span></h2>
-            <p className="text-lg text-gray-600 mt-2 mb-6">Learn the complete AEO system that positions you ahead of the competition in AI-driven search.</p>
-            <Button 
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} 
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-md"
-            >
-              Start Your AEO Journey
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <p className="text-lg text-gray-600 mt-2">Learn the complete AEO system that positions you ahead of the competition in AI-driven search.</p>
           </div>
 
           {/* Top row: Website (left), Discoverability (center larger), CRM (right) */}
@@ -553,44 +546,18 @@ const AIAutomationWorkshopAustin = () => {
                   <span>First-party data, screenshots, and SOPs</span>
                 </li>
               </ul>
-              <div className="text-center">
-                <Button 
-                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} 
-                  className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 font-semibold rounded-lg transition-all duration-200 hover:scale-105 shadow-md"
-                >
-                  Unlock the Future of Search
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </div>
-            </div>
+                          </div>
           </div>
-          
-          <div className="text-center mt-12">
-            <Button 
-              onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} 
-              className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
-            >
-              Master AEO: Secure Your Spot
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-        </div>
 
           <div className="text-center mt-8 md:mt-12">
             <p className="text-lg text-gray-600 mb-8">
               AI now provides direct answers, integrates sponsored content, and uses virtual shopping assistants. 
               Success isn't about having the best product—it's about being optimized for how AI selects and presents information.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">
-                Become an AEO Master
+                Master AEO: Secure Your Spot
                 <ArrowRight className="ml-2 h-4 w-4 md:h-5 md:w-5" />
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} 
-                className="border-2 border-red-600 text-red-600 hover:bg-red-50 px-6 md:px-8 py-3 md:py-4 text-base md:text-lg font-semibold rounded-xl transition-all duration-200"
-              >
-                Future-Proof Your Marketing
               </Button>
             </div>
           </div>
@@ -734,15 +701,7 @@ const AIAutomationWorkshopAustin = () => {
             <p className="text-lg text-red-100 max-w-3xl mx-auto leading-relaxed mb-8">
               Join the businesses already winning with AI‑powered search. Master AEO and position yourself ahead of the competition.
             </p>
-            <div className="flex justify-center mb-8">
-              <Button 
-                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} 
-                className="bg-white text-red-600 hover:bg-red-50 font-bold px-8 py-4 text-lg rounded-xl transition-all duration-200 hover:scale-105 shadow-xl"
-              >
-                Reserve Your AEO Mastery Spot
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
+
           </div>
 
           <div className="grid lg:grid-cols-3 gap-6 md:gap-8 items-center">

@@ -95,13 +95,13 @@ const FAQ = () => {
 
         <div className="text-center mt-12">
           <p className="text-lg text-gray-600 mb-6">
-            Still have questions? We're here to help.
+            Ready to master the future of search marketing?
           </p>
           <button 
             className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
-            onClick={() => window.open('https://calendly.com/daveenci/astrid', '_blank')}
+            onClick={() => window.location.href = '/events/ai-automation-workshop-austin'}
           >
-            Contact Our Team
+            Join the AEO Workshop — Aug 28 🚀
           </button>
         </div>
       </div>
