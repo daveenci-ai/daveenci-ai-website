@@ -291,20 +291,21 @@ router.post('/register', formLimiter, async (req, res) => {
 
     const confirmationHtml = `
       <h2>Thank you for registering, ${firstName}!</h2>
-      <p>You're confirmed for our Discoverability Workshop (AEO/GEO vs SEO) in Austin.</p>
+      <p>You're confirmed for our AI for Business, Part 1: The Future of Content workshop.</p>
       
       <h3>Event Details:</h3>
       <ul>
-        <li><strong>Date:</strong> August 28, 2025</li>
-        <li><strong>Time:</strong> 2:30 PM - 4:30 PM CT</li>
-        <li><strong>Location:</strong> 9606 N Mopac Expy #400, Austin, TX 78759 (Roku on Mopac)</li>
+        <li><strong>Date:</strong> September 4, 2025</li>
+        <li><strong>Time:</strong> 11:30 AM - 12:30 PM CT</li>
+        <li><strong>Location:</strong> Live Online Workshop</li>
+        <li><strong>Zoom Link:</strong> <a href="https://us04web.zoom.us/j/72964508583?pwd=TIXgmugncn1hD1KPZ1ad5Hq1vefaCH.1&jst=2">Join Workshop</a></li>
       </ul>
       
       <p>What you'll learn:</p>
       <ul>
-        <li>Discoverability first: AEO/GEO vs SEO — structure pages for questions → answers → proof → action</li>
-        <li>Build entity pages and FAQ stacks that answer engines cite</li>
-        <li>CRM Copilot essentials (data hygiene, lead scoring, auto‑reply assistant)</li>
+        <li>AI-powered content creation and automation strategies</li>
+        <li>Business process optimization using AI tools</li>
+        <li>Practical implementation of AI systems for maximum ROI</li>
       </ul>
       
       <p>We'll send you reminders and resources before the event.</p>

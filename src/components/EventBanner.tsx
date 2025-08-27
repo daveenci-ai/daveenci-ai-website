@@ -55,8 +55,8 @@ const EventBanner = () => {
                 {/* Main Event Title - Mobile Optimized */}
                 <div className="flex items-center">
                   <span className="font-semibold text-xs sm:text-sm md:text-base tracking-tight leading-tight">
-                    <span className="sm:hidden">🚀 AEO Workshop — Aug 28</span>
-                    <span className="hidden sm:inline">🚀 Master AEO: Future of Search — Aug 28</span>
+                    <span className="sm:hidden">🚀 AI for Business — Sept 4</span>
+                    <span className="hidden sm:inline">🚀 AI for Business, Part 1: The Future of Content — Sept 4</span>
                   </span>
                 </div>
                 
@@ -64,14 +64,14 @@ const EventBanner = () => {
                 <div className="flex items-center space-x-2 sm:space-x-3 text-xs sm:text-sm text-red-100">
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" />
-                    <span className="whitespace-nowrap">Aug 28</span>
+                    <span className="whitespace-nowrap">Sept 4</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Clock className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" />
-                    <span className="whitespace-nowrap">2:30 PM CT</span>
+                    <span className="whitespace-nowrap">11:30 AM CT</span>
                   </div>
                   <span className="hidden md:inline">•</span>
-                  <span className="hidden md:inline opacity-90">Master AEO vs SEO</span>
+                  <span className="hidden md:inline opacity-90">AI for Business Workshop</span>
                 </div>
               </div>
             </div>

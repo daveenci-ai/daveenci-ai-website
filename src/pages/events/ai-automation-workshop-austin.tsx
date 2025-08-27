@@ -35,8 +35,8 @@ const AIAutomationWorkshopAustin = () => {
 
   // Countdown timer logic and Stripe buy button script loading
   useEffect(() => {
-    document.title = 'Be The Answer Buyers See First — Discoverability Workshop | DaVeenci';
-    const targetDate = new Date('2025-08-28T14:30:00-05:00'); // Aug 28, 2025, 2:30 PM CT
+    document.title = 'AI for Business, Part 1: The Future of Content | DaVeenci';
+    const targetDate = new Date('2025-09-04T11:30:00-05:00'); // Sept 4, 2025, 11:30 AM CT
 
     const timer = setInterval(() => {
       const now = new Date().getTime();
@@ -110,9 +110,9 @@ const AIAutomationWorkshopAustin = () => {
       {/* Site-wide banner under header only on this page */}
       <div className="w-full bg-red-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-2 md:gap-4 text-[13px] md:text-sm">
-          <span className="font-semibold tracking-tight">Discoverability Workshop (AEO/GEO vs SEO) — Austin</span>
+          <span className="font-semibold tracking-tight">AI for Business, Part 1: The Future of Content — Austin</span>
           <span className="opacity-90 hidden sm:inline">•</span>
-          <span className="opacity-90">Aug 28, 2025 • 2:30 PM CT</span>
+          <span className="opacity-90">Sept 4, 2025 • 11:30 AM CT</span>
           <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="ml-auto inline-flex items-center rounded-full bg-white text-red-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors">
             Get tickets
           </Button>
@@ -133,20 +133,20 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Main Headline */}
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-gray-900 leading-tight mb-4 md:mb-6">
-                Master AEO: The Future of Search <br className="hidden sm:block" /><span className="text-red-600">vs. Traditional SEO</span>
+                AI for Business, Part 1: <br className="hidden sm:block" /><span className="text-red-600">The Future of Content</span>
               </h1>
 
             {/* Sub-Headline */}
               <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-4 sm:mb-5">
-                Unlock the power of AI-driven answer engines. Learn how to optimize your content for AEO and get a head start on the future of search marketing.
+                Discover how AI is transforming content creation and business operations. Learn practical strategies to leverage AI tools for enhanced productivity and competitive advantage.
               </p>
 
               {/* Chips */}
               <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5 justify-center lg:justify-start">
-                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-red-100 text-red-800 border border-red-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-600"></span>AEO Mastery</span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500"></span>AI Search Optimization</span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500"></span>Answer Engine Strategy</span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-500"></span>Future-Proof Marketing</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-red-100 text-red-800 border border-red-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-red-600"></span>AI Content Strategy</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-blue-500"></span>Business Automation</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500"></span>AI Tools Mastery</span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-gray-100 text-gray-800 border border-gray-200 text-[10px] sm:text-xs shadow-sm font-semibold"><span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-500"></span>Content Optimization</span>
               </div>
 
               {/* Countdown Timer */}
@@ -172,7 +172,7 @@ const AIAutomationWorkshopAustin = () => {
                 onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
               >
-                Become an AEO Master
+                Master AI for Content
                 <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </Button>
               <Button
@@ -180,7 +180,7 @@ const AIAutomationWorkshopAustin = () => {
                 onClick={() => setIsSyllabusOpen(true)}
                 className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-3 md:py-4 border border-gray-300 bg-white hover:bg-gray-50 text-gray-900 text-sm sm:text-base md:text-lg font-semibold rounded-xl shadow-sm"
               >
-                <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" /> Get AEO Syllabus
+                <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" /> Get Workshop Syllabus
               </Button>
               </div>
 
@@ -217,8 +217,8 @@ const AIAutomationWorkshopAustin = () => {
         <div className="relative z-10">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Master AEO: <span className="text-red-600">Future-Proof Your Marketing</span></h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Learn the complete AEO system that positions you ahead of the competition in AI-driven search.</p>
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">Master AI for Business: <span className="text-red-600">Transform Your Content Strategy</span></h2>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Learn practical AI tools and strategies that will revolutionize how you create, optimize, and distribute content.</p>
           </div>
 
           {/* Top row: Website (left), Discoverability (center larger), CRM (right) */}
@@ -229,15 +229,15 @@ const AIAutomationWorkshopAustin = () => {
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl md:rounded-2xl mb-4">
                 <Globe className="w-6 h-6 md:w-8 md:h-8 text-blue-600" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900">AEO-Optimized Website</h3>
-              <p className="text-sm text-gray-600 mt-1">Build a website structure optimized for both traditional SEO and AI-powered answer engines.</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">AI-Powered Website</h3>
+              <p className="text-sm text-gray-600 mt-1">Transform your website with AI-driven content strategies and automated optimization systems.</p>
               <div className="border-t border-gray-100 my-3"></div>
               <div className="text-sm md:text-base text-gray-700 space-y-2">
                 <div className="font-semibold text-gray-900">What you'll master</div>
                 <ul className="list-disc list-inside text-gray-600 space-y-1">
-                  <li>AEO-friendly site structure and navigation</li>
-                  <li>Answer-focused content architecture</li>
-                  <li>Smart forms optimized for AI crawling</li>
+                  <li>AI-enhanced site structure and navigation</li>
+                  <li>Automated content creation workflows</li>
+                  <li>Smart forms with AI-powered lead qualification</li>
                 </ul>
               </div>
             </div>
@@ -250,18 +250,18 @@ const AIAutomationWorkshopAustin = () => {
                 <div className="flex items-center justify-center w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl md:rounded-3xl mb-6 shadow-lg">
                   <Target className="w-8 h-8 md:w-10 md:h-10 text-white" />
                 </div>
-                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">AEO vs. SEO</h3>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">AI Content Strategy</h3>
                 <div className="bg-red-100 border border-red-200 rounded-lg p-3 mb-3">
-                  <p className="text-xs text-red-800 font-semibold">AEO (Answer Engine Optimization): Optimizing your content so it appears directly as the answer in AI-driven search results, voice searches, and other 'answer engine' experiences.</p>
+                  <p className="text-xs text-red-800 font-semibold">AI for Business: Leveraging artificial intelligence to streamline content creation, automate repetitive tasks, and enhance business operations for maximum efficiency and growth.</p>
                 </div>
-                <p className="text-base text-gray-700 mt-1 font-medium">Master the Q→A→Proof→Action framework: Optimize your content so that both users and AI can easily find answers and cite your pages as sources.</p>
+                <p className="text-base text-gray-700 mt-1 font-medium">Master the AI-First Content Framework: Create, optimize, and distribute content at scale using cutting-edge AI tools and proven business strategies.</p>
                 <div className="border-t border-red-200 my-4"></div>
                 <div className="text-sm md:text-base text-gray-700 space-y-3">
                   <div className="font-bold text-gray-900 text-lg">What you'll master</div>
                   <ul className="list-disc list-inside text-gray-700 space-y-2 font-medium">
-                    <li>Q→A→Proof→Action page framework for AI optimization</li>
-                    <li>Entity cues + FAQ stacks that AI models cite</li>
-                    <li>Model-friendly copy and first-party evidence strategies</li>
+                    <li>AI-powered content creation and optimization workflows</li>
+                    <li>Automated content distribution across multiple channels</li>
+                    <li>AI tools for research, writing, and performance tracking</li>
                   </ul>
                 </div>
               </div>
@@ -273,15 +273,15 @@ const AIAutomationWorkshopAustin = () => {
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl md:rounded-2xl mb-4">
                 <User className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900">AI CRM</h3>
-              <p className="text-sm text-gray-600 mt-1">Supporting systems to convert your AEO-driven traffic into customers.</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900">AI Business Systems</h3>
+              <p className="text-sm text-gray-600 mt-1">Implement AI-powered systems to automate lead generation, customer engagement, and business operations.</p>
               <div className="border-t border-gray-100 my-3"></div>
               <div className="text-sm md:text-base text-gray-700 space-y-2">
                 <div className="font-semibold text-gray-900">What you'll master</div>
                 <ul className="list-disc list-inside text-gray-600 space-y-1">
-                  <li>Auto‑enrichment + call summaries</li>
-                  <li>Reply‑drafts and next‑best‑actions</li>
-                  <li>Prompt pack for research → recap → action</li>
+                  <li>AI-powered lead qualification and scoring</li>
+                  <li>Automated customer communication workflows</li>
+                  <li>Business intelligence dashboards with AI insights</li>
                 </ul>
               </div>
             </div>
@@ -295,8 +295,8 @@ const AIAutomationWorkshopAustin = () => {
                   <Settings className="w-6 h-6 md:w-8 md:h-8 text-purple-600" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900">Technical Setup</h3>
-                  <p className="text-sm text-gray-600 mt-1">Deployment, payment processing, and infrastructure fundamentals.</p>
+                                <h3 className="text-xl md:text-2xl font-bold text-gray-900">AI Implementation</h3>
+              <p className="text-sm text-gray-600 mt-1">Step-by-step guide to implementing AI tools in your existing business infrastructure.</p>
                 </div>
                 <span className="text-[11px] bg-purple-100 text-purple-700 px-2 py-1 rounded-full border border-purple-200 font-semibold">Build</span>
               </div>
@@ -305,14 +305,14 @@ const AIAutomationWorkshopAustin = () => {
                 <div className="font-semibold text-gray-900">What you'll master</div>
                 <div className="grid md:grid-cols-2 gap-4">
                   <ul className="list-disc list-inside text-gray-600 space-y-1">
-                    <li>Render deployment with environment config</li>
-                    <li>Stripe Checkout with Automatic Tax + promo codes</li>
-                    <li>Resend emails with calendar (.ics) attachments</li>
+                    <li>AI tool integration with existing workflows</li>
+                    <li>API connections and automation setup</li>
+                    <li>Performance monitoring and optimization tracking</li>
                   </ul>
                   <ul className="list-disc list-inside text-gray-600 space-y-1">
-                    <li>Webhook architecture that safely handles repeated requests</li>
-                    <li>Performance + SEO technical foundations</li>
-                    <li>Analytics + conversion tracking setup</li>
+                    <li>Scalable AI system architecture</li>
+                    <li>Data privacy and security best practices</li>
+                    <li>ROI measurement and success metrics</li>
                   </ul>
                 </div>
               </div>
@@ -337,12 +337,12 @@ const AIAutomationWorkshopAustin = () => {
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
                 <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">Building Website Live</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">AI-Powered Content System</h3>
               <ul className="text-gray-600 text-sm md:text-base list-disc list-inside space-y-2">
-                <li>Fully functional website</li>
-                <li>Smart form (routes + qualifies)</li>
-                <li>Chatbot (answers + handoff)</li>
-                <li>AEO/GEO‑ready blog</li>
+                <li>Automated content creation pipeline</li>
+                <li>AI-driven lead qualification system</li>
+                <li>Smart chatbot with business intelligence</li>
+                <li>Multi-channel content distribution</li>
               </ul>
             </div>
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
@@ -397,8 +397,8 @@ const AIAutomationWorkshopAustin = () => {
                 />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Anton Osipov</h3>
-              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & CTO, DaVeenci.ai |<br />Lead Technical Architect</p>
-              <p className="text-sm md:text-base text-gray-700 leading-relaxed">The principal architect of the technology, Anton specializes in building robust discoverability systems and the technical infrastructure required for modern AI-driven marketing and scalable growth.</p>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & CTO, DaVeenci.ai |<br />AI Systems Architect</p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">The principal architect of AI-powered business systems, Anton specializes in implementing scalable AI solutions that transform content creation and business operations for maximum efficiency.</p>
             </div>
 
             {/* Federico */}
@@ -412,8 +412,8 @@ const AIAutomationWorkshopAustin = () => {
                 {/* Note: Professional headshot needed for Federico Lopez */}
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Federico Lopez</h3>
-              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Search & Content Architect |<br />SEO & AEO Specialist</p>
-              <p className="text-sm md:text-base text-gray-700 leading-relaxed">A veteran search expert bridging the gap between traditional SEO and AI-driven search. He architects content strategies that satisfy both search engine algorithms and true human intent.</p>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">AI Content Strategist |<br />Business Automation Specialist</p>
+              <p className="text-sm md:text-base text-gray-700 leading-relaxed">An expert in AI-powered content strategies and business automation. He specializes in implementing AI tools that streamline operations and maximize content effectiveness across all business channels.</p>
             </div>
           </div>
         </div>
@@ -499,54 +499,54 @@ const AIAutomationWorkshopAustin = () => {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-12">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
-              Why Traditional SEO Falls Short in the <span className="text-red-600">AI Era</span>
+              Why Traditional Content Creation <span className="text-red-600">Can't Keep Up</span>
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">The search landscape has fundamentally changed. Here's what you need to know.</p>
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">The business landscape has fundamentally changed. Here's how AI is transforming content and operations.</p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8 md:gap-12">
             {/* Traditional SEO */}
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Traditional SEO (Old Playbook)</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Traditional Content (Old Playbook)</h3>
               <ul className="space-y-3 text-gray-600">
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
-                  <span>Focus on ranking pages for specific keywords</span>
+                  <span>Manual content creation and optimization</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
-                  <span>Long-form content optimized for search crawlers</span>
+                  <span>Time-intensive research and writing processes</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
-                  <span>Success measured by positions and sessions</span>
+                  <span>Limited scalability and resource constraints</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-gray-400 mt-2 flex-shrink-0"></span>
-                  <span>Generic tips and keyword-stuffed content</span>
+                  <span>Inconsistent quality and brand messaging</span>
                 </li>
               </ul>
             </div>
 
             {/* AEO/GEO */}
             <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-red-200">
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">AEO/GEO (New Reality)</h3>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">AI-Powered Content (New Reality)</h3>
               <ul className="space-y-3 text-gray-700 mb-6">
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
-                  <span>Get quoted as the definitive answer by AI</span>
+                  <span>Automated content creation at scale</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
-                  <span>Q&A blocks, concise briefs, and checklists</span>
+                  <span>AI-generated blogs, social posts, and marketing copy</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
-                  <span>Mentions in AI answers and assisted conversions</span>
+                  <span>Consistent brand voice across all channels</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="w-2 h-2 rounded-full bg-red-500 mt-2 flex-shrink-0"></span>
-                  <span>First-party data, screenshots, and SOPs</span>
+                  <span>Data-driven optimization and performance tracking</span>
                 </li>
               </ul>
                           </div>
@@ -554,12 +554,12 @@ const AIAutomationWorkshopAustin = () => {
 
           <div className="text-center mt-8 md:mt-12">
             <p className="text-sm sm:text-base md:text-lg text-gray-600 mb-6 sm:mb-8 max-w-4xl mx-auto leading-relaxed">
-              AI now provides direct answers, integrates sponsored content, and uses virtual shopping assistants. 
-              Success isn't about having the best product—it's about being optimized for how AI selects and presents information.
+              AI has revolutionized content creation, customer engagement, and business operations. 
+              Success isn't about working harder—it's about leveraging AI tools to work smarter and scale efficiently.
             </p>
             <div className="flex justify-center">
               <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-5 sm:px-6 md:px-8 py-3 md:py-4 text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg">
-                Master AEO: Secure Your Spot
+                Master AI for Business: Secure Your Spot
                 <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </Button>
             </div>
@@ -602,7 +602,7 @@ const AIAutomationWorkshopAustin = () => {
                     <Calendar className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">August 28, 2025</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">September 4, 2025</div>
                     <div className="text-gray-600 text-xs sm:text-sm md:text-base">Thursday</div>
                   </div>
                 </div>
@@ -612,8 +612,8 @@ const AIAutomationWorkshopAustin = () => {
                     <Clock className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900 text-sm md:text-base">2:30 PM - 4:30 PM CT</div>
-                    <div className="text-gray-600 text-xs sm:text-sm md:text-base">Duration: 2 hours</div>
+                    <div className="font-semibold text-gray-900 text-sm md:text-base">11:30 AM - 12:30 PM CT</div>
+                    <div className="text-gray-600 text-xs sm:text-sm md:text-base">Duration: 1 hour</div>
                   </div>
                 </div>
 
@@ -643,9 +643,9 @@ const AIAutomationWorkshopAustin = () => {
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 lg:p-10 shadow-lg border border-gray-200">
               <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">What You Get</h3>
               <ul className="grid sm:grid-cols-2 gap-2 sm:gap-3 text-gray-700 text-xs sm:text-sm md:text-base">
-                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />AEO templates & prompts</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />AI content templates & prompts</li>
                 <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />Implementation checklists</li>
-                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />Q&A framework guide</li>
+                <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />AI workflow automation guide</li>
                 <li className="flex items-center gap-2"><ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-red-600 flex-shrink-0" />Recording & slides</li>
               </ul>
             </div>
@@ -702,11 +702,11 @@ const AIAutomationWorkshopAustin = () => {
               ⏰ Limited Time Offer
             </div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4">
-              Future-Proof Your Marketing: <br className="hidden sm:block" />
-              <span className="text-red-100">Unlock the Future of Search with AEO</span>
+              Transform Your Business: <br className="hidden sm:block" />
+              <span className="text-red-100">Master AI for Content & Operations</span>
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-red-100 max-w-3xl mx-auto leading-relaxed mb-6 sm:mb-8">
-              Join the businesses already winning with AI‑powered search. Master AEO and position yourself ahead of the competition.
+              Join the businesses already transforming with AI‑powered content and automation. Master AI for business and position yourself ahead of the competition.
             </p>
 
           </div>
@@ -714,19 +714,19 @@ const AIAutomationWorkshopAustin = () => {
           <div className="grid lg:grid-cols-3 gap-6 md:gap-8 items-center">
             {/* Left: What You Get */}
             <div className="lg:text-right text-center">
-              <h3 className="text-lg md:text-xl font-semibold text-white mb-4">What You'll Walk Away With</h3>
+              <h3 className="text-lg md:text-xl font-semibold text-white mb-4">What You'll Master</h3>
               <div className="space-y-2 text-red-100">
                 <div className="flex items-center justify-center lg:justify-end gap-2">
                   <span className="w-2 h-2 rounded-full bg-white"></span>
-                  <span>Complete AEO/GEO starter pack</span>
+                  <span>Complete AI content creation toolkit</span>
                 </div>
                 <div className="flex items-center justify-center lg:justify-end gap-2">
                   <span className="w-2 h-2 rounded-full bg-white"></span>
-                  <span>Working CRM Copilot essentials</span>
+                  <span>AI-powered business automation systems</span>
                 </div>
                 <div className="flex items-center justify-center lg:justify-end gap-2">
                   <span className="w-2 h-2 rounded-full bg-white"></span>
-                  <span>Templates, prompts, and SOPs</span>
+                  <span>Ready-to-use AI templates and workflows</span>
                 </div>
               </div>
             </div>
@@ -759,15 +759,15 @@ const AIAutomationWorkshopAustin = () => {
               <div className="space-y-2 text-red-100">
                 <div className="flex items-center justify-center lg:justify-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-white"></span>
-                  <span>Take‑home templates & SOPs</span>
+                  <span>Comprehensive AI implementation guides</span>
                 </div>
                 <div className="flex items-center justify-center lg:justify-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-white"></span>
-                  <span>Expert Slack community access</span>
+                  <span>AI business community access</span>
                 </div>
                 <div className="flex items-center justify-center lg:justify-start gap-2">
                   <span className="w-2 h-2 rounded-full bg-white"></span>
-                  <span>Post‑workshop setup clinic</span>
+                  <span>AI implementation support session</span>
                 </div>
               </div>
             </div>

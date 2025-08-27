@@ -350,21 +350,22 @@ async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
     <body>
       <div class="container">
         <div class="header">
-          <h1>🎉 You're In! Welcome to the Future of Search</h1>
-          <p>Master AEO: The Future of Search vs. Traditional SEO</p>
+          <h1>🎉 You're In! Welcome to the AI Revolution</h1>
+          <p>AI for Business, Part 1: The Future of Content</p>
           ${isVip ? '<span class="vip-badge">VIP BUNDLE</span>' : ''}
         </div>
         
         <div class="content">
           <h2>Thank you, ${firstName}! 🚀</h2>
-          <p>Your registration is confirmed for <strong>Master AEO: The Future of Search vs. Traditional SEO</strong>. Get ready to future-proof your marketing with AI-driven search optimization!</p>
+          <p>Your registration is confirmed for <strong>AI for Business, Part 1: The Future of Content</strong>. Get ready to transform your business operations with AI-powered content creation and automation!</p>
           
           <div class="event-details">
             <h3>📅 Workshop Details</h3>
             <ul style="list-style: none; padding-left: 0;">
-              <li><strong>📅 Date:</strong> August 28, 2025</li>
-              <li><strong>⏰ Time:</strong> 2:30 PM - 4:30 PM CT</li>
+              <li><strong>📅 Date:</strong> September 4, 2025</li>
+              <li><strong>⏰ Time:</strong> 11:30 AM - 12:30 PM CT</li>
               <li><strong>🌐 Location:</strong> Live Online Workshop</li>
+              <li><strong>🔗 Zoom Link:</strong> <a href="https://us04web.zoom.us/j/72964508583?pwd=TIXgmugncn1hD1KPZ1ad5Hq1vefaCH.1&jst=2" style="color: #dc2626;">Join Workshop Here</a></li>
               <li><strong>🎥 Recording:</strong> Yes, included for all participants</li>
             </ul>
           </div>
@@ -372,10 +373,10 @@ async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
           <div class="highlight">
             <h3>🎯 What You'll Master</h3>
             <ul>
-              <li><strong>AEO vs SEO:</strong> Learn the Q→A→Proof→Action framework for AI optimization</li>
-              <li><strong>Answer Engine Strategy:</strong> Structure content so AI can find and cite your pages</li>
-              <li><strong>Future-Proof Marketing:</strong> Get ahead of the competition in AI-driven search</li>
-              <li><strong>Hands-on Templates:</strong> Walk away with practical tools and frameworks</li>
+              <li><strong>AI Content Creation:</strong> Automate and scale your content production processes</li>
+              <li><strong>Business Automation:</strong> Implement AI tools to streamline operations</li>
+              <li><strong>Strategic Implementation:</strong> Practical approaches to AI adoption in business</li>
+              <li><strong>Ready-to-Use Systems:</strong> Walk away with implemented AI workflows</li>
             </ul>
           </div>
 
@@ -384,7 +385,7 @@ async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
             <h3>⭐ Your VIP Bundle Includes:</h3>
             <ul>
               <li>Everything in Standard Ticket</li>
-              <li><strong>Private 60-min consultation</strong> with our AEO experts</li>
+              <li><strong>Private 60-min consultation</strong> with our AI business experts</li>
               <li><strong>10% off future services</strong></li>
               <li><strong>Priority support access</strong></li>
             </ul>
@@ -393,23 +394,24 @@ async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
 
           <h3>📧 What Happens Next?</h3>
           <ol>
-            <li><strong>Workshop Access Link:</strong> You'll receive your access link 24 hours before the event</li>
-            <li><strong>AEO Preparation Kit:</strong> Templates and resources will be sent 1 week before</li>
+            <li><strong>Workshop Access:</strong> Your Zoom link is provided above - save it now!</li>
+            <li><strong>AI Implementation Kit:</strong> Templates and resources will be sent 1 week before</li>
             <li><strong>Reminders:</strong> We'll send friendly reminders as the date approaches</li>
+            <li><strong>Recording Access:</strong> You'll receive the recording link within 24 hours after the workshop</li>
           </ol>
 
           <h3>🎯 Prepare for Success</h3>
-          <p>To get the most out of your AEO workshop:</p>
+          <p>To get the most out of your AI for Business workshop:</p>
           <ul>
-            <li>Think about your current content marketing challenges</li>
-            <li>Have examples of your target audience's questions ready</li>
-            <li>Come ready to implement what you learn!</li>
+            <li>Think about your current content creation bottlenecks</li>
+            <li>Identify repetitive tasks that could be automated</li>
+            <li>Come ready to implement AI tools in your workflow!</li>
           </ul>
         </div>
 
         <div class="footer">
           <p>Questions? Reply to this email or contact us at <a href="mailto:support@daveenci.ai">support@daveenci.ai</a></p>
-          <p><strong>DaVeenci</strong> • Mastering AI-Powered Marketing</p>
+          <p><strong>DaVeenci</strong> • Mastering AI for Business</p>
         </div>
       </div>
     </body>
@@ -419,7 +421,7 @@ async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
   try {
     await sendEmail(
       email,
-      `🎉 You're In! Master AEO Workshop - August 28, 2025`,
+      `🎉 You're In! AI for Business Workshop - September 4, 2025`,
       confirmationHtml
     );
     console.log(`✅ Confirmation email sent to ${email}`);
