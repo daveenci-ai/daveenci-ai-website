@@ -53,7 +53,12 @@ app.use(helmet({
         "'unsafe-inline'", // For Google Tag Manager
         "https://www.googletagmanager.com",
         "https://www.google-analytics.com",
-        "https://js.stripe.com"
+        "https://js.stripe.com",
+        "https://snap.licdn.com", // LinkedIn tracking
+        "https://sc-static.net", // Snapchat tracking  
+        "https://connect.facebook.net", // Facebook tracking
+        "https://analytics.tiktok.com", // TikTok tracking
+        "https://static.ads-twitter.com" // Twitter tracking
       ],
       styleSrc: [
         "'self'", 
@@ -89,11 +94,24 @@ app.use(helmet({
         "https://www.google-analytics.com",
         "https://analytics.google.com", // Google Analytics collect endpoint
         "https://www.googletagmanager.com",
-        "https://api.stripe.com"
+        "https://api.stripe.com",
+        "https://snap.licdn.com", // LinkedIn tracking
+        "https://sc-static.net", // Snapchat tracking
+        "https://connect.facebook.net", // Facebook tracking
+        "https://analytics.tiktok.com", // TikTok tracking
+        "https://static.ads-twitter.com", // Twitter tracking
+        "https://www.facebook.com", // Facebook Pixel
+        "https://graph.facebook.com" // Facebook Graph API
       ]
     },
   },
 }));
+
+// Permissions policy for payment features
+app.use((req, res, next) => {
+  res.setHeader('Permissions-Policy', 'payment=*, payment-handler=*');
+  next();
+});
 
 // Rate limiting
 const limiter = rateLimit({
