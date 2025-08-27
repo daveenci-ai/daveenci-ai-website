@@ -199,11 +199,11 @@ const AIAutomationWorkshopAustin = () => {
             {/* Right visual */}
             <div className="lg:col-span-1 order-1 lg:order-2">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
-                <img src="https://picsum.photos/seed/aeo/800/800" alt="Workshop preview" className="w-full h-auto aspect-square object-cover" />
+                <img src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/AEO%20Blog%20Automation.jpeg" alt="AI for Business Workshop preview" className="w-full h-auto aspect-square object-cover" />
                 <div className="absolute top-3 right-3 text-[11px] bg-red-600 text-white px-3 py-1 rounded-full shadow">🔥 Trending</div>
                 <div className="absolute bottom-4 left-4 bg-white text-gray-900 px-4 py-2 rounded-xl shadow">
-                  <div className="text-sm font-semibold">Beyond SEO</div>
-                  <div className="text-[11px] text-gray-600 -mt-0.5">AI‑First Approach</div>
+                  <div className="text-sm font-semibold">AI for Business</div>
+                  <div className="text-[11px] text-gray-600 -mt-0.5">Content & Automation</div>
                 </div>
               </div>
             </div>
