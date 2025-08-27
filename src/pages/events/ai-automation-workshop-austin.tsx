@@ -107,17 +107,7 @@ const AIAutomationWorkshopAustin = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      {/* Site-wide banner under header only on this page */}
-      <div className="w-full bg-red-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center gap-2 md:gap-4 text-[13px] md:text-sm">
-          <span className="font-semibold tracking-tight">AI for Business, Part 1: The Future of Content — Austin</span>
-          <span className="opacity-90 hidden sm:inline">•</span>
-          <span className="opacity-90">Sept 4, 2025 • 11:30 AM CT</span>
-          <Button onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })} className="ml-auto inline-flex items-center rounded-full bg-white text-red-700 hover:bg-white/90 px-3 py-1 font-semibold shadow-sm transition-colors">
-            Get tickets
-          </Button>
-        </div>
-      </div>
+
 
       {/* Hero Section */}
       <section className="relative py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-white to-gray-50">
