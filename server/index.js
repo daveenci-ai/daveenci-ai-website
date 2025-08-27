@@ -417,8 +417,19 @@ async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
           </div>
           ` : ''}
 
+          <div class="highlight">
+            <h3>📅 Calendar Event Attached!</h3>
+            <p>We've attached a calendar file (.ics) to this email that you can open with any calendar app:</p>
+            <ul>
+              <li>📱 <strong>Mobile:</strong> Tap the attachment to add to your calendar</li>
+              <li>💻 <strong>Desktop:</strong> Open the .ics file with your preferred calendar</li>
+              <li>⏰ <strong>Reminder:</strong> Set for 15 minutes before the workshop starts</li>
+            </ul>
+          </div>
+
           <h3>📧 What Happens Next?</h3>
           <ol>
+            <li><strong>Add to Calendar:</strong> Open the attached .ics file to save the event</li>
             <li><strong>Workshop Access:</strong> Your Zoom link is provided above - save it now!</li>
             <li><strong>AI Implementation Kit:</strong> Templates and resources will be sent 1 week before</li>
             <li><strong>Reminders:</strong> We'll send friendly reminders as the date approaches</li>
@@ -443,13 +454,49 @@ async function sendWorkshopConfirmationEmail(email, name, isVip, plan) {
     </html>
   `;
 
+  // Create calendar attachment
+  const icsContent = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//DaVeenci//AI Workshop//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'BEGIN:VEVENT',
+    'DTSTART:20250904T163000Z',
+    'DTEND:20250904T173000Z',
+    'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+    'UID:ai-workshop-' + Date.now() + '@daveenci.ai',
+    'SUMMARY:AI for Business, Part 1: The Future of Content',
+    'DESCRIPTION:Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation, from automated research to answer-engine-optimized publishing.\\n\\nJoin us for this exclusive workshop to transform your content creation process with AI-powered tools and strategies.',
+    'LOCATION:Online Workshop',
+    'URL:https://us04web.zoom.us/j/72964508583?pwd=TIXgmugncn1hD1KPZ1ad5Hq1vefaCH.1&jst=2',
+    'STATUS:CONFIRMED',
+    'TRANSP:OPAQUE',
+    'BEGIN:VALARM',
+    'TRIGGER:-PT15M',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Workshop starts in 15 minutes',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR'
+  ].join('\\r\\n');
+
+  const calendarAttachment = {
+    filename: 'ai-for-business-workshop.ics',
+    content: Buffer.from(icsContent).toString('base64'),
+    content_type: 'text/calendar',
+    disposition: 'attachment'
+  };
+
   try {
     await sendEmail(
       email,
       `🎉 You're In! AI for Business Workshop - September 4, 2025`,
-      confirmationHtml
+      confirmationHtml,
+      true,
+      [calendarAttachment]
     );
-    console.log(`✅ Confirmation email sent to ${email}`);
+    console.log(`✅ Confirmation email with calendar attachment sent to ${email}`);
   } catch (error) {
     console.error(`❌ Failed to send confirmation email to ${email}:`, error);
   }

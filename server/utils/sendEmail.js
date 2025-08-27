@@ -10,7 +10,7 @@ if (process.env.RESEND_API_KEY) {
 }
 
 // Resend email function (preferred)
-async function sendEmailWithResend(to, subject, htmlContent) {
+async function sendEmailWithResend(to, subject, htmlContent, attachments = []) {
   if (!resend) {
     throw new Error('Resend not initialized - RESEND_API_KEY missing');
   }
@@ -21,12 +21,19 @@ async function sendEmailWithResend(to, subject, htmlContent) {
       setTimeout(() => reject(new Error('Email send timeout')), 15000)
     );
     
-    const emailPromise = resend.emails.send({
+    const emailData = {
       from: process.env.FROM_EMAIL || 'noreply@daveenci.ai',
       to,
       subject,
       html: htmlContent,
-    });
+    };
+    
+    // Add attachments if provided
+    if (attachments && attachments.length > 0) {
+      emailData.attachments = attachments;
+    }
+    
+    const emailPromise = resend.emails.send(emailData);
 
     const result = await Promise.race([emailPromise, timeoutPromise]);
     console.log('✅ Email sent successfully with Resend:', result.id);
@@ -67,13 +74,13 @@ async function sendEmailWithSMTP(to, subject, htmlContent) {
 }
 
 // Main email function with intelligent fallback
-export async function sendEmail(to, subject, htmlContent, useResend = true) {
+export async function sendEmail(to, subject, htmlContent, useResend = true, attachments = []) {
   const startTime = Date.now();
   
   // Try Resend first if API key is available
   if (useResend && process.env.RESEND_API_KEY) {
     try {
-      const result = await sendEmailWithResend(to, subject, htmlContent);
+      const result = await sendEmailWithResend(to, subject, htmlContent, attachments);
       console.log(`📧 Email sent via Resend in ${Date.now() - startTime}ms`);
       return result;
     } catch (error) {
