@@ -82,7 +82,8 @@ app.use(helmet({
         "https://youtube.com",
         "https://www.googletagmanager.com", // Google Tag Manager
         "https://js.stripe.com",
-        "https://checkout.stripe.com"
+        "https://checkout.stripe.com",
+        "https://tr.snapchat.com" // Snapchat tracking frames
       ],
       fontSrc: [
         "'self'",
@@ -96,7 +97,9 @@ app.use(helmet({
         "https://www.googletagmanager.com",
         "https://api.stripe.com",
         "https://snap.licdn.com", // LinkedIn tracking
+        "https://px.ads.linkedin.com", // LinkedIn tracking endpoints
         "https://sc-static.net", // Snapchat tracking
+        "https://tr.snapchat.com", // Snapchat tracking endpoints
         "https://connect.facebook.net", // Facebook tracking
         "https://analytics.tiktok.com", // TikTok tracking
         "https://static.ads-twitter.com", // Twitter tracking
@@ -109,7 +112,7 @@ app.use(helmet({
 
 // Permissions policy for payment features
 app.use((req, res, next) => {
-  res.setHeader('Permissions-Policy', 'payment=*, payment-handler=*');
+  res.setHeader('Permissions-Policy', 'payment=(self "https://js.stripe.com" "https://checkout.stripe.com"), payment-handler=(self "https://js.stripe.com" "https://checkout.stripe.com")');
   next();
 });
 
