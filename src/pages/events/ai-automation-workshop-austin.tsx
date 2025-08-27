@@ -308,7 +308,7 @@ const AIAutomationWorkshopAustin = () => {
             </div>
             <div className="bg-white rounded-xl md:rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 transition-transform duration-300 hover:-translate-y-1 hover:shadow-md">
               <div className="flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl md:rounded-2xl mb-4">
-                <BookOpen className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
+                <Globe className="w-6 h-6 md:w-8 md:h-8 text-orange-600" />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3">AI Content for Social Media</h3>
               <ul className="text-gray-600 text-sm md:text-base list-disc list-inside space-y-2">
@@ -590,7 +590,7 @@ const AIAutomationWorkshopAustin = () => {
 
                 <div className="flex items-start space-x-2 sm:space-x-3 md:space-x-4">
                   <div className="flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-lg">
-                    <BookOpen className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
+                    <Target className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 text-red-600" />
                   </div>
                   <div>
                     <div className="font-semibold text-gray-900 text-sm md:text-base">Recording Available</div>
