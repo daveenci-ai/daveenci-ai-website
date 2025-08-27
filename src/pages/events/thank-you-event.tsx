@@ -66,50 +66,110 @@ const ThankYouEvent = () => {
               </div>
             </div>
             
-            {/* Add to Calendar Button */}
-            <div className="mt-8 text-center">
-              <Button
-                onClick={() => {
-                  const eventDetails = {
-                    title: 'AI for Business, Part 1: The Future of Content',
-                    start: '20250904T163000Z', // 11:30 AM CT = 4:30 PM UTC
-                    end: '20250904T173000Z',   // 12:30 PM CT = 5:30 PM UTC
-                    description: 'Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation.',
-                    location: 'https://us04web.zoom.us/j/72964508583?pwd=TIXgmugncn1hD1KPZ1ad5Hq1vefaCH.1&jst=2'
-                  };
-                  
-                  // Create .ics file content
-                  const icsContent = [
-                    'BEGIN:VCALENDAR',
-                    'VERSION:2.0',
-                    'PRODID:-//DaVeenci//AI Workshop//EN',
-                    'BEGIN:VEVENT',
-                    `DTSTART:${eventDetails.start}`,
-                    `DTEND:${eventDetails.end}`,
-                    `SUMMARY:${eventDetails.title}`,
-                    `DESCRIPTION:${eventDetails.description}`,
-                    `LOCATION:Online Workshop`,
-                    `URL:${eventDetails.location}`,
-                    'END:VEVENT',
-                    'END:VCALENDAR'
-                  ].join('\\r\\n');
-                  
-                  // Create and download .ics file
-                  const blob = new Blob([icsContent], { type: 'text/calendar' });
-                  const url = window.URL.createObjectURL(blob);
-                  const link = document.createElement('a');
-                  link.href = url;
-                  link.download = 'ai-for-business-workshop.ics';
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                  window.URL.revokeObjectURL(url);
-                }}
-                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white px-6 py-3 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg inline-flex items-center gap-2"
-              >
-                <Calendar className="w-5 h-5" />
-                Add to My Calendar
-              </Button>
+            {/* Add to Calendar Options */}
+            <div className="mt-8 text-center space-y-6">
+              <p className="text-lg text-gray-700 font-medium">Add to Your Calendar:</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                {/* Google Calendar */}
+                <Button
+                  onClick={() => {
+                    const eventDetails = {
+                      title: 'AI for Business, Part 1: The Future of Content',
+                      description: 'Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation. Join us for this exclusive workshop to transform your content creation process with AI-powered tools and strategies.',
+                      location: 'Online Workshop - https://us04web.zoom.us/j/72964508583?pwd=TIXgmugncn1hD1KPZ1ad5Hq1vefaCH.1&jst=2'
+                    };
+                    
+                    // Convert to Google Calendar format (local CT time)
+                    const startDate = '20250904T113000'; // 11:30 AM CT
+                    const endDate = '20250904T123000';   // 12:30 PM CT
+                    
+                    const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}&ctz=America/Chicago`;
+                    
+                    window.open(googleUrl, '_blank');
+                  }}
+                  className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-lg inline-flex items-center gap-2 min-w-[160px]"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Google Calendar
+                </Button>
+
+                {/* Microsoft Outlook */}
+                <Button
+                  onClick={() => {
+                    const eventDetails = {
+                      title: 'AI for Business, Part 1: The Future of Content',
+                      start: '2025-09-04T11:30:00',
+                      end: '2025-09-04T12:30:00',
+                      description: 'Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation. Join us for this exclusive workshop to transform your content creation process with AI-powered tools and strategies.',
+                      location: 'Online Workshop - https://us04web.zoom.us/j/72964508583?pwd=TIXgmugncn1hD1KPZ1ad5Hq1vefaCH.1&jst=2'
+                    };
+                    
+                    const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(eventDetails.title)}&startdt=${encodeURIComponent(eventDetails.start)}&enddt=${encodeURIComponent(eventDetails.end)}&body=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
+                    
+                    window.open(outlookUrl, '_blank');
+                  }}
+                  className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-lg inline-flex items-center gap-2 min-w-[160px]"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Outlook Calendar
+                </Button>
+
+                {/* Apple Calendar (.ics download) */}
+                <Button
+                  onClick={() => {
+                    const eventDetails = {
+                      title: 'AI for Business, Part 1: The Future of Content',
+                      start: '20250904T163000Z',
+                      end: '20250904T173000Z',
+                      description: 'Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation.',
+                      location: 'https://us04web.zoom.us/j/72964508583?pwd=TIXgmugncn1hD1KPZ1ad5Hq1vefaCH.1&jst=2'
+                    };
+                    
+                    // Create .ics file content for Apple Calendar and others
+                    const icsContent = [
+                      'BEGIN:VCALENDAR',
+                      'VERSION:2.0',
+                      'PRODID:-//DaVeenci//AI Workshop//EN',
+                      'CALSCALE:GREGORIAN',
+                      'METHOD:PUBLISH',
+                      'BEGIN:VEVENT',
+                      `DTSTART:${eventDetails.start}`,
+                      `DTEND:${eventDetails.end}`,
+                      'DTSTAMP:' + new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z',
+                      `UID:ai-workshop-${Date.now()}@daveenci.ai`,
+                      `SUMMARY:${eventDetails.title}`,
+                      `DESCRIPTION:${eventDetails.description}`,
+                      'LOCATION:Online Workshop',
+                      `URL:${eventDetails.location}`,
+                      'STATUS:CONFIRMED',
+                      'TRANSP:OPAQUE',
+                      'BEGIN:VALARM',
+                      'TRIGGER:-PT15M',
+                      'ACTION:DISPLAY',
+                      'DESCRIPTION:Workshop starts in 15 minutes',
+                      'END:VALARM',
+                      'END:VEVENT',
+                      'END:VCALENDAR'
+                    ].join('\r\n');
+                    
+                    // Create and download .ics file
+                    const blob = new Blob([icsContent], { type: 'text/calendar' });
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'ai-for-business-workshop.ics';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(url);
+                  }}
+                  className="bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-lg inline-flex items-center gap-2 min-w-[160px]"
+                >
+                  <Calendar className="w-4 h-4" />
+                  Other Calendar
+                </Button>
+              </div>
+              <p className="text-sm text-gray-500">Choose your preferred calendar service above to add the workshop event</p>
             </div>
           </div>
         </div>

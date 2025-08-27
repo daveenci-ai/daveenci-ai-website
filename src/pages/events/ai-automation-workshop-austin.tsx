@@ -597,6 +597,57 @@ const AIAutomationWorkshopAustin = () => {
                     <div className="text-gray-600 text-xs sm:text-sm md:text-base">Access right after the workshop</div>
                   </div>
                 </div>
+
+                {/* Add to Calendar Section */}
+                <div className="mt-6 md:mt-8 pt-4 border-t border-gray-200">
+                  <h4 className="text-base md:text-lg font-semibold text-gray-900 mb-4">Add to Your Calendar:</h4>
+                  <div className="flex flex-col gap-3">
+                    {/* Google Calendar */}
+                    <Button
+                      onClick={() => {
+                        const eventDetails = {
+                          title: 'AI for Business, Part 1: The Future of Content',
+                          description: 'Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation. Join us for this exclusive workshop to transform your content creation process with AI-powered tools and strategies.',
+                          location: 'Online Workshop - Zoom link will be provided after registration'
+                        };
+                        
+                        // Convert to Google Calendar format (local CT time)
+                        const startDate = '20250904T113000'; // 11:30 AM CT
+                        const endDate = '20250904T123000';   // 12:30 PM CT
+                        
+                        const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}&ctz=America/Chicago`;
+                        
+                        window.open(googleUrl, '_blank');
+                      }}
+                      className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 shadow-lg inline-flex items-center justify-center gap-2"
+                    >
+                      <Calendar className="w-4 h-4" />
+                      Add to Google Calendar
+                    </Button>
+
+                    {/* Microsoft Outlook */}
+                    <Button
+                      onClick={() => {
+                        const eventDetails = {
+                          title: 'AI for Business, Part 1: The Future of Content',
+                          start: '2025-09-04T11:30:00',
+                          end: '2025-09-04T12:30:00',
+                          description: 'Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation. Join us for this exclusive workshop to transform your content creation process with AI-powered tools and strategies.',
+                          location: 'Online Workshop - Zoom link will be provided after registration'
+                        };
+                        
+                        const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(eventDetails.title)}&startdt=${encodeURIComponent(eventDetails.start)}&enddt=${encodeURIComponent(eventDetails.end)}&body=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
+                        
+                        window.open(outlookUrl, '_blank');
+                      }}
+                      className="bg-gradient-to-r from-indigo-600 to-indigo-700 hover:from-indigo-700 hover:to-indigo-800 text-white px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 shadow-lg inline-flex items-center justify-center gap-2"
+                    >
+                      <Calendar className="w-4 h-4" />
+                      Add to Outlook Calendar
+                    </Button>
+                  </div>
+                  <p className="text-xs text-gray-500 mt-3">Save the date now, Zoom details will be sent after registration</p>
+                </div>
               </div>
             </div>
 
