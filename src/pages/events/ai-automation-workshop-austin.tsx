@@ -395,11 +395,11 @@ const AIAutomationWorkshopAustin = () => {
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
               <div className="mb-6">
                 <img 
-                  src="/placeholder.svg" 
+                  src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_kiko.jpeg" 
                   alt="Federico Lopez"
                   className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl mx-auto"
                 />
-                {/* Note: Professional headshot needed for Federico Lopez */}
+
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Federico Lopez</h3>
               <p className="text-sm md:text-base text-red-600 font-semibold mb-4">AI Content Strategist |<br />Business Automation Specialist</p>
