@@ -344,7 +344,7 @@ const AIAutomationWorkshopAustin = () => {
                 />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Astrid Abrahamyan</h3>
-              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & COO, DaVeenci.ai | Marketing Systems Strategist</p>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & COO<br />Marketing Systems Strategist</p>
               <p className="text-sm md:text-base text-gray-700 leading-relaxed">The strategist who connects advanced technology to tangible business outcomes. Astrid focuses on designing practical marketing automation systems that drive efficiency and measurable growth.</p>
             </div>
 
@@ -358,7 +358,7 @@ const AIAutomationWorkshopAustin = () => {
                 />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Anton Osipov</h3>
-              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & CTO, DaVeenci.ai |<br />AI Systems Architect</p>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">Co-Founder & CTO<br />AI Systems Architect</p>
               <p className="text-sm md:text-base text-gray-700 leading-relaxed">The principal architect of AI-powered business systems, Anton specializes in implementing scalable AI solutions that transform content creation and business operations for maximum efficiency.</p>
             </div>
 
@@ -373,7 +373,7 @@ const AIAutomationWorkshopAustin = () => {
 
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Federico Lopez</h3>
-              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">AI Content Strategist |<br />Business Automation Specialist</p>
+              <p className="text-sm md:text-base text-red-600 font-semibold mb-4">AI Content Strategist<br />Business Automation Specialist</p>
               <p className="text-sm md:text-base text-gray-700 leading-relaxed">An expert in AI-powered content strategies and business automation. He specializes in implementing AI tools that streamline operations and maximize content effectiveness across all business channels.</p>
             </div>
           </div>
