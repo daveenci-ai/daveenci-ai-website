@@ -11,15 +11,14 @@ declare global {
     }
   }
 }
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
+
 
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Calendar, Clock, Target, User, Settings, BookOpen, Globe } from 'lucide-react';
+import { ArrowRight, Calendar, Clock, Target, User, Settings, Globe } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
-import { apiConfig } from '@/config/api';
+
 import FAQ from '@/components/FAQ';
 
 const AIAutomationWorkshopAustin = () => {
@@ -68,39 +67,17 @@ const AIAutomationWorkshopAustin = () => {
 
 
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-
-  const [isSyllabusOpen, setIsSyllabusOpen] = useState(false);
-  const [leadEmail, setLeadEmail] = useState('');
-
-  const [leadStatus, setLeadStatus] = useState<string | null>(null);
 
 
 
 
 
 
-  const submitLead = async () => {
-    setIsSubmitting(true);
-    setLeadStatus(null);
-    try {
-      const r = await fetch(`${apiConfig.baseUrl}/api/workshop/lead`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: leadEmail })
-      });
-      if (r.ok) {
-        setLeadStatus('Syllabus sent! Check your email.');
-      } else {
-        setLeadStatus('Could not send syllabus. Please try again.');
-      }
-    } catch {
-      setLeadStatus('Network error. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+
+
+
+
+
 
   //
 
@@ -165,13 +142,7 @@ const AIAutomationWorkshopAustin = () => {
                 Master AI for Content
                 <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </Button>
-              <Button
-                variant="outline"
-                onClick={() => setIsSyllabusOpen(true)}
-                className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-3 md:py-4 border border-gray-300 bg-white hover:bg-gray-50 text-gray-900 text-sm sm:text-base md:text-lg font-semibold rounded-xl shadow-sm"
-              >
-                <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-2" /> Get Workshop Syllabus
-              </Button>
+
               </div>
 
               
@@ -643,45 +614,7 @@ const AIAutomationWorkshopAustin = () => {
         </div>
       </section>
 
-      {/* Syllabus Modal */}
-      <Dialog open={isSyllabusOpen} onOpenChange={setIsSyllabusOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle>Get the Workshop Syllabus</DialogTitle>
-          </DialogHeader>
-          <div>
-            <div>
-              <label htmlFor="leadEmail" className="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
-              <Input
-                id="leadEmail"
-                type="email"
-                value={leadEmail}
-                onChange={(e) => setLeadEmail(e.target.value)}
-                placeholder="your@email.com"
-                required
-              />
-            </div>
-            {leadStatus && (
-              <div className={`p-3 rounded-lg text-sm ${
-                leadStatus.includes('sent') || leadStatus.includes('Sent') 
-                  ? 'bg-green-100 text-green-800 border border-green-200' 
-                  : 'bg-red-100 text-red-800 border border-red-200'
-              }`}>
-                {leadStatus}
-              </div>
-            )}
-          </div>
-          <DialogFooter>
-            <Button
-              onClick={submitLead}
-              disabled={!leadEmail || isSubmitting}
-              className="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white"
-            >
-              {isSubmitting ? 'Sending...' : 'Send Me the Syllabus'}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+
 
       {/* Final CTA Section */}
       <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-red-600 via-red-700 to-red-800 relative border-t-4 border-red-500">
@@ -733,12 +666,7 @@ const AIAutomationWorkshopAustin = () => {
                   >
                     Get Tickets Now
                   </Button>
-                  <button 
-                    onClick={() => setIsSyllabusOpen(true)}
-                    className="text-sm text-gray-600 hover:text-red-600 underline transition-colors"
-                  >
-                    Or download the free syllabus
-                  </button>
+
                 </div>
               </div>
             </div>
@@ -771,9 +699,7 @@ const AIAutomationWorkshopAustin = () => {
             <div className="flex items-center gap-2 text-white text-sm">
               💳 <span>Apple Pay & Google Pay</span>
             </div>
-            <div className="flex items-center gap-2 text-white text-sm">
-              ↩️ <span>7-day money-back guarantee</span>
-            </div>
+
           </div>
         </div>
       </section>
