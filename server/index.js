@@ -56,6 +56,8 @@ app.use(helmet({
         "https://js.stripe.com",
         "https://snap.licdn.com", // LinkedIn tracking
         "https://sc-static.net", // Snapchat tracking  
+        "https://tr.snapchat.com", // Snapchat dynamic scripts
+        "https://tr6.snapchat.com", // Snapchat dynamic scripts subdomain
         "https://connect.facebook.net", // Facebook tracking
         "https://analytics.tiktok.com", // TikTok tracking
         "https://static.ads-twitter.com" // Twitter tracking

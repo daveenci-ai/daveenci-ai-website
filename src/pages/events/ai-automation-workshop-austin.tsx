@@ -366,7 +366,7 @@ const AIAutomationWorkshopAustin = () => {
             <div className="bg-gradient-to-br from-gray-50 to-white rounded-2xl md:rounded-3xl p-6 md:p-8 shadow-lg border border-gray-200 text-center">
               <div className="mb-6">
                 <img 
-                  src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_kiko.jpeg" 
+                  src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_kiko_2.jpeg" 
                   alt="Federico Lopez"
                   className="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-xl mx-auto"
                 />
