@@ -57,7 +57,7 @@ router.post('/lead', async (req, res) => {
       </ul>
       ${question ? `<p><strong>Your question:</strong> ${String(question).slice(0, 500)}</p>` : ''}
       <p>
-        Date: <strong>Aug 28, 2025</strong> • Time: <strong>2:30 PM CT</strong> • Location: <strong>Austin, TX</strong>
+        Date: <strong>Sep 4, 2025</strong> • Time: <strong>11:30 AM CT</strong> • Location: <strong>Online Workshop</strong>
       </p>
       <p>
         Ready to join? <a href="${process.env.PUBLIC_URL || 'https://daveenci.ai/events/ai-automation-workshop-austin'}" target="_blank">Reserve your seat</a>.

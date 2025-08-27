@@ -101,7 +101,7 @@ const FAQ = () => {
             className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-red-500/25"
             onClick={() => window.location.href = '/events/ai-automation-workshop-austin'}
           >
-            Join the AEO Workshop — Aug 28 🚀
+            Join AI for Business — Sep 4 🚀
           </button>
         </div>
       </div>

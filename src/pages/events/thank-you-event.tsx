@@ -46,7 +46,7 @@ const ThankYouEvent = () => {
                 <Calendar className="w-6 h-6 text-red-600 mt-1" />
                 <div>
                   <div className="text-sm text-gray-500">Date</div>
-                  <div className="font-semibold text-gray-900">August 28, 2025</div>
+                  <div className="font-semibold text-gray-900">September 4, 2025</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
@@ -163,10 +163,10 @@ const ThankYouEvent = () => {
       <section className="py-16 bg-gradient-to-br from-red-500 to-orange-500 text-white">
         <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">
-            Ready to Start Your AEO Journey Before the Workshop?
+            Ready to Start Your AI Journey Before the Workshop?
           </h2>
           <p className="text-xl mb-8 opacity-90">
-            Don't wait until August 28th! Schedule a free strategy call to get started with AEO optimization today.
+            Don't wait until September 4th! Schedule a free strategy call to get started with AI content optimization today.
           </p>
           <Button 
             size="lg"

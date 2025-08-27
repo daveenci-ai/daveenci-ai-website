@@ -496,7 +496,7 @@ async function sendAdminPurchaseNotification(adminEmail, session, email, name, i
   try {
     await sendEmail(
       adminEmail,
-      `💰 New AEO Workshop Purchase - ${name || email}`,
+      `💰 New AI for Business Workshop Purchase - ${name || email}`,
       adminHtml
     );
     console.log(`✅ Admin notification sent`);
