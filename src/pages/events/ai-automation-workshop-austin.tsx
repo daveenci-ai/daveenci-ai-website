@@ -105,7 +105,7 @@ const AIAutomationWorkshopAustin = () => {
 
             {/* Sub-Headline */}
               <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-4 sm:mb-5">
-                Discover how AI is transforming content creation and business operations. Learn practical strategies to leverage AI tools for enhanced productivity and competitive advantage.
+                Master the future of content generation with intelligent blogging strategies and AEO optimization. Learn how AI content strategy is revolutionizing smart blog creation, from automated research to answer-engine-optimized publishing.
               </p>
 
               {/* Chips */}
