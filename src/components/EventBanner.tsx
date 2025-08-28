@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 
 const EventBanner = () => {
   // Dismissible event banner with localStorage
-  const BANNER_STORAGE_KEY = 'eventBanner_austin_workshop_v2025';
+  const BANNER_STORAGE_KEY = 'eventBanner_ai_business_sept4_2025';
   const [showBanner, setShowBanner] = useState(true);
   const location = useLocation();
 
