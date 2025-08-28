@@ -139,7 +139,7 @@ const AIAutomationWorkshopAustin = () => {
                 onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
                 className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-3 md:py-4 bg-red-600 hover:bg-red-700 text-white text-sm sm:text-base md:text-lg font-semibold rounded-xl transition-all duration-200 hover:scale-105 shadow-lg"
               >
-                Master AI for Content
+                Reserve My Seat
                 <ArrowRight className="ml-2 h-3.5 w-3.5 sm:h-4 sm:w-4 md:h-5 md:w-5" />
               </Button>
 
