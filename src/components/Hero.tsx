@@ -24,12 +24,12 @@ const Hero = () => {
             {/* Social Proof */}
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 pt-6 sm:pt-8">
               <div className="flex -space-x-3">
-                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="User 1" />
-                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="User 2" />
-                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80" alt="User 3" />
+                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_anton.webp" alt="Anton Osipov" />
+                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/main/about_astrid.png" alt="Astrid" />
+                <img className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-white shadow-lg object-cover" src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/about_kiko_2.jpeg" alt="Federico Lopez" />
               </div>
               <p className="text-base sm:text-lg lg:text-xl text-gray-600 font-medium text-center">
-                Unlock Your Business's Growth Potential
+                Meet the Team Behind Your Success
               </p>
             </div>
 
