@@ -162,10 +162,13 @@ const AIAutomationWorkshopAustin = () => {
               <div className="relative rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
                 <img src="https://raw.githubusercontent.com/daveenci-ai/daveenci-ai-website-images/refs/heads/main/AEO%20Blog%20Automation.jpeg" alt="AI for Business Workshop preview" className="w-full h-auto aspect-square object-cover" />
                 <div className="absolute top-3 right-3 text-[11px] bg-red-600 text-white px-3 py-1 rounded-full shadow">🔥 Trending</div>
-                <div className="absolute bottom-4 left-4 bg-white text-gray-900 px-4 py-2 rounded-xl shadow">
-                  <div className="text-sm font-semibold">AI for Business</div>
-                  <div className="text-[11px] text-gray-600 -mt-0.5">Content & Automation</div>
-                </div>
+                <button 
+                  onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="absolute bottom-4 left-4 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 cursor-pointer"
+                >
+                  <div className="text-sm font-semibold">View Pricing</div>
+                  <div className="text-[11px] text-red-100 -mt-0.5">Workshop Investment →</div>
+                </button>
               </div>
             </div>
           </div>
