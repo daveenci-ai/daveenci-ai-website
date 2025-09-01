@@ -27,273 +27,243 @@ const PrivacyPolicy = () => {
         </div>
       </section>
 
-      {/* Privacy Policy Content */}
+      {/* Privacy Policy & Terms Content */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-4xl px-6 lg:px-8">
           <div className="prose prose-lg max-w-none">
             
-            {/* Introduction */}
+            {/* Collection of Information */}
             <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Introduction</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">1. Collection of Information</h2>
               <p className="text-gray-700 leading-7 mb-4">
-                DaVeenci ("we," "our," or "us") respects your privacy and is committed to protecting your personal information. 
-                This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit 
-                our website at daveenci.ai, use our services, or interact with us through various channels including SMS messaging.
+                In the ordinary course of operating our Services, we may collect, receive, or otherwise process categories of information that include, but are not limited to:
               </p>
-            </div>
-
-            {/* Information We Collect */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Information We Collect</h2>
               
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Personal Information</h3>
-              <p className="text-gray-700 leading-7 mb-4">
-                We may collect personal information that you voluntarily provide to us when you:
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>Register for our workshops or events</li>
-                <li>Fill out contact forms or request consultations</li>
-                <li>Subscribe to our newsletter or marketing communications</li>
-                <li>Make purchases through our website</li>
-                <li>Interact with our chatbot or customer service</li>
-                <li>Opt-in to receive SMS/text messages through EZTexting or other messaging services</li>
-              </ul>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">1.1 Identifiers and Contact Information</h3>
+                  <p className="text-gray-700 leading-7">
+                    Such as names, business affiliations, mailing addresses, electronic mail addresses, telephone numbers, and other related identifiers supplied voluntarily or incidentally in the course of engagement.
+                  </p>
+                </div>
 
-              <p className="text-gray-700 leading-7 mb-4">
-                This personal information may include:
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>Name and contact information (email, phone number, address)</li>
-                <li>Company name and website</li>
-                <li>Payment information (processed securely through Stripe)</li>
-                <li>Demographics and preferences</li>
-                <li>Communication history and interactions</li>
-              </ul>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">1.2 Commercial Information</h3>
+                  <p className="text-gray-700 leading-7">
+                    Including records of products or services purchased, obtained, or considered, and related transactional information.
+                  </p>
+                </div>
 
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Automatically Collected Information</h3>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">1.3 Usage Data</h3>
+                  <p className="text-gray-700 leading-7">
+                    Encompassing website browsing metadata, cookie files, device identifiers, internet protocol addresses, browser types, and similar technologies deployed for diagnostic and analytic purposes.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">1.4 Campaign-Related Data</h3>
+                  <p className="text-gray-700 leading-7">
+                    Comprising insights, analytics, and performance information extracted through third-party platforms such as, without limitation, Google Data Studio, Meta Business Manager, LinkedIn Campaign Manager, or comparable digital marketing tools.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">1.5 Communications Content</h3>
+                  <p className="text-gray-700 leading-7">
+                    Including, without limitation, information voluntarily disclosed in response to or in connection with our email marketing initiatives, SMS or text-based outreach, chatbot conversations, and related automated or semi-automated communications.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Purpose of Processing */}
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">2. Purpose of Processing</h2>
               <p className="text-gray-700 leading-7 mb-4">
-                When you visit our website, we automatically collect certain information about your device and usage patterns:
+                The foregoing categories of information may be collected and processed for multiple overlapping business purposes, including but not limited to:
               </p>
               <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>IP address, browser type, and operating system</li>
-                <li>Pages visited, time spent on pages, and navigation patterns</li>
-                <li>Referral sources and search terms used to find our website</li>
-                <li>Device information and screen resolution</li>
+                <li>Implementing, administering, and optimizing paid media strategies on behalf of clients.</li>
+                <li>Generating reports, analyses, and presentations through cloud-based data visualization and analytics platforms.</li>
+                <li>Conducting direct and automated marketing communications by means of email, SMS/text, chatbot interaction, or other channels.</li>
+                <li>Preserving, archiving, and administering contact and relationship information in one or more customer relationship management (CRM) databases.</li>
+                <li>Complying with applicable legal requirements, regulatory obligations, or valid governmental requests.</li>
+                <li>Exercising or defending legal rights, contractual claims, or dispute-resolution procedures.</li>
               </ul>
             </div>
 
-            {/* SMS/Text Messaging */}
+            {/* Disclosure of Information */}
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">3. Disclosure of Information</h2>
+              <p className="text-gray-700 leading-7 mb-4">
+                We may disclose personal or business information under the following circumstances:
+              </p>
+              
+              <div className="space-y-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Affiliated Service Providers</h3>
+                  <p className="text-gray-700 leading-7">
+                    Vendors, subcontractors, or technological intermediaries who perform operational functions on our behalf, including email distribution, SMS transmission, hosting, data storage, chatbot operation, or analytics reporting.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Advertising Platforms</h3>
+                  <p className="text-gray-700 leading-7">
+                    Digital networks or advertising channels through which media campaigns are executed, solely for the purposes of facilitating campaign delivery, measurement, or optimization.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Legal Authorities</h3>
+                  <p className="text-gray-700 leading-7">
+                    Government entities, regulators, or courts of competent jurisdiction where disclosure is compelled or advisable to comply with applicable law or protect Company rights.
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-gray-700 leading-7 mt-6 font-medium">
+                We do not, under any ordinary course of business, sell or lease personal data for independent commercial gain.
+              </p>
+            </div>
+
+            {/* Cookies and Tracking */}
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">4. Cookies, Pixels, and Tracking Technologies</h2>
+              <p className="text-gray-700 leading-7 mb-4">
+                Our digital properties may utilize persistent and session-based cookies, embedded pixels, tracking beacons, or similar technologies in order to:
+              </p>
+              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
+                <li>Monitor user navigation, engagement, and conversion.</li>
+                <li>Retarget advertising content across diverse platforms.</li>
+                <li>Accumulate aggregate, anonymized statistics.</li>
+              </ul>
+              <p className="text-gray-700 leading-7">
+                Users may configure browser settings to refuse or delete cookies; however, such actions may impair the availability or functionality of certain features of the Services.
+              </p>
+            </div>
+
+            {/* Data Retention and Safeguards */}
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">5. Data Retention and Safeguards</h2>
+              <p className="text-gray-700 leading-7 mb-4">
+                Information collected in accordance with this Agreement will be retained for durations consistent with business necessity, contractual requirements, or legal mandates. The Company undertakes commercially reasonable security measures, including but not limited to access restrictions, data segmentation, and encryption protocols, in an effort to protect information against unauthorized access, alteration, or destruction.
+              </p>
+              <p className="text-gray-700 leading-7 italic">
+                No system of storage or transmission can be guaranteed as absolutely secure; accordingly, the Company disclaims liability for unauthorized access that is beyond its reasonable control.
+              </p>
+            </div>
+
+            {/* User Rights */}
+            <div className="mb-12">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">6. User Rights and Preferences</h2>
+              <p className="text-gray-700 leading-7 mb-4">
+                Subject to applicable U.S. privacy regulations, you may:
+              </p>
+              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
+                <li>Decline to receive further marketing communications by utilizing the unsubscribe functionality embedded in emails or by replying "STOP" to SMS messages.</li>
+                <li>Submit written requests for access to, or deletion of, records held by the Company.</li>
+              </ul>
+              <p className="text-gray-700 leading-7">
+                All such requests shall be submitted in accordance with the contact procedures set forth in Section 11 below.
+              </p>
+            </div>
+
+            {/* Terms of Service */}
+            <div className="mb-12 bg-gray-50 p-6 rounded-lg">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">7. Terms of Service</h2>
+              
+              <div className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">7.1 Services</h3>
+                  <p className="text-gray-700 leading-7">
+                    The Company provides digital marketing solutions, including but not limited to automation, paid media management, CRM integration, chatbot deployment, and campaign reporting.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">7.2 Client Obligations</h3>
+                  <p className="text-gray-700 leading-7">
+                    Clients represent and warrant that all data and content provided is accurate, lawful, and free of infringing material. Clients are solely responsible for compliance with advertising, consumer protection, and anti-spam laws in their respective jurisdictions.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">7.3 Financial Terms</h3>
+                  <p className="text-gray-700 leading-7">
+                    Payment schedules, invoice procedures, and termination provisions shall be governed by the specific service agreement executed between the parties. Failure to remit timely payment may result in suspension or termination of Services without further notice.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">7.4 Limitation of Liability</h3>
+                  <p className="text-gray-700 leading-7">
+                    The Company shall not be held liable for indirect, incidental, consequential, or exemplary damages, nor for service interruptions, advertising platform outages, or alterations in third-party policies that adversely impact campaign results.
+                  </p>
+                </div>
+
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">7.5 Intellectual Property</h3>
+                  <p className="text-gray-700 leading-7">
+                    Clients shall retain ownership of their proprietary data, creative materials, and campaign assets. The Company reserves the right to utilize anonymized or aggregated data for benchmarking, research, and internal development purposes.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Marketing Communications */}
             <div className="mb-12 bg-blue-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">SMS/Text Messaging (EZTexting)</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                We may use EZTexting and other SMS messaging services to send you text messages about our services, 
-                workshops, and promotional offers. By providing your mobile phone number and opting in, you consent to receive these messages.
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">8. Marketing Communications</h2>
+              <p className="text-gray-700 leading-7">
+                By providing an email address, telephone number, or similar identifier, you consent to receiving commercial and informational messages, whether automated or manual, from the Company. Such consent shall remain valid until affirmatively withdrawn by the user in accordance with Section 6.
               </p>
               
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">SMS Consent & Terms</h3>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li><strong>Opt-in:</strong> You will only receive SMS messages after explicitly consenting</li>
-                <li><strong>Frequency:</strong> Message frequency varies; you may receive up to 4 messages per month</li>
-                <li><strong>Message & Data Rates:</strong> Standard message and data rates may apply</li>
-                <li><strong>Opt-out:</strong> Reply STOP to any text message to unsubscribe immediately</li>
-                <li><strong>Help:</strong> Reply HELP for customer support or contact support@daveenci.ai</li>
-                <li><strong>Supported Carriers:</strong> Compatible with major carriers including Verizon, AT&T, T-Mobile, Sprint, and others</li>
-              </ul>
-
-              <div className="bg-white p-4 rounded border-l-4 border-blue-500">
+              <div className="mt-4 bg-white p-4 rounded border-l-4 border-blue-500">
                 <p className="text-sm text-gray-700">
-                  <strong>Important:</strong> We never share your phone number with third parties for their marketing purposes. 
-                  Your phone number is only used for our direct communications and workshop notifications.
+                  <strong>SMS Opt-out:</strong> Reply STOP to any text message to unsubscribe immediately.<br/>
+                  <strong>Email Opt-out:</strong> Use the unsubscribe link in any email communication.
                 </p>
               </div>
             </div>
 
-            {/* How We Use Information */}
+            {/* Modifications */}
             <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">How We Use Your Information</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                We use the information we collect for the following purposes:
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>Provide and improve our services</li>
-                <li>Process workshop registrations and payments</li>
-                <li>Send workshop confirmations, reminders, and materials</li>
-                <li>Respond to your inquiries and provide customer support</li>
-                <li>Send marketing communications (with your consent)</li>
-                <li>Analyze website usage to improve user experience</li>
-                <li>Comply with legal obligations</li>
-                <li>Protect against fraud and ensure security</li>
-              </ul>
-            </div>
-
-            {/* Information Sharing */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Information Sharing and Disclosure</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                We do not sell, trade, or rent your personal information to third parties. We may share your information in the following limited circumstances:
-              </p>
-              
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Service Providers</h3>
-              <p className="text-gray-700 leading-7 mb-4">
-                We work with trusted third-party service providers who assist us in operating our business:
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li><strong>Stripe:</strong> Payment processing for workshop registrations</li>
-                <li><strong>Resend:</strong> Email delivery services</li>
-                <li><strong>EZTexting:</strong> SMS/text messaging services</li>
-                <li><strong>Database hosting:</strong> Secure data storage</li>
-                <li><strong>Analytics providers:</strong> Website performance analysis</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Legal Requirements</h3>
-              <p className="text-gray-700 leading-7 mb-4">
-                We may disclose your information if required by law, court order, or government request, or to protect our rights and safety.
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">9. Modifications to Agreement</h2>
+              <p className="text-gray-700 leading-7">
+                The Company reserves the unilateral right to modify, amend, or update this Agreement at any time, with changes taking effect upon posting to the website. Continued use of the Services shall constitute acceptance of such modifications.
               </p>
             </div>
 
-            {/* Data Security */}
+            {/* Governing Law */}
             <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Data Security</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                We implement appropriate technical and organizational security measures to protect your personal information:
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>SSL/TLS encryption for data transmission</li>
-                <li>Secure database storage with access controls</li>
-                <li>Regular security assessments and updates</li>
-                <li>Limited access to personal information on a need-to-know basis</li>
-                <li>Secure payment processing through PCI-compliant providers</li>
-              </ul>
-            </div>
-
-            {/* Data Retention */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Data Retention</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                We retain your personal information only for as long as necessary to fulfill the purposes for which it was collected:
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>Workshop registration data: 3 years after the event</li>
-                <li>Marketing communications: Until you unsubscribe</li>
-                <li>SMS/text message consent: Until you opt out (reply STOP)</li>
-                <li>Customer support records: 2 years</li>
-                <li>Website analytics: 26 months</li>
-              </ul>
-            </div>
-
-            {/* Your Rights */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Privacy Rights</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                Depending on your location, you may have the following rights regarding your personal information:
-              </p>
-              
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">General Rights</h3>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li><strong>Access:</strong> Request a copy of the personal information we hold about you</li>
-                <li><strong>Correction:</strong> Request correction of inaccurate information</li>
-                <li><strong>Deletion:</strong> Request deletion of your personal information</li>
-                <li><strong>Opt-out:</strong> Unsubscribe from marketing communications</li>
-                <li><strong>SMS Opt-out:</strong> Reply STOP to text messages to unsubscribe immediately</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">California Privacy Rights (CCPA)</h3>
-              <p className="text-gray-700 leading-7 mb-4">
-                If you are a California resident, you have additional rights under the California Consumer Privacy Act (CCPA):
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>Right to know what personal information is collected and how it's used</li>
-                <li>Right to delete personal information</li>
-                <li>Right to opt-out of the sale of personal information (we don't sell your data)</li>
-                <li>Right to non-discrimination for exercising your privacy rights</li>
-              </ul>
-
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">European Privacy Rights (GDPR)</h3>
-              <p className="text-gray-700 leading-7 mb-4">
-                If you are in the European Union, you have rights under the General Data Protection Regulation (GDPR):
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li>Right of access to your personal data</li>
-                <li>Right to rectification of inaccurate data</li>
-                <li>Right to erasure (right to be forgotten)</li>
-                <li>Right to restrict processing</li>
-                <li>Right to data portability</li>
-                <li>Right to object to processing</li>
-              </ul>
-            </div>
-
-            {/* Cookies */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Cookies and Tracking</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                Our website uses cookies and similar tracking technologies to enhance your experience:
-              </p>
-              <ul className="list-disc list-inside text-gray-700 leading-7 mb-6 space-y-2">
-                <li><strong>Essential cookies:</strong> Required for website functionality</li>
-                <li><strong>Analytics cookies:</strong> Help us understand how visitors use our site</li>
-                <li><strong>Marketing cookies:</strong> Enable personalized content and advertising</li>
-              </ul>
-              <p className="text-gray-700 leading-7 mb-4">
-                You can control cookies through your browser settings. Disabling certain cookies may affect website functionality.
-              </p>
-            </div>
-
-            {/* Third-Party Links */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Third-Party Links</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                Our website may contain links to third-party websites. We are not responsible for the privacy practices 
-                of these external sites. We encourage you to review their privacy policies before providing any personal information.
-              </p>
-            </div>
-
-            {/* Children's Privacy */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Children's Privacy</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                Our services are not intended for children under 13 years of age. We do not knowingly collect personal 
-                information from children under 13. If we become aware that we have collected such information, 
-                we will take steps to delete it immediately.
-              </p>
-            </div>
-
-            {/* Changes to Privacy Policy */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Changes to This Privacy Policy</h2>
-              <p className="text-gray-700 leading-7 mb-4">
-                We may update this Privacy Policy from time to time to reflect changes in our practices or legal requirements. 
-                We will notify you of any material changes by posting the updated policy on our website and updating the 
-                "Last updated" date at the top of this page.
-              </p>
-              <p className="text-gray-700 leading-7 mb-4">
-                For significant changes, we may also notify you via email or SMS if you have opted in to receive such communications.
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">10. Governing Law</h2>
+              <p className="text-gray-700 leading-7">
+                This Agreement shall be governed by and construed in accordance with the laws of the State of Texas, without regard to its conflict of law provisions.
               </p>
             </div>
 
             {/* Contact Information */}
             <div className="mb-12 bg-gray-50 p-6 rounded-lg">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Us</h2>
+              <h2 className="text-2xl font-bold text-gray-900 mb-6">11. Contact Information</h2>
               <p className="text-gray-700 leading-7 mb-4">
-                If you have questions about this Privacy Policy or want to exercise your privacy rights, please contact us:
+                Any requests, notices, or communications required or permitted hereunder shall be directed to:
               </p>
               
-              <div className="space-y-3">
+              <div className="space-y-2 mb-4">
+                <p className="text-gray-700 font-semibold">DaVeenci LLC</p>
+                <p className="text-gray-700">Attention: Privacy Contact</p>
+                <p className="text-gray-700">Austin, TX 78741</p>
                 <p className="text-gray-700">
-                  <strong>Email:</strong> <a href="mailto:privacy@daveenci.ai" className="text-blue-600 hover:text-blue-800">privacy@daveenci.ai</a>
+                  <strong>Email:</strong> <a href="mailto:anton.osipov@daveenci.com" className="text-blue-600 hover:text-blue-800">anton.osipov@daveenci.com</a>
                 </p>
                 <p className="text-gray-700">
-                  <strong>General Support:</strong> <a href="mailto:support@daveenci.ai" className="text-blue-600 hover:text-blue-800">support@daveenci.ai</a>
-                </p>
-                <p className="text-gray-700">
-                  <strong>SMS Opt-out:</strong> Reply STOP to any text message
-                </p>
-                <p className="text-gray-700">
-                  <strong>SMS Help:</strong> Reply HELP to any text message
+                  <strong>Telephone:</strong> <a href="tel:760-877-1853" className="text-blue-600 hover:text-blue-800">(760) 877-1853</a>
                 </p>
               </div>
 
-              <p className="text-sm text-gray-600 mt-4">
-                We will respond to your privacy-related requests within 30 days.
+              <p className="text-sm text-gray-600 italic">
+                Please note: while a telephone number is provided for completeness, the most effective and expeditious method of communication regarding privacy or terms-related matters is via email.
               </p>
             </div>
 
