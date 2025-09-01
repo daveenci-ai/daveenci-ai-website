@@ -21,6 +21,7 @@ import CustomSoftware from "./pages/services/CustomSoftware";
 import SystemsIntegration from "./pages/services/SystemsIntegration";
 import AIAutomationWorkshopAustin from "./pages/events/ai-automation-workshop-austin";
 import ThankYouEvent from "./pages/events/thank-you-event";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/admin" element={<Admin />} />
           <Route path="/events/ai-automation-workshop-austin" element={<AIAutomationWorkshopAustin />} />
           <Route path="/events/thank-you-event" element={<ThankYouEvent />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -125,10 +125,18 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-16 border-t border-gray-800 pt-8">
+        <div className="mt-16 border-t border-gray-800 pt-8 sm:flex sm:items-center sm:justify-between">
           <p className="text-xs leading-5 text-gray-400">
             &copy; 2024 DaVeenci. All rights reserved. Transforming businesses through AI automation.
           </p>
+          <div className="mt-4 sm:mt-0">
+            <Link 
+              to="/privacy-policy" 
+              className="text-xs leading-5 text-gray-400 hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
