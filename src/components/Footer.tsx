@@ -1,8 +1,11 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const location = useLocation();
+  const isBlogPage = location.pathname.startsWith('/blog');
+
   return (
     <footer className="bg-gray-900">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
@@ -125,18 +128,36 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-16 border-t border-gray-800 pt-8 sm:flex sm:items-center sm:justify-between">
-          <p className="text-xs leading-5 text-gray-400">
-            &copy; 2024 DaVeenci. All rights reserved. Transforming businesses through AI automation.
-          </p>
-          <div className="mt-4 sm:mt-0">
-            <Link 
-              to="/privacy-policy" 
-              className="text-xs leading-5 text-gray-400 hover:text-white transition-colors"
-            >
-              Privacy Policy
-            </Link>
+        <div className="mt-16 border-t border-gray-800 pt-8">
+          <div className="sm:flex sm:items-center sm:justify-between">
+            <p className="text-xs leading-5 text-gray-400">
+              &copy; 2024 DaVeenci. All rights reserved. Transforming businesses through AI automation.
+            </p>
+            <div className="mt-4 sm:mt-0 flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4">
+              <Link 
+                to="/privacy-policy" 
+                className="text-xs leading-5 text-gray-400 hover:text-white transition-colors"
+              >
+                Privacy Policy
+              </Link>
+              {isBlogPage && (
+                <Link 
+                  to="/content-disclaimer" 
+                  className="text-xs leading-5 text-gray-500 hover:text-gray-300 transition-colors"
+                >
+                  Content Disclaimer
+                </Link>
+              )}
+            </div>
           </div>
+          {isBlogPage && (
+            <div className="mt-4 pt-4 border-t border-gray-700">
+              <p className="text-xs leading-4 text-gray-500 max-w-4xl">
+                We use AI tools to assist with content creation. All posts are reviewed and approved by human editors before publishing. 
+                Content is for informational purposes only and should not be considered professional advice. Please verify important details independently.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </footer>
