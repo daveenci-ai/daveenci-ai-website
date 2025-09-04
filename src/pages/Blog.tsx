@@ -6,7 +6,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowRight, Calendar, Clock, User, BookOpen, Search, Filter, Eye, Tag } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
-import EventBanner from '@/components/EventBanner';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import { getApiEndpoint } from '@/utils/api';
@@ -155,7 +154,6 @@ const Blog = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-      <EventBanner />
       
       {/* SEO Meta Tags */}
       <head>

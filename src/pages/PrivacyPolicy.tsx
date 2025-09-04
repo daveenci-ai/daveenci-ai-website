@@ -1,13 +1,11 @@
 import React from 'react';
 import Navigation from '@/components/Navigation';
-import EventBanner from '@/components/EventBanner';
 import Footer from '@/components/Footer';
 
 const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <EventBanner />
       
       {/* Hero Section */}
       <section className="relative pt-32 pb-16" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>

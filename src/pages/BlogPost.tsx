@@ -7,7 +7,6 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ArrowLeft, Calendar, Clock, Tag, Share2, Twitter, Facebook, Linkedin } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import EventBanner from '@/components/EventBanner';
 import { getApiEndpoint } from '@/utils/api';
 import '../styles/blog-post.css';
 
@@ -196,7 +195,6 @@ const BlogPost = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />
-      <EventBanner />
       
       {/* Structured Data for SEO */}
       <script type="application/ld+json">

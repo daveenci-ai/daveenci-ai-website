@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Zap, Database, Globe, Settings, CheckCircle, GitMerge } from 'lucide-react';
 import Footer from '@/components/Footer';
 import Navigation from '@/components/Navigation';
-import EventBanner from '@/components/EventBanner';
 
 const SystemsIntegration = () => {
   const features = [
@@ -83,7 +82,6 @@ const SystemsIntegration = () => {
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
-      <EventBanner />
       {/* Hero Section */}
       <section className="relative pt-32 pb-24" style={{background: 'linear-gradient(to right, #e8d5f0 0%, #ffffff 30%, #ffffff 70%, #d5e8ff 100%)'}}>
         <div className="absolute inset-0 bg-grid"></div>
