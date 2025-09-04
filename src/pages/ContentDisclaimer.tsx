@@ -126,10 +126,10 @@ const ContentDisclaimer = () => {
               
               <div className="space-y-2">
                 <p className="text-gray-700">
-                  <strong>Email:</strong> <a href="mailto:content@daveenci.ai" className="text-blue-600 hover:text-blue-800">content@daveenci.ai</a>
+                  <strong>Email:</strong> <a href="mailto:astrid@daveenci.com" className="text-blue-600 hover:text-blue-800">astrid@daveenci.com</a>
                 </p>
                 <p className="text-gray-700">
-                  <strong>General Support:</strong> <a href="mailto:support@daveenci.ai" className="text-blue-600 hover:text-blue-800">support@daveenci.ai</a>
+                  <strong>General Support:</strong> <a href="mailto:anton.osipov@daveenci.com" className="text-blue-600 hover:text-blue-800">anton.osipov@daveenci.com</a>
                 </p>
               </div>
 
